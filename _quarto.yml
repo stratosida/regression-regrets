@@ -1,0 +1,42 @@
+project:
+  type: book
+  output-dir: _site
+
+execute:
+  cache: false  # true   ## see https://quarto.org/docs/projects/code-execution.html
+  freeze: false 
+  echo: false
+
+book:
+  title: "Regression without regrets"
+  author: "M. Baillie, G. Heinze & M. Huebner"
+  date: today  
+  chapters:
+    - index.qmd  
+    - Bact_intro.qmd 
+    - Bact_IDA_plan.qmd
+    - Bact_analysis_data.qmd
+  #  - Bact_missing.qmd
+  #  - Bact_univar.qmd  
+  #  - Bact_multivar.qmd
+  #  - Bact_suppl.qmd 
+  #  - Pseudo_log_explainer.qmd
+  #  - references.qmd 
+  #  - SessionInfo.qmd 
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Show the code"
+ # docx:
+ #   toc: true
+#    toc-depth: 2
+ #   number-sections: true
+ #   highlight-style: github
+    

@@ -22,15 +22,15 @@ The data consists of 14,691 observations from different patients and 51 potentia
 
 ## Source dataset
 
-### Where to access the data
+### Where to access the data?
 
 We refer to the **source** data as the raw data set available in this repository (**DC 2019-0054**). The data set is published on [Zenodo](https://doi.org/10.5281/zenodo.7554815) with the following doi: https://doi.org/10.5281/zenodo.7554815. 
 
 For simplicity, we have also stored the *source* data and accompanying materials such as the **data dictionary** the `data-raw` directory. 
 
-### Understanding the data
+### Data dictionary
 
-First, we read and display the data dictionary that was provided with the source data. We display the dictionary below providing an overview of the collected measurements. The `variable` name and `label` are displayed alongside the measurement `scale` and `units` as well as `remarks` and relevant study information `from_paper`. 
+The data dictionary provides an overview of the collected data. First, we read and display the data dictionary below providing an overview of the collected measurements. The `variable` name and `label` are displayed alongside the measurement `scale` and `units` as well as `remarks` and relevant study information `from_paper`. 
 
 ```{r datadict, warning=FALSE, message=FALSE, echo=FALSE}
 
@@ -55,10 +55,9 @@ bact_dd |>
 
 ```
 
+### Source data
 
-### Overview of the measurements
-
-We also read the source data set from the `data-raw` folder of the project directory. 
+We also display a short snapshot of source data set from the `data-raw` folder of the project directory. The snapshot provides a glimpse of the data, giving the data dictionary more context.  
 
 ```{r contents_bact,  warning=FALSE, message=FALSE, echo=FALSE} 
 
@@ -69,70 +68,11 @@ bact <- read_csv(
 
 ```
 
-We do not display all observations measured in the the `source data` as it is too wide and long to fit reasonably in to the report. Below is a glimpse of the data set to provide more context of its structure. We refer you to the [Zenodo page](https://doi.org/10.5281/zenodo.7554815) for an interactive overview of the source data. 
+We do not display all observations measured as it is too wide and long to fit reasonably in to the report. However, we refer you to the [Zenodo page](https://doi.org/10.5281/zenodo.7554815) for an interactive overview of the source data. 
 
 ```{r contents_bact_glimpse,  warning=FALSE, message=FALSE, echo=FALSE}
 # TODO:: Move to appendix?
 bact |> glimpse(width = getOption("width"))
-```
-
-
-## Analysis ready dataset
-
-The aim of this section and the remaining chapters of the report are to document the steps taken towards transforming the *source* data set to an *analysis ready* data set.
-
-
-In this section, additional meta-data is added to the *source* data set. 
-
-We write this new modified (annotated) data set back to the `data` folder after adding additional meta-data for all variables. The meta-data is taken from the data dictionary. The aim is to produce an analysis ready data set for the research objective. 
-
-At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
-
-
-```{r contents_abact, warning=FALSE, message=FALSE, echo=FALSE} 
-
-## Generate a derived dataset stored in data as we are adding to the original source dataset obtained. 
-
-# make copy of bact for analysis data set without metadata levels. 
-a_bact_01 <- bact
-
-## Derive outcome variable. ACTION: We add this to the data dictionary as a derived variable
-a_bact_01$BC <- as.numeric(a_bact_01$BloodCulture=="yes")+0
-
-```
-
-
-```{r meta, warning=FALSE, message=FALSE, echo=FALSE}
-## Complete metadata by adding missing labels. 
-## Generate a derived dataset stored in data as we are adding to the original source dataset obtained. 
-## Add meta data for derived data
-
-labels_list <- c(bact_dd$label, "bacteremia")
-units_list <- c(bact_dd$units, "0/1")
-names(labels_list) <- names(units_list) <- c(bact_dd$variable, "BC")
-
-## Complete metadata by adding missing labels.
-a_bact_01_md <- Hmisc::upData(
-  a_bact_01,
-  labels = labels_list[names(a_bact_01)], units=units_list[names(a_bact_01)])
-```
-
-
-As a cross check we display the contents again to ensure the additional data is added, and then write  the changes to the data folder in the file **"data/a_bact_01.rda"**. 
-
-Note that a copy of the analysis data **a_bact_01_md** with metadata labels and without **a_bact_01** are stored.  
-
-```{r savds, warning=FALSE, message=FALSE, echo=FALSE, results='asis'}
-## Check the contents of the updated data set and save to the *data* folder.  
-
-## Display contents
-Hmisc::html(Hmisc::contents(a_bact_01_md),
-            maxlevels = 10,
-            levelType = 'table')
-
-## Write to data folder both data with and without meta-data
-save(list=c("a_bact_01", "a_bact_01_md"), file = here::here("data", "a_bact_01.rda"))
-
 ```
 
 

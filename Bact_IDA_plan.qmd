@@ -1,0 +1,109 @@
+# IDA plan {#IDA_plan}
+
+This document exemplifies the pre-specified plan for initial data analysis (IDA plan) for the bacteremia study.
+
+## Prerequisites for the IDA plan
+
+### Analysis strategy
+
+We assume that the aims of the study are to fit a diagnostic prediction model and to describe the functional form of each predictor. These aims are addressed by fitting a logistic regression  model with bacteremia status as the dependent variable. 
+
+Based on domain expertise, the predictors are grouped by their assumed importance to predict bacteremia. Variables with known strong associations with bacteremia are age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors. Predictors of medium importance are potassium (POTASS), and some acute-phase related parameters such as fibrinogen (FIB), C-reactive protein (CRP), aspartate transaminase (ASAT), alanine transaminase (ALAT), and gamma-glutamyl transpeptidase (GGT). All other predictors are of minor importance. 
+
+Continuous predictors should be modelled by allowing for flexible functional forms, where for all key predictors four degrees of freedom will be spent, and for predictors of medium and minor importance, three or two degrees of freedom should be foreseen at maximum, respectively. The decision on whether to use only key predictors, or to consider predictors also from the predictor sets of medium or minor importance depends on results of data screening, but will be made before uncovering the association of predictors with the outcome variable. 
+
+An adequate strategy to cope with missing values will also be chosen after screening the data. Candidate strategies are omission of predictors with abundant missing values, complete case analysis, single value imputation or multiple imputation with chained equations. 
+
+### Data dictionary
+
+The data dictionary of the bacteremia data set consists of columns for variable names, variable labels, scale of measurement (continuous or categorical), units, plausibility limits, and remarks:
+
+```{r datadict, warning=FALSE, message=FALSE, echo=FALSE}
+
+## Read in the source data dictionary, 
+## clean column names to be consistent format 
+## and arrange by variable order.  
+
+bact_dd <- read_csv(
+  here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")
+  ) |>
+  arrange(VariableNr) |>
+  clean_names()
+```
+
+```{r datadict_display}
+
+## display the dictionary. 
+
+bact_dd |> 
+  select(-variable_nr) |>
+  gt()
+
+```
+
+
+### Domain expertise
+
+The demographic variables age and sex are are chosen as the structural variables in this analysis for illustration purposes, since they are commonly considered important for describing a cohort in health studies. Key predictors and predictors of medium importance are as defined above. Laboratory analyses always bear the risk of machine failures, and hence missing values are a frequent challenge. This may differ between laboratory variables, but no a priori estimate about the expected proportion of missing values can be assumed. As most predictors measure concentrations of chemical compounds or cell counts, skewed distributions are expected. Some predictors describe related types of cells or chemical compounds, and hence some correlation between them is to be expected. For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age.
+
+For the purpose of stratifying IDA results by age, age will be categorized into the following three groups: [16, 50], (50, 65], (65, 101]. 
+
+The predictor grouping is defined here:
+
+
+## IDA plan
+
+
+### M1: Prevalence of missing values
+
+Numbers and proportions of missing values will be reported for each predictor separately (M1). Type of missingness has not been recorded.
+
+### M2: Complete cases
+
+The number of available complete cases (outcome and predictors) will be reported when considering:
+
+1.  the outcome variable (BC)
+2.  outcome and structural variables (BC, AGE, SEX)
+3.	outcome and key predictors only (BC, AGE, WBC, BUN, CREA, PLT, NEU)
+4.	outcome, key predictors and predictors of medium importance (BC, AGE, WBC, BUN, CREA, PLT, NEU, POTASS, FIB, CRP, ASAT, ALAT, GGT)
+5.	outcome and all predictors.
+
+### M3: Patterns of missing values
+
+Patterns of missing values will be investigated by:
+
+1.	computing a table of complete cases (for the three predictor sets described above) for strata defined by the structural variables age and sex,
+2.	constructing a dendrogram of missing values to explore which predictors tend to be missing together.
+
+
+### U1: Univariate descriptions: categorical variables
+
+For sex and bacteremia status, the frequency and proportion of each category will be described numerically.
+
+### U2: Univariate descriptions: continuous variables
+
+For all continuous predictors, combo plots consisting of high-resolution histograms, boxplots and dotplots will be created. Because of the expected skew distribution, combo plots will also be created for log-transformed predictors. 
+
+As numerical summaries, minimum and maximum values, main quantiles (5th, 10th, 25th, 50th, 75th, 90th, 95th), and the first four moments (mean, standard deviation, skewness, curtosis) will be reported. The number of distinct values and the five most frequent values will be given, as well as the concentration ratio (ratio of frequency of most frequent value and mean frequency of each unique value).  
+
+Graphical and parametric multivariate analyses of the predictor space such as cluster analyses or the computation of variance inflation factors are heavily influenced by the distribution of the predictors. In order to make this set of analyses more robust to highly influential points or areas of the predictor support, some predictors may need transformation (e.g. logarithmic). We will compute the correlation of the untransformed and log-transformed predictors with normal deviates. Since some predictors may have values at or close to 0, we will consider the pseudolog transformation $f(x;\sigma) = sinh^{-1}(x/2\sigma)/\log10$ (Johnson, 1949) which provides a smooth transition from linear (close to 0) to logarithmic (further away from 0). The transformation has a parameter $\sigma$ which we will optimize separately for each predictor in order to achieve an optimal approximation to a normal distribution monitored via the correlation of normal deviates with the transformed predictor. For those predictors for which the pseudolog-transformation increases correlation with normal deviates by at least 0.2 units of the correlation coefficient, the pseudolog-transformed predictor will be used in multivariate IDA instead of the respective original predictor. For those predictors, histograms and boxplots will be provided on both the original and the transformed scale.
+
+### V1: Multivariate descriptions: associations of predictors with structural variables
+
+A scatterplot of each predictor with age, with different panels for males and females will be constructed. Associated Spearman correlation coefficients will be computed.
+
+### V2: Multivariate descriptions: correlation analyses
+
+A matrix of Spearman correlation coefficients between all pairs of predictors will be computed and described numerically as well as by means of a heatmap.
+
+### VE1: Multivariate descriptions: comparing nonparametric and parametric predictor correlation
+
+A matrix of Pearson correlation coefficients will be computed. Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units will be depicted in scatterplots.
+
+### VE2: Variable clustering
+
+A variable clustering analysis will be performed to evaluate which predictors are closely associated. A dendrogram groups predictors by their correlation. Scatterplots of pairs of predictors with Spearman correlation coefficients greater than 0.8 will be created.
+
+### VE3: Redundancy
+
+Variance inflation factors will be computed between the candidate predictors. This will be done for the three possible candidate models, and using all complete cases in the respective candidate predictor sets. Redundancy will further be explored by computing parametric additive models for each predictor in the three candidate models.

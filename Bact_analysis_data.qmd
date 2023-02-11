@@ -1,0 +1,59 @@
+# Analysis ready data {#ARD}
+
+
+```{r intro01, warning=FALSE, message=FALSE}
+## Load libraries for this chapter
+library(readr)
+library(dplyr)
+library(gt)
+library(Hmisc)
+library(skimr)
+library(janitor)
+library(here)
+library(DT)
+```
+
+
+Based on the IDA plan prepare the data to be analysis ready. 
+
+
+## Analysis ready dataset
+
+The aim of this section and the remaining chapters of the report are to document the steps taken towards transforming the *source* data set to an *analysis ready* data set.
+
+
+In this section, additional meta-data is added to the *source* data set. 
+
+We write this new modified (annotated) data set back to the `data` folder after adding additional meta-data for all variables. The meta-data is taken from the data dictionary. The aim is to produce an analysis ready data set for the research objective. 
+
+At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
+
+
+```{r contents_abact, warning=FALSE, message=FALSE, echo=FALSE} 
+
+## Generate a derived dataset stored in data as we are adding to the original source dataset obtained. 
+
+# make copy of bact for analysis data set without metadata levels. 
+a_bact_01 <- bact
+
+## Derive outcome variable. ACTION: We add this to the data dictionary as a derived variable
+a_bact_01$BC <- as.numeric(a_bact_01$BloodCulture=="yes")+0
+
+```
+
+
+
+### check this section
+
+As a cross check we display the contents again to ensure the additional data is added, and then write  the changes to the data folder in the file **"data/a_bact_01.rda"**. 
+
+Note that a copy of the analysis data **a_bact_01_md** with metadata labels and without **a_bact_01** are stored.  
+
+## to add in 
+
+## Save data and meta data
+
+Save the updated analysis results data including metadata to file. Also print out the current contents to check for possible errors. 
+
+
+```
