@@ -1,0 +1,156 @@
+# Results of IDA: Missing values {#Missing}
+
+
+```{r, warning=FALSE, message=FALSE}
+## Load libraries
+library(here)
+library(tidyverse)
+library(Hmisc)
+library(naniar) ## for missing data 
+library(gt)
+library(kableExtra)
+library(DT)
+
+
+ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
+```
+
+
+## M1: Prevalence of missing values
+
+Number and percentage of missingness for each predictor, sorted by descending missingness proportion. 
+
+Outcome and Structural variables:
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+ADSL |>
+  select(BACTEREMIA, AGE, SEX, AGEGR01) |>
+  miss_var_summary() |>
+  gt::gt() |>
+    gt::cols_label(
+    variable = md("**Variable**"),
+    n_miss = md("**Missing (count)**"),
+    pct_miss = md("**Missing (%)**")
+  ) |>
+  gt::fmt_number(
+    columns = vars(pct_miss),
+    decimals = 2
+  )
+
+```
+
+Lab parameters 
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+#describe_predictor_cont_vars <-
+  ADLB |>
+  select(PARAM, PARAMCD, AVAL) |>
+  group_by(PARAM, PARAMCD) |>
+  miss_var_summary() |>
+  select(-variable, PARAMCD)
+#  select(-variable) |>
+#  pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = #"VALUE")
+
+```
+
+
+
+
+
+## M2: Complete cases
+
+Number of available complete cases (outcome and predictors):
+
+```{r summiss, message =FALSE, warning =FALSE , echo=FALSE}
+
+## Calaculate missing value summaries
+missing_summary_01 <- 
+  a_bact_02_md %>%
+  select() %>%
+  mutate(Outcome = ifelse(1-any_miss(a_bact_02_md[,c("BC")]),NA,1)) %>%
+  mutate(Outcome_and_structural_variables = ifelse(apply(a_bact_02_md[,c("BC",structural_vars)],1,function(X) 1-any_miss(X)),NA,1)) %>%
+  mutate(Outcome_and_key_predictors_only = ifelse(apply(a_bact_02_md[,c("BC",key_predictors)],1,function(X) 1-any_miss(X)),NA,1)) %>%
+  mutate(Outcome_key_predictors_and_predictors_of_medium_importance = ifelse(apply(a_bact_02_md[,c("BC",key_predictors,medimp_predictors)],1,function(X) 1-any_miss(X)),NA,1)) %>%   
+  mutate(Outcome_and_all_predictors = ifelse(apply(a_bact_02_md,1,function(X) 1-any_miss(X)),NA,1)) %>%
+  miss_var_summary(order=FALSE) 
+
+## remove underscores from variable label 
+missing_summary_02 <- 
+  missing_summary_01 %>% 
+  mutate(
+    variable = str_replace_all(variable, "_", " ")
+  )
+
+missing_summary_02 %>%
+  gt::gt() %>%
+    gt::cols_label(
+    variable = md("**Set**"),
+    n_miss = md("**Complete (count)**"),
+    pct_miss = md("**Complete (%)**")
+  ) %>%
+  gt::fmt_number(
+    columns = vars(pct_miss),
+    decimals = 0
+  )
+
+```
+
+
+## ME1: Patterns of missing values
+
+### Complete cases by strata defined by structural variables
+
+```{r summiss2, message =FALSE, warning =FALSE , echo=FALSE}
+
+##TODO -  add a proper structure with GENDER and AGEGROUP.
+
+sum_data01 <-
+  a_bact_02_md %>%
+  select(GENDER, AGEGROUP) %>%
+  mutate(All_predictors = ifelse(apply(a_bact_02_md, 1, function(X)
+    1 - any_miss(X)), NA, 1)) %>%
+  mutate(Structural_variables = ifelse(apply(a_bact_02_md[, structural_vars], 1, function(X)
+    1 - any_miss(X)), NA, 1)) %>%
+  mutate(Key_predictors = ifelse(apply(a_bact_02_md[, c(key_predictors)], 1, function(X)
+    1 - any_miss(X)), NA, 1)) %>%
+  mutate(Key_and_medium_importance_predictors = ifelse(apply(a_bact_02_md[, c(key_predictors, medimp_predictors)], 1, function(X)
+    1 - any_miss(X)), NA, 1)) %>%
+  group_by(GENDER, AGEGROUP) %>%
+  miss_var_summary(order = FALSE) %>%
+    mutate(
+    variable = str_replace_all(variable, "_", " ")
+  )
+
+sum_data01 %>%
+  gt::gt() %>%
+    gt::cols_label(
+    variable = md("**Set**"),
+    n_miss = md("**Complete (count)**"),
+    pct_miss = md("**Complete (%)**")
+  ) %>%
+  gt::fmt_number(
+    columns = vars(pct_miss),
+    decimals = 0
+  )
+
+```
+
+
+### Dendrogram of missingness indicators 
+
+The dendrogram depicts the results of a cluster analysis using the complete linkage method based on the percentage of discordant missing indicators. (This percentage was computed via the squared Euclidian distance of missingness indicators between predictors.) The vertical axis shows the distance between two clusters, which is given by the maximum distance between any element of the first and the second clusters.  For example, if two clusters are merged at a height of 25 it means that in 25% of the observations the missingness indicators of the most discordant predictors contained in the two clusters are discordant.
+
+The numbers in brackets are the percentages of missing observations for each predictor.
+
+```{r, message =FALSE, warning =FALSE , echo=FALSE}
+is_bact <- is.na(a_bact_02_md)*1
+exl_vars <- which(colnames(is_bact) %in% c("BC","BloodCulture","ID","AGEGROUP","SEX"))
+perc_miss <- round(apply(is_bact, 2, mean)*100,0)
+colnames(is_bact)<-paste(colnames(is_bact),"(",perc_miss,")",sep="")
+hobj <- hclust(dist(t(is_bact[,-exl_vars]))^2 / nrow(a_bact_02_md) * 100)
+plot(hobj, cex=0.5, ylab="Percent discordantly missing", xlab = " ", sub = "", hang=0.01)
+```
+
+
+

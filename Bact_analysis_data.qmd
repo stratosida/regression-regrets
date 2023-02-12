@@ -1,20 +1,19 @@
 # Analysis ready data {#ARD}
 
 
-```{r intro01, warning=FALSE, message=FALSE}
+```{r ard01, warning=FALSE, message=FALSE}
 ## Load libraries for this chapter
 library(readr)
 library(dplyr)
-library(gt)
-library(Hmisc)
-library(skimr)
 library(janitor)
 library(here)
-library(DT)
+library(tidyr)
+library(ggplot2)
+library(tidyselect)
 ```
 
 
-Based on the IDA plan prepare the data to be analysis ready. 
+Based on the IDA plan prepare the data to be analysis ready: read, clean and tidy. 
 
 
 ## Analysis ready dataset
@@ -28,50 +27,49 @@ We write this new modified (annotated) data set back to the `data` folder after 
 
 At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
 
+## Steps
 
-```{r contents_abact, warning=FALSE, message=FALSE, echo=FALSE} 
+Read in the source data dictionary 
 
-library(readr)
-library(dplyr)
-library(janitor)
-library(here)
-library(DT)
-library(tidyr)
-library(ggplot2)
-library(tidyselect)
-
+```{r read_dict}
 ## Read in the source data dictionary and display 
 bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")) %>%
   arrange(VariableNr) |>
   clean_names() |>
   mutate(PARAMCD = variable )
+```
 
-bact_dd |> glimpse()
+Read in the source data.
 
-## display as a table 
-#bact_dd |> 
-#  datatable(options = list(pageLength = 5))
-
-
+```{r read_source}
 ## Read in the source data 
 bact_data <- read_csv(here("data-raw", "Bacteremia_public_S2.csv")) 
+```
 
-bact_data %>% spec()
+Transform source data t long format for lab measurements. This will enable efficeint processing later. 
 
-
-
+```{r contents_abact, warning=FALSE, message=FALSE, echo=FALSE} 
 ## transform 
 bact_data01 <-
   bact_data |> 
   pivot_longer(
     cols = c(-ID, -SEX, -AGE, -BloodCulture),
     names_to = "PARAMCD",
-    #names_prefix = "PARAMCD",
     values_to = "AVAL",
     values_drop_na = FALSE
 )
+```
 
+Add the parameter information such as labels and units on to the transformed data directly from the data dictionary. 
 
+Derive additional variables and metadata are per the analysis plan such as:
+
+* Units 
+* Variable type
+* Categories for sex
+* rename outcome 
+
+```{r transform, warning=FALSE, message=FALSE, echo=FALSE} 
 bact_data02 <- 
   bact_data01 |> 
   left_join(bact_dd, by = "PARAMCD") |>
@@ -96,21 +94,22 @@ bact_data02 <-
 
 
 bact_data02 |> glimpse()
+```
+Select and re-roder the variables as per the data set specification. 
 
+```{r reorder, warning=FALSE, message=FALSE, echo=FALSE} 
 # Should come from the data set specification
 bact_data03 <- 
   bact_data02 %>%
   relocate(USUBJID, SUBJID, AGE, SEX, SEXC, BACTEREMIA, BACTEREMIAN, PARAM, PARAMCD, AVAL, UNIT, TYPE, NOTE, NOTE2) |>
   select(USUBJID, SUBJID, AGE, SEX, SEXC, BACTEREMIA, BACTEREMIAN, PARAM, PARAMCD, AVAL, UNIT, TYPE, NOTE, NOTE2)
 
-
-
 bact_data03 |> glimpse()
+```
 
-names(bact_data03)
+Add variable metadata as label attributes
 
-## Takes me up to end of BACT_INTRO
-
+```{r meta_data, warning=FALSE, message=FALSE, echo=FALSE} 
 attr(bact_data03$SUBJID, "label") <- "Patient Identifer"  
 attr(bact_data03$USUBJID, "label") <- "Unique Patient Identifer with data souce reference: DC 2019-0054"  
 attr(bact_data03$SEX, "label") <- "Patient gender"  
@@ -127,25 +126,24 @@ attr(bact_data03$TYPE, "label") <- "Parameter: variable type (Numeric, Character
 attr(bact_data03$NOTE, "label") <- "Notes from source data dictionary - free text"
 attr(bact_data03$NOTE2, "label") <- "Remarks from source data dictionary - free text"
 
+bact_data03 %>% glimpse()
+```
 
+Check we have not introduced any errors with the outcome variable. 
+
+```{r outcome_check, warning=FALSE, message=FALSE, echo=FALSE} 
 table(bact_data02$BloodCulture)
 table(bact_data03$BACTEREMIA)
+```
+
+Set flags for predictors as per the IDA plan:
+
+* age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors
+
+* Predictors of medium importance are potassium (POTASS), and some acute-phase related parameters such as fibrinogen (FIB), C-reactive protein (CRP), aspartate transaminase (ASAT), alanine transaminase (ALAT), and gamma-glutamyl transpeptidase (GGT).
 
 
-bact_data03 %>% glimpse()
-
-
-#### IDA PLAN
-
-# age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), 
-# thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors
-
-# Predictors of medium importance are potassium (POTASS), 
-# and some acute-phase related parameters such as fibrinogen (FIB), 
-# C-reactive protein (CRP), aspartate transaminase (ASAT), 
-# alanine transaminase (ALAT), and gamma-glutamyl transpeptidase (GGT).
-
-
+```{r set_flags, warning=FALSE, message=FALSE, echo=FALSE} 
 bact_data04 <-
   bact_data03 |>
   mutate(
@@ -161,22 +159,15 @@ attr(bact_data04$KEY_PRED_FL, "label") <- "Key Predictor Flag"
 attr(bact_data04$MED_PRED_FL, "label") <- "Predictors of medium importance Flag"
 
 bact_data04 |> glimpse()
+```
 
-## DO something with this? ###############
+TODO: something with this text?
+*"For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age."*
 
-# For example, leukocytes consist of five different types of blood cells 
-# (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types 
-# approximately (but not exactly) gives the leukocyte count, which is recorded 
-# in the variable WBC. Moreover, these variables are given as absolute counts 
-# and as percentages of the sum of the five variables, which creates some correlation. 
-# Some laboratory variables differ by sex and age, but the special selection of patients 
-# for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age.
 
-## Age group
-# For the purpose of stratifying IDA results by age, 
-# age will be categorized into the following 
-# three groups: [16, 50], (50, 65], (65, 101].
+Derive age groups: For the purpose of stratifying IDA results by age, age will be categorized into the following three groups: [16, 50], (50, 65], (65, 101].
 
+```{r age_groups, warning=FALSE, message=FALSE, echo=FALSE} 
 bact_data05 <-
   bact_data04 |>
   mutate(AGEGR01 = case_when(AGE >= 16  & AGE <= 50 ~ 1,
@@ -186,48 +177,31 @@ bact_data05 <-
                               AGEGR01 == 2 ~ "(50, 65]",
                               AGEGR01 == 3 ~ "(65, 101]"))
 
-
 attr(bact_data05$AGEGR01, "label") <- "Age group 01 (Numeric coding)"
 attr(bact_data05$AGEGR01C, "label") <- "Age group 01 (Character coding)"
+```
 
-################### end of IDA plan
+Save the analysis data sets in to two linked data sets following a strucutre similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specifific data sets are stored in ADLB (a long format data set). 
 
-#-------------------- IDA missing ness
+ADSL:
 
-library(naniar)
-
-
+```{r save_adsl, warning=FALSE, message=FALSE, echo=FALSE} 
 ADSL <- bact_data05 %>%
   filter(PARAMCD == "WBC") %>%
   select(USUBJID, SUBJID, AGE, AGEGR01, AGEGR01C, SEX, SEXC, BACTEREMIA, BACTEREMIAN)
 
+saveRDS(ADSL, file = here("data", "ADSL_01.rds"))
+```
 
-saveRDS(ADSL, file = "adsl.rds")
+ADLB: *Note AGE is kept in ADLB as it is a key predictor*
 
+```{r save_adlb, warning=FALSE, message=FALSE, echo=FALSE} 
 
-## keep age in ? as its a key predictor 
 ADLB <- bact_data05 %>%
-  select(-AGE, -AGEGR01, -AGEGR01C, -SEX, -SEXC, -BACTEREMIA, -BACTEREMIAN)
+  select(-AGEGR01, -AGEGR01C, -SEX, -SEXC, -BACTEREMIA, -BACTEREMIAN)
 
-saveRDS(ADLB, file = "adlb.rds")
-
-
+saveRDS(ADLB, file = here("data", "ADLB_01.rds"))
 
 ```
 
-
-
-### check this section
-
-As a cross check we display the contents again to ensure the additional data is added, and then write  the changes to the data folder in the file **"data/a_bact_01.rda"**. 
-
-Note that a copy of the analysis data **a_bact_01_md** with metadata labels and without **a_bact_01** are stored.  
-
-## to add in 
-
-## Save data and meta data
-
-Save the updated analysis results data including metadata to file. Also print out the current contents to check for possible errors. 
-
-
-```
+Note. At this point both ADSL and ADLB are intermediate files that will be used for further IDA. Findings in IDA may require updates to either data set. 
