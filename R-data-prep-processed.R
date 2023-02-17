@@ -169,3 +169,221 @@ ADLB <- bact_data05 %>%
 
 saveRDS(ADLB, file = "adlb.rds")
 
+
+
+
+
+
+################## M1 ###########################
+## prevelance of missing 
+
+# structural variables 
+ADSL %>%
+  select(AGE, AGEGR01, AGEGR01C, SEX) %>%
+  miss_var_summary()
+
+
+
+describe_structural_cont_vars <-
+  ADSL %>%
+  select(AGE) %>%
+  miss_var_summary()
+
+
+describe_structural_cont_vars <-
+  describe_structural_cont_vars |>
+  rename(PARAMCD = variable) |>
+  mutate(PARAM = "AGE (years)") |>
+  pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "VALUE")
+
+describe_structural_cont_vars
+
+
+#bact_data05 |>
+#  select(AGE, AGEGR01, SEX) |>
+#  skimr::skim()
+
+#bact_data05 %>%
+#  select(PARAM, PARAMCD, AVAL) %>%
+#  group_by(PARAM, PARAMCD) %>%
+#  miss_var_table()
+
+describe_predictor_cont_vars <-
+  ADLB %>%
+  select(PARAM, PARAMCD, AVAL) %>%
+  group_by(PARAM, PARAMCD) %>%
+  miss_var_summary() %>%
+  select(-variable) %>%
+  pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "VALUE")
+
+
+
+############3 M2 ###########################33
+#2.2.2 M2: Complete cases
+#The number of available complete cases (outcome and predictors) will be reported when considering:
+#  
+# 1. the outcome variable (BC)
+# 2. outcome and structural variables (BC, AGE, SEX)
+# 3. outcome and key predictors only (BC, AGE, WBC, BUN, CREA, PLT, NEU)
+# 4. outcome, key predictors and predictors of medium importance (BC, AGE, WBC, BUN, CREA, PLT, NEU, POTASS, FIB, CRP, ASAT, ALAT, GGT)
+# 5. outcome and all predictors.
+
+## step 1
+
+outcome <- ADSL %>%
+  select(BACTEREMIA) %>%
+  miss_case_table()
+
+outcome
+
+## step 3
+outcome_structural <- ADSL %>%
+  select(BACTEREMIA, AGE, SEX) %>%
+  miss_case_table()
+
+outcome_structural
+
+
+# step 3# 3. outcome and key predictors only (BC, AGE, WBC, BUN, CREA, PLT, NEU)
+
+step1 <- ADLB %>%
+  filter(PARAMCD %in% c("WBC", "BUN", "CREA", "PLT", "NEU")) %>%
+  select(SUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA)
+
+
+step2 <- ADSL %>%
+  select(SUBJID, BACTEREMIA, AGE) %>%
+  left_join(step1, by = "SUBJID") 
+
+step3 <- step2 %>%
+  select(-SUBJID) %>%
+  miss_case_table()
+
+step3 %>% filter(n_miss_in_case == 0)
+
+
+
+#### analysis M.2.4
+## 4. outcome, key predictors and predictors of medium importance 
+# (BC, AGE, WBC, BUN, CREA, PLT, NEU, POTASS, FIB, CRP, ASAT, ALAT, GGT)
+
+
+step1 <- ADLB %>%
+  filter(PARAMCD %in% c("WBC", "BUN", "CREA", "PLT", "NEU", "POTASS", "FIB", "CRP", 
+                        "ASAT", "ALAT", "GGT")) %>%
+  select(SUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA)
+
+
+step2 <- ADSL %>%
+  select(SUBJID, BACTEREMIA, AGE) %>%
+  left_join(step1, by = "SUBJID") 
+
+step3 <- step2 %>%
+  select(-SUBJID) %>%
+  miss_case_table()
+
+step3 %>% filter(n_miss_in_case == 0)
+
+
+
+### analysis M.2.5 Outcome_and_all_predictors
+
+
+
+step1 <- ADLB %>%
+  select(SUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA)
+
+step2 <- ADSL %>%
+  select(SUBJID, BACTEREMIA, AGE, SEX) %>%
+  left_join(step1, by = "SUBJID") 
+
+step3 <- step2 %>%
+  select(-SUBJID) %>%
+  miss_case_table()
+
+step3 %>% filter(n_miss_in_case == 0)
+
+
+##2.2.3 M3: Patterns of missing values
+##Patterns of missing values will be investigated by:
+## computing a table of complete cases (for the three predictor sets described above) for strata defined by the structural variables age and sex,
+
+#1 All predictors	411	26
+#2 Structural variables	1579	100
+#3 Key predictors	1468	93
+#4 Key and medium importance predictors
+
+
+### 1
+
+step1 <- ADLB %>%
+  select(SUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA)
+
+step2 <- ADSL %>%
+  select(SUBJID, -BACTEREMIA, AGEGR01, AGEGR01C, SEXC) %>%
+  left_join(step1, by = "SUBJID") 
+
+step3 <- step2 %>%
+  select(-SUBJID) %>%
+  group_by(AGEGR01, AGEGR01C, SEXC) %>%
+  miss_case_table()
+
+step3 %>% filter(n_miss_in_case == 0)
+
+
+### 2 - structural variables -- not sure this makes sense 
+
+step2 <- ADSL %>%
+  select(SUBJID, AGE, SEX, AGEGR01, AGEGR01C, SEXC)
+
+step3 <- step2 %>%
+  select(-SUBJID) %>%
+  group_by(AGEGR01, AGEGR01C, SEXC) %>%
+  miss_case_table()
+
+step3 %>% filter(n_miss_in_case == 0)
+
+
+### 3 - key predictors 
+
+step1 <- ADLB %>%
+  filter(PARAMCD %in% c("WBC", "BUN", "CREA", "PLT", "NEU")) %>%
+  select(SUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA)
+
+step2 <- ADSL %>%
+  select(SUBJID, -BACTEREMIA, AGEGR01, AGEGR01C, SEXC) %>%
+  left_join(step1, by = "SUBJID") 
+
+step3 <- step2 %>%
+  select(-SUBJID) %>%
+  group_by(AGEGR01, AGEGR01C, SEXC) %>%
+  miss_case_table()
+
+step3 %>% filter(n_miss_in_case == 0)
+
+
+### 3 - key predictors+ medium importance 
+
+step1 <- ADLB %>%
+  filter(PARAMCD %in% c("WBC", "BUN", "CREA", "PLT", "NEU", "POTASS", "FIB", "CRP", 
+                        "ASAT", "ALAT", "GGT")) %>%
+  select(SUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA)
+
+step2 <- ADSL %>%
+  select(SUBJID, -BACTEREMIA, AGEGR01, AGEGR01C, SEXC) %>%
+  left_join(step1, by = "SUBJID") 
+
+step3 <- step2 %>%
+  select(-SUBJID) %>%
+  group_by(AGEGR01, AGEGR01C, SEXC) %>%
+  miss_case_table()
+
+step3 %>% filter(n_miss_in_case == 0)
+
+

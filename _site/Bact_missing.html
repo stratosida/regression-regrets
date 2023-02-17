@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Regression without regrets - 2&nbsp; Results of IDA: Missing values</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Bact_analysis_data.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Regression without regrets</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analysis ready data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#m1-prevalence-of-missing-values" id="toc-m1-prevalence-of-missing-values" class="nav-link active" data-scroll-target="#m1-prevalence-of-missing-values"><span class="toc-section-number">2.1</span>  M1: Prevalence of missing values</a>
+  <ul class="collapse">
+  <li><a href="#outcome-and-structural-variables" id="toc-outcome-and-structural-variables" class="nav-link" data-scroll-target="#outcome-and-structural-variables"><span class="toc-section-number">2.1.1</span>  Outcome and Structural variables</a></li>
+  <li><a href="#lab-parameters" id="toc-lab-parameters" class="nav-link" data-scroll-target="#lab-parameters"><span class="toc-section-number">2.1.2</span>  Lab parameters</a></li>
+  </ul></li>
+  <li><a href="#m2-complete-cases" id="toc-m2-complete-cases" class="nav-link" data-scroll-target="#m2-complete-cases"><span class="toc-section-number">2.2</span>  M2: Complete cases</a></li>
+  <li><a href="#me1-patterns-of-missing-values" id="toc-me1-patterns-of-missing-values" class="nav-link" data-scroll-target="#me1-patterns-of-missing-values"><span class="toc-section-number">2.3</span>  ME1: Patterns of missing values</a>
+  <ul class="collapse">
+  <li><a href="#complete-cases-by-strata-defined-by-structural-variables" id="toc-complete-cases-by-strata-defined-by-structural-variables" class="nav-link" data-scroll-target="#complete-cases-by-strata-defined-by-structural-variables"><span class="toc-section-number">2.3.1</span>  Complete cases by strata defined by structural variables</a></li>
+  <li><a href="#dendrogram-of-missingness-indicators" id="toc-dendrogram-of-missingness-indicators" class="nav-link" data-scroll-target="#dendrogram-of-missingness-indicators"><span class="toc-section-number">2.3.2</span>  Dendrogram of missingness indicators</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="Missing" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<section id="m1-prevalence-of-missing-values" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="m1-prevalence-of-missing-values"><span class="header-section-number">2.1</span> M1: Prevalence of missing values</h2>
+<p>Number and percentage of missingness for each predictor, sorted by descending missingness proportion.</p>
+<section id="outcome-and-structural-variables" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="outcome-and-structural-variables"><span class="header-section-number">2.1.1</span> Outcome and Structural variables</h3>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="ykuwycveqi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#ykuwycveqi) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#ykuwycveqi) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#ykuwycveqi) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#ykuwycveqi) .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#ykuwycveqi) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#ykuwycveqi) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#ykuwycveqi) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#ykuwycveqi) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#ykuwycveqi) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#ykuwycveqi) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+:where(#ykuwycveqi) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#ykuwycveqi) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#ykuwycveqi) .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#ykuwycveqi) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#ykuwycveqi) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#ykuwycveqi) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#ykuwycveqi) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#ykuwycveqi) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#ykuwycveqi) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#ykuwycveqi) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#ykuwycveqi) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#ykuwycveqi) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#ykuwycveqi) .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#ykuwycveqi) .gt_left {
+  text-align: left;
+}
+
+:where(#ykuwycveqi) .gt_center {
+  text-align: center;
+}
+
+:where(#ykuwycveqi) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#ykuwycveqi) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#ykuwycveqi) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#ykuwycveqi) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#ykuwycveqi) .gt_super {
+  font-size: 65%;
+}
+
+:where(#ykuwycveqi) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#ykuwycveqi) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#ykuwycveqi) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#ykuwycveqi) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#ykuwycveqi) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#ykuwycveqi) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#ykuwycveqi) .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Variable">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Missing (count)">Missing (count)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Missing (%)">Missing (%)</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="variable" class="gt_row gt_left">BACTEREMIA</td>
+<td headers="n_miss" class="gt_row gt_right">0</td>
+<td headers="pct_miss" class="gt_row gt_right">0.00</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">AGE</td>
+<td headers="n_miss" class="gt_row gt_right">0</td>
+<td headers="pct_miss" class="gt_row gt_right">0.00</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">SEX</td>
+<td headers="n_miss" class="gt_row gt_right">0</td>
+<td headers="pct_miss" class="gt_row gt_right">0.00</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="lab-parameters" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="lab-parameters"><span class="header-section-number">2.1.2</span> Lab parameters</h3>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="euktlfgzcy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#euktlfgzcy) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#euktlfgzcy) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#euktlfgzcy) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#euktlfgzcy) .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#euktlfgzcy) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#euktlfgzcy) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#euktlfgzcy) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#euktlfgzcy) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#euktlfgzcy) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#euktlfgzcy) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+:where(#euktlfgzcy) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#euktlfgzcy) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#euktlfgzcy) .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#euktlfgzcy) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#euktlfgzcy) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#euktlfgzcy) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#euktlfgzcy) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#euktlfgzcy) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#euktlfgzcy) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#euktlfgzcy) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#euktlfgzcy) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#euktlfgzcy) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#euktlfgzcy) .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#euktlfgzcy) .gt_left {
+  text-align: left;
+}
+
+:where(#euktlfgzcy) .gt_center {
+  text-align: center;
+}
+
+:where(#euktlfgzcy) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#euktlfgzcy) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#euktlfgzcy) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#euktlfgzcy) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#euktlfgzcy) .gt_super {
+  font-size: 65%;
+}
+
+:where(#euktlfgzcy) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#euktlfgzcy) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#euktlfgzcy) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#euktlfgzcy) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#euktlfgzcy) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#euktlfgzcy) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#euktlfgzcy) .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Variable">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Missing (count)">Missing (count)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Missing (%)">Missing (%)</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="PARAM" class="gt_row gt_left">Mean corpuscular volume (pg)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.29</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Haemoglobin (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">41</td>
+<td headers="pct_miss" class="gt_row gt_right">0.28</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Haematocrit (%)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.29</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Blood platelets (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.29</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Mean corpuscular hemoglobin (fl)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.29</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Mean corpuscular hemoglobin concentration (g/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.29</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Red blood cell distribution width (%)</td>
+<td headers="n_miss" class="gt_row gt_right">56</td>
+<td headers="pct_miss" class="gt_row gt_right">0.38</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Mean platelet volume (fl)</td>
+<td headers="n_miss" class="gt_row gt_right">702</td>
+<td headers="pct_miss" class="gt_row gt_right">4.78</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Lymphocytes (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">262</td>
+<td headers="pct_miss" class="gt_row gt_right">1.78</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Monocytes (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">246</td>
+<td headers="pct_miss" class="gt_row gt_right">1.67</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Eosinophils (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">135</td>
+<td headers="pct_miss" class="gt_row gt_right">0.92</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Basophiles (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">146</td>
+<td headers="pct_miss" class="gt_row gt_right">0.99</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Normotest (%)</td>
+<td headers="n_miss" class="gt_row gt_right">2467</td>
+<td headers="pct_miss" class="gt_row gt_right">16.79</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Activated partial thromboplastin time (sec)</td>
+<td headers="n_miss" class="gt_row gt_right">2549</td>
+<td headers="pct_miss" class="gt_row gt_right">17.35</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Fibrinogen (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">2567</td>
+<td headers="pct_miss" class="gt_row gt_right">17.47</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Sodium (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1282</td>
+<td headers="pct_miss" class="gt_row gt_right">8.73</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Potassium (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">2008</td>
+<td headers="pct_miss" class="gt_row gt_right">13.67</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Calcium (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1276</td>
+<td headers="pct_miss" class="gt_row gt_right">8.69</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Phosphate (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1242</td>
+<td headers="pct_miss" class="gt_row gt_right">8.45</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Magnesium (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1869</td>
+<td headers="pct_miss" class="gt_row gt_right">12.72</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Creatinine (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">159</td>
+<td headers="pct_miss" class="gt_row gt_right">1.08</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Blood urea nitrogen (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">172</td>
+<td headers="pct_miss" class="gt_row gt_right">1.17</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Uric acid (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">3061</td>
+<td headers="pct_miss" class="gt_row gt_right">20.84</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Bilirubin (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">1441</td>
+<td headers="pct_miss" class="gt_row gt_right">9.81</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Total protein (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1583</td>
+<td headers="pct_miss" class="gt_row gt_right">10.78</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Albumin (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1676</td>
+<td headers="pct_miss" class="gt_row gt_right">11.41</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Amylase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">3913</td>
+<td headers="pct_miss" class="gt_row gt_right">26.64</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Pancreas amylase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">7114</td>
+<td headers="pct_miss" class="gt_row gt_right">48.42</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Lipases (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">3699</td>
+<td headers="pct_miss" class="gt_row gt_right">25.18</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Cholinesterase (kU/L)</td>
+<td headers="n_miss" class="gt_row gt_right">2447</td>
+<td headers="pct_miss" class="gt_row gt_right">16.66</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Alkaline phosphatase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1400</td>
+<td headers="pct_miss" class="gt_row gt_right">9.53</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Aspartate transaminase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1154</td>
+<td headers="pct_miss" class="gt_row gt_right">7.86</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Alanin transaminase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">987</td>
+<td headers="pct_miss" class="gt_row gt_right">6.72</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Gamma-glutamyl transpeptidase (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1262</td>
+<td headers="pct_miss" class="gt_row gt_right">8.59</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Lactate dehydrogenase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1714</td>
+<td headers="pct_miss" class="gt_row gt_right">11.67</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Creatinine kinases (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">2080</td>
+<td headers="pct_miss" class="gt_row gt_right">14.16</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Glucoses (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">4192</td>
+<td headers="pct_miss" class="gt_row gt_right">28.53</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Triclyceride (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">5061</td>
+<td headers="pct_miss" class="gt_row gt_right">34.45</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Cholesterol (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">5045</td>
+<td headers="pct_miss" class="gt_row gt_right">34.34</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">C-reactive protein (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">155</td>
+<td headers="pct_miss" class="gt_row gt_right">1.06</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Basophile ratio (%)</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">4.98</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Eosinophil ratio (%)</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">4.98</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Lymphocyte ratio (% (mg/dl))</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">4.98</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Monocyte ratio (%)</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">4.98</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Neutrophiles (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">728</td>
+<td headers="pct_miss" class="gt_row gt_right">4.96</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Neutrophile ratio (%)</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">4.98</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Platelet distribution width (%)</td>
+<td headers="n_miss" class="gt_row gt_right">1102</td>
+<td headers="pct_miss" class="gt_row gt_right">7.50</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">Red blood count (T/L)</td>
+<td headers="n_miss" class="gt_row gt_right">461</td>
+<td headers="pct_miss" class="gt_row gt_right">3.14</td></tr>
+    <tr><td headers="PARAM" class="gt_row gt_left">White blood count (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">462</td>
+<td headers="pct_miss" class="gt_row gt_right">3.14</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="m2-complete-cases" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="m2-complete-cases"><span class="header-section-number">2.2</span> M2: Complete cases</h2>
+<p>Number of available complete cases (outcome and predictors):</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="vjzavfunag" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#vjzavfunag) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#vjzavfunag) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#vjzavfunag) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#vjzavfunag) .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#vjzavfunag) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#vjzavfunag) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#vjzavfunag) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#vjzavfunag) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#vjzavfunag) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#vjzavfunag) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+:where(#vjzavfunag) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#vjzavfunag) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#vjzavfunag) .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#vjzavfunag) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#vjzavfunag) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#vjzavfunag) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#vjzavfunag) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#vjzavfunag) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#vjzavfunag) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#vjzavfunag) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#vjzavfunag) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#vjzavfunag) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#vjzavfunag) .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#vjzavfunag) .gt_left {
+  text-align: left;
+}
+
+:where(#vjzavfunag) .gt_center {
+  text-align: center;
+}
+
+:where(#vjzavfunag) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#vjzavfunag) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#vjzavfunag) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#vjzavfunag) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#vjzavfunag) .gt_super {
+  font-size: 65%;
+}
+
+:where(#vjzavfunag) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#vjzavfunag) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#vjzavfunag) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#vjzavfunag) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#vjzavfunag) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#vjzavfunag) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#vjzavfunag) .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Set">Set</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Complete (count)">Complete (count)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Complete (%)">Complete (%)</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Set" class="gt_row gt_left">Outcome</td>
+<td headers="n_cases" class="gt_row gt_right">14691</td>
+<td headers="pct_cases" class="gt_row gt_right">100.0</td></tr>
+    <tr><td headers="Set" class="gt_row gt_left">Outcome and structural variables</td>
+<td headers="n_cases" class="gt_row gt_right">14691</td>
+<td headers="pct_cases" class="gt_row gt_right">100.0</td></tr>
+    <tr><td headers="Set" class="gt_row gt_left">Outcome and key predictors only</td>
+<td headers="n_cases" class="gt_row gt_right">13793</td>
+<td headers="pct_cases" class="gt_row gt_right">93.9</td></tr>
+    <tr><td headers="Set" class="gt_row gt_left">Outcome key predictors and predictors of medium importance</td>
+<td headers="n_cases" class="gt_row gt_right">9389</td>
+<td headers="pct_cases" class="gt_row gt_right">63.9</td></tr>
+    <tr><td headers="Set" class="gt_row gt_left">Outcome and all predictors</td>
+<td headers="n_cases" class="gt_row gt_right">3979</td>
+<td headers="pct_cases" class="gt_row gt_right">27.1</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="me1-patterns-of-missing-values" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="me1-patterns-of-missing-values"><span class="header-section-number">2.3</span> ME1: Patterns of missing values</h2>
+<section id="complete-cases-by-strata-defined-by-structural-variables" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="complete-cases-by-strata-defined-by-structural-variables"><span class="header-section-number">2.3.1</span> Complete cases by strata defined by structural variables</h3>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="chfwuieppa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#chfwuieppa) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#chfwuieppa) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#chfwuieppa) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#chfwuieppa) .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#chfwuieppa) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#chfwuieppa) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#chfwuieppa) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#chfwuieppa) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#chfwuieppa) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#chfwuieppa) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+:where(#chfwuieppa) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#chfwuieppa) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#chfwuieppa) .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#chfwuieppa) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#chfwuieppa) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#chfwuieppa) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#chfwuieppa) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#chfwuieppa) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#chfwuieppa) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#chfwuieppa) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#chfwuieppa) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#chfwuieppa) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#chfwuieppa) .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#chfwuieppa) .gt_left {
+  text-align: left;
+}
+
+:where(#chfwuieppa) .gt_center {
+  text-align: center;
+}
+
+:where(#chfwuieppa) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#chfwuieppa) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#chfwuieppa) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#chfwuieppa) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#chfwuieppa) .gt_super {
+  font-size: 65%;
+}
+
+:where(#chfwuieppa) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#chfwuieppa) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#chfwuieppa) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#chfwuieppa) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#chfwuieppa) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#chfwuieppa) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#chfwuieppa) .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Set">Set</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Complete (count)">Complete (count)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Complete (%)">Complete (%)</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="3" class="gt_group_heading" scope="colgroup" id="female - (50, 65]">female - (50, 65]</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="female - (50, 65]  Set" class="gt_row gt_left">All predictors</td>
+<td headers="female - (50, 65]  n_cases" class="gt_row gt_right">1468</td>
+<td headers="female - (50, 65]  pct_cases" class="gt_row gt_right">93.0</td></tr>
+    <tr><td headers="female - (50, 65]  Set" class="gt_row gt_left">Key predictors</td>
+<td headers="female - (50, 65]  n_cases" class="gt_row gt_right">1468</td>
+<td headers="female - (50, 65]  pct_cases" class="gt_row gt_right">93.0</td></tr>
+    <tr><td headers="female - (50, 65]  Set" class="gt_row gt_left">Medium importance predictors</td>
+<td headers="female - (50, 65]  n_cases" class="gt_row gt_right">1075</td>
+<td headers="female - (50, 65]  pct_cases" class="gt_row gt_right">68.1</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="3" class="gt_group_heading" scope="colgroup" id="male - (65, 101]">male - (65, 101]</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="male - (65, 101]  Set" class="gt_row gt_left">All predictors</td>
+<td headers="male - (65, 101]  n_cases" class="gt_row gt_right">2793</td>
+<td headers="male - (65, 101]  pct_cases" class="gt_row gt_right">94.3</td></tr>
+    <tr><td headers="male - (65, 101]  Set" class="gt_row gt_left">Key predictors</td>
+<td headers="male - (65, 101]  n_cases" class="gt_row gt_right">2793</td>
+<td headers="male - (65, 101]  pct_cases" class="gt_row gt_right">94.3</td></tr>
+    <tr><td headers="male - (65, 101]  Set" class="gt_row gt_left">Medium importance predictors</td>
+<td headers="male - (65, 101]  n_cases" class="gt_row gt_right">2014</td>
+<td headers="male - (65, 101]  pct_cases" class="gt_row gt_right">68.0</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="3" class="gt_group_heading" scope="colgroup" id="male - (16, 50]">male - (16, 50]</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="male - (16, 50]  Set" class="gt_row gt_left">All predictors</td>
+<td headers="male - (16, 50]  n_cases" class="gt_row gt_right">2744</td>
+<td headers="male - (16, 50]  pct_cases" class="gt_row gt_right">94.5</td></tr>
+    <tr><td headers="male - (16, 50]  Set" class="gt_row gt_left">Key predictors</td>
+<td headers="male - (16, 50]  n_cases" class="gt_row gt_right">2744</td>
+<td headers="male - (16, 50]  pct_cases" class="gt_row gt_right">94.5</td></tr>
+    <tr><td headers="male - (16, 50]  Set" class="gt_row gt_left">Medium importance predictors</td>
+<td headers="male - (16, 50]  n_cases" class="gt_row gt_right">1993</td>
+<td headers="male - (16, 50]  pct_cases" class="gt_row gt_right">68.7</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="3" class="gt_group_heading" scope="colgroup" id="female - (16, 50]">female - (16, 50]</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="female - (16, 50]  Set" class="gt_row gt_left">All predictors</td>
+<td headers="female - (16, 50]  n_cases" class="gt_row gt_right">2309</td>
+<td headers="female - (16, 50]  pct_cases" class="gt_row gt_right">93.8</td></tr>
+    <tr><td headers="female - (16, 50]  Set" class="gt_row gt_left">Key predictors</td>
+<td headers="female - (16, 50]  n_cases" class="gt_row gt_right">2309</td>
+<td headers="female - (16, 50]  pct_cases" class="gt_row gt_right">93.8</td></tr>
+    <tr><td headers="female - (16, 50]  Set" class="gt_row gt_left">Medium importance predictors</td>
+<td headers="female - (16, 50]  n_cases" class="gt_row gt_right">1656</td>
+<td headers="female - (16, 50]  pct_cases" class="gt_row gt_right">67.3</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="3" class="gt_group_heading" scope="colgroup" id="male - (50, 65]">male - (50, 65]</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="male - (50, 65]  Set" class="gt_row gt_left">All predictors</td>
+<td headers="male - (50, 65]  n_cases" class="gt_row gt_right">2504</td>
+<td headers="male - (50, 65]  pct_cases" class="gt_row gt_right">93.7</td></tr>
+    <tr><td headers="male - (50, 65]  Set" class="gt_row gt_left">Key predictors</td>
+<td headers="male - (50, 65]  n_cases" class="gt_row gt_right">2504</td>
+<td headers="male - (50, 65]  pct_cases" class="gt_row gt_right">93.7</td></tr>
+    <tr><td headers="male - (50, 65]  Set" class="gt_row gt_left">Medium importance predictors</td>
+<td headers="male - (50, 65]  n_cases" class="gt_row gt_right">1862</td>
+<td headers="male - (50, 65]  pct_cases" class="gt_row gt_right">69.7</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="3" class="gt_group_heading" scope="colgroup" id="female - (65, 101]">female - (65, 101]</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="female - (65, 101]  Set" class="gt_row gt_left">All predictors</td>
+<td headers="female - (65, 101]  n_cases" class="gt_row gt_right">1975</td>
+<td headers="female - (65, 101]  pct_cases" class="gt_row gt_right">93.4</td></tr>
+    <tr><td headers="female - (65, 101]  Set" class="gt_row gt_left">Key predictors</td>
+<td headers="female - (65, 101]  n_cases" class="gt_row gt_right">1975</td>
+<td headers="female - (65, 101]  pct_cases" class="gt_row gt_right">93.4</td></tr>
+    <tr><td headers="female - (65, 101]  Set" class="gt_row gt_left">Medium importance predictors</td>
+<td headers="female - (65, 101]  n_cases" class="gt_row gt_right">1389</td>
+<td headers="female - (65, 101]  pct_cases" class="gt_row gt_right">65.7</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="dendrogram-of-missingness-indicators" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="dendrogram-of-missingness-indicators"><span class="header-section-number">2.3.2</span> Dendrogram of missingness indicators</h3>
+<p>The dendrogram depicts the results of a cluster analysis using the complete linkage method based on the percentage of discordant missing indicators. (This percentage was computed via the squared Euclidian distance of missingness indicators between predictors.) The vertical axis shows the distance between two clusters, which is given by the maximum distance between any element of the first and the second clusters. For example, if two clusters are merged at a height of 25 it means that in 25% of the observations the missingness indicators of the most discordant predictors contained in the two clusters are discordant.</p>
+<p>The numbers in brackets are the percentages of missing observations for each predictor.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Bact_missing_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1152"></p>
+<p></p><figcaption class="figure-caption">Clustered variables by percentage observations discordantly missing (by variable percentage missing)</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Bact_analysis_data.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analysis ready data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Results of IDA: Missing values {#Missing}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warning=FALSE, message=FALSE}</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Load libraries</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar) <span class="do">## for missing data </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ADSL <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADSL_01.rds"</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>ADLB <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADLB_01.rds"</span>))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## M1: Prevalence of missing values</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>Number and percentage of missingness for each predictor, sorted by descending missingness proportion. </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Outcome and Structural variables</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message = FALSE, warning = FALSE, echo = FALSE}</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>ADSL <span class="sc">|&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(BACTEREMIA, AGE, SEX) <span class="sc">|&gt;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    gt<span class="sc">::</span><span class="fu">cols_label</span>(</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> <span class="st">"Variable"</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_miss =</span> <span class="st">"Missing (count)"</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_miss =</span> <span class="st">"Missing (%)"</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">fmt_number</span>(</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">vars</span>(pct_miss),</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">2</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lab parameters </span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message = FALSE, warning = FALSE, echo = FALSE}</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>describe_predictor_cont_vars <span class="ot">&lt;-</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PARAM, PARAMCD, AVAL) <span class="sc">|&gt;</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PARAM, PARAMCD) <span class="sc">|&gt;</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">miss_var_summary</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable) <span class="sc">|&gt;</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>describe_predictor_cont_vars <span class="sc">|&gt;</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>PARAMCD) <span class="sc">|&gt;</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>   gt<span class="sc">::</span><span class="fu">cols_label</span>(</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">PARAM  =</span> <span class="st">"Variable"</span>,</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_miss =</span> <span class="st">"Missing (count)"</span>,</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_miss =</span> <span class="st">"Missing (%)"</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">fmt_number</span>(</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">vars</span>(pct_miss),</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">2</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## M2: Complete cases</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>Number of available complete cases (outcome and predictors):</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r summiss, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"M2-complete-cases.R"</span>)</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>m2_ard <span class="ot">&lt;-</span> <span class="fu">m2_analysis</span>(<span class="at">ADSL =</span> ADSL, <span class="at">ADLB =</span> ADLB)</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>m2_ard <span class="sc">|&gt;</span> </span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Set, n_cases, pct_cases ) <span class="sc">|&gt;</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>   gt<span class="sc">::</span><span class="fu">cols_label</span>(</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">Set  =</span> <span class="st">"Set"</span>,</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_cases =</span> <span class="st">"Complete (count)"</span>,</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_cases =</span> <span class="st">"Complete (%)"</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">fmt_number</span>(</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(pct_cases),</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">1</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## ME1: Patterns of missing values</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Complete cases by strata defined by structural variables</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r summiss2, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="do">##TODO -  add a proper structure with GENDER and AGEGROUP.</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"M3-complete-cases-sets.R"</span>)</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>m3_ard <span class="ot">&lt;-</span> <span class="fu">m3_analysis</span>(ADSL, ADLB)</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>m3_ard <span class="sc">|&gt;</span> </span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Set, n_cases, pct_cases, SEXC, AGEGR01C ) <span class="sc">|&gt;</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SEXC, AGEGR01C) <span class="sc">|&gt;</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>   gt<span class="sc">::</span><span class="fu">cols_label</span>(</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="at">Set  =</span> <span class="st">"Set"</span>,</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_cases =</span> <span class="st">"Complete (count)"</span>,</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_cases =</span> <span class="st">"Complete (%)"</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">fmt_number</span>(</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(pct_cases),</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">1</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dendrogram of missingness indicators </span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>The dendrogram depicts the results of a cluster analysis using the complete linkage method based on the percentage of discordant missing indicators. (This percentage was computed via the squared Euclidian distance of missingness indicators between predictors.) The vertical axis shows the distance between two clusters, which is given by the maximum distance between any element of the first and the second clusters.  For example, if two clusters are merged at a height of 25 it means that in 25% of the observations the missingness indicators of the most discordant predictors contained in the two clusters are discordant.</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>The numbers in brackets are the percentages of missing observations for each predictor.</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message =FALSE, warning =FALSE , echo=FALSE, fig.height=12, fig.width=12, fig.cap="Clustered variables by percentage observations discordantly missing (by variable percentage missing)"}</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"M3-dendogram.R"</span>)</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="fu">m3_dendogram</span>(ADLB)</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
