@@ -98,10 +98,19 @@ The only structural continuous variables is AGE. This variable is also a key pre
 
 ```{r uni02}
 #| layout-ncol: 2
-unique.variables <- key_predictors
-for(j in 1:length(unique.variables)){
-  print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
-}
+#unique.variables <- key_predictors
+#for(j in 1:length(unique.variables)){
+#  print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = #FALSE))
+#}
+
+source(here::here("TMP-plot-function.R"))
+
+  ADLB |> 
+  filter(KEY_PRED_FL == "Y") |> 
+  group_by(PARAMCD) |> 
+  group_map(~ describe_plot(.x))
+
+
 ```
 
 #### U2: Predictors of medium importance
@@ -132,7 +141,7 @@ for(j in 1:length(unique.variables)){
 ```{r uni05}
 #TODO: COMMENT @Mark is there a way to make nicer looking tables out of the numerical summaries??
 
-unique.variables <- unique(key_predictors)
+#unique.variables <- unique(key_predictors)
 #for(j in 1:length(unique.variables)){
 #  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), "]):\n\n")
 #  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))
@@ -141,6 +150,13 @@ unique.variables <- unique(key_predictors)
 #a_bact_02 %>%
 #  select(any_of(unique.variables)) %>%
 #  skim()
+
+
+
+source(here::here("describe_long_dataset.R"))
+# summary stats 
+ARD <- describe_long_dataset(ADLB)
+ARD  |> glimpse()
 ```
 
 

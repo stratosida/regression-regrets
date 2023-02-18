@@ -36,15 +36,16 @@ library(patchwork)
 
 ## look up summary stats from ARD - need a look up 
 source(here::here("ida_plot_describe.R"))
-source(here::here("describe_long_dataset.R"))
 source(here::here("TMP-plot-function.R"))
 
 ADLB <- read_rds("data/ADLB_01.rds")
 ADLB |> glimpse()
 ADLB |> mutate(USUBJID = as.character(SUBJID)) -> ADLB
 
+source(here::here("describe_long_dataset.R"))
+# summary stats 
 ARD <- describe_long_dataset(ADLB)
-ARD
+ARD  |> glimpse()
 
 gg <- ADLB |> 
   filter(PARAMCD == "APTT") |>
@@ -58,11 +59,13 @@ ADLB %>%
 
 
 ## loop around all groups
-plots <- 
+#plots <- 
   ADLB |> 
+  filter(KEY_PRED_FL == "Y") |> 
   group_by(PARAMCD) |> 
   group_map(~ describe_plot(.x))
 
+plots
 
   
 

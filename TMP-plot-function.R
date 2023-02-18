@@ -6,7 +6,7 @@ describe_plot <- function(data) { #, param = "MCV"){
 #data |> filter(PARAMCD == param) -> dat
 dat <- data 
 
-data |> glimpse()
+#data |> glimpse()
 
 ## filter on data
 ## remove missing 
@@ -16,7 +16,7 @@ dat <- data |>
 
 ## get bin width 
 bw <- .bin_width(dat$AVAL)
-bw
+#bw
 
 ## expand range 
 rng_vals <- scales::expand_range(range(dat$AVAL, na.rm = TRUE), mul = 0.01)
@@ -29,9 +29,9 @@ dat_median <- median(dat$AVAL, na.rm = TRUE)
 dat_5 <- fivenum(dat$AVAL, na.rm = TRUE)
 
 
-dat |>
-  ggplot(aes(AVAL)) +
-  geom_histogram(binwidth = bw) 
+#dat |>
+#  ggplot(aes(AVAL)) +
+#  geom_histogram(binwidth = bw) 
 
 p2 <- dat |>
   ggplot(aes(AVAL)) +
@@ -123,8 +123,8 @@ p3 <-dat |>
 
 # layout for combined plot
 # histogram has more area
-layout <- c(patchwork::area(1, 1, 9, 6),
-            patchwork::area(10, 1, 10, 6) #, patchwork::area(18, 1, 18, 6)
+layout <- c(patchwork::area(1, 1, 10, 6),
+            patchwork::area(8, 1, 10, 6) #, patchwork::area(18, 1, 18, 6)
 )
 
 ## combine plots
