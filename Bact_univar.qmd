@@ -44,7 +44,7 @@ u1_display_plot(ard)
 
 
 
-```{r catplot, message=FALSE, warning =FALSE , echo=FALSE}
+```{r catplot1, message=FALSE, warning =FALSE , echo=FALSE}
 # 
 # a_bact_02_md %>%
 #   dplyr::select(SEX, BC) %>%

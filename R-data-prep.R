@@ -16,7 +16,7 @@ library(Hmisc)
 
 ## U1: Univariate descriptions: categorical variables
 
-ADSL <- read_rds("adsl.rds")
+ADSL <- read_rds("data/ADSL_01.rds")
 
 library(tidyext)
 library(ggplot2)
@@ -35,18 +35,19 @@ library(patchwork)
 ## look up summary stats from ARD - need a look up 
 
 ## look up summary stats from ARD - need a look up 
-source(here::here("R", "ida_plot_describe.R"))
+source(here::here("ida_plot_describe.R"))
 source(here::here("describe_long_dataset.R"))
 source(here::here("TMP-plot-function.R"))
 
-ADLB <- read_rds("adlb.rds")
+ADLB <- read_rds("data/ADLB_01.rds")
 ADLB |> glimpse()
 ADLB |> mutate(USUBJID = as.character(SUBJID)) -> ADLB
 
 ARD <- describe_long_dataset(ADLB)
+ARD
 
 gg <- ADLB |> 
-  filter(PARAMCD == "EOS") |>
+  filter(PARAMCD == "APTT") |>
   describe_plot()
 
 gg
@@ -62,7 +63,6 @@ plots <-
   group_by(PARAMCD) |> 
   group_map(~ describe_plot(.x))
 
-plots[4]
 
   
 
