@@ -1,0 +1,268 @@
+#  Multivariate analyses
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE }
+library(here)
+library(tidyverse)
+library(plotly)
+library(Hmisc)
+library(gtsummary)
+library(ggcorrplot)
+library(mice)
+## Read data 
+load(here::here("data", "bact_env_c.rda"))
+
+alpha_value <- 0.1
+
+variables <- unique(c(bact_transformed$structural_vars,
+                      bact_transformed$key_predictors,
+                      bact_transformed$medimp_predictors,
+                      bact_transformed$remaining_predictors))
+
+```
+
+
+
+## V1: Association with structural variables
+
+A scatterplot of each predictor with age, with different panels for males and females have been constructed. Associated Spearman correlation coefficients have been computed.
+
+### Key predictors
+
+```{r}
+for(j in 1:length(bact_transformed$key_predictors)){
+  predictor <- bact_transformed$key_predictors[j]
+  if(predictor!="AGE"){
+  p1<-ggplot(data=c_bact, mapping=aes(x=.data[["AGE"]], y=.data[[predictor]]))+ geom_point(alpha=alpha_value) + facet_grid(cols=vars(.data[["GENDER"]])) 
+  print(p1)
+  
+    spear_sex<-by(c_bact[,c("AGE",predictor)], c_bact$GENDER, FUN=function(X) data = cor(X,use="pairwise.complete.obs",method="spearman")[1,2])
+    cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
+  # COMMENT @Mark: is there some way to print the spearman correlation coefficients (spear_sex) into the graphs or into the column labels (in a standardized way)??
+    # COMMENT @Mark: can we display inverse pseudolog (back-transformed) y-axis labels for better interpretation? see function inv_pseudo_log() in ida_trans.R
+
+  }
+}
+
+```
+
+### Predictors of medium importance
+
+```{r}
+for(j in 1:length(bact_transformed$medimp_predictors)){
+  predictor <- bact_transformed$medimp_predictors[j]
+  p1<-ggplot(data=c_bact, mapping=aes(x=.data[["AGE"]], y=.data[[predictor]]))+ geom_point(alpha=alpha_value) + facet_grid(cols=vars(.data[["GENDER"]])) 
+  print(p1)
+  
+    spear_sex<-by(c_bact[,c("AGE",predictor)], c_bact$GENDER, FUN=function(X) data = cor(X,use="pairwise.complete.obs",method="spearman")[1,2])
+    cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
+  # @Mark: see comments above
+
+}
+
+```
+
+### Remaining predictors
+
+```{r}
+for(j in 1:length(bact_transformed$remaining_predictors)){
+  predictor <- bact_transformed$remaining_predictors[j]
+  p1<-ggplot(data=c_bact, mapping=aes(x=.data[["AGE"]], y=.data[[predictor]]))+ geom_point(alpha=alpha_value) + facet_grid(cols=vars(.data[["GENDER"]])) 
+  print(p1)
+  
+    spear_sex<-by(c_bact[,c("AGE",predictor)], c_bact$GENDER, FUN=function(X) data = cor(X,use="pairwise.complete.obs",method="spearman")[1,2])
+    cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
+  # @Mark: see comments above
+
+}
+
+```
+
+
+## V2: Correlation coefficients between all predictors
+
+
+```{r}
+corrs <- c_bact %>%
+    dplyr::select(all_of(variables)) %>%
+      cor(use="pairwise.complete.obs", method="spearman")
+
+```
+
+The Spearman correlation coefficients are depicted in a quadratic heat map:
+
+```{r}
+ggcorrplot(corrs, tl.cex=5, tl.srt=90)
+```
+
+### VE1: Comparing nonparametric and parametric predictor correlation
+
+```{r}
+# differences of pearson and spearman correlations to check for outliers
+corrp <- c_bact %>%
+    dplyr::select(all_of(variables)) %>%
+      cor(use="pairwise.complete.obs", method="pearson")
+
+
+corrd <- corrp-corrs
+
+# sparsified differences of correlation coefficients
+corrd_sp <- corrd
+corrd_sp[abs(corrd)<0.1] <-0
+
+ggcorrplot(corrd_sp, tl.cex=5, tl.srt=90)
+
+```
+Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units will be depicted in scatterplots:
+
+```{r}
+for(j in 1:(length(variables)-1)){
+  for(jj in (j+1):(length(variables))){
+    if(abs(corrd[j, jj])>0.1) print(ggplot(data=c_bact, mapping=aes(x=.data[[variables[j]]],y=.data[[variables[jj]]]))+ geom_point(alpha = alpha_value) +
+    theme_minimal())
+  }
+}
+
+## COMMENT @Mark can we print pearson and spearman correlation coefficients into/over the graphs?
+
+```
+
+
+### VE2: Variable clustering
+
+A variable clustering analysis has been performed to evaluate which predictors are closely associated. The dendrogram groups predictors by their correlation.
+
+```{r}
+vc_bact<-Hmisc::varclus(as.matrix(c_bact[,variables]))
+plot(vc_bact, cex=0.7, hang=0.01)
+```
+
+In the following scatterplots we show predictor pairs with Spearman correlation coefficients greater than 0.8:
+
+```{r}
+for(j in 1:(length(variables)-1)){
+  for(jj in (j+1):length(variables)){
+    if(abs(corrs[j, jj])>0.8){
+      print(ggplot(c_bact, aes(.data[[variables[j]]], .data[[variables[jj]]]))+geom_point(alpha = alpha_value, shape = 20))
+    }
+  }
+}
+
+```
+
+### VE3: Redundancy
+
+Variance inflation factors (VIF) will be computed between the candidate predictors. This will be done for the three possible candidate models, and using all complete cases in the respective candidate predictor sets.  Since $VIF = (1-R^2)^{-1}$, we also report the multiple R-squared values. Redundancy was further  explored by computing parametric additive models for each predictor in the key predictor model and the extended predictor model. VIFs and multiple $R^2$ are reported from those models, again for the three predictor sets.
+
+
+#### VIF for key predictor model
+
+```{r}
+formula <- as.formula(paste(c("~",paste(bact_variables$key_predictors, collapse="+")), collapse=""))
+
+red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
+vif<-1/(1-red$rsq1)
+
+cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+
+cat("\nVariance inflation factors:\n")
+print(round(vif,2))
+
+cat("\nMultiple R-squared:\n")
+print(round(red$rsq1,4))
+```
+
+#### VIF for model with key predictors and predictors of medium importance
+
+```{r}
+formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors), collapse="+")), collapse=""))
+
+red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
+vif<-1/(1-red$rsq1)
+
+cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+
+cat("\nVariance inflation factors:\n")
+print(round(vif,2))
+
+cat("\nMultiple R-squared:\n")
+print(round(red$rsq1,4))
+```
+
+#### VIF for all predictor model
+
+```{r}
+formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors, bact_variables$remaining_predictors), collapse="+")), collapse=""))
+
+red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
+vif<-1/(1-red$rsq1)
+
+cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+
+cat("\nVariance inflation factors:\n")
+print(round(vif,2))
+
+cat("\nMultiple R-squared:\n")
+print(round(red$rsq1,4))
+```
+
+
+
+
+#### Redundancy by parametric additive model: key predictor model
+
+```{r}
+formula <- as.formula(paste(c("~",paste(bact_variables$key_predictors, collapse="+")), collapse=" "))
+
+red<-Hmisc::redun(formula, data=c_bact, pr=FALSE)
+vif<-1/(1-red$rsq1)
+
+cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+
+cat("\nVariance inflation factors:\n")
+print(round(vif,2))
+
+cat("\nMultiple R-squared:\n")
+print(round(red$rsq1,4))
+```
+
+#### Redundancy by parametric additive model: key predictors and predictors of medium importance
+
+```{r}
+formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors), collapse="+")), collapse=""))
+
+red<-Hmisc::redun(formula, data=c_bact,  pr=FALSE)
+vif<-1/(1-red$rsq1)
+
+cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+
+cat("\nVariance inflation factors:\n")
+print(round(vif,2))
+
+cat("\nMultiple R-squared:\n")
+print(round(red$rsq1,4))
+```
+
+
+#### Redundancy by parametric additive model: all predictors
+
+```{r}
+# For redun(), for heavily clumped predictors, linearity must be enforced
+remaining_predictors_redun <- bact_variables$remaining_predictors
+remaining_predictors_redun[remaining_predictors_redun=="BASO"] <- "I(BASO)"
+remaining_predictors_redun[remaining_predictors_redun=="EOS"] <- "I(EOS)"
+
+formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors, remaining_predictors_redun), collapse="+")), collapse=""))
+
+red<-Hmisc::redun(formula, data=c_bact,  pr=FALSE)
+vif<-1/(1-red$rsq1)
+
+cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+
+cat("\nVariance inflation factors:\n")
+print(round(vif,2))
+
+cat("\nMultiple R-squared:\n")
+print(round(red$rsq1,4))
+```
+
+
