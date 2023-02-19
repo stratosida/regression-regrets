@@ -354,7 +354,7 @@ $ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 719,859
-Columns: 16
+Columns: 17
 $ USUBJID     &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC-2019-005…
 $ SUBJID      &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 100001, 10…
 $ AGE         &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62…
@@ -370,7 +370,8 @@ $ TYPE        &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "numeric",
 $ NOTE        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Measures …
 $ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0044 …
 $ KEY_PRED_FL &lt;chr&gt; NA, NA, NA, "Y", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-$ MED_PRED_FL &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Y…</code></pre>
+$ MED_PRED_FL &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Y…
+$ REM_PRED_FL &lt;chr&gt; "Y", "Y", "Y", NA, "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y",…</code></pre>
 </div>
 </div>
 <p>TODO: something with this text? <em>“For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age.”</em></p>
@@ -745,59 +746,65 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a>      ),</span>
 <span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a>    <span class="at">MED_PRED_FL =</span> <span class="fu">case_when</span>(</span>
 <span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"POTASS"</span>, <span class="st">"FIB"</span>, <span class="st">"CRP"</span>, <span class="st">"ASAT"</span>, <span class="st">"ALAT"</span>, <span class="st">"GGT"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
-<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data04<span class="sc">$</span>KEY_PRED_FL, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Key Predictor Flag"</span></span>
-<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data04<span class="sc">$</span>MED_PRED_FL, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Predictors of medium importance Flag"</span></span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a>    <span class="at">REM_PRED_FL =</span> <span class="fu">case_when</span>(</span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"MCV"</span>, <span class="st">"HGB"</span>, <span class="st">"HCT"</span>, <span class="st">"MCH"</span>, <span class="st">"MCHC"</span>, <span class="st">"RDW"</span>, <span class="st">"MPV"</span>, <span class="st">"LYM"</span>, <span class="st">"MONO"</span>, <span class="st">"EOS"</span>, <span class="st">"BASO"</span>, <span class="st">"NT"</span>, <span class="st">"APTT"</span>, <span class="st">"SODIUM"</span>, <span class="st">"CA"</span>, <span class="st">"PHOS"</span>, <span class="st">"MG"</span>, <span class="st">"HS"</span>, <span class="st">"GBIL"</span>, <span class="st">"TP"</span>, <span class="st">"ALB"</span>, <span class="st">"AMY"</span>, <span class="st">"PAMY"</span>, <span class="st">"LIP"</span>, <span class="st">"CHE"</span>, <span class="st">"AP"</span>, <span class="st">"LDH"</span>, <span class="st">"CK"</span>, <span class="st">"GLU"</span>, <span class="st">"TRIG"</span>, <span class="st">"CHOL"</span>, <span class="st">"BASOR"</span>, <span class="st">"EOSR"</span>, <span class="st">"LYMR"</span>, <span class="st">"MONOR"</span>, <span class="st">"NEUR"</span>, <span class="st">"PDW"</span>, <span class="st">"RBC"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
+<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a>bact_data04 <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
-<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a>TODO: something with this text?</span>
-<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a>*"For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age."*</span>
+<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data04<span class="sc">$</span>KEY_PRED_FL, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Key Predictor Flag"</span></span>
+<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data04<span class="sc">$</span>MED_PRED_FL, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Predictors of medium importance Flag"</span></span>
+<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data04<span class="sc">$</span>REM_PRED_FL, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Remaining Predictors Flag"</span></span>
 <span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a>Derive age groups: For the purpose of stratifying IDA results by age, age will be categorized into the following three groups: <span class="co">[</span><span class="ot">16, 50</span><span class="co">]</span>, (50, 65], (65, 101].</span>
+<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a>bact_data04 <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
+<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r age_groups, warning=FALSE, message=FALSE, echo=FALSE} </span></span>
-<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a>bact_data05 <span class="ot">&lt;-</span></span>
-<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a>  bact_data04 <span class="sc">|&gt;</span></span>
-<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AGEGR01 =</span> <span class="fu">case_when</span>(AGE <span class="sc">&gt;=</span> <span class="dv">16</span>  <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a>                           AGE <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">65</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
-<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a>                           AGE <span class="sc">&gt;</span> <span class="dv">65</span> <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">101</span> <span class="sc">~</span> <span class="dv">3</span>),</span>
-<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a>         <span class="at">AGEGR01C =</span> <span class="fu">case_when</span>(AGEGR01 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"(16, 50]"</span>,</span>
-<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a>                              AGEGR01 <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"(50, 65]"</span>,</span>
-<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a>                              AGEGR01 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"(65, 101]"</span>))</span>
-<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data05<span class="sc">$</span>AGEGR01, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Age group 01 (Numeric coding)"</span></span>
-<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data05<span class="sc">$</span>AGEGR01C, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Age group 01 (Character coding)"</span></span>
-<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a>Save the analysis data sets in to two linked data sets following a strucutre similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specifific data sets are stored in ADLB (a long format data set). </span>
+<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a>TODO: something with this text?</span>
+<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a>*"For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age."*</span>
+<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a>Derive age groups: For the purpose of stratifying IDA results by age, age will be categorized into the following three groups: <span class="co">[</span><span class="ot">16, 50</span><span class="co">]</span>, (50, 65], (65, 101].</span>
+<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r age_groups, warning=FALSE, message=FALSE, echo=FALSE} </span></span>
+<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a>bact_data05 <span class="ot">&lt;-</span></span>
+<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a>  bact_data04 <span class="sc">|&gt;</span></span>
+<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AGEGR01 =</span> <span class="fu">case_when</span>(AGE <span class="sc">&gt;=</span> <span class="dv">16</span>  <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a>                           AGE <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">65</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a>                           AGE <span class="sc">&gt;</span> <span class="dv">65</span> <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">101</span> <span class="sc">~</span> <span class="dv">3</span>),</span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a>         <span class="at">AGEGR01C =</span> <span class="fu">case_when</span>(AGEGR01 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"(16, 50]"</span>,</span>
+<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a>                              AGEGR01 <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"(50, 65]"</span>,</span>
+<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a>                              AGEGR01 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"(65, 101]"</span>))</span>
 <span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a>ADSL:</span>
-<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r save_adsl, warning=FALSE, message=FALSE, echo=FALSE} </span></span>
-<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a>ADSL <span class="ot">&lt;-</span> bact_data05 <span class="sc">%&gt;%</span></span>
-<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(PARAMCD <span class="sc">==</span> <span class="st">"WBC"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, SUBJID, AGE, AGEGR01, AGEGR01C, SEX, SEXC, BACTEREMIA, BACTEREMIAN)</span>
-<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ADSL, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADSL_01.rds"</span>))</span>
-<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>ADLB: *Note AGE is kept in ADLB as it is a key predictor*</span>
-<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r save_adlb, warning=FALSE, message=FALSE, echo=FALSE} </span></span>
-<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a>ADLB <span class="ot">&lt;-</span> bact_data05 <span class="sc">%&gt;%</span></span>
-<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>AGEGR01, <span class="sc">-</span>AGEGR01C, <span class="sc">-</span>SEX, <span class="sc">-</span>SEXC, <span class="sc">-</span>BACTEREMIA, <span class="sc">-</span>BACTEREMIAN)</span>
-<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ADLB, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADLB_01.rds"</span>))</span>
-<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a>Note. At this point both ADSL and ADLB are intermediate files that will be used for further IDA. Findings in IDA may require updates to either data set. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data05<span class="sc">$</span>AGEGR01, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Age group 01 (Numeric coding)"</span></span>
+<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data05<span class="sc">$</span>AGEGR01C, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Age group 01 (Character coding)"</span></span>
+<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a>Save the analysis data sets in to two linked data sets following a strucutre similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specifific data sets are stored in ADLB (a long format data set). </span>
+<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a>ADSL:</span>
+<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r save_adsl, warning=FALSE, message=FALSE, echo=FALSE} </span></span>
+<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a>ADSL <span class="ot">&lt;-</span> bact_data05 <span class="sc">%&gt;%</span></span>
+<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(PARAMCD <span class="sc">==</span> <span class="st">"WBC"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, SUBJID, AGE, AGEGR01, AGEGR01C, SEX, SEXC, BACTEREMIA, BACTEREMIAN)</span>
+<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ADSL, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADSL_01.rds"</span>))</span>
+<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a>ADLB: *Note AGE is kept in ADLB as it is a key predictor*</span>
+<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a><span class="in">```{r save_adlb, warning=FALSE, message=FALSE, echo=FALSE} </span></span>
+<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a>ADLB <span class="ot">&lt;-</span> bact_data05 <span class="sc">%&gt;%</span></span>
+<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>AGEGR01, <span class="sc">-</span>AGEGR01C, <span class="sc">-</span>SEX, <span class="sc">-</span>SEXC, <span class="sc">-</span>BACTEREMIA, <span class="sc">-</span>BACTEREMIAN)</span>
+<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ADLB, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADLB_01.rds"</span>))</span>
+<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a>Note. At this point both ADSL and ADLB are intermediate files that will be used for further IDA. Findings in IDA may require updates to either data set. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

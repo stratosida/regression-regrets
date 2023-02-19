@@ -117,20 +117,33 @@ source(here::here("TMP-plot-function.R"))
 
 ```{r uni03}
 #| layout-ncol: 2
-unique.variables <- unique(medimp_predictors)
-for(j in 1:length(unique.variables)){
-  print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
-}
+# unique.variables <- unique(medimp_predictors)
+# for(j in 1:length(unique.variables)){
+#   print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
+# }
+
+source("TMP-plot-function.R")
+  ADLB |> 
+  filter(MED_PRED_FL == "Y") |> 
+  group_by(PARAMCD) |> 
+  group_map(~ describe_plot(.x))
+
 ```
 
 #### U2: Remaining predictors
 
 ```{r uni04}
 #| layout-ncol: 2
-unique.variables <- unique(remaining_predictors)
-for(j in 1:length(unique.variables)){
-  print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
-}
+# unique.variables <- unique(remaining_predictors)
+# for(j in 1:length(unique.variables)){
+#   print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
+# }
+source("TMP-plot-function.R")
+  ADLB |> 
+  filter(REM_PRED_FL == "Y") |> 
+  group_by(PARAMCD) |> 
+  group_map(~ describe_plot(.x))
+
 ```
 
 ### Numerical summaries
@@ -163,69 +176,70 @@ ARD  |> glimpse()
 
 ```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
 
-dat <- a_bact_02 %>%
-  select(any_of(unique.variables)) 
-
-dfSummary(
-  dat,
-  varnumbers = FALSE,
-  round.digits = 2,
-  plain.ascii = FALSE,
-  style = "grid",
-  graph.magnif = .33,
-  valid.col = FALSE,
-  tmp.img.dir = "img"
-)
+# dat <- a_bact_02 %>%
+#   select(any_of(unique.variables)) 
+# 
+# dfSummary(
+#   dat,
+#   varnumbers = FALSE,
+#   round.digits = 2,
+#   plain.ascii = FALSE,
+#   style = "grid",
+#   graph.magnif = .33,
+#   valid.col = FALSE,
+#   tmp.img.dir = "img"
+# )
 ```
 
 
 #### Predictors of medium importance
 
 ```{r uni06, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
-unique.variables <- unique(medimp_predictors)
-#for(j in 1:length(unique.variables)){
-#  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), #"]):\n\n")
-#  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))
-#}
 
-dat <- a_bact_02 %>%
-  select(any_of(unique.variables)) 
-
-dfSummary(
-  dat,
-  varnumbers = FALSE,
-  round.digits = 2,
-  plain.ascii = FALSE,
-  style = "grid",
-  graph.magnif = .33,
-  valid.col = FALSE,
-  tmp.img.dir = "img"
-)
+# unique.variables <- unique(medimp_predictors)
+# #for(j in 1:length(unique.variables)){
+# #  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), #"]):\n\n")
+# #  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))
+# #}
+# 
+# dat <- a_bact_02 %>%
+#   select(any_of(unique.variables)) 
+# 
+# dfSummary(
+#   dat,
+#   varnumbers = FALSE,
+#   round.digits = 2,
+#   plain.ascii = FALSE,
+#   style = "grid",
+#   graph.magnif = .33,
+#   valid.col = FALSE,
+#   tmp.img.dir = "img"
+# )
 
 ```
 
 #### Remaining predictors
 
 ```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
-unique.variables <- unique(remaining_predictors)
-#for(j in 1:length(unique.variables)){
-#  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), #"]):\n\n")
-#  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))
-#}
-
-dat <- a_bact_02 %>%
-  select(any_of(unique.variables)) 
-
-dfSummary(
-  dat,
-  varnumbers = FALSE,
-  round.digits = 2,
-  plain.ascii = FALSE,
-  style = "grid",
-  graph.magnif = .33,
-  valid.col = FALSE,
-  tmp.img.dir = "img"
-)
+# unique.variables <- unique(remaining_predictors)
+# #for(j in 1:length(unique.variables)){
+# #  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), #"]):\n\n")
+# #  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))
+# #}
+# 
+# dat <- a_bact_02 %>%
+#   select(any_of(unique.variables)) 
+# 
+# dfSummary(
+#   dat,
+#   varnumbers = FALSE,
+#   round.digits = 2,
+#   plain.ascii = FALSE,
+#   style = "grid",
+#   graph.magnif = .33,
+#   valid.col = FALSE,
+#   tmp.img.dir = "img"
+# )
 
 ```
 
@@ -234,47 +248,47 @@ dfSummary(
 Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function `ida_trans` for this purpose, which optimises the parameter `sigma` of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.
 
 ```{r uni08, message =FALSE, warning =FALSE , echo=FALSE}
-variables<- c(structural_vars, key_predictors, medimp_predictors, remaining_predictors)
-unique.variables <- unique(variables)
-
-# TODO: using b_bact. Track down the formatting issue
-res<-sapply(unique.variables, function(X) ida_trans(b_bact[,X], equ.marg=0.2)$const) #takes long, calculate once, and save?
-res
-cat("Predictors where a transformation may symmetrize the distribution:\n")
-cat("Number:     ", sum(!is.na(res)), "\n")
-cat("Proportion: ", mean(!is.na(res)), "\n")
+# variables<- c(structural_vars, key_predictors, medimp_predictors, remaining_predictors)
+# unique.variables <- unique(variables)
+# 
+# # TODO: using b_bact. Track down the formatting issue
+# res<-sapply(unique.variables, function(X) ida_trans(b_bact[,X], equ.marg=0.2)$const) #takes long, calculate once, and save?
+# res
+# cat("Predictors where a transformation may symmetrize the distribution:\n")
+# cat("Number:     ", sum(!is.na(res)), "\n")
+# cat("Proportion: ", mean(!is.na(res)), "\n")
 ```
 
 Register transformed variables in the data set:
 
 ```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}
-
-for(j in 1:length(unique.variables)){
-  if(!is.na(res[j])){
-    newname <- paste("t_",unique.variables[j],sep="")
-    newlabel <- paste("pseudo-log of",label(b_bact)[unique.variables[j]])
-    names(newlabel)<-newname
-    x<-pseudo_log(b_bact[[unique.variables[j]]], sigma=res[j], base=10)
-    label(x)<-newlabel
-    b_bact[[newname]] <- x
-    upData(b_bact, labels=newlabel)
-  }
-}
-
-sigma_values <- res
-
-
-c_bact <- b_bact
-
-# update variable lists - generate a second list with transformed variables replacing the originals
-
-bact_transformed <- bact_variables
-
-for(j in 1:length(bact_variables)){
-  for(jj in 1:length(bact_variables[[j]])){
-      if(!is.na(res[bact_variables[[j]][jj]])) bact_transformed[[j]][jj] <- paste("t_", bact_variables[[j]][jj], sep="")
-  }
-}
+# 
+# for(j in 1:length(unique.variables)){
+#   if(!is.na(res[j])){
+#     newname <- paste("t_",unique.variables[j],sep="")
+#     newlabel <- paste("pseudo-log of",label(b_bact)[unique.variables[j]])
+#     names(newlabel)<-newname
+#     x<-pseudo_log(b_bact[[unique.variables[j]]], sigma=res[j], base=10)
+#     label(x)<-newlabel
+#     b_bact[[newname]] <- x
+#     upData(b_bact, labels=newlabel)
+#   }
+# }
+# 
+# sigma_values <- res
+# 
+# 
+# c_bact <- b_bact
+# 
+# # update variable lists - generate a second list with transformed variables replacing the originals
+# 
+# bact_transformed <- bact_variables
+# 
+# for(j in 1:length(bact_variables)){
+#   for(jj in 1:length(bact_variables[[j]])){
+#       if(!is.na(res[bact_variables[[j]][jj]])) bact_transformed[[j]][jj] <- paste("t_", bact_variables[[j]][jj], sep="")
+#   }
+# }
 
 
 ```
@@ -286,19 +300,19 @@ The comparison is only shown for variables where a transformation is suggested.
 
 ```{r uni10}
 #| layout-ncol: 1
-for(j in 1:length(unique.variables)){
- if(!is.na(sigma_values[j])){
-   print(ida_plot_univar_orig_vs_trans(c_bact, unique.variables[j], sigma=sigma_values[j], n_bars=100))
- }
-}
+# for(j in 1:length(unique.variables)){
+#  if(!is.na(sigma_values[j])){
+#    print(ida_plot_univar_orig_vs_trans(c_bact, unique.variables[j], sigma=sigma_values[j], n_bars=100))
+#  }
+# }
 
 ## COMMENT @Mark we must pick two from these plots for the paper - the old version has BUN which is now no longer transformed (as we raised the threshold for indicating relevance of a  pseudolog transformation) I would suggest ASAT and GGT. Can you please produce a TIF plot for these two (similar to what we already have in the paper?)
 ```
 
 
 ```{r uni11}
-save(list=c("b_bact", "c_bact", "bact_variables", "sigma_values", "bact_transformed"), 
-     file=here::here("data", "bact_env_c.rda"))
+# save(list=c("b_bact", "c_bact", "bact_variables", "sigma_values", "bact_transformed"), 
+#      file=here::here("data", "bact_env_c.rda"))
 ```
 
 

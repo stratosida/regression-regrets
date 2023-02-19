@@ -152,11 +152,17 @@ bact_data04 <-
       ),
     MED_PRED_FL = case_when(
       PARAMCD %in% c("POTASS", "FIB", "CRP", "ASAT", "ALAT", "GGT") ~ "Y"
+      ),
+    REM_PRED_FL = case_when(
+      PARAMCD %in% c("MCV", "HGB", "HCT", "MCH", "MCHC", "RDW", "MPV", "LYM", "MONO", "EOS", "BASO", "NT", "APTT", "SODIUM", "CA", "PHOS", "MG", "HS", "GBIL", "TP", "ALB", "AMY", "PAMY", "LIP", "CHE", "AP", "LDH", "CK", "GLU", "TRIG", "CHOL", "BASOR", "EOSR", "LYMR", "MONOR", "NEUR", "PDW", "RBC") ~ "Y"
       )
   )
 
+
+
 attr(bact_data04$KEY_PRED_FL, "label") <- "Key Predictor Flag"
 attr(bact_data04$MED_PRED_FL, "label") <- "Predictors of medium importance Flag"
+attr(bact_data04$REM_PRED_FL, "label") <- "Remaining Predictors Flag"
 
 bact_data04 |> glimpse()
 ```

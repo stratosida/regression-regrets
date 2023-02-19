@@ -47,6 +47,8 @@ source(here::here("describe_long_dataset.R"))
 ARD <- describe_long_dataset(ADLB)
 ARD  |> glimpse()
 
+ARD |> filter(PARAMCD == "APTT") 
+
 gg <- ADLB |> 
   filter(PARAMCD == "APTT") |>
   describe_plot()
@@ -56,16 +58,25 @@ gg
 ADLB %>% 
   dplyr::filter(PARAMCD == "EOS") 
 
+ida_plot_univar <- function(data, var, n_dodge = 1, 
+                            bin_width = diff(range(data[[var]],na.rm=T))/min(length(unique(data[[var]])),100), 
+                            sigma = NA, n_bars=100, transform = TRUE)  
+  
+source("ida_plot_univar.R")
+print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
 
+ADLB |> 
+  filter(PARAMCD == "APTT") |>
+  ida_plot_univar( var = "APTT", sigma=NA, n_bars=100, transform = FALSE)  
 
 ## loop around all groups
 #plots <- 
+source("TMP-plot-function.R")
   ADLB |> 
   filter(KEY_PRED_FL == "Y") |> 
   group_by(PARAMCD) |> 
   group_map(~ describe_plot(.x))
 
-plots
 
   
 

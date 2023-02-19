@@ -16,7 +16,7 @@ dat <- data |>
 
 ## get bin width 
 bw <- .bin_width(dat$AVAL)
-#bw
+bw
 
 ## expand range 
 rng_vals <- scales::expand_range(range(dat$AVAL, na.rm = TRUE), mul = 0.01)
@@ -123,8 +123,8 @@ p3 <-dat |>
 
 # layout for combined plot
 # histogram has more area
-layout <- c(patchwork::area(1, 1, 10, 6),
-            patchwork::area(8, 1, 10, 6) #, patchwork::area(18, 1, 18, 6)
+layout <- c(patchwork::area(1, 1, 9, 6),
+            patchwork::area(10, 1, 10, 6) #, patchwork::area(18, 1, 18, 6)
 )
 
 ## combine plots
