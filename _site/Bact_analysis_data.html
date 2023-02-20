@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression without regrets - 1&nbsp; Analysis ready data</title>
+<title>Regression without regrets - 3&nbsp; Analysis ready data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./Bact_missing.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./Bact_IDA_plan.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analysis ready data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -164,17 +164,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analysis ready data</span></a>
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_analysis_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
   </div>
 </li>
     </ul>
@@ -186,8 +196,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#analysis-ready-dataset" id="toc-analysis-ready-dataset" class="nav-link active" data-scroll-target="#analysis-ready-dataset"><span class="toc-section-number">1.1</span>  Analysis ready dataset</a></li>
-  <li><a href="#steps" id="toc-steps" class="nav-link" data-scroll-target="#steps"><span class="toc-section-number">1.2</span>  Steps</a></li>
+  <li><a href="#analysis-ready-dataset" id="toc-analysis-ready-dataset" class="nav-link active" data-scroll-target="#analysis-ready-dataset"><span class="toc-section-number">3.1</span>  Analysis ready dataset</a></li>
+  <li><a href="#steps" id="toc-steps" class="nav-link" data-scroll-target="#steps"><span class="toc-section-number">3.2</span>  Steps</a></li>
   </ul>
 </nav>
     </div>
@@ -196,7 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="ARD" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analysis ready data</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="ARD" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -215,39 +225,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 <p>Based on the IDA plan prepare the data to be analysis ready: read, clean and tidy.</p>
-<section id="analysis-ready-dataset" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="analysis-ready-dataset"><span class="header-section-number">1.1</span> Analysis ready dataset</h2>
+<section id="analysis-ready-dataset" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="analysis-ready-dataset"><span class="header-section-number">3.1</span> Analysis ready dataset</h2>
 <p>The aim of this section and the remaining chapters of the report are to document the steps taken towards transforming the <em>source</em> data set to an <em>analysis ready</em> data set.</p>
 <p>In this section, additional meta-data is added to the <em>source</em> data set.</p>
 <p>We write this new modified (annotated) data set back to the <code>data</code> folder after adding additional meta-data for all variables. The meta-data is taken from the data dictionary. The aim is to produce an analysis ready data set for the research objective.</p>
 <p>At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.</p>
 </section>
-<section id="steps" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="steps"><span class="header-section-number">1.2</span> Steps</h2>
+<section id="steps" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="steps"><span class="header-section-number">3.2</span> Steps</h2>
 <p>Read in the source data dictionary</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 53 Columns: 7
-── Column specification ────────────────────────────────────────────────────────
+-- Column specification --------------------------------------------------------
 Delimiter: ","
 chr (6): Variable, Label, Scale.of.measurement, Units, Remark, From.paper
 dbl (1): VariableNr
 
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
 <p>Read in the source data.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 14691 Columns: 53
-── Column specification ────────────────────────────────────────────────────────
+-- Column specification --------------------------------------------------------
 Delimiter: ","
 chr  (1): BloodCulture
 dbl (52): ID, SEX, AGE, MCV, HGB, HCT, PLT, MCH, MCHC, RDW, MPV, LYM, MONO, ...
 
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
 <p>Transform source data t long format for lab measurements. This will enable efficeint processing later.</p>
@@ -266,29 +276,29 @@ dbl (52): ID, SEX, AGE, MCV, HGB, HCT, PLT, MCH, MCHC, RDW, MPV, LYM, MONO, ...
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 719,859
 Columns: 23
-$ ID                   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-$ SEX                  &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
-$ AGE                  &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 6…
-$ BloodCulture         &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "…
-$ PARAMCD              &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW",…
-$ AVAL                 &lt;dbl&gt; 99.30, 11.50, 35.90, 307.00, 31.50, 31.80, 19.50,…
-$ variable_nr          &lt;dbl&gt; 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
-$ variable             &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW",…
-$ label                &lt;chr&gt; "Mean corpuscular volume", "Haemoglobin", "Haemat…
-$ scale_of_measurement &lt;chr&gt; "continuous", "continuous", "continuous", "contin…
-$ units                &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl",…
-$ remark               &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "…
-$ from_paper           &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5…
-$ UNIT                 &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl",…
-$ TYPE                 &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "nume…
-$ NOTE                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "…
-$ NOTE2                &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5…
-$ SEXC                 &lt;chr&gt; "female", "female", "female", "female", "female",…
-$ SUBJID               &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 1…
-$ USUBJID              &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC…
-$ PARAM                &lt;chr&gt; "Mean corpuscular volume (pg)", "Haemoglobin (G/L…
-$ BACTEREMIA           &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "…
-$ BACTEREMIAN          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</code></pre>
+$ ID                   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
+$ SEX                  &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2~
+$ AGE                  &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 6~
+$ BloodCulture         &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "~
+$ PARAMCD              &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW",~
+$ AVAL                 &lt;dbl&gt; 99.30, 11.50, 35.90, 307.00, 31.50, 31.80, 19.50,~
+$ variable_nr          &lt;dbl&gt; 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,~
+$ variable             &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW",~
+$ label                &lt;chr&gt; "Mean corpuscular volume", "Haemoglobin", "Haemat~
+$ scale_of_measurement &lt;chr&gt; "continuous", "continuous", "continuous", "contin~
+$ units                &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl",~
+$ remark               &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "~
+$ from_paper           &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5~
+$ UNIT                 &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl",~
+$ TYPE                 &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "nume~
+$ NOTE                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "~
+$ NOTE2                &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5~
+$ SEXC                 &lt;chr&gt; "female", "female", "female", "female", "female",~
+$ SUBJID               &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 1~
+$ USUBJID              &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC~
+$ PARAM                &lt;chr&gt; "Mean corpuscular volume (pg)", "Haemoglobin (G/L~
+$ BACTEREMIA           &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "~
+$ BACTEREMIAN          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~</code></pre>
 </div>
 </div>
 <p>Select and re-roder the variables as per the data set specification.</p>
@@ -296,20 +306,20 @@ $ BACTEREMIAN          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 719,859
 Columns: 14
-$ USUBJID     &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC-2019-005…
-$ SUBJID      &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 100001, 10…
-$ AGE         &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62…
-$ SEX         &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
-$ SEXC        &lt;chr&gt; "female", "female", "female", "female", "female", "female"…
-$ BACTEREMIA  &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"…
-$ BACTEREMIAN &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-$ PARAM       &lt;chr&gt; "Mean corpuscular volume (pg)", "Haemoglobin (G/L)", "Haem…
-$ PARAMCD     &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW", "MPV", "…
-$ AVAL        &lt;dbl&gt; 99.30, 11.50, 35.90, 307.00, 31.50, 31.80, 19.50, 10.80, 0…
-$ UNIT        &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl", "G/L", "…
-$ TYPE        &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "numeric", "nu…
-$ NOTE        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Measures …
-$ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0044 …</code></pre>
+$ USUBJID     &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC-2019-005~
+$ SUBJID      &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 100001, 10~
+$ AGE         &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62~
+$ SEX         &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2~
+$ SEXC        &lt;chr&gt; "female", "female", "female", "female", "female", "female"~
+$ BACTEREMIA  &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"~
+$ BACTEREMIAN &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+$ PARAM       &lt;chr&gt; "Mean corpuscular volume (pg)", "Haemoglobin (G/L)", "Haem~
+$ PARAMCD     &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW", "MPV", "~
+$ AVAL        &lt;dbl&gt; 99.30, 11.50, 35.90, 307.00, 31.50, 31.80, 19.50, 10.80, 0~
+$ UNIT        &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl", "G/L", "~
+$ TYPE        &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "numeric", "nu~
+$ NOTE        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Measures ~
+$ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0044 ~</code></pre>
 </div>
 </div>
 <p>Add variable metadata as label attributes</p>
@@ -317,20 +327,20 @@ $ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 719,859
 Columns: 14
-$ USUBJID     &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC-2019-005…
-$ SUBJID      &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 100001, 10…
-$ AGE         &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62…
-$ SEX         &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
-$ SEXC        &lt;chr&gt; "female", "female", "female", "female", "female", "female"…
-$ BACTEREMIA  &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"…
-$ BACTEREMIAN &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-$ PARAM       &lt;chr&gt; "Mean corpuscular volume (pg)", "Haemoglobin (G/L)", "Haem…
-$ PARAMCD     &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW", "MPV", "…
-$ AVAL        &lt;dbl&gt; 99.30, 11.50, 35.90, 307.00, 31.50, 31.80, 19.50, 10.80, 0…
-$ UNIT        &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl", "G/L", "…
-$ TYPE        &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "numeric", "nu…
-$ NOTE        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Measures …
-$ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0044 …</code></pre>
+$ USUBJID     &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC-2019-005~
+$ SUBJID      &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 100001, 10~
+$ AGE         &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62~
+$ SEX         &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2~
+$ SEXC        &lt;chr&gt; "female", "female", "female", "female", "female", "female"~
+$ BACTEREMIA  &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"~
+$ BACTEREMIAN &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+$ PARAM       &lt;chr&gt; "Mean corpuscular volume (pg)", "Haemoglobin (G/L)", "Haem~
+$ PARAMCD     &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW", "MPV", "~
+$ AVAL        &lt;dbl&gt; 99.30, 11.50, 35.90, 307.00, 31.50, 31.80, 19.50, 10.80, 0~
+$ UNIT        &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl", "G/L", "~
+$ TYPE        &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "numeric", "nu~
+$ NOTE        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Measures ~
+$ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0044 ~</code></pre>
 </div>
 </div>
 <p>Check we have not introduced any errors with the outcome variable.</p>
@@ -355,23 +365,23 @@ $ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 719,859
 Columns: 17
-$ USUBJID     &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC-2019-005…
-$ SUBJID      &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 100001, 10…
-$ AGE         &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62…
-$ SEX         &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
-$ SEXC        &lt;chr&gt; "female", "female", "female", "female", "female", "female"…
-$ BACTEREMIA  &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"…
-$ BACTEREMIAN &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-$ PARAM       &lt;chr&gt; "Mean corpuscular volume (pg)", "Haemoglobin (G/L)", "Haem…
-$ PARAMCD     &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW", "MPV", "…
-$ AVAL        &lt;dbl&gt; 99.30, 11.50, 35.90, 307.00, 31.50, 31.80, 19.50, 10.80, 0…
-$ UNIT        &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl", "G/L", "…
-$ TYPE        &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "numeric", "nu…
-$ NOTE        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Measures …
-$ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0044 …
-$ KEY_PRED_FL &lt;chr&gt; NA, NA, NA, "Y", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-$ MED_PRED_FL &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Y…
-$ REM_PRED_FL &lt;chr&gt; "Y", "Y", "Y", NA, "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y",…</code></pre>
+$ USUBJID     &lt;chr&gt; "DC-2019-0054-100001", "DC-2019-0054-100001", "DC-2019-005~
+$ SUBJID      &lt;dbl&gt; 100001, 100001, 100001, 100001, 100001, 100001, 100001, 10~
+$ AGE         &lt;dbl&gt; 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62, 62~
+$ SEX         &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2~
+$ SEXC        &lt;chr&gt; "female", "female", "female", "female", "female", "female"~
+$ BACTEREMIA  &lt;chr&gt; "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"~
+$ BACTEREMIAN &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+$ PARAM       &lt;chr&gt; "Mean corpuscular volume (pg)", "Haemoglobin (G/L)", "Haem~
+$ PARAMCD     &lt;chr&gt; "MCV", "HGB", "HCT", "PLT", "MCH", "MCHC", "RDW", "MPV", "~
+$ AVAL        &lt;dbl&gt; 99.30, 11.50, 35.90, 307.00, 31.50, 31.80, 19.50, 10.80, 0~
+$ UNIT        &lt;chr&gt; "pg", "G/L", "%", "G/L", "fl", "g/dl", "%", "fl", "G/L", "~
+$ TYPE        &lt;chr&gt; "numeric", "numeric", "numeric", "numeric", "numeric", "nu~
+$ NOTE        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Measures ~
+$ NOTE2       &lt;chr&gt; "MCV (pg) 15,941 88.1 (84.6?91.9) 88.6 (84.8?92.5) 0.0044 ~
+$ KEY_PRED_FL &lt;chr&gt; NA, NA, NA, "Y", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+$ MED_PRED_FL &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Y~
+$ REM_PRED_FL &lt;chr&gt; "Y", "Y", "Y", NA, "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y",~</code></pre>
 </div>
 </div>
 <p>TODO: something with this text? <em>“For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age.”</em></p>
@@ -379,7 +389,7 @@ $ REM_PRED_FL &lt;chr&gt; "Y", "Y", "Y", NA, "Y", "Y", "Y", "Y", "Y", "Y", "Y", 
 <div class="cell">
 
 </div>
-<p>Save the analysis data sets in to two linked data sets following a strucutre similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specifific data sets are stored in ADLB (a long format data set).</p>
+<p>Save the analysis data sets in to two linked data sets following a structure similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specific data sets are stored in ADLB (a long format data set).</p>
 <p>ADSL:</p>
 <div class="cell">
 
@@ -582,13 +592,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./Bact_IDA_plan.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Bact_missing.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -773,7 +783,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AGEGR01 =</span> <span class="fu">case_when</span>(AGE <span class="sc">&gt;=</span> <span class="dv">16</span>  <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a>                           AGE <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">65</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
 <span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a>                           AGE <span class="sc">&gt;</span> <span class="dv">65</span> <span class="sc">&amp;</span> AGE <span class="sc">&lt;=</span> <span class="dv">101</span> <span class="sc">~</span> <span class="dv">3</span>),</span>
-<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a>         <span class="at">AGEGR01C =</span> <span class="fu">case_when</span>(AGEGR01 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"(16, 50]"</span>,</span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a>         <span class="at">AGEGR01C =</span> <span class="fu">case_when</span>(AGEGR01 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"[16, 50]"</span>,</span>
 <span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a>                              AGEGR01 <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"(50, 65]"</span>,</span>
 <span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a>                              AGEGR01 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"(65, 101]"</span>))</span>
 <span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a></span>
@@ -781,7 +791,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(bact_data05<span class="sc">$</span>AGEGR01C, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Age group 01 (Character coding)"</span></span>
 <span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a>Save the analysis data sets in to two linked data sets following a strucutre similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specifific data sets are stored in ADLB (a long format data set). </span>
+<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a>Save the analysis data sets in to two linked data sets following a structure similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specific data sets are stored in ADLB (a long format data set). </span>
 <span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a>ADSL:</span>
 <span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a></span>

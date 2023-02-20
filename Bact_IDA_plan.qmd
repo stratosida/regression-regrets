@@ -1,5 +1,17 @@
 # IDA plan {#IDA_plan}
 
+
+
+```{r planintro01, warning=FALSE, message=FALSE}
+## Load libraries for this chapter
+library(readr)
+library(dplyr)
+library(gt)
+library(janitor)
+library(here)
+```
+
+
 This document exemplifies the pre-specified plan for initial data analysis (IDA plan) for the bacteremia study.
 
 ## Prerequisites for the IDA plan

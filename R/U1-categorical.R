@@ -18,15 +18,42 @@ u1_describe <- function(ADSL){
 
 u1_display_table <- function(ARD){
 
+  require(gt)
   require(gtExtras)
   
-  ARD |>
+  #  Columns: 5
+  #  $ name  <chr> "AGEGR01C", "AGEGR01C", "AGEGR01C", "BACTEREMIA", "BACTEREMIA", "SEXC", "SEXC"
+  #  $ value <chr> "(16, 50]", "(50, 65]", "(65, 101]", "no", "yes", "female", "male"
+  #  $ freq  <int> 5365, 4250, 5076, 13511, 1180, 6155, 8536
+  #  $ prop  <dbl> 0.36518957, 0.28929276, 0.34551766, 0.91967871, 0.08032129, 0.41896399, 0.58103601
+  #  $ perc  <dbl> 36.518957, 28.929276, 34.551766, 91.967871, 8.032129, 41.896399, 58.103601
+  
+  
+  u1_gt <- 
+    ARD |>
+    dplyr::select(name, value, freq, perc, prop) |>
     group_by(name)|>
     gt() |>
-    cols_align("center", contains("scale")) |>
-    cols_width(4 ~ px(125),
-               5 ~ px(125)) |>
-    gt_plt_bar(column = prop, keep_column = TRUE, width = 20,color = "lightblue")
+    #    gt_plt_bar(column = perc, keep_column = TRUE, width = 40,color = "lightblue", scale_type = "percent", text_color = "black") |>
+    gt_plt_bar(column = prop, keep_column = FALSE, width = 40,color = "lightblue", labels = "percentage") |>
+    gt::cols_label(
+      value = "Category",
+      freq = "Count",
+      prop = "",
+      perc = "%"
+    ) |>
+    cols_align("right", contains("scale")) |>
+    cols_width(1 ~ px(100),
+               2 ~ px(75),
+               3 ~ px(75),
+               4 ~ px(125)) |>
+    gt::fmt_number(
+      columns = c(perc),
+      decimals = 1
+    )  |>
+    gt_theme_nytimes()
+  
+  return(u1_gt)
   
 }
 
@@ -39,13 +66,7 @@ u1_display_plot <- function(ARD){
 #library(gt)
 #gt_plt_summary(ADSL)
 
-#  Columns: 5
-#  $ name  <chr> "AGEGR01C", "AGEGR01C", "AGEGR01C", "BACTEREMIA", "BACTEREMIA", "SEXC", "SEXC"
-#  $ value <chr> "(16, 50]", "(50, 65]", "(65, 101]", "no", "yes", "female", "male"
-#  $ freq  <int> 5365, 4250, 5076, 13511, 1180, 6155, 8536
-#  $ prop  <dbl> 0.36518957, 0.28929276, 0.34551766, 0.91967871, 0.08032129, 0.41896399, 0.58103601
-#  $ perc  <dbl> 36.518957, 28.929276, 34.551766, 91.967871, 8.032129, 41.896399, 58.103601
-  
+
 ARD %>%
   filter(!(name == "USUBJID")) |>
   ggplot(aes(

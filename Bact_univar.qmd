@@ -25,21 +25,21 @@ ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
 SEX and BC (bactermia status) are described by frequencies and proportions in each category.
 
 ```{r catplot, message=FALSE, warning =FALSE , echo=FALSE}
-source("U1-categorical.R")
+source(here("R", "U1-categorical.R"))
 
-ard <- u1_describe(ADSL = ADSL)
-ard |> glimpse()
+u1_ard <- u1_describe(ADSL = ADSL)
+u1_ard |> glimpse()
 ```
 
 ```{r}
-library(gt)
-u1_display_table(ard)
+source(here("R", "U1-categorical.R"))
+u1_gt <- u1_display_table(u1_ard)
+u1_gt
 ```
 
 
 ```{r}
-ard |> glimpse()
-u1_display_plot(ard)
+u1_display_plot(u1_ard)
 ```
 
 

@@ -179,7 +179,7 @@ bact_data05 <-
   mutate(AGEGR01 = case_when(AGE >= 16  & AGE <= 50 ~ 1,
                            AGE > 50 & AGE <= 65 ~ 2,
                            AGE > 65 & AGE <= 101 ~ 3),
-         AGEGR01C = case_when(AGEGR01 == 1 ~ "(16, 50]",
+         AGEGR01C = case_when(AGEGR01 == 1 ~ "[16, 50]",
                               AGEGR01 == 2 ~ "(50, 65]",
                               AGEGR01 == 3 ~ "(65, 101]"))
 
@@ -187,7 +187,7 @@ attr(bact_data05$AGEGR01, "label") <- "Age group 01 (Numeric coding)"
 attr(bact_data05$AGEGR01C, "label") <- "Age group 01 (Character coding)"
 ```
 
-Save the analysis data sets in to two linked data sets following a strucutre similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specifific data sets are stored in ADLB (a long format data set). 
+Save the analysis data sets in to two linked data sets following a structure similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specific data sets are stored in ADLB (a long format data set). 
 
 ADSL:
 

@@ -5,11 +5,8 @@
 library(readr)
 library(dplyr)
 library(gt)
-library(Hmisc)
-library(skimr)
 library(janitor)
 library(here)
-library(DT)
 ```
 
 
