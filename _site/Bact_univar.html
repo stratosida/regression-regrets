@@ -180,8 +180,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#u2-univariate-distributions-of-continuous-variables" id="toc-u2-univariate-distributions-of-continuous-variables" class="nav-link" data-scroll-target="#u2-univariate-distributions-of-continuous-variables"><span class="toc-section-number">1.2.1</span>  U2: Univariate distributions of continuous variables</a></li>
   <li><a href="#numerical-summaries" id="toc-numerical-summaries" class="nav-link" data-scroll-target="#numerical-summaries"><span class="toc-section-number">1.2.2</span>  Numerical summaries</a></li>
-  <li><a href="#suggested-transformations" id="toc-suggested-transformations" class="nav-link" data-scroll-target="#suggested-transformations"><span class="toc-section-number">1.2.3</span>  Suggested transformations</a></li>
-  <li><a href="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" id="toc-comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="nav-link" data-scroll-target="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="toc-section-number">1.2.4</span>  Comparison of univariate distributions with and without pseudo-log transformation</a></li>
+  <li><a href="#data-frame-summary" id="toc-data-frame-summary" class="nav-link" data-scroll-target="#data-frame-summary"><span class="toc-section-number">1.2.3</span>  Data Frame Summary</a></li>
+  <li><a href="#suggested-transformations" id="toc-suggested-transformations" class="nav-link" data-scroll-target="#suggested-transformations"><span class="toc-section-number">1.2.4</span>  Suggested transformations</a></li>
+  <li><a href="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" id="toc-comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="nav-link" data-scroll-target="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="toc-section-number">1.2.5</span>  Comparison of univariate distributions with and without pseudo-log transformation</a></li>
   </ul></li>
   <li><a href="#section-session-info" id="toc-section-session-info" class="nav-link" data-scroll-target="#section-session-info"><span class="toc-section-number">1.3</span>  Section session info</a></li>
   </ul>
@@ -218,23 +219,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 7
 Columns: 5
-$ name  &lt;chr&gt; "AGEGR01C", "AGEGR01C", "AGEGR01C", "BACTEREMIA", "BACTEREMIA", ~
-$ value &lt;chr&gt; "(50, 65]", "(65, 101]", "[16, 50]", "no", "yes", "female", "mal~
+$ name  &lt;chr&gt; "AGEGR01C", "AGEGR01C", "AGEGR01C", "BACTEREMIA", "BACTEREMIA", …
+$ value &lt;chr&gt; "(50, 65]", "(65, 101]", "[16, 50]", "no", "yes", "female", "mal…
 $ freq  &lt;int&gt; 4250, 5076, 5365, 13511, 1180, 6155, 8536
-$ prop  &lt;dbl&gt; 0.28929276, 0.34551766, 0.36518957, 0.91967871, 0.08032129, 0.41~
-$ perc  &lt;dbl&gt; 28.929276, 34.551766, 36.518957, 91.967871, 8.032129, 41.896399,~</code></pre>
+$ prop  &lt;dbl&gt; 0.28929276, 0.34551766, 0.36518957, 0.91967871, 0.08032129, 0.41…
+$ perc  &lt;dbl&gt; 28.929276, 34.551766, 36.518957, 91.967871, 8.032129, 41.896399,…</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="iohursqtbp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="bxafemxkli" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 html {
   font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#iohursqtbp .gt_table {
+#bxafemxkli .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -259,7 +260,7 @@ html {
   border-left-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_heading {
+#bxafemxkli .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -271,12 +272,12 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_caption {
+#bxafemxkli .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iohursqtbp .gt_title {
+#bxafemxkli .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -288,7 +289,7 @@ html {
   border-bottom-width: 0;
 }
 
-#iohursqtbp .gt_subtitle {
+#bxafemxkli .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -300,13 +301,13 @@ html {
   border-top-width: 0;
 }
 
-#iohursqtbp .gt_bottom_border {
+#bxafemxkli .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_col_headings {
+#bxafemxkli .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -321,7 +322,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_col_heading {
+#bxafemxkli .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -341,7 +342,7 @@ html {
   overflow-x: hidden;
 }
 
-#iohursqtbp .gt_column_spanner_outer {
+#bxafemxkli .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -353,15 +354,15 @@ html {
   padding-right: 4px;
 }
 
-#iohursqtbp .gt_column_spanner_outer:first-child {
+#bxafemxkli .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iohursqtbp .gt_column_spanner_outer:last-child {
+#bxafemxkli .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iohursqtbp .gt_column_spanner {
+#bxafemxkli .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -373,7 +374,7 @@ html {
   width: 100%;
 }
 
-#iohursqtbp .gt_group_heading {
+#bxafemxkli .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -399,7 +400,7 @@ html {
   text-align: left;
 }
 
-#iohursqtbp .gt_empty_group_heading {
+#bxafemxkli .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -414,15 +415,15 @@ html {
   vertical-align: middle;
 }
 
-#iohursqtbp .gt_from_md > :first-child {
+#bxafemxkli .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iohursqtbp .gt_from_md > :last-child {
+#bxafemxkli .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iohursqtbp .gt_row {
+#bxafemxkli .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -441,7 +442,7 @@ html {
   overflow-x: hidden;
 }
 
-#iohursqtbp .gt_stub {
+#bxafemxkli .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -454,7 +455,7 @@ html {
   padding-right: 5px;
 }
 
-#iohursqtbp .gt_stub_row_group {
+#bxafemxkli .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -468,11 +469,11 @@ html {
   vertical-align: top;
 }
 
-#iohursqtbp .gt_row_group_first td {
+#bxafemxkli .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iohursqtbp .gt_summary_row {
+#bxafemxkli .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -482,16 +483,16 @@ html {
   padding-right: 5px;
 }
 
-#iohursqtbp .gt_first_summary_row {
+#bxafemxkli .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_first_summary_row.thick {
+#bxafemxkli .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iohursqtbp .gt_last_summary_row {
+#bxafemxkli .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -501,7 +502,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_grand_summary_row {
+#bxafemxkli .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -511,7 +512,7 @@ html {
   padding-right: 5px;
 }
 
-#iohursqtbp .gt_first_grand_summary_row {
+#bxafemxkli .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -521,11 +522,11 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_striped {
+#bxafemxkli .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iohursqtbp .gt_table_body {
+#bxafemxkli .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -534,7 +535,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_footnotes {
+#bxafemxkli .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -548,7 +549,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_footnote {
+#bxafemxkli .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -557,7 +558,7 @@ html {
   padding-right: 5px;
 }
 
-#iohursqtbp .gt_sourcenotes {
+#bxafemxkli .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -571,7 +572,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#iohursqtbp .gt_sourcenote {
+#bxafemxkli .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -579,64 +580,64 @@ html {
   padding-right: 5px;
 }
 
-#iohursqtbp .gt_left {
+#bxafemxkli .gt_left {
   text-align: left;
 }
 
-#iohursqtbp .gt_center {
+#bxafemxkli .gt_center {
   text-align: center;
 }
 
-#iohursqtbp .gt_right {
+#bxafemxkli .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iohursqtbp .gt_font_normal {
+#bxafemxkli .gt_font_normal {
   font-weight: normal;
 }
 
-#iohursqtbp .gt_font_bold {
+#bxafemxkli .gt_font_bold {
   font-weight: bold;
 }
 
-#iohursqtbp .gt_font_italic {
+#bxafemxkli .gt_font_italic {
   font-style: italic;
 }
 
-#iohursqtbp .gt_super {
+#bxafemxkli .gt_super {
   font-size: 65%;
 }
 
-#iohursqtbp .gt_footnote_marks {
+#bxafemxkli .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#iohursqtbp .gt_asterisk {
+#bxafemxkli .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iohursqtbp .gt_indent_1 {
+#bxafemxkli .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iohursqtbp .gt_indent_2 {
+#bxafemxkli .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iohursqtbp .gt_indent_3 {
+#bxafemxkli .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iohursqtbp .gt_indent_4 {
+#bxafemxkli .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iohursqtbp .gt_indent_5 {
+#bxafemxkli .gt_indent_5 {
   text-indent: 25px;
 }
 
@@ -667,37 +668,37 @@ tbody tr:last-child {
     <tr class="gt_row_group_first"><td headers="Age group  value" class="gt_row gt_left">(50, 65]</td>
 <td headers="Age group  freq" class="gt_row gt_right">4250</td>
 <td headers="Age group  perc" class="gt_row gt_right">28.9</td>
-<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="30.94" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="30.94" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr><td headers="Age group  value" class="gt_row gt_left">(65, 101]</td>
 <td headers="Age group  freq" class="gt_row gt_right">5076</td>
 <td headers="Age group  perc" class="gt_row gt_right">34.6</td>
-<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="36.96" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="36.96" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr><td headers="Age group  value" class="gt_row gt_left">[16, 50]</td>
 <td headers="Age group  freq" class="gt_row gt_right">5365</td>
 <td headers="Age group  perc" class="gt_row gt_right">36.5</td>
-<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="39.06" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="39.06" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr class="gt_group_heading_row">
       <th colspan="4" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;" scope="colgroup" id="Sex">Sex</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="Sex  value" class="gt_row gt_left">female</td>
 <td headers="Sex  freq" class="gt_row gt_right">6155</td>
 <td headers="Sex  perc" class="gt_row gt_right">41.9</td>
-<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="44.81" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="44.81" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr><td headers="Sex  value" class="gt_row gt_left">male</td>
 <td headers="Sex  freq" class="gt_row gt_right">8536</td>
 <td headers="Sex  perc" class="gt_row gt_right">58.1</td>
-<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="62.15" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="62.15" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr class="gt_group_heading_row">
       <th colspan="4" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;" scope="colgroup" id="Presence of bactermia">Presence of bactermia</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="Presence of bactermia  value" class="gt_row gt_left">no</td>
 <td headers="Presence of bactermia  freq" class="gt_row gt_right">13511</td>
 <td headers="Presence of bactermia  perc" class="gt_row gt_right">92.0</td>
-<td headers="Presence of bactermia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="98.37" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Presence of bactermia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="98.37" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr><td headers="Presence of bactermia  value" class="gt_row gt_left">yes</td>
 <td headers="Presence of bactermia  freq" class="gt_row gt_right">1180</td>
 <td headers="Presence of bactermia  perc" class="gt_row gt_right">8.0</td>
-<td headers="Presence of bactermia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="8.59" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Presence of bactermia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="8.59" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
   </tbody>
   
   
@@ -721,6 +722,7 @@ tbody tr:last-child {
 </section>
 <section id="u2-key-predictors" class="level4" data-number="1.2.1.2">
 <h4 data-number="1.2.1.2" class="anchored" data-anchor-id="u2-key-predictors"><span class="header-section-number">1.2.1.2</span> U2: Key predictors</h4>
+<p>Note: the structural variable Age is also considered a key predictor.</p>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -742,19 +744,208 @@ tbody tr:last-child {
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="Bact_univar_files/figure-html/uni02-5.png" class="img-fluid" width="672"></p>
 </div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni02-6.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 </div>
 </section>
 <section id="u2-predictors-of-medium-importance" class="level4" data-number="1.2.1.3">
 <h4 data-number="1.2.1.3" class="anchored" data-anchor-id="u2-predictors-of-medium-importance"><span class="header-section-number">1.2.1.3</span> U2: Predictors of medium importance</h4>
 <div class="cell quarto-layout-panel">
-
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </div>
 </section>
 <section id="u2-remaining-predictors" class="level4" data-number="1.2.1.4">
 <h4 data-number="1.2.1.4" class="anchored" data-anchor-id="u2-remaining-predictors"><span class="header-section-number">1.2.1.4</span> U2: Remaining predictors</h4>
+<div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_bin()`
+Caused by error in `bin_breaks_width()`:
+! `binwidth` must be positive</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_bin()`
+Caused by error in `bin_breaks_width()`:
+! `binwidth` must be positive</code></pre>
+</div>
 <div class="cell quarto-layout-panel">
-
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-8.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-9.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-10.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-11.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-12.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-13.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-14.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-15.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-16.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-17.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-18.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-19.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-20.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-21.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-22.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-23.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-24.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-25.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-26.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-27.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-28.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-29.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-30.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-31.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-32.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-33.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-34.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-35.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-36.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-37.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni04-38.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
 </div>
 </section>
 </section>
@@ -769,25 +960,133 @@ tbody tr:last-child {
 `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 784
+<pre><code>Rows: 41,201
 Columns: 4
-Groups: PARAM [49]
-$ PARAM     &lt;chr&gt; "Activated partial thromboplastin time (sec)", "Activated pa~
-$ PARAMCD   &lt;chr&gt; "APTT", "APTT", "APTT", "APTT", "APTT", "APTT", "APTT", "APT~
-$ STATISTIC &lt;chr&gt; "mean", "mode", "sd", "skewness", "kurtosis", "min", "max", ~
-$ RESULT    &lt;dbl&gt; 40.056399, 35.000000, 10.966640, 4.165706, 29.738017, 21.400~</code></pre>
+Groups: PARAM [50]
+$ PARAM     &lt;chr&gt; "Activated partial thromboplastin time (sec)", "Activated pa…
+$ PARAMCD   &lt;chr&gt; "APTT", "APTT", "APTT", "APTT", "APTT", "APTT", "APTT", "APT…
+$ STATISTIC &lt;chr&gt; "mean", "mode", "sd", "skewness", "kurtosis", "min", "max", …
+$ RESULT    &lt;dbl&gt; 40.056399, 35.000000, 10.966640, 4.165706, 29.738017, 21.400…</code></pre>
 </div>
 </div>
 </section>
-<section id="predictors-of-medium-importance" class="level4" data-number="1.2.2.2">
-<h4 data-number="1.2.2.2" class="anchored" data-anchor-id="predictors-of-medium-importance"><span class="header-section-number">1.2.2.2</span> Predictors of medium importance</h4>
 </section>
-<section id="remaining-predictors" class="level4" data-number="1.2.2.3">
-<h4 data-number="1.2.2.3" class="anchored" data-anchor-id="remaining-predictors"><span class="header-section-number">1.2.2.3</span> Remaining predictors</h4>
+<section id="data-frame-summary" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="data-frame-summary"><span class="header-section-number">1.2.3</span> Data Frame Summary</h3>
+<section id="dat" class="level4" data-number="1.2.3.1">
+<h4 data-number="1.2.3.1" class="anchored" data-anchor-id="dat"><span class="header-section-number">1.2.3.1</span> dat</h4>
+<p><strong>Dimensions:</strong> 14691 x 6<br>
+<strong>Duplicates:</strong> 0</p>
+<table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 26%">
+<col style="width: 22%">
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Label</th>
+<th>Stats / Values</th>
+<th>Freqs (% of Valid)</th>
+<th>Graph</th>
+<th>Missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PLT<br>
+[numeric]</td>
+<td>Parameter analysis value (Numeric)</td>
+<td>Mean (sd) : 220.03 (122.84)<br>
+min &lt; med &lt; max:<br>
+0 &lt; 204 &lt; 2092<br>
+IQR (CV) : 137 (0.56)</td>
+<td>718 distinct values</td>
+<td><img src="img/ds0026.png" class="img-fluid"></td>
+<td>42<br>
+(0.3%)</td>
+</tr>
+<tr class="even">
+<td>CREA<br>
+[numeric]</td>
+<td>Parameter analysis value (Numeric)</td>
+<td>Mean (sd) : 1.33 (1.17)<br>
+min &lt; med &lt; max:<br>
+0.26 &lt; 1 &lt; 20.75<br>
+IQR (CV) : 0.54 (0.88)</td>
+<td>674 distinct values</td>
+<td><img src="img/ds0027.png" class="img-fluid"></td>
+<td>159<br>
+(1.1%)</td>
+</tr>
+<tr class="odd">
+<td>BUN<br>
+[numeric]</td>
+<td>Parameter analysis value (Numeric)</td>
+<td>Mean (sd) : 22.66 (18.11)<br>
+min &lt; med &lt; max:<br>
+2.5 &lt; 16.6 &lt; 184.8<br>
+IQR (CV) : 15.3 (0.8)</td>
+<td>947 distinct values</td>
+<td><img src="img/ds0028.png" class="img-fluid"></td>
+<td>172<br>
+(1.2%)</td>
+</tr>
+<tr class="even">
+<td>NEU<br>
+[numeric]</td>
+<td>Parameter analysis value (Numeric)</td>
+<td>Mean (sd) : 8.37 (5.61)<br>
+min &lt; med &lt; max:<br>
+0 &lt; 7.3 &lt; 83.8<br>
+IQR (CV) : 6.2 (0.67)</td>
+<td>374 distinct values</td>
+<td><img src="img/ds0029.png" class="img-fluid"></td>
+<td>728<br>
+(5.0%)</td>
+</tr>
+<tr class="odd">
+<td>WBC<br>
+[numeric]</td>
+<td>Parameter analysis value (Numeric)</td>
+<td>Mean (sd) : 11.23 (12.92)<br>
+min &lt; med &lt; max:<br>
+0 &lt; 9.6 &lt; 604.47<br>
+IQR (CV) : 6.9 (1.15)</td>
+<td>2710 distinct values</td>
+<td><img src="img/ds0030.png" class="img-fluid"></td>
+<td>462<br>
+(3.1%)</td>
+</tr>
+<tr class="even">
+<td>AGE<br>
+[numeric]</td>
+<td>Parameter analysis value (Numeric)</td>
+<td>Mean (sd) : 56.17 (18.15)<br>
+min &lt; med &lt; max:<br>
+16 &lt; 58 &lt; 101<br>
+IQR (CV) : 27 (0.32)</td>
+<td>85 distinct values</td>
+<td><img src="img/ds0031.png" class="img-fluid"></td>
+<td>0<br>
+(0.0%)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="predictors-of-medium-importance" class="level4" data-number="1.2.3.2">
+<h4 data-number="1.2.3.2" class="anchored" data-anchor-id="predictors-of-medium-importance"><span class="header-section-number">1.2.3.2</span> Predictors of medium importance</h4>
+</section>
+<section id="remaining-predictors" class="level4" data-number="1.2.3.3">
+<h4 data-number="1.2.3.3" class="anchored" data-anchor-id="remaining-predictors"><span class="header-section-number">1.2.3.3</span> Remaining predictors</h4>
 </section>
 </section>
-<section id="suggested-transformations" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="suggested-transformations"><span class="header-section-number">1.2.3</span> Suggested transformations</h3>
+<section id="suggested-transformations" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="suggested-transformations"><span class="header-section-number">1.2.4</span> Suggested transformations</h3>
 <p>Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function <code>ida_trans</code> for this purpose, which optimises the parameter <code>sigma</code> of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.</p>
 <div class="cell">
 
@@ -797,8 +1096,8 @@ $ RESULT    &lt;dbl&gt; 40.056399, 35.000000, 10.966640, 4.165706, 29.738017, 21
 
 </div>
 </section>
-<section id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="level3" data-number="1.2.4">
-<h3 data-number="1.2.4" class="anchored" data-anchor-id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="header-section-number">1.2.4</span> Comparison of univariate distributions with and without pseudo-log transformation</h3>
+<section id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="header-section-number">1.2.5</span> Comparison of univariate distributions with and without pseudo-log transformation</h3>
 <p>The comparison is only shown for variables where a transformation is suggested.</p>
 <div class="cell quarto-layout-panel">
 
@@ -812,60 +1111,61 @@ $ RESULT    &lt;dbl&gt; 40.056399, 35.000000, 10.966640, 4.165706, 29.738017, 21
 <h2 data-number="1.3" class="anchored" data-anchor-id="section-session-info"><span class="header-section-number">1.3</span> Section session info</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>R version 4.1.2 (2021-11-01)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 19044)
+<pre><code>R version 4.2.2 (2022-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Ventura 13.1
 
 Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
 
 locale:
-[1] LC_COLLATE=English_United States.1252 
-[2] LC_CTYPE=English_United States.1252   
-[3] LC_MONETARY=English_United States.1252
-[4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.1252    
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] gtExtras_0.4.5     gt_0.8.0           e1071_1.7-9        Hmisc_4.6-0       
- [5] Formula_1.2-4      survival_3.4-0     lattice_0.20-45    skimr_2.1.3       
- [9] summarytools_1.0.0 tidyselect_1.2.0   forcats_0.5.1      stringr_1.4.0     
-[13] dplyr_1.0.9        purrr_0.3.4        readr_2.1.1        tidyr_1.1.4       
-[17] tibble_3.1.6       ggplot2_3.4.0      tidyverse_1.3.1    here_1.0.1        
+ [1] gtExtras_0.4.5     gt_0.8.0           e1071_1.7-13       Hmisc_4.7-2       
+ [5] Formula_1.2-4      survival_3.4-0     lattice_0.20-45    skimr_2.1.5       
+ [9] summarytools_1.0.1 tidyselect_1.2.0   forcats_0.5.2      stringr_1.5.0     
+[13] dplyr_1.0.10       purrr_1.0.0        readr_2.1.3        tidyr_1.2.1       
+[17] tibble_3.1.8       ggplot2_3.4.0      tidyverse_1.3.2    here_1.0.1        
 
 loaded via a namespace (and not attached):
- [1] colorspace_2.0-2    pryr_0.1.5          ellipsis_0.3.2     
- [4] class_7.3-19        rprojroot_2.0.2     htmlTable_2.3.0    
- [7] base64enc_0.1-3     fs_1.5.2            rstudioapi_0.13    
-[10] proxy_0.4-26        farver_2.1.0        fansi_0.5.0        
-[13] lubridate_1.8.0     xml2_1.3.2          codetools_0.2-18   
-[16] splines_4.1.2       knitr_1.38          jsonlite_1.7.2     
-[19] broom_1.0.1         cluster_2.1.2       dbplyr_2.1.1       
-[22] png_0.1-7           compiler_4.1.2      httr_1.4.2         
-[25] backports_1.4.1     assertthat_0.2.1    Matrix_1.3-4       
-[28] fastmap_1.1.0       cli_3.3.0           htmltools_0.5.4    
-[31] tools_4.1.2         gtable_0.3.0        glue_1.6.2         
-[34] Rcpp_1.0.7          cellranger_1.1.0    vctrs_0.5.1        
-[37] svglite_2.0.0       xfun_0.30           rvest_1.0.2        
-[40] lifecycle_1.0.3     scales_1.2.1        ragg_1.2.2         
-[43] hms_1.1.1           rematch2_2.1.2      RColorBrewer_1.1-2 
-[46] yaml_2.2.1          gridExtra_2.3       pander_0.6.4       
-[49] sass_0.4.4          rpart_4.1-15        latticeExtra_0.6-29
-[52] stringi_1.7.5       paletteer_1.5.0     checkmate_2.0.0    
-[55] repr_1.1.4          rlang_1.0.6         pkgconfig_2.0.3    
-[58] systemfonts_1.0.3   matrixStats_0.61.0  evaluate_0.15      
-[61] fontawesome_0.4.0   patchwork_1.1.1     rapportools_1.0    
-[64] htmlwidgets_1.5.4   labeling_0.4.2      plyr_1.8.6         
-[67] magrittr_2.0.3      R6_2.5.1            magick_2.7.3       
-[70] generics_0.1.3      DBI_1.1.2           pillar_1.8.1       
-[73] haven_2.4.3         foreign_0.8-81      withr_2.5.0        
-[76] nnet_7.3-16         modelr_0.1.8        crayon_1.4.2       
-[79] utf8_1.2.2          tzdb_0.2.0          rmarkdown_2.11     
-[82] jpeg_0.1-9          grid_4.1.2          readxl_1.3.1       
-[85] data.table_1.14.2   reprex_2.0.1        digest_0.6.28      
-[88] textshaping_0.3.6   munsell_0.5.0       tcltk_4.1.2        </code></pre>
+ [1] googledrive_2.0.0   colorspace_2.0-3    deldir_1.0-6       
+ [4] pryr_0.1.5          ellipsis_0.3.2      class_7.3-20       
+ [7] rprojroot_2.0.3     htmlTable_2.4.1     base64enc_0.1-3    
+[10] fs_1.5.2            rstudioapi_0.14     proxy_0.4-27       
+[13] farver_2.1.1        fansi_1.0.3         lubridate_1.9.0    
+[16] xml2_1.3.3          codetools_0.2-18    splines_4.2.2      
+[19] knitr_1.41          jsonlite_1.8.4      broom_1.0.2        
+[22] cluster_2.1.4       dbplyr_2.2.1        png_0.1-8          
+[25] compiler_4.2.2      httr_1.4.4          backports_1.4.1    
+[28] assertthat_0.2.1    Matrix_1.5-1        fastmap_1.1.0      
+[31] gargle_1.2.1        cli_3.5.0           htmltools_0.5.4    
+[34] tools_4.2.2         gtable_0.3.1        glue_1.6.2         
+[37] reshape2_1.4.4      Rcpp_1.0.9          cellranger_1.1.0   
+[40] vctrs_0.5.1         svglite_2.1.0       xfun_0.35          
+[43] rvest_1.0.3         timechange_0.1.1    lifecycle_1.0.3    
+[46] googlesheets4_1.0.1 MASS_7.3-58.1       scales_1.2.1       
+[49] ragg_1.2.4          hms_1.1.2           rematch2_2.1.2     
+[52] RColorBrewer_1.1-3  yaml_2.3.6          gridExtra_2.3      
+[55] pander_0.6.5        sass_0.4.4          rpart_4.1.19       
+[58] latticeExtra_0.6-30 stringi_1.7.8       paletteer_1.5.0    
+[61] checkmate_2.1.0     repr_1.1.6          systemfonts_1.0.4  
+[64] rlang_1.0.6         pkgconfig_2.0.3     matrixStats_0.63.0 
+[67] evaluate_0.19       fontawesome_0.4.0   labeling_0.4.2     
+[70] rapportools_1.1     htmlwidgets_1.6.0   plyr_1.8.8         
+[73] magrittr_2.0.3      R6_2.5.1            magick_2.7.3       
+[76] generics_0.1.3      DBI_1.1.3           pillar_1.8.1       
+[79] haven_2.5.1         foreign_0.8-83      withr_2.5.0        
+[82] nnet_7.3-18         modelr_0.1.10       crayon_1.5.2       
+[85] interp_1.1-3        utf8_1.2.2          tzdb_0.3.0         
+[88] rmarkdown_2.19      jpeg_0.1-10         grid_4.2.2         
+[91] readxl_1.4.1        data.table_1.14.6   reprex_2.0.2       
+[94] digest_0.6.31       textshaping_0.3.6   munsell_0.5.0      
+[97] tcltk_4.2.2        </code></pre>
 </div>
 </div>
 
@@ -1068,294 +1368,294 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-next">
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Univariate distribution checks</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>This section reports a series of univariate summary checks of the bacteremia dataset.</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni01, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyselect)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)   <span class="co"># ADD for skewness and kurtosis</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#source(here("R", "ida_plot_univar.R"))  ## function to plot univariate summaries. </span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#source(here("R", "ida_plot_univar_orig_vs_trans.R"))  ## function for side-by-side comparison of original vs. transformed scale, calls ida_plot_univar.R</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#source(here("R", "ida_trans.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). </span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#source(here("R", "main_descriptives.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). </span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the datasets</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>ADSL <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADSL_01.rds"</span>))</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>ADLB <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADLB_01.rds"</span>))</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## U1: Categorical variables</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>SEX and BC (bactermia status) are described by frequencies and proportions in each category.</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r catplot, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U1-categorical.R"</span>))</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>u1_ard <span class="ot">&lt;-</span> <span class="fu">u1_describe</span>(<span class="at">ADSL =</span> ADSL)</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>u1_ard <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cattab, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U1-categorical.R"</span>))</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="fu">u1_display_table</span>(u1_ard)</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r catplot2, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Do we need this plot?</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="fu">u1_display_plot</span>(u1_ard)</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Continuous variables</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### U2: Univariate distributions of continuous variables</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Structural variables</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>The only structural continuous variables is AGE. This variable is also a key predictor (see below).</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Key predictors</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni02, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="co">#unique.variables &lt;- key_predictors</span></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="co">#for(j in 1:length(unique.variables)){</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="co">#  print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = #FALSE))</span></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"TMP-plot-function.R"</span>))</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span> </span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(KEY_PRED_FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span> </span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">describe_plot</span>(.x))</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> df) {</span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Predictors of medium importance</span></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni03}</span></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="co"># unique.variables &lt;- unique(medimp_predictors)</span></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="co"># for(j in 1:length(unique.variables)){</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="co">#   print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))</span></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"TMP-plot-function.R"</span>)</span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a><span class="co"># ADLB |&gt;</span></span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(MED_PRED_FL == "Y") |&gt;</span></span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(PARAMCD) |&gt;</span></span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_map( ~ describe_plot(.x))</span></span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Remaining predictors</span></span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni04}</span></span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="co"># unique.variables &lt;- unique(remaining_predictors)</span></span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="co"># for(j in 1:length(unique.variables)){</span></span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="co">#   print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))</span></span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"TMP-plot-function.R"</span>)</span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ADLB |&gt; </span></span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(REM_PRED_FL == "Y") |&gt; </span></span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group_by(PARAMCD) |&gt; </span></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group_map(~ describe_plot(.x))</span></span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numerical summaries</span></span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Key predictors</span></span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni05}</span></span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a><span class="co">#TODO: COMMENT @Mark is there a way to make nicer looking tables out of the numerical summaries??</span></span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="co">#unique.variables &lt;- unique(key_predictors)</span></span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="co">#for(j in 1:length(unique.variables)){</span></span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a><span class="co">#  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), "]):\n\n")</span></span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="co">#  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))</span></span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a><span class="co">#a_bact_02 %&gt;%</span></span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a><span class="co">#  select(any_of(unique.variables)) %&gt;%</span></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a><span class="co">#  skim()</span></span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"describe_long_dataset.R"</span>))</span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="co"># summary stats </span></span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>ARD <span class="ot">&lt;-</span> <span class="fu">describe_long_dataset</span>(ADLB)</span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>ARD  <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a><span class="co"># dat &lt;- a_bact_02 %&gt;%</span></span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(any_of(unique.variables)) </span></span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a><span class="co"># dfSummary(</span></span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a><span class="co">#   dat,</span></span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a><span class="co">#   varnumbers = FALSE,</span></span>
-<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a><span class="co">#   round.digits = 2,</span></span>
-<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="co">#   plain.ascii = FALSE,</span></span>
-<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a><span class="co">#   style = "grid",</span></span>
-<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="co">#   graph.magnif = .33,</span></span>
-<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a><span class="co">#   valid.col = FALSE,</span></span>
-<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a><span class="co">#   tmp.img.dir = "img"</span></span>
-<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
-<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Predictors of medium importance</span></span>
-<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni06, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a><span class="co"># unique.variables &lt;- unique(medimp_predictors)</span></span>
-<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="co"># #for(j in 1:length(unique.variables)){</span></span>
-<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a><span class="co"># #  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), #"]):\n\n")</span></span>
-<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a><span class="co"># #  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))</span></span>
-<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a><span class="co"># #}</span></span>
-<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a><span class="co"># dat &lt;- a_bact_02 %&gt;%</span></span>
-<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(any_of(unique.variables)) </span></span>
-<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a><span class="co"># dfSummary(</span></span>
-<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a><span class="co">#   dat,</span></span>
-<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="co">#   varnumbers = FALSE,</span></span>
-<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a><span class="co">#   round.digits = 2,</span></span>
-<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="co">#   plain.ascii = FALSE,</span></span>
-<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a><span class="co">#   style = "grid",</span></span>
-<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a><span class="co">#   graph.magnif = .33,</span></span>
-<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a><span class="co">#   valid.col = FALSE,</span></span>
-<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a><span class="co">#   tmp.img.dir = "img"</span></span>
-<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
-<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Remaining predictors</span></span>
-<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a><span class="co"># unique.variables &lt;- unique(remaining_predictors)</span></span>
-<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a><span class="co"># #for(j in 1:length(unique.variables)){</span></span>
-<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a><span class="co"># #  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), #"]):\n\n")</span></span>
-<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a><span class="co"># #  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))</span></span>
-<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a><span class="co"># #}</span></span>
-<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a><span class="co"># dat &lt;- a_bact_02 %&gt;%</span></span>
-<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(any_of(unique.variables)) </span></span>
-<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a><span class="co"># dfSummary(</span></span>
-<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a><span class="co">#   dat,</span></span>
-<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a><span class="co">#   varnumbers = FALSE,</span></span>
-<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a><span class="co">#   round.digits = 2,</span></span>
-<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a><span class="co">#   plain.ascii = FALSE,</span></span>
-<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a><span class="co">#   style = "grid",</span></span>
-<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a><span class="co">#   graph.magnif = .33,</span></span>
-<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a><span class="co">#   valid.col = FALSE,</span></span>
-<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a><span class="co">#   tmp.img.dir = "img"</span></span>
-<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
-<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### Suggested transformations</span></span>
-<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function <span class="in">`ida_trans`</span> for this purpose, which optimises the parameter <span class="in">`sigma`</span> of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.</span>
-<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni08, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a><span class="co"># variables&lt;- c(structural_vars, key_predictors, medimp_predictors, remaining_predictors)</span></span>
-<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a><span class="co"># unique.variables &lt;- unique(variables)</span></span>
-<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a><span class="co"># # </span><span class="al">TODO</span><span class="co">: using b_bact. Track down the formatting issue</span></span>
-<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a><span class="co"># res&lt;-sapply(unique.variables, function(X) ida_trans(b_bact[,X], equ.marg=0.2)$const) #takes long, calculate once, and save?</span></span>
-<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a><span class="co"># res</span></span>
-<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a><span class="co"># cat("Predictors where a transformation may symmetrize the distribution:\n")</span></span>
-<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a><span class="co"># cat("Number:     ", sum(!is.na(res)), "\n")</span></span>
-<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a><span class="co"># cat("Proportion: ", mean(!is.na(res)), "\n")</span></span>
-<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>Register transformed variables in the data set:</span>
-<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
-<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a><span class="co"># for(j in 1:length(unique.variables)){</span></span>
-<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a><span class="co">#   if(!is.na(res[j])){</span></span>
-<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a><span class="co">#     newname &lt;- paste("t_",unique.variables[j],sep="")</span></span>
-<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a><span class="co">#     newlabel &lt;- paste("pseudo-log of",label(b_bact)[unique.variables[j]])</span></span>
-<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a><span class="co">#     names(newlabel)&lt;-newname</span></span>
-<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a><span class="co">#     x&lt;-pseudo_log(b_bact[[unique.variables[j]]], sigma=res[j], base=10)</span></span>
-<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a><span class="co">#     label(x)&lt;-newlabel</span></span>
-<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a><span class="co">#     b_bact[[newname]] &lt;- x</span></span>
-<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a><span class="co">#     upData(b_bact, labels=newlabel)</span></span>
-<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a><span class="co">#   }</span></span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="co"># sigma_values &lt;- res</span></span>
-<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a><span class="co"># c_bact &lt;- b_bact</span></span>
-<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a><span class="co"># # update variable lists - generate a second list with transformed variables replacing the originals</span></span>
-<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a><span class="co"># bact_transformed &lt;- bact_variables</span></span>
-<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a><span class="co"># for(j in 1:length(bact_variables)){</span></span>
-<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a><span class="co">#   for(jj in 1:length(bact_variables[[j]])){</span></span>
-<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a><span class="co">#       if(!is.na(res[bact_variables[[j]][jj]])) bact_transformed[[j]][jj] &lt;- paste("t_", bact_variables[[j]][jj], sep="")</span></span>
-<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a><span class="co">#   }</span></span>
-<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparison of univariate distributions with and without pseudo-log transformation</span></span>
-<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a>The comparison is only shown for variables where a transformation is suggested.</span>
-<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni10}</span></span>
-<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 1</span></span>
-<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a><span class="co"># for(j in 1:length(unique.variables)){</span></span>
-<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a><span class="co">#  if(!is.na(sigma_values[j])){</span></span>
-<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a><span class="co">#    print(ida_plot_univar_orig_vs_trans(c_bact, unique.variables[j], sigma=sigma_values[j], n_bars=100))</span></span>
-<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a><span class="co">#  }</span></span>
-<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a><span class="do">## COMMENT @Mark we must pick two from these plots for the paper - the old version has BUN which is now no longer transformed (as we raised the threshold for indicating relevance of a  pseudolog transformation) I would suggest ASAT and GGT. Can you please produce a TIF plot for these two (similar to what we already have in the paper?)</span></span>
-<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni11}</span></span>
-<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a><span class="co"># save(list=c("b_bact", "c_bact", "bact_variables", "sigma_values", "bact_transformed"), </span></span>
-<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a><span class="co">#      file=here::here("data", "bact_env_c.rda"))</span></span>
-<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section session info</span></span>
-<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warning=FALSE, message=FALSE, echo=FALSE}</span></span>
-<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Univariate distribution checks</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>This section reports a series of univariate summary checks of the bacteremia dataset.</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni01, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyselect)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)   <span class="co"># ADD for skewness and kurtosis</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#source(here("R", "ida_plot_univar.R"))  ## function to plot univariate summaries. </span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#source(here("R", "ida_plot_univar_orig_vs_trans.R"))  ## function for side-by-side comparison of original vs. transformed scale, calls ida_plot_univar.R</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#source(here("R", "ida_trans.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). </span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#source(here("R", "main_descriptives.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). </span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the datasets</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>ADSL <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADSL_01.rds"</span>))</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>ADLB <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ADLB_01.rds"</span>))</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## U1: Categorical variables</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>SEX and BC (bactermia status) are described by frequencies and proportions in each category.</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r catplot, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U1-categorical.R"</span>))</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>u1_ard <span class="ot">&lt;-</span> <span class="fu">u1_describe</span>(<span class="at">ADSL =</span> ADSL)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>u1_ard <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cattab, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U1-categorical.R"</span>))</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="fu">u1_display_table</span>(u1_ard)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r catplot2, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Do we need this plot?</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="fu">u1_display_plot</span>(u1_ard)</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Continuous variables</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### U2: Univariate distributions of continuous variables</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Structural variables</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>The only structural continuous variables is AGE. This variable is also a key predictor (see below).</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Key predictors</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>Note: the structural variable Age is also considered a key predictor.</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni02, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U2-cont-describe-plot.R"</span>))</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>key_plts <span class="ot">&lt;-</span> </span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span> </span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(KEY_PRED_FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span> </span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">describe_plot</span>(.x))</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> key_plts) {</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Predictors of medium importance</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni03}</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>med_plts <span class="ot">&lt;-</span>  </span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span> </span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MED_PRED_FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span> </span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">describe_plot</span>(.x))</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> med_plts) {</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Remaining predictors</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni04}</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>rem_plts <span class="ot">&lt;-</span>  </span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span> </span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(REM_PRED_FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span> </span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">describe_plot</span>(.x))</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> rem_plts) {</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numerical summaries</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Key predictors</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni05}</span></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="co">#TODO: COMMENT @Mark is there a way to make nicer looking tables out of the numerical summaries??</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a><span class="co">#unique.variables &lt;- unique(key_predictors)</span></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="co">#for(j in 1:length(unique.variables)){</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="co">#  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), "]):\n\n")</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="co">#  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="co">#a_bact_02 %&gt;%</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="co">#  select(any_of(unique.variables)) %&gt;%</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="co">#  skim()</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"describe_long_dataset.R"</span>))</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="co"># summary stats </span></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>ARD <span class="ot">&lt;-</span> <span class="fu">describe_long_dataset</span>(ADLB)</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>ARD  <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="co">#ARD |&gt; filter(STATISTIC == "top_1")</span></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="in">```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> </span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span> </span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(KEY_PRED_FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, PARAMCD, AVAL) <span class="sc">|&gt;</span></span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"PARAMCD"</span>, <span class="at">values_from =</span> <span class="st">"AVAL"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>USUBJID)</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a> <span class="fu">dfSummary</span>(</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>   dat,</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>   <span class="at">varnumbers =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>   <span class="at">round.digits =</span> <span class="dv">2</span>,</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>   <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>   <span class="at">style =</span> <span class="st">"grid"</span>,</span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>   <span class="at">graph.magnif =</span> .<span class="dv">33</span>,</span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>   <span class="at">valid.col =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>   <span class="at">tmp.img.dir =</span> <span class="st">"img"</span></span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Predictors of medium importance</span></span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni06, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a><span class="co"># unique.variables &lt;- unique(medimp_predictors)</span></span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="co"># #for(j in 1:length(unique.variables)){</span></span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a><span class="co"># #  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), #"]):\n\n")</span></span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a><span class="co"># #  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))</span></span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a><span class="co"># #}</span></span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a><span class="co"># dat &lt;- a_bact_02 %&gt;%</span></span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(any_of(unique.variables)) </span></span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a><span class="co"># dfSummary(</span></span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a><span class="co">#   dat,</span></span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a><span class="co">#   varnumbers = FALSE,</span></span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="co">#   round.digits = 2,</span></span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a><span class="co">#   plain.ascii = FALSE,</span></span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a><span class="co">#   style = "grid",</span></span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a><span class="co">#   graph.magnif = .33,</span></span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a><span class="co">#   valid.col = FALSE,</span></span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a><span class="co">#   tmp.img.dir = "img"</span></span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Remaining predictors</span></span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a><span class="co"># unique.variables &lt;- unique(remaining_predictors)</span></span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a><span class="co"># #for(j in 1:length(unique.variables)){</span></span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a><span class="co"># #  cat("Numerical summary of ", unique.variables[j],"(",label(a_bact_02_md[,unique.variables[j]]), "[", units(a_bact_02_md[,unique.variables[j]]), #"]):\n\n")</span></span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a><span class="co"># #  print(main_descriptives(a_bact_02_md[,unique.variables[j]]))</span></span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a><span class="co"># #}</span></span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a><span class="co"># dat &lt;- a_bact_02 %&gt;%</span></span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(any_of(unique.variables)) </span></span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a><span class="co"># dfSummary(</span></span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a><span class="co">#   dat,</span></span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a><span class="co">#   varnumbers = FALSE,</span></span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a><span class="co">#   round.digits = 2,</span></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a><span class="co">#   plain.ascii = FALSE,</span></span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a><span class="co">#   style = "grid",</span></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a><span class="co">#   graph.magnif = .33,</span></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a><span class="co">#   valid.col = FALSE,</span></span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a><span class="co">#   tmp.img.dir = "img"</span></span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### Suggested transformations</span></span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a>Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function <span class="in">`ida_trans`</span> for this purpose, which optimises the parameter <span class="in">`sigma`</span> of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.</span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni08, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a><span class="co"># variables&lt;- c(structural_vars, key_predictors, medimp_predictors, remaining_predictors)</span></span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a><span class="co"># unique.variables &lt;- unique(variables)</span></span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a><span class="co"># # </span><span class="al">TODO</span><span class="co">: using b_bact. Track down the formatting issue</span></span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a><span class="co"># res&lt;-sapply(unique.variables, function(X) ida_trans(b_bact[,X], equ.marg=0.2)$const) #takes long, calculate once, and save?</span></span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a><span class="co"># res</span></span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a><span class="co"># cat("Predictors where a transformation may symmetrize the distribution:\n")</span></span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a><span class="co"># cat("Number:     ", sum(!is.na(res)), "\n")</span></span>
+<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a><span class="co"># cat("Proportion: ", mean(!is.na(res)), "\n")</span></span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a>Register transformed variables in the data set:</span>
+<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-230"><a href="#cb7-230" aria-hidden="true" tabindex="-1"></a><span class="co"># for(j in 1:length(unique.variables)){</span></span>
+<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a><span class="co">#   if(!is.na(res[j])){</span></span>
+<span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a><span class="co">#     newname &lt;- paste("t_",unique.variables[j],sep="")</span></span>
+<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a><span class="co">#     newlabel &lt;- paste("pseudo-log of",label(b_bact)[unique.variables[j]])</span></span>
+<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a><span class="co">#     names(newlabel)&lt;-newname</span></span>
+<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a><span class="co">#     x&lt;-pseudo_log(b_bact[[unique.variables[j]]], sigma=res[j], base=10)</span></span>
+<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a><span class="co">#     label(x)&lt;-newlabel</span></span>
+<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a><span class="co">#     b_bact[[newname]] &lt;- x</span></span>
+<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a><span class="co">#     upData(b_bact, labels=newlabel)</span></span>
+<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a><span class="co">#   }</span></span>
+<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a><span class="co"># sigma_values &lt;- res</span></span>
+<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a><span class="co"># c_bact &lt;- b_bact</span></span>
+<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a><span class="co"># # update variable lists - generate a second list with transformed variables replacing the originals</span></span>
+<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a><span class="co"># bact_transformed &lt;- bact_variables</span></span>
+<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a><span class="co"># for(j in 1:length(bact_variables)){</span></span>
+<span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a><span class="co">#   for(jj in 1:length(bact_variables[[j]])){</span></span>
+<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a><span class="co">#       if(!is.na(res[bact_variables[[j]][jj]])) bact_transformed[[j]][jj] &lt;- paste("t_", bact_variables[[j]][jj], sep="")</span></span>
+<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a><span class="co">#   }</span></span>
+<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparison of univariate distributions with and without pseudo-log transformation</span></span>
+<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>The comparison is only shown for variables where a transformation is suggested.</span>
+<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni10}</span></span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 1</span></span>
+<span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a><span class="co"># for(j in 1:length(unique.variables)){</span></span>
+<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a><span class="co">#  if(!is.na(sigma_values[j])){</span></span>
+<span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a><span class="co">#    print(ida_plot_univar_orig_vs_trans(c_bact, unique.variables[j], sigma=sigma_values[j], n_bars=100))</span></span>
+<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a><span class="co">#  }</span></span>
+<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-273"><a href="#cb7-273" aria-hidden="true" tabindex="-1"></a><span class="do">## COMMENT @Mark we must pick two from these plots for the paper - the old version has BUN which is now no longer transformed (as we raised the threshold for indicating relevance of a  pseudolog transformation) I would suggest ASAT and GGT. Can you please produce a TIF plot for these two (similar to what we already have in the paper?)</span></span>
+<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-275"><a href="#cb7-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni11}</span></span>
+<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a><span class="co"># save(list=c("b_bact", "c_bact", "bact_variables", "sigma_values", "bact_transformed"), </span></span>
+<span id="cb7-279"><a href="#cb7-279" aria-hidden="true" tabindex="-1"></a><span class="co">#      file=here::here("data", "bact_env_c.rda"))</span></span>
+<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section session info</span></span>
+<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warning=FALSE, message=FALSE, echo=FALSE}</span></span>
+<span id="cb7-287"><a href="#cb7-287" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

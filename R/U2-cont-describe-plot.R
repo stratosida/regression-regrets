@@ -54,7 +54,7 @@ gg <- dat |>
   geom_vline(xintercept = dat_5[4], colour = "red", alpha = 0.2) +
   geom_vline(xintercept = dat_5[5], colour = "red", alpha = 0.2) +
   
-  geom_rug(sides = "b", alpha = 0.4, color = "black", outside = TRUE) +
+#  geom_rug(sides = "b", alpha = 0.2, color = "black", outside = FALSE) +
   
   ggplot2::ggtitle(title) +
   theme_void() +

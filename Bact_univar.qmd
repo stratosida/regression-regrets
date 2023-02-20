@@ -57,24 +57,17 @@ Note: the structural variable Age is also considered a key predictor.
 
 ```{r uni02, message=FALSE, warning =FALSE , echo=FALSE}
 #| layout-ncol: 2
-#unique.variables <- key_predictors
-#for(j in 1:length(unique.variables)){
-#  print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = #FALSE))
-#}
-
 source(here::here("R", "U2-cont-describe-plot.R"))
 
-df <- 
+key_plts <- 
   ADLB |> 
   filter(KEY_PRED_FL == "Y") |> 
   group_by(PARAMCD) |> 
   group_map(~ describe_plot(.x))
 
-df[[1]]
-
-#for (plts in df) {
-#  print(plts)
-#}
+for (plts in key_plts) {
+  print(plts)
+}
 
 ```
 
@@ -82,16 +75,16 @@ df[[1]]
 
 ```{r uni03}
 #| layout-ncol: 2
-# unique.variables <- unique(medimp_predictors)
-# for(j in 1:length(unique.variables)){
-#   print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
-# }
 
-source("TMP-plot-function.R")
-# ADLB |>
-#   filter(MED_PRED_FL == "Y") |>
-#   group_by(PARAMCD) |>
-#   group_map( ~ describe_plot(.x))
+med_plts <-  
+  ADLB |> 
+  filter(MED_PRED_FL == "Y") |>
+  group_by(PARAMCD) |> 
+  group_map(~ describe_plot(.x))
+
+for (plts in med_plts) {
+  print(plts)
+}
 
 ```
 
@@ -99,17 +92,15 @@ source("TMP-plot-function.R")
 
 ```{r uni04}
 #| layout-ncol: 2
-# unique.variables <- unique(remaining_predictors)
-# for(j in 1:length(unique.variables)){
-#   print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
-# }
-source("TMP-plot-function.R")
-library(purrr)
-library(dplyr)
-  # ADLB |> 
-  # filter(REM_PRED_FL == "Y") |> 
-  # group_by(PARAMCD) |> 
-  # group_map(~ describe_plot(.x))
+rem_plts <-  
+  ADLB |> 
+  filter(REM_PRED_FL == "Y") |>
+  group_by(PARAMCD) |> 
+  group_map(~ describe_plot(.x))
+
+for (plts in rem_plts) {
+  print(plts)
+}
 
 ```
 
@@ -137,25 +128,31 @@ source(here::here("describe_long_dataset.R"))
 # summary stats 
 ARD <- describe_long_dataset(ADLB)
 ARD  |> glimpse()
+#ARD |> filter(STATISTIC == "top_1")
 ```
 
 
 
 ```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
 
-# dat <- a_bact_02 %>%
-#   select(any_of(unique.variables)) 
-# 
-# dfSummary(
-#   dat,
-#   varnumbers = FALSE,
-#   round.digits = 2,
-#   plain.ascii = FALSE,
-#   style = "grid",
-#   graph.magnif = .33,
-#   valid.col = FALSE,
-#   tmp.img.dir = "img"
-# )
+dat <- 
+  ADLB |> 
+  filter(KEY_PRED_FL == "Y") |>
+  select(USUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |> 
+  select(-USUBJID)
+
+ 
+ dfSummary(
+   dat,
+   varnumbers = FALSE,
+   round.digits = 2,
+   plain.ascii = FALSE,
+   style = "grid",
+   graph.magnif = .33,
+   valid.col = FALSE,
+   tmp.img.dir = "img"
+ )
 ```
 
 

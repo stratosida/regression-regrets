@@ -2,7 +2,7 @@
 #'
 #' Inspect distributions with high-resolution histogram, summary of main quantiles
 #' (e.g. 1st, 5th, 25th, 50th, 75th, 90th, 99th)  and extremes (e.g. 5 highest and 5   lowest values),
-#' mean, first four moments (mean, variance/standard deviation, skewness, curtosis),
+#' mean, first 4 moments (mean, variance/standard deviation, skewness, kurtosis),
 #' number of distinct values.
 #' Describe the mode of the data and its frequency. Similarly, inspect distributions of transformed variables, if applicable.
 #'
@@ -75,6 +75,28 @@ describe_long_dataset <- function(x){
       #    mostfreq05 = tail(sort(table(AVAL)), most_frequent)[5]
     ) |>
     tidyr::pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "RESULT")
+  
+  top_5 <- 
+    x |> 
+    dplyr::group_by(PARAM, PARAMCD) |>  ## this assumes CDISC data structure
+    arrange(AVAL) |>
+    slice_min(n = 5, order_by = -AVAL) |>
+    select(PARAM, PARAMCD, AVAL) |>
+    pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "RESULT") |>
+    mutate(STATISTIC = paste0("top_", row_number())) |>
+    ungroup()
+  
+  bottom_5 <- 
+    x |> 
+    dplyr::group_by(PARAM, PARAMCD) |>  ## this assumes CDISC data structure
+    arrange(AVAL) |>
+    slice_min(n = 5, order_by = AVAL) |>
+    select(PARAM, PARAMCD, AVAL) |>
+    pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "RESULT") |>
+    mutate(STATISTIC = paste0("bottom_", row_number())) |>
+    ungroup()
+  
+  summary <- bind_rows(summary, top_5, bottom_5) 
   
   return(summary)
 }
