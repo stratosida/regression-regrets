@@ -52,12 +52,14 @@ Transform source data t long format for lab measurements. This will enable effic
 ## transform 
 bact_data01 <-
   bact_data |> 
+  mutate(AGEP = AGE) |>  ## Create a copy of AGE to store as a predictor 
   pivot_longer(
     cols = c(-ID, -SEX, -AGE, -BloodCulture),
     names_to = "PARAMCD",
     values_to = "AVAL",
     values_drop_na = FALSE
-)
+)|>
+  mutate(PARAMCD = if_else(PARAMCD == "AGEP", "AGE", PARAMCD)) ## rename AGE param code 
 ```
 
 Add the parameter information such as labels and units on to the transformed data directly from the data dictionary. 
@@ -148,7 +150,7 @@ bact_data04 <-
   bact_data03 |>
   mutate(
     KEY_PRED_FL = case_when(
-      PARAMCD %in% c("WBC", "BUN", "CREA", "PLT", "NEU") ~ "Y"
+      PARAMCD %in% c("AGE", "WBC", "BUN", "CREA", "PLT", "NEU") ~ "Y"
       ),
     MED_PRED_FL = case_when(
       PARAMCD %in% c("POTASS", "FIB", "CRP", "ASAT", "ALAT", "GGT") ~ "Y"
@@ -199,12 +201,12 @@ ADSL <- bact_data05 %>%
 saveRDS(ADSL, file = here("data", "ADSL_01.rds"))
 ```
 
-ADLB: *Note AGE is kept in ADLB as it is a key predictor*
+ADLB: *Note AGE is in ADLB as it is a key predictor*
 
 ```{r save_adlb, warning=FALSE, message=FALSE, echo=FALSE} 
 
 ADLB <- bact_data05 %>%
-  select(-AGEGR01, -AGEGR01C, -SEX, -SEXC, -BACTEREMIA, -BACTEREMIAN)
+  select(-AGE, -AGEGR01, -AGEGR01C, -SEX, -SEXC, -BACTEREMIA, -BACTEREMIAN)
 
 saveRDS(ADLB, file = here("data", "ADLB_01.rds"))
 

@@ -32,8 +32,20 @@ u1_display_table <- function(ARD){
   u1_gt <- 
     ARD |>
     dplyr::select(name, value, freq, perc, prop) |>
+    dplyr::mutate(
+      name = case_when(
+        name == "AGEGR01C" ~ "Age group",
+        name == "SEXC" ~ "Sex",
+        name == "BACTEREMIA" ~ "Presence of bactermia"
+      )
+    ) |>
     group_by(name)|>
     gt() |>
+    cols_align("left", name) |>
+    cols_align("left", value) |>
+    cols_align("right", freq) |>
+    cols_align("right", perc) |>
+    cols_align("left", prop) |>
     #    gt_plt_bar(column = perc, keep_column = TRUE, width = 40,color = "lightblue", scale_type = "percent", text_color = "black") |>
     gt_plt_bar(column = prop, keep_column = FALSE, width = 40,color = "lightblue", labels = "percentage") |>
     gt::cols_label(
@@ -42,7 +54,6 @@ u1_display_table <- function(ARD){
       prop = "",
       perc = "%"
     ) |>
-    cols_align("right", contains("scale")) |>
     cols_width(1 ~ px(100),
                2 ~ px(75),
                3 ~ px(75),
@@ -51,7 +62,9 @@ u1_display_table <- function(ARD){
       columns = c(perc),
       decimals = 1
     )  |>
-    gt_theme_nytimes()
+    row_group_order(groups = c("Age group", "Sex", "Presence of bactermia")) |>
+    #gt_theme_nytimes() 
+    gt_theme_538()
   
   return(u1_gt)
   

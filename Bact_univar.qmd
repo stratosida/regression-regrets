@@ -31,60 +31,17 @@ u1_ard <- u1_describe(ADSL = ADSL)
 u1_ard |> glimpse()
 ```
 
-```{r}
+```{r cattab, message=FALSE, warning =FALSE , echo=FALSE}
 source(here("R", "U1-categorical.R"))
-u1_gt <- u1_display_table(u1_ard)
-u1_gt
+u1_display_table(u1_ard)
 ```
 
 
-```{r}
+```{r catplot2, message=FALSE, warning =FALSE , echo=FALSE}
+# Do we need this plot?
 u1_display_plot(u1_ard)
 ```
 
-
-
-```{r catplot1, message=FALSE, warning =FALSE , echo=FALSE}
-# 
-# a_bact_02_md %>%
-#   dplyr::select(SEX, BC) %>%
-#   dplyr::mutate_all(forcats::as_factor) %>%   
-#   dplyr::mutate_all(forcats::fct_explicit_na, "NA") %>%
-#   tidyr::pivot_longer(
-#     dplyr::everything(),
-#     names_to = "var",
-#     values_to = "value",
-#     values_drop_na = FALSE
-#   ) %>%
-#   dplyr::group_by(var, value) %>%
-#   dplyr::summarize(N = n()) %>%
-#   dplyr::mutate(
-#     freq = N / sum(N),
-#     pct = round((freq * 100), 1),
-#     axis_lab = paste0(value, ' ', '(N = ', N, ')'),
-#     var_label = case_when(var == "SEX" ~ "Sex",
-#                           var == "BC" ~ "Bacteremia")
-#   ) %>%
-#   ggplot(aes(
-#     x = reorder(axis_lab, pct),
-#     y = pct,
-#     label = pct
-#   )) +
-#   geom_text(nudge_y = 7) +
-#   geom_pointrange(aes(ymin = 0, ymax = pct), alpha = 1, size = 1, color = "grey") +
-#   geom_point(color = "firebrick2",
-#              alpha = 0.6,
-#              size = 3) +
-#   ylab("Percentage (%)") +
-#   scale_y_continuous(limits = c(0, 100)) +
-#   labs(caption = "Number of subjects with a non-missing value reported in brackets.\nNA = missing") +
-#   facet_wrap(~ var_label, ncol = 1, scales = "free_y") +
-#   coord_flip() +
-#   theme_minimal(base_size = 12) +
-#   theme(axis.title.y = element_blank(),
-#         panel.grid.minor = element_blank())
-
-```
 
 ## Continuous variables
 
@@ -96,20 +53,28 @@ The only structural continuous variables is AGE. This variable is also a key pre
 
 #### U2: Key predictors
 
-```{r uni02}
+Note: the structural variable Age is also considered a key predictor.
+
+```{r uni02, message=FALSE, warning =FALSE , echo=FALSE}
 #| layout-ncol: 2
 #unique.variables <- key_predictors
 #for(j in 1:length(unique.variables)){
 #  print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = #FALSE))
 #}
 
-source(here::here("TMP-plot-function.R"))
+source(here::here("R", "U2-cont-describe-plot.R"))
 
+df <- 
   ADLB |> 
   filter(KEY_PRED_FL == "Y") |> 
   group_by(PARAMCD) |> 
   group_map(~ describe_plot(.x))
 
+df[[1]]
+
+#for (plts in df) {
+#  print(plts)
+#}
 
 ```
 
@@ -123,10 +88,10 @@ source(here::here("TMP-plot-function.R"))
 # }
 
 source("TMP-plot-function.R")
-  ADLB |> 
-  filter(MED_PRED_FL == "Y") |> 
-  group_by(PARAMCD) |> 
-  group_map(~ describe_plot(.x))
+# ADLB |>
+#   filter(MED_PRED_FL == "Y") |>
+#   group_by(PARAMCD) |>
+#   group_map( ~ describe_plot(.x))
 
 ```
 
@@ -139,10 +104,12 @@ source("TMP-plot-function.R")
 #   print(ida_plot_univar(a_bact_02_md, unique.variables[j], sigma=NA, n_bars=100, transform = FALSE))
 # }
 source("TMP-plot-function.R")
-  ADLB |> 
-  filter(REM_PRED_FL == "Y") |> 
-  group_by(PARAMCD) |> 
-  group_map(~ describe_plot(.x))
+library(purrr)
+library(dplyr)
+  # ADLB |> 
+  # filter(REM_PRED_FL == "Y") |> 
+  # group_by(PARAMCD) |> 
+  # group_map(~ describe_plot(.x))
 
 ```
 

@@ -387,3 +387,23 @@ step3 <- step2 %>%
 step3 %>% filter(n_miss_in_case == 0)
 
 
+
+
+
+
+#####################
+
+
+ard |>
+  dplyr::select(name, value, freq, perc, prop) |>
+  dplyr::mutate(
+    name = case_when(
+      name == "AGEGR01C" ~ "Age group",
+      name == "SEXC" ~ "Sex",
+      name == "BACTEREMIA" ~ "Presence of bactermia"
+    )
+  ) |>
+  group_by(name)|>
+  gt() 
+
+

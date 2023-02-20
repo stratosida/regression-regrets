@@ -1,22 +1,24 @@
 ## TODO align x-axis 
-describe_plot <- function(data) { #, param = "MCV"){
+describe_plot <- function(data) {
   
 
 ## Parameter of interest
 #data |> filter(PARAMCD == param) -> dat
 dat <- data 
 
-#data |> glimpse()
+title <- dat |> 
+  filter(row_number()==1) |> 
+  select(PARAM) |> 
+  as.character()
 
 ## filter on data
 ## remove missing 
 dat <- data |> 
-  #dplyr::filter(PARAMCD %in% param) |> 
   tidyr::drop_na(AVAL)
 
 ## get bin width 
 bw <- .bin_width(dat$AVAL)
-bw
+
 
 ## expand range 
 rng_vals <- scales::expand_range(range(dat$AVAL, na.rm = TRUE), mul = 0.01)
@@ -29,15 +31,15 @@ dat_median <- median(dat$AVAL, na.rm = TRUE)
 dat_5 <- fivenum(dat$AVAL, na.rm = TRUE)
 
 
-#dat |>
+#print(dat |>
 #  ggplot(aes(AVAL)) +
-#  geom_histogram(binwidth = bw) 
+#  geom_histogram(binwidth = bw) )
 
 p2 <- dat |>
   ggplot(aes(AVAL)) +
-  geom_histogram(color = "white",
-                 fill = "#f8bb87",
-                 binwidth = bw) +
+  geom_histogram(#color = "firebrick2",
+    fill = "firebrick2",
+    binwidth = bw, alpha = 0.4) +
   scale_x_continuous(
     breaks = rng,
     labels = scales::label_number(big.mark = ",", scale_cut = scales::cut_long_scale())(rng) ## understand this code
@@ -50,12 +52,14 @@ p2 <- dat |>
     if (length(unique(dat$AVAL)) > 2) geom_vline(xintercept = dat_median)
   } +
 
-  geom_vline(xintercept = dat_5[1], colour = "red", alpha = 0.5) +
-  geom_vline(xintercept = dat_5[2], colour = "red", alpha = 0.5) +
-  geom_vline(xintercept = dat_5[3], colour = "red", alpha = 0.5) +
-  geom_vline(xintercept = dat_5[4], colour = "red", alpha = 0.5) +
-  geom_vline(xintercept = dat_5[5], colour = "red", alpha = 0.5) +
+  geom_vline(xintercept = dat_5[1], colour = "red", alpha = 0.2) +
+  geom_vline(xintercept = dat_5[2], colour = "red", alpha = 0.2) +
+  geom_vline(xintercept = dat_5[3], colour = "red", alpha = 0.2) +
+  geom_vline(xintercept = dat_5[4], colour = "red", alpha = 0.2) +
+  geom_vline(xintercept = dat_5[5], colour = "red", alpha = 0.2) +
   
+  geom_rug(sides = "b", alpha = 0.4, color = "firebrick") +
+
   theme_void() +
   theme(
     axis.text.x = element_text(
@@ -69,7 +73,6 @@ p2 <- dat |>
     plot.margin = margin(1, 1, 3, 1),
     text = element_text(family = "mono", size = 6))
 
-#p2  
 
 
 ## strip plot
@@ -81,7 +84,7 @@ p1 <-
     alpha = 0.2,
     color = "#f8bb87"
   ) +
-  #  geom_rug(sides = "b") +
+  geom_rug(sides = "b") +
   scale_x_continuous(
     breaks = rng,
     labels = scales::label_number(big.mark = ",", scale_cut = scales::cut_long_scale())(rng) ## understand this code
@@ -102,12 +105,10 @@ p1 <-
 ## boxplot
 p3 <-dat |>
   ggplot(aes(x = AVAL, y = 0)) +
-  geom_boxplot(width = 0.5, alpha = 0.4, outlier.colour = "#f8bb87", outlier.alpha = 0.4) + #outlier.shape = NA, 
+  geom_boxplot(width = 0.5, alpha = 0.4, outlier.colour = "firebrick2", outlier.alpha = 0.3) + #outlier.shape = NA, 
   scale_x_continuous(
     breaks = rng,
-    labels = scales::label_number(big.mark = ",", scale_cut = scales::cut_long_scale())(rng) ## understand this code
-  ) + 
-  #  xlab(x_axis) +
+    labels = scales::label_number(big.mark = ",", scale_cut = scales::cut_long_scale())(rng)) + 
   geom_point(data = NULL, aes(x = rng_vals[1], y = 1), color = "transparent", size = 0.1) +
   geom_point(data = NULL, aes(x = rng_vals[2], y = 1), color = "transparent", size = 0.1) +
   scale_y_continuous(expand = c(0, 0)) +
@@ -123,17 +124,27 @@ p3 <-dat |>
 
 # layout for combined plot
 # histogram has more area
-layout <- c(patchwork::area(1, 1, 9, 6),
-            patchwork::area(10, 1, 10, 6) #, patchwork::area(18, 1, 18, 6)
+layout <- c(patchwork::area(1, 1, 2, 6),
+            patchwork::area(2, 1, 6, 6) #, patchwork::area(18, 1, 18, 6)
 )
 
-## combine plots
-gg <- p2 / p3 + # / p1 +
-  patchwork::plot_layout(design = layout) +
-  patchwork::plot_annotation(title = "title",
-                             caption = "caption")
+# layout for combined plot
+# histogram has more area
+#layout <- c(patchwork::area(1, 1, 1, 6),
+          #  patchwork::area(2, 1, 5, 6),
+#            patchwork::area(6, 1, 6, 6))
 
-  return(gg)
+
+
+## combine plots
+gg <- p3 / p2 + # / p1 +
+  patchwork::plot_layout(design = layout) +
+  patchwork::plot_annotation(title = title)
+
+  return(p2)
+  #return(gg)
+  #print(gg)
+  #gg
 }
 
 
