@@ -204,6 +204,14 @@ source(here("R", "fun_ida_trans.R"))
 x <- ADLB |> filter(PARAMCD == "TRIG") 
 b <- ida_trans(x, equ.marg=0.2)
 
+ADLB |> 
+  filter(KEY_PRED_FL == "Y") |>
+  group_by(PARAMCD) |>
+  group_map(~ ida_trans(.x, equ.marg=0.2))
+  
+b <- ida_trans(x, equ.marg=0.2)
+
+
 str(b)
 
 # variables<- c(structural_vars, key_predictors, medimp_predictors, remaining_predictors)
