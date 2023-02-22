@@ -1,7 +1,9 @@
 pseudo_log <-
-  function(x, sigma = 1, base = 10)
+  function(dat, sigma = 1, base = 10){
+    
+    x <- dat$AVAL
     asinh(x / (2 * sigma)) / log(base)
-
+  }
 
 inv_pseudo_log <-
   function(x, sigma = 1, base = 10)
@@ -15,7 +17,13 @@ ida_trans<-function(dat, equ.marg=0.05){
     return(cor(X,qn))
   }
   
-  ## prepare data - remove missing values
+  ## store PARAMCD
+  PARAMCD <- dat |> 
+    filter(row_number()==1) |> 
+    select(PARAMCD) |> 
+    as.character()  
+  
+    ## prepare data - remove missing values
   x <- dat |> 
     select(AVAL) |> 
     drop_na()
@@ -29,7 +37,7 @@ ida_trans<-function(dat, equ.marg=0.05){
   
   cn.orig<-cornorm(x, qn)
   if(cn.orig > 1-equ.marg){
-    res <- list(const=NA, fun=function(x) x)
+    res <- list(dat = NULL, code = PARAMCD, const=NA, fun=function(x) x)
   } else {
   
 #    if(min(x, na.rm=T)>0) interval=c(0,max(x))
@@ -41,10 +49,10 @@ ida_trans<-function(dat, equ.marg=0.05){
     
     if(topt$objective>(1-cn.orig-equ.marg)) {
       #cat("Original distribution better than any log.\n")
-      res <- list(const=NA, fun=function(x) x)
+      res <- list(dat = NULL,  code = PARAMCD, const=NA, fun=function(x) x)
     } else {
       #res<-list(const=topt$minimum, fun=function(x) log(x))
-      res <- list(const=2**topt$minimum, fun=function(x) log(x))
+      res <- list(dat = dat, code = PARAMCD, const=2**topt$minimum, fun=function(x) log(x))
     } 
   }
   return(res)
