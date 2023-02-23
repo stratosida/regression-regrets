@@ -208,8 +208,8 @@ b <- ida_trans(x, equ.marg=0.2)
 res <- 
   ADLB |> 
 #  filter(KEY_PRED_FL == "Y") |>
-  group_by(PARAM) |>
-  group_map(~ ida_trans(.x, equ.marg=0.2))
+  group_by(PARAMCD) |>
+  group_map(~ ida_trans(.x, equ.marg=0.2), .keep = TRUE)
   
 
 
@@ -227,16 +227,14 @@ res <-
 Register transformed variables in the data set:
 
 ```{r}
-for (param in res) {
-  #print(param)
-  if(!is.na(param$const)) {
-    newname <- paste0(param$code, "_T")
-    cat(newname, "  ", param$const)
-    x <- pseudo_log(dat = param$dat, sigma=param$const, base=10)
-  }
-    
-}
+new_vars <- NULL
 
+for (param in res)
+  if(!is.na(param$const))
+    new_vars <- bind_rows(new_vars, param$dat)
+
+ADLB_02 <- bind_rows(ADLB, new_vars)
+ADLB_02 |> group_by(PARAM, PARAMCD) |> tally()
 ```
 
 
