@@ -252,16 +252,17 @@ orig_data <- ADLB_02 |>
 both <- trans_data |>
   left_join(orig_data)
 
+source(here::here("R", "U2-cont-describe-plot.R"))
+library(patchwork)
+
 plt_hist <- function(dat){
   a <- dat |>
-    ggplot(aes(AVAL_ORIG)) +
-    geom_histogram()  
+    describe_plot()    
   
   b <- dat |>
-    ggplot(aes(AVAL)) +
-    geom_histogram()  
+    mutate(AVAL = AVAL_ORIG) |>
+    describe_plot()    
   
-  library(patchwork)
   a + b
 
 }
