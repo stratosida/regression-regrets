@@ -240,38 +240,30 @@ ADLB_02 |> group_by(PARAM, PARAMCD) |> tally()
 
 ```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}
  
-for (i in res) {
-  print(plts)
-  newname <- ""
+trans_data <- ADLB_02 |> 
+  filter(PARAM_TYPE == "DERIVED") |>
+  mutate(join_var = PARAM_DERIVED)
+
+orig_data <- ADLB_02 |>
+  mutate(join_var = PARAMCD,
+         AVAL_ORIG = AVAL) |>
+  select(USUBJID, join_var, AVAL_ORIG)
   
+both <- trans_data |>
+  left_join(orig_data)
+
+plt_hist <- function(dat){
+  dat |>
+    ggplot(aes(AVAL)) +
+    geom_histogram()  
 }
 
-# for(j in 1:length(unique.variables)){
-#   if(!is.na(res[j])){
-#     newname <- paste("t_",unique.variables[j],sep="")
-#     newlabel <- paste("pseudo-log of",label(b_bact)[unique.variables[j]])
-#     names(newlabel)<-newname
-#     x<-pseudo_log(b_bact[[unique.variables[j]]], sigma=res[j], base=10)
-#     label(x)<-newlabel
-#     b_bact[[newname]] <- x
-#     upData(b_bact, labels=newlabel)
-#   }
-# }
-# 
- sigma_values <- res
- 
- 
-# c_bact <- b_bact
-# 
-# # update variable lists - generate a second list with transformed variables replacing the originals
-# 
-# bact_transformed <- bact_variables
-# 
-# for(j in 1:length(bact_variables)){
-#   for(jj in 1:length(bact_variables[[j]])){
-#       if(!is.na(res[bact_variables[[j]][jj]])) bact_transformed[[j]][jj] <- paste("t_", bact_variables[[j]][jj], sep="")
-#   }
-# }
+both |>
+  group_by(PARAMCD) |>
+  group_map(~ plt_hist(.x))
+  
+
+
 
 
 ```
