@@ -253,9 +253,17 @@ both <- trans_data |>
   left_join(orig_data)
 
 plt_hist <- function(dat){
-  dat |>
+  a <- dat |>
+    ggplot(aes(AVAL_ORIG)) +
+    geom_histogram()  
+  
+  b <- dat |>
     ggplot(aes(AVAL)) +
     geom_histogram()  
+  
+  library(patchwork)
+  a + b
+
 }
 
 both |>
