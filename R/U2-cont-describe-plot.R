@@ -25,6 +25,22 @@ rng_vals <- scales::expand_range(range(dat$AVAL, na.rm = TRUE), mul = 0.01)
 ## range of the data 
 rng <- range(dat$AVAL)
 
+
+# breaks for histogram
+## compute n_bars+1 quantiles and divide the range into nbars 
+## take a weighted average of the two sequences to compromise between small and wide bins
+n_bars <- 100
+
+if(length(unique(dat$AVAL))<n_bars*2) {
+  brks <- unique(dat$AVAL) 
+}  else {
+  brks1 <- seq(min(dat$AVAL), max(dat$AVAL), length.out=n_bars+1)
+  brks2 <- quantile(dat$AVAL, seq(0,1,1/n_bars))
+  brks <- (brks2 + 3*brks1)/4
+}
+
+
+
 dat_median <- median(dat$AVAL, na.rm = TRUE)
 
 dat_5 <- fivenum(dat$AVAL, na.rm = TRUE)
