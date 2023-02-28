@@ -278,6 +278,21 @@ both |>
 ```
 
 
+plot side by side
+
+```{r}
+## plot side by side
+source(here("R", "fun_compare_dist_plot.R"))
+
+res <- 
+  ADLB |> 
+  group_by(PARAMCD) |>
+  group_map(~ compare_dist_plot(.x), .keep = TRUE)
+res
+```
+
+
+
 ### Comparison of univariate distributions with and without pseudo-log transformation
 
 The comparison is only shown for variables where a transformation is suggested.
