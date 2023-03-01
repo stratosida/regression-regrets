@@ -45,6 +45,32 @@ for(j in 1:length(bact_transformed$key_predictors)){
 
 ```
 
+New version 
+
+```{r}
+library(here)
+library(tidyverse)
+library(tidyselect)
+library(patchwork)
+
+## Load the datasets
+ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
+
+
+source(here("R", "fun_compare_dist_plot.R"))
+
+compare_dist_plot(dat)
+
+res <- 
+  ADLB |> 
+  group_by(PARAMCD) |>
+  group_map(~ compare_dist_plot(.x), .keep = TRUE)
+res
+
+```
+
+
 ### Predictors of medium importance
 
 ```{r}
