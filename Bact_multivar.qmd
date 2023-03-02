@@ -48,25 +48,36 @@ for(j in 1:length(bact_transformed$key_predictors)){
 New version 
 
 ```{r}
-library(here)
 library(tidyverse)
 library(tidyselect)
 library(patchwork)
+library(ggpubr)
+  
+library(here)
+source(here("R", "fun_compare_dist_plot.R"))
+source(here("R", "fun_compare_mult_dists.R"))
 
 ## Load the datasets
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
 
 
-source(here("R", "fun_compare_dist_plot.R"))
+ADSL01 <-
+  ADSL |> 
+  select(USUBJID, AGEGR01C, AGE, SEXC) 
 
-compare_dist_plot(dat)
+dat <- ADLB |> 
+  left_join(ADSL01, by = "USUBJID") 
 
-res <- 
-  ADLB |> 
+res <- dat |> 
+  mutate(AVAL = pseudo_log(AVAL)) |>
   group_by(PARAMCD) |>
-  group_map(~ compare_dist_plot(.x), .keep = TRUE)
-res
+  group_map(~ plot_assoc_by(.x), .keep = TRUE)
+
+
+res[[3]]
+
+
 
 ```
 
