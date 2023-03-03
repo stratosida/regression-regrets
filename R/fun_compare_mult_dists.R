@@ -20,7 +20,7 @@ plot_assoc_by <- function(dat){
     summarise(r = cor(AGE, AVAL, use="pairwise.complete.obs", method="spearman"))
   
 
-  cat(spear_sex, " ", correlate[1], "\n")
+  cat(spear_sex, " ", correlate[[1]], "\n")
   
   
   xaxis <- dat |>

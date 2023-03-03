@@ -29,19 +29,19 @@ A scatterplot of each predictor with age, with different panels for males and fe
 ### Key predictors
 
 ```{r}
-for(j in 1:length(bact_transformed$key_predictors)){
-  predictor <- bact_transformed$key_predictors[j]
-  if(predictor!="AGE"){
-  p1<-ggplot(data=c_bact, mapping=aes(x=.data[["AGE"]], y=.data[[predictor]]))+ geom_point(alpha=alpha_value) + facet_grid(cols=vars(.data[["GENDER"]])) 
-  print(p1)
-  
-    spear_sex<-by(c_bact[,c("AGE",predictor)], c_bact$GENDER, FUN=function(X) data = cor(X,use="pairwise.complete.obs",method="spearman")[1,2])
-    cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
-  # COMMENT @Mark: is there some way to print the spearman correlation coefficients (spear_sex) into the graphs or into the column labels (in a standardized way)??
-    # COMMENT @Mark: can we display inverse pseudolog (back-transformed) y-axis labels for better interpretation? see function inv_pseudo_log() in ida_trans.R
-
-  }
-}
+# for(j in 1:length(bact_transformed$key_predictors)){
+#   predictor <- bact_transformed$key_predictors[j]
+#   if(predictor!="AGE"){
+#   p1<-ggplot(data=c_bact, mapping=aes(x=.data[["AGE"]], y=.data[[predictor]]))+ geom_point(alpha=alpha_value) + facet_grid(cols=vars(.data[["GENDER"]])) 
+#   print(p1)
+#   
+#     spear_sex<-by(c_bact[,c("AGE",predictor)], c_bact$GENDER, FUN=function(X) data = cor(X,use="pairwise.complete.obs",method="spearman")[1,2])
+#     cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
+#   # COMMENT @Mark: is there some way to print the spearman correlation coefficients (spear_sex) into the graphs or into the column labels (in a standardized way)??
+#     # COMMENT @Mark: can we display inverse pseudolog (back-transformed) y-axis labels for better interpretation? see function inv_pseudo_log() in ida_trans.R
+# 
+#   }
+# }
 
 ```
 
