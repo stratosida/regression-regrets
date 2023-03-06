@@ -27,7 +27,7 @@ For simplicity, we have also stored the *source* data and accompanying materials
 
 ### Data dictionary
 
-The data dictionary provides an overview of the collected data. First, we read and display the data dictionary below providing an overview of the collected measurements. The `variable` name and `label` are displayed alongside the measurement `scale` and `units` as well as `remarks` and relevant study information `from_paper`. 
+The data dictionary provides an overview of the collected data. First, we read and display the data dictionary below providing an overview of the collected measurements. 
 
 ```{r datadict, warning=FALSE, message=FALSE, echo=FALSE}
 
@@ -41,6 +41,8 @@ bact_dd <- read_csv(
   arrange(VariableNr) |>
   clean_names()
 ```
+
+The `variable` name and `label` are displayed alongside the measurement `scale` and `units` as well as `remarks` and relevant study information `from_paper`. 
 
 ```{r datadict_display}
 
@@ -58,20 +60,18 @@ We also display a short snapshot of source data set from the `data-raw` folder o
 
 ```{r contents_bact,  warning=FALSE, message=FALSE, echo=FALSE} 
 
-## Load the source dataset from the data folder. 
-bact <- read_csv(
-  here("data-raw", "Bacteremia_public_S2.csv")
-  ) 
+## read the source data set from the data folder.
+
+bact <- read_csv(here("data-raw", "Bacteremia_public_S2.csv"))
 
 ```
 
 We do not display all observations measured as it is too wide and long to fit reasonably in to the report. However, we refer you to the [Zenodo page](https://doi.org/10.5281/zenodo.7554815) for an interactive overview of the source data. 
 
 ```{r contents_bact_glimpse,  warning=FALSE, message=FALSE, echo=FALSE}
-# TODO:: Move to appendix?
+
+# TODO: Move to appendix?
 bact |> glimpse(width = getOption("width"))
+
 ```
 
-
-
-## References 
