@@ -7,6 +7,10 @@
 # cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
 
 
+## for psudeo log scale plotting see https://scales.r-lib.org/reference/pseudo_log_trans.html
+## and https://github.com/r-lib/scales/issues/219
+## and https://stackoverflow.com/questions/66886197/pseudo-log-transform-still-removes-0s-from-plot-how-to-avoid
+
 plot_assoc_by <- function(dat){
   
   spear_sex <- by(dat[,c("AGE", "AVAL")], dat$SEXC, 
@@ -19,8 +23,7 @@ plot_assoc_by <- function(dat){
     tidyr::drop_na(AGE, AVAL) |>
     summarise(r = cor(AGE, AVAL, use="pairwise.complete.obs", method="spearman"))
   
-
-  cat(spear_sex, " ", correlate[[1]], "\n")
+  #cat(spear_sex, " ", correlate$SEXC, correlate$r, "\n")
   
   
   xaxis <- dat |>
@@ -34,12 +37,20 @@ plot_assoc_by <- function(dat){
     tidyr::drop_na(AGE) |>
     tidyr::drop_na(SEXC) |>
     ggplot(aes(x = AGE, y = AVAL)) +
-    geom_point(alpha = 0.4, colour = "firebrick2", size = 0.3) +
-    stat_cor(method = "spearman") +
+    geom_point(alpha = 0.4, colour = "firebrick2", size = 0.4) +
+    #stat_cor(method = "spearman", p.accuracy = 0.001, r.accuracy = 0.001) +
+
+    
+  # working code for psuedo log transform scale plotting  
+  #  coord_trans(x = 'log10', ylim = c(10^-12, 10^0)) +
+  #  scale_x_continuous(breaks=10^seq(-12,0,2)) +
+    
+    
     facet_wrap(~ SEXC) +
     labs(x = attr(dat$AGE, "label"),
          y = xaxis)  + 
-    theme_light()
+    theme_bw(base_size = 14) +
+    stat_cor(aes(label = after_stat(r.label)), method = "spearman", r.accuracy = 0.001, position = "jitter") 
 
   return(gg)  
   }

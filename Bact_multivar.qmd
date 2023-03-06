@@ -67,10 +67,10 @@ ADSL01 <-
   select(USUBJID, AGEGR01C, AGE, SEXC) 
 
 dat <- ADLB |> 
-  left_join(ADSL01, by = "USUBJID") 
+  left_join(ADSL01, by = "USUBJID") |>
+  mutate(AVAL = pseudo_log(AVAL)) 
 
 res <- dat |> 
-  mutate(AVAL = pseudo_log(AVAL)) |>
   group_by(PARAMCD) |>
   group_map(~ plot_assoc_by(.x), .keep = TRUE)
 
@@ -85,33 +85,16 @@ res[[3]]
 ### Predictors of medium importance
 
 ```{r}
-for(j in 1:length(bact_transformed$medimp_predictors)){
-  predictor <- bact_transformed$medimp_predictors[j]
-  p1<-ggplot(data=c_bact, mapping=aes(x=.data[["AGE"]], y=.data[[predictor]]))+ geom_point(alpha=alpha_value) + facet_grid(cols=vars(.data[["GENDER"]])) 
-  print(p1)
-  
-    spear_sex<-by(c_bact[,c("AGE",predictor)], c_bact$GENDER, FUN=function(X) data = cor(X,use="pairwise.complete.obs",method="spearman")[1,2])
-    cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
-  # @Mark: see comments above
+## use filters 
 
-}
 
 ```
 
 ### Remaining predictors
 
 ```{r}
-for(j in 1:length(bact_transformed$remaining_predictors)){
-  predictor <- bact_transformed$remaining_predictors[j]
-  p1<-ggplot(data=c_bact, mapping=aes(x=.data[["AGE"]], y=.data[[predictor]]))+ geom_point(alpha=alpha_value) + facet_grid(cols=vars(.data[["GENDER"]])) 
-  print(p1)
-  
-    spear_sex<-by(c_bact[,c("AGE",predictor)], c_bact$GENDER, FUN=function(X) data = cor(X,use="pairwise.complete.obs",method="spearman")[1,2])
-    cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
-  # @Mark: see comments above
 
-}
-
+## use filters 
 ```
 
 
@@ -119,25 +102,50 @@ for(j in 1:length(bact_transformed$remaining_predictors)){
 
 
 ```{r}
-corrs <- c_bact %>%
-    dplyr::select(all_of(variables)) %>%
-      cor(use="pairwise.complete.obs", method="spearman")
+#corrs <- c_bact %>%
+#    dplyr::select(all_of(variables)) %>%
+#      cor(use="pairwise.complete.obs", method="spearman")
+
+
+  
+wide <- ADLB |>
+  select(USUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) 
+
+corrs <-
+  wide |> 
+  select(-USUBJID) |>
+  cor(use="pairwise.complete.obs", method="spearman")
+
+
+#summarise(r = cor(AGE, AVAL, use="pairwise.complete.obs", method="spearman"))
 
 ```
 
 The Spearman correlation coefficients are depicted in a quadratic heat map:
 
 ```{r}
-ggcorrplot(corrs, tl.cex=5, tl.srt=90)
+
+library(ggcorrplot)
+#ggcorrplot(corrs, tl.cex=5, tl.srt=90)
+# Get the lower triangle
+ggcorrplot(corrs, hc.order = TRUE, type = "lower",
+     outline.col = "white")
 ```
 
 ### VE1: Comparing nonparametric and parametric predictor correlation
 
 ```{r}
 # differences of pearson and spearman correlations to check for outliers
-corrp <- c_bact %>%
-    dplyr::select(all_of(variables)) %>%
-      cor(use="pairwise.complete.obs", method="pearson")
+#corrp <- c_bact %>%
+#    dplyr::select(all_of(variables)) %>%
+#      cor(use="pairwise.complete.obs", method="pearson")
+
+corrp <-
+  wide |> 
+  select(-USUBJID) |>
+  cor(use="pairwise.complete.obs", method="pearson")
+
 
 
 corrd <- corrp-corrs
@@ -152,14 +160,47 @@ ggcorrplot(corrd_sp, tl.cex=5, tl.srt=90)
 Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units will be depicted in scatterplots:
 
 ```{r}
-for(j in 1:(length(variables)-1)){
-  for(jj in (j+1):(length(variables))){
-    if(abs(corrd[j, jj])>0.1) print(ggplot(data=c_bact, mapping=aes(x=.data[[variables[j]]],y=.data[[variables[jj]]]))+ geom_point(alpha = alpha_value) +
-    theme_minimal())
+#for(j in 1:(length(variables)-1)){
+#  for(jj in (j+1):(length(variables))){
+#    if(abs(corrd[j, jj])>0.1) print(ggplot(data=c_bact, #mapping=aes(x=.data[[variables[j]]],y=.data[[variables[jj]]]))+ geom_point(alpha = alpha_value) +
+#    theme_minimal())
+#  }
+#}
+
+## COMMENT @Mark can we print pearson and spearman correlation coefficients into/over the graphs?
+
+count <- 0
+
+for (i in 1:49) {
+  
+  for (j in (i+1):50) {
+    if (abs(corrd[i , j]) > 0.25) {
+      
+      count <- count + 1 
+        
+      print(paste0(i, " ", j, " ", corrd[i , j]))
+      print(paste0(attr(corrd, "dimnames")[[1]][i], " vs ", attr(corrd, "dimnames")[[2]][j]))
+      
+      x_lab <- attr(corrd, "dimnames")[[1]][i]
+      y_lab <- attr(corrd, "dimnames")[[2]][j]
+      
+      dat <- 
+        wide |>
+        select(all_of(c(x_lab, y_lab))) |>
+        tidyr::drop_na()
+      
+      #print(dat |>
+      #  ggplot(mapping = aes(x = dat[[x_lab]], y = dat[[y_lab]])) +
+      #    geom_point())
+      
+      
+      
+    }
   }
 }
 
-## COMMENT @Mark can we print pearson and spearman correlation coefficients into/over the graphs?
+
+count
 
 ```
 
@@ -169,20 +210,29 @@ for(j in 1:(length(variables)-1)){
 A variable clustering analysis has been performed to evaluate which predictors are closely associated. The dendrogram groups predictors by their correlation.
 
 ```{r}
-vc_bact<-Hmisc::varclus(as.matrix(c_bact[,variables]))
+
+dat <- wide |> select(-USUBJID)
+
+vc_bact<-Hmisc::varclus(as.matrix(dat))
 plot(vc_bact, cex=0.7, hang=0.01)
+
+
+
+
 ```
 
 In the following scatterplots we show predictor pairs with Spearman correlation coefficients greater than 0.8:
 
 ```{r}
-for(j in 1:(length(variables)-1)){
-  for(jj in (j+1):length(variables)){
-    if(abs(corrs[j, jj])>0.8){
-      print(ggplot(c_bact, aes(.data[[variables[j]]], .data[[variables[jj]]]))+geom_point(alpha = alpha_value, shape = 20))
-    }
-  }
-}
+#for(j in 1:(length(variables)-1)){
+#  for(jj in (j+1):length(variables)){
+#    if(abs(corrs[j, jj])>0.8){
+#      print(ggplot(c_bact, aes(.data[[variables[j]]], .data[[variables[jj]]]))+geom_point(alpha = alpha_value, shape = 20))
+#    }
+#  }
+#}
+
+## see loop above - try to do this in a tidy way..
 
 ```
 
@@ -194,52 +244,73 @@ Variance inflation factors (VIF) will be computed between the candidate predicto
 #### VIF for key predictor model
 
 ```{r}
-formula <- as.formula(paste(c("~",paste(bact_variables$key_predictors, collapse="+")), collapse=""))
+# formula <- as.formula(paste(c("~",paste(bact_variables$key_predictors, collapse="+")), collapse=""))
+# 
+# red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
+# vif<-1/(1-red$rsq1)
+# 
+# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+# 
+# cat("\nVariance inflation factors:\n")
+# print(round(vif,2))
+# 
+# cat("\nMultiple R-squared:\n")
+# print(round(red$rsq1,4))
 
-red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
+
+
+names(dat)
+
+formula <- as.formula(paste(c("~",paste(names(dat), collapse="+")), collapse=""))
+
+formula
+
+red<-Hmisc::redun(formula, data = dat, nk=0, pr=FALSE)
 vif<-1/(1-red$rsq1)
 
-cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(dat),2), "%)\n")
 
 cat("\nVariance inflation factors:\n")
 print(round(vif,2))
 
 cat("\nMultiple R-squared:\n")
 print(round(red$rsq1,4))
+
+
 ```
 
 #### VIF for model with key predictors and predictors of medium importance
 
 ```{r}
-formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors), collapse="+")), collapse=""))
-
-red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
-vif<-1/(1-red$rsq1)
-
-cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-
-cat("\nVariance inflation factors:\n")
-print(round(vif,2))
-
-cat("\nMultiple R-squared:\n")
-print(round(red$rsq1,4))
+# formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors), collapse="+")), collapse=""))
+# 
+# red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
+# vif<-1/(1-red$rsq1)
+# 
+# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+# 
+# cat("\nVariance inflation factors:\n")
+# print(round(vif,2))
+# 
+# cat("\nMultiple R-squared:\n")
+# print(round(red$rsq1,4))
 ```
 
 #### VIF for all predictor model
 
 ```{r}
-formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors, bact_variables$remaining_predictors), collapse="+")), collapse=""))
-
-red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
-vif<-1/(1-red$rsq1)
-
-cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-
-cat("\nVariance inflation factors:\n")
-print(round(vif,2))
-
-cat("\nMultiple R-squared:\n")
-print(round(red$rsq1,4))
+# formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors, bact_variables$remaining_predictors), collapse="+")), collapse=""))
+# 
+# red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
+# vif<-1/(1-red$rsq1)
+# 
+# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+# 
+# cat("\nVariance inflation factors:\n")
+# print(round(vif,2))
+# 
+# cat("\nMultiple R-squared:\n")
+# print(round(red$rsq1,4))
 ```
 
 
