@@ -143,6 +143,7 @@ table(ARD$STATISTIC)
 
 ```{r}
 ARD |>
+  filter(STATISTIC %in% c("mean", "median", "min")) |>
   pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
   gt()
 ```
