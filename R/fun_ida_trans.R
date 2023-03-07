@@ -8,6 +8,19 @@ cornorm <- function(x, qn){
 
 # equ.marg: how much better a correlation with normal deviates has to be than the original variable
 #           to avoid only slight improvements
+
+
+#' Check if a transformation may improve distribution 
+#' equ.marg: how much better a correlation with normal deviates has to be than 
+#' the original variable to avoid only slight improvements
+#'
+#' @param dat 
+#' @param equ.marg 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 ida_trans <- function(dat, equ.marg=0.05){
 
   ## store PARAMCD
@@ -21,7 +34,7 @@ ida_trans <- function(dat, equ.marg=0.05){
     select(AVAL) |> 
     drop_na()
   
-  ## stire daa vector
+  ## store data vector
   x <- x$AVAL
   
   ## subsample long data frame
@@ -37,20 +50,13 @@ ida_trans <- function(dat, equ.marg=0.05){
     res <- list(dat = NULL, code = PARAMCD, const=NA, fun=function(x) x)
   } 
   else {
-  
-#    if(min(x, na.rm=T)>0) interval=c(0,max(x))
-#    else interval=c(min(x[x>0]), max(x))
     interval <- c(-10,10)
-    
-#   topt<-optimize(f=function(const) 1-cornorm(X=pseudo_log(x, sigma=const), qn=qn), interval=interval, tol=0.05)
     topt <- optimize(f = function(const) 1-cornorm(x = pseudo_log(x, sigma = 2**const), qn = qn), interval=interval, tol=0.5)
     
     if(topt$objective>(1- cn.orig - equ.marg)) {
-      #cat("Original distribution better than any log.\n")
       res <- list(dat = NULL,  code = PARAMCD, const=NA, fun=function(x) x)
     } else {
-      #res<-list(const=topt$minimum, fun=function(x) log(x))
-      
+
       x_t <- pseudo_log(dat$AVAL, sigma = 2**topt$minimum, base=10)
       
       dat$AVAL <- x_t
@@ -60,13 +66,11 @@ ida_trans <- function(dat, equ.marg=0.05){
           PARAM_TYPE = "DERIVED",
           PARAMCD = paste0(PARAMCD, "_T"),
           PARAM = paste0(PARAM, " : pseudo log transformed"),
-          KEY_PRED_FL = "",
-          MED_PRED_FL = "",
-          REM_PRED_FL = ""
+          KEY_PRED_FL02 = KEY_PRED_FL01,
+          MED_PRED_FL02 = MED_PRED_FL01,
+          REM_PRED_FL02 = REM_PRED_FL01
           )
-      
-      cat(PARAMCD, " transformed : ")
-      
+  
       res <- list(dat = dat, code = PARAMCD, const=2**topt$minimum, fun=function(x) log(x))
     } 
   }

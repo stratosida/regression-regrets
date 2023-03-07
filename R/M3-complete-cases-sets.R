@@ -16,13 +16,13 @@ m3_analysis <- function(ADSL, ADLB){
   final_ard <- NULL
   
   ## join structural variables on
-  ADLB <- ADLB |> left_join(ADSL |> select(USUBJID, SEXC, AGEGR01C))
+  ADLB <- ADLB |> left_join(ADSL |> select(USUBJID, SEXC, AGEGR01C), by = "USUBJID")
   
   
   ## all predictors
   ard_all <- ADLB |> 
-    filter(KEY_PRED_FL == "Y") |>
-    select(SUBJID, PARAMCD, AVAL, AGE, SEXC, AGEGR01C) |>
+    filter(KEY_PRED_FL01 == "Y") |>
+    select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01C) |>
     pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) |>
     select(-SUBJID) |>
     group_by(SEXC, AGEGR01C) |>
@@ -34,8 +34,8 @@ m3_analysis <- function(ADSL, ADLB){
     
   ## key predictors
   ard_key <- ADLB |> 
-    filter(KEY_PRED_FL == "Y") |>
-    select(SUBJID, PARAMCD, AVAL, AGE, SEXC, AGEGR01C) |>
+    filter(KEY_PRED_FL01 == "Y") |>
+    select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01C) |>
     pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) |>
     select(-SUBJID) |>
     group_by(SEXC, AGEGR01C) |>
@@ -48,7 +48,7 @@ m3_analysis <- function(ADSL, ADLB){
   
   ## medium predictors
   ard_med <- ADLB |> 
-    filter(MED_PRED_FL == "Y") |>
+    filter(MED_PRED_FL01 == "Y") |>
     select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01C) |>
     pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) |>
     select(-SUBJID) |>

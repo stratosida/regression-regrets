@@ -67,12 +67,13 @@ describe_long_dataset <- function(x){
       qt_50 = quantile(AVAL, 0.5, na.rm = TRUE),
       qt_75 = quantile(AVAL, 0.75, na.rm = TRUE),
       qt_90 = quantile(AVAL, 0.9, na.rm = TRUE),
-      qt_95 = quantile(AVAL, 0.95, na.rm = TRUE)
+      qt_95 = quantile(AVAL, 0.95, na.rm = TRUE),
       #    mostfreq01 = tail(sort(table(AVAL)), most_frequent)[1],
       #    mostfreq02 = tail(sort(table(AVAL)), most_frequent)[2],
       #    mostfreq03 = tail(sort(table(AVAL)), most_frequent)[3],
       #    mostfreq04 = tail(sort(table(AVAL)), most_frequent)[4],
       #    mostfreq05 = tail(sort(table(AVAL)), most_frequent)[5]
+      .groups = 'drop'
     ) |>
     tidyr::pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "RESULT")
   

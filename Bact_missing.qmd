@@ -4,11 +4,12 @@
 ```{r, warning=FALSE, message=FALSE}
 ## Load libraries
 library(here)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(naniar) ## for missing data 
 library(gt)
 
-
+# Load the first iteration of the analysis ready data sets
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
 ```
@@ -24,13 +25,13 @@ Number and percentage of missingness for each predictor, sorted by descending mi
 ADSL |>
   select(BACTEREMIA, AGE, SEX) |>
   miss_var_summary() |>
-  gt::gt() |>
+  gt() |>
     gt::cols_label(
     variable = "Variable",
     n_miss = "Missing (count)",
     pct_miss = "Missing (%)"
   ) |>
-  gt::fmt_number(
+  fmt_number(
     columns = vars(pct_miss),
     decimals = 2
   )
@@ -40,6 +41,7 @@ ADSL |>
 ### Lab parameters 
 
 ```{r, message = FALSE, warning = FALSE, echo = FALSE}
+
 describe_predictor_cont_vars <-
   ADLB |>
   select(PARAM, PARAMCD, AVAL) |>
@@ -50,16 +52,13 @@ describe_predictor_cont_vars <-
 
 describe_predictor_cont_vars |>
   select(-PARAMCD) |>
+  arrange(-n_miss) |>
   gt() |>
-   gt::cols_label(
-    PARAM  = "Variable",
-    n_miss = "Missing (count)",
-    pct_miss = "Missing (%)"
-  ) |>
-  gt::fmt_number(
-    columns = vars(pct_miss),
-    decimals = 2
-  )
+  cols_label(PARAM  = "Variable",
+             n_miss = "Missing (count)",
+             pct_miss = "Missing (%)") |>
+  fmt_number(columns = vars(pct_miss),
+             decimals = 2)
 
 ```
 
@@ -73,18 +72,18 @@ Number of available complete cases (outcome and predictors):
 
 ```{r summiss, message =FALSE, warning =FALSE , echo=FALSE}
 
-source("M2-complete-cases.R")
+source(here("R", "M2-complete-cases.R"))
 m2_ard <- m2_analysis(ADSL = ADSL, ADLB = ADLB)
 
 m2_ard |> 
   select(Set, n_cases, pct_cases ) |>
   gt() |>
-   gt::cols_label(
+   cols_label(
     Set  = "Set",
     n_cases = "Complete (count)",
     pct_cases = "Complete (%)"
   ) |>
-  gt::fmt_number(
+  fmt_number(
     columns = c(pct_cases),
     decimals = 1
   )
@@ -99,7 +98,7 @@ m2_ard |>
 ```{r summiss2, message =FALSE, warning =FALSE , echo=FALSE}
 
 ##TODO -  add a proper structure with GENDER and AGEGROUP.
-source("M3-complete-cases-sets.R")
+source(here("R", "M3-complete-cases-sets.R"))
 m3_ard <- m3_analysis(ADSL, ADLB)
 
 m3_ard |> 
@@ -128,7 +127,7 @@ The dendrogram depicts the results of a cluster analysis using the complete link
 The numbers in brackets are the percentages of missing observations for each predictor.
 
 ```{r, message =FALSE, warning =FALSE , echo=FALSE, fig.height=12, fig.width=12, fig.cap="Clustered variables by percentage observations discordantly missing [by variable percentage missing]"}
-source("M3-dendogram.R")
+source(here("R", "M3-dendogram.R"))
 m3_dendogram(ADLB)
 ```
 

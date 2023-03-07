@@ -4,42 +4,62 @@ This section reports a series of univariate summary checks of the bacteremia dat
 
 ```{r uni01, message =FALSE, warning =FALSE , echo=FALSE}
 library(here)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 library(tidyselect)
+library(gt)
+library(gtExtras)
 library(summarytools)
-library(skimr)
-library(Hmisc)
-library(e1071)   # ADD for skewness and kurtosis
+
+#library(skimr)
+#library(Hmisc)
+#library(e1071)   # ADD for skewness and kurtosis
 #source(here("R", "ida_plot_univar.R"))  ## function to plot univariate summaries. 
 #source(here("R", "ida_plot_univar_orig_vs_trans.R"))  ## function for side-by-side comparison of original vs. transformed scale, calls ida_plot_univar.R
 #source(here("R", "ida_trans.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). 
 #source(here("R", "main_descriptives.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). 
 
-## Load the datasets
+# st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
+#            plain.ascii       = FALSE,       # One of the essential settings
+#            style             = "rmarkdown", # Idem.
+#            dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
+#            footnote          = NA,          # Keeping the results minimalistic
+#            subtitle.emphasis = FALSE)       # For the vignette theme, this gives better results.
+#                                             # For other themes, using TRUE might be preferable.
+
+
+## Load the first iteration of the analysis ready datasets
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
 ```
 
 ## U1: Categorical variables
 
-SEX and BC (bactermia status) are described by frequencies and proportions in each category.
+Age group, sex and bactermia status are described by frequencies and proportions in each category.
 
-```{r catplot, message=FALSE, warning =FALSE , echo=FALSE}
+```{r catplot, message=FALSE, warning =FALSE , echo=FALSE, include = TRUE}
+
 source(here("R", "U1-categorical.R"))
-
+ 
 u1_ard <- u1_describe(ADSL = ADSL)
-u1_ard |> glimpse()
+# u1_ard |> glimpse()
+
+u1_display_table_word(u1_ard) 
+
+## Run this for online website
+## u1_display_table_html(u1_ard)
+
 ```
 
-```{r cattab, message=FALSE, warning =FALSE , echo=FALSE}
+
+Also plot the categories. 
+
+```{r catplot2, message=FALSE, warning=FALSE, echo=FALSE, fig.height=2.5, fig.width=12}
+
 source(here("R", "U1-categorical.R"))
-u1_display_table(u1_ard)
-```
-
-
-```{r catplot2, message=FALSE, warning =FALSE , echo=FALSE}
-# Do we need this plot?
 u1_display_plot(u1_ard)
+
 ```
 
 
@@ -55,14 +75,15 @@ The only structural continuous variables is AGE. This variable is also a key pre
 
 Note: the structural variable Age is also considered a key predictor.
 
-```{r uni02, message=FALSE, warning =FALSE , echo=FALSE}
-#| layout-ncol: 2
+```{r uni02, message=FALSE, warning =FALSE , echo=FALSE, fig.height= 3}
+#| layout-ncol: 4
+
 source(here::here("R", "U2-cont-describe-plot.R"))
 
-key_plts <- 
-  ADLB |> 
-  filter(KEY_PRED_FL == "Y") |> 
-  group_by(PARAMCD) |> 
+key_plts <-
+  ADLB |>
+  filter(KEY_PRED_FL01 == "Y") |>
+  group_by(PARAMCD) |>
   group_map(~ describe_plot(.x))
 
 for (plts in key_plts) {
@@ -73,13 +94,13 @@ for (plts in key_plts) {
 
 #### U2: Predictors of medium importance
 
-```{r uni03}
-#| layout-ncol: 2
+```{r uni03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 4
 
-med_plts <-  
-  ADLB |> 
-  filter(MED_PRED_FL == "Y") |>
-  group_by(PARAMCD) |> 
+med_plts <-
+  ADLB |>
+  filter(MED_PRED_FL01 == "Y") |>
+  group_by(PARAMCD) |>
   group_map(~ describe_plot(.x))
 
 for (plts in med_plts) {
@@ -90,12 +111,13 @@ for (plts in med_plts) {
 
 #### U2: Remaining predictors
 
-```{r uni04}
-#| layout-ncol: 2
-rem_plts <-  
-  ADLB |> 
-  filter(REM_PRED_FL == "Y") |>
-  group_by(PARAMCD) |> 
+```{r uni04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 4
+
+rem_plts <-
+  ADLB |>
+  filter(REM_PRED_FL01 == "Y") |>
+  group_by(PARAMCD) |>
   group_map(~ describe_plot(.x))
 
 for (plts in rem_plts) {
@@ -115,7 +137,7 @@ for (plts in rem_plts) {
 source(here::here("R", "fun_describe_long_dataset.R"))
 # summary stats 
 ARD <- describe_long_dataset(ADLB)
-ARD  |> glimpse()
+#ARD  |> glimpse()
 #ARD |> filter(STATISTIC == "top_1")
 ```
 
@@ -123,24 +145,28 @@ ARD  |> glimpse()
 
 ```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
 
-dat <- 
-  ADLB |> 
-  filter(KEY_PRED_FL == "Y") |>
+dat <-
+  ADLB |>
+  filter(KEY_PRED_FL01 == "Y") |>
   select(USUBJID, PARAMCD, AVAL) |>
-  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |> 
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
   select(-USUBJID)
 
- 
- dfSummary(
-   dat,
-   varnumbers = FALSE,
-   round.digits = 2,
-   plain.ascii = FALSE,
-   style = "grid",
-   graph.magnif = .33,
-   valid.col = FALSE,
-   tmp.img.dir = "img"
- )
+
+library(Hmisc)
+
+html(describe(dat))
+
+# print(dfSummary(
+#   dat,
+#   varnumbers = FALSE,
+#   round.digits = 2,
+#   plain.ascii = FALSE,
+#   style = "grid",
+#   graph.magnif = .33,
+#   valid.col = FALSE,
+#   tmp.img.dir = "img"
+# ))
 ```
 
 
@@ -148,24 +174,24 @@ dat <-
 
 ```{r uni06, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
 
-dat <- 
-  ADLB |> 
-  filter(MED_PRED_FL == "Y") |>
+dat <-
+  ADLB |>
+  filter(MED_PRED_FL01 == "Y") |>
   select(USUBJID, PARAMCD, AVAL) |>
-  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |> 
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
   select(-USUBJID)
 
- 
- dfSummary(
-   dat,
-   varnumbers = FALSE,
-   round.digits = 2,
-   plain.ascii = FALSE,
-   style = "grid",
-   graph.magnif = .33,
-   valid.col = FALSE,
-   tmp.img.dir = "img"
- )
+
+print(dfSummary(
+  dat,
+  varnumbers = FALSE,
+  round.digits = 2,
+  plain.ascii = FALSE,
+  style = "grid",
+  graph.magnif = .33,
+  valid.col = FALSE,
+  tmp.img.dir = "img"
+))
 
 ```
 
@@ -173,24 +199,24 @@ dat <-
 
 ```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
 
-dat <- 
-  ADLB |> 
-  filter(REM_PRED_FL == "Y") |>
+dat <-
+  ADLB |>
+  filter(REM_PRED_FL01 == "Y") |>
   select(USUBJID, PARAMCD, AVAL) |>
-  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |> 
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
   select(-USUBJID)
 
- 
- dfSummary(
-   dat,
-   varnumbers = FALSE,
-   round.digits = 2,
-   plain.ascii = FALSE,
-   style = "grid",
-   graph.magnif = .33,
-   valid.col = FALSE,
-   tmp.img.dir = "img"
- )
+
+dfSummary(
+  dat,
+  varnumbers = FALSE,
+  round.digits = 2,
+  plain.ascii = FALSE,
+  style = "grid",
+  graph.magnif = .33,
+  valid.col = FALSE,
+  tmp.img.dir = "img"
+)
 
 ```
 
@@ -201,16 +227,16 @@ Next we investigate whether a pseudolog transformation of continuous variables m
 ```{r uni08, message =FALSE, warning =FALSE , echo=FALSE}
 source(here("R", "fun_ida_trans.R"))
 
-x <- ADLB |> filter(PARAMCD == "TRIG") 
-b <- ida_trans(x, equ.marg=0.2)
-
-## need to rethink the param and paramcd interaction
+# x <- ADLB |> filter(PARAMCD == "TRIG") 
+# b <- ida_trans(x, equ.marg=0.2)
+# 
+# ## need to rethink the param and paramcd interaction
 res <- 
-  ADLB |> 
-#  filter(KEY_PRED_FL == "Y") |>
-  group_by(PARAMCD) |>
-  group_map(~ ida_trans(.x, equ.marg=0.2), .keep = TRUE)
-  
+   ADLB |> 
+# #  filter(KEY_PRED_FL == "Y") |>
+   group_by(PARAMCD) |>
+   group_map(~ ida_trans(.x, equ.marg=0.2), .keep = TRUE)
+#   
 
 
 # variables<- c(structural_vars, key_predictors, medimp_predictors, remaining_predictors)
@@ -219,58 +245,58 @@ res <-
 # # TODO: using b_bact. Track down the formatting issue
 # res<-sapply(unique.variables, function(X) ida_trans(b_bact[,X], equ.marg=0.2)$const) #takes long, calculate once, and save?
  #res
- #cat("Predictors where a transformation may symmetrize the distribution:\n")
- #cat("Number:     ", sum(!is.na(res)), "\n")
- #cat("Proportion: ", mean(!is.na(res)), "\n")
+ cat("Predictors where a transformation may symmetrize the distribution:\n")
+ cat("Number:     ", sum(!is.na(res)), "\n")
+ cat("Proportion: ", mean(!is.na(res)), "\n")
 ```
 
 Register transformed variables in the data set:
 
 ```{r}
-new_vars <- NULL
-
-for (param in res)
-  if(!is.na(param$const))
-    new_vars <- bind_rows(new_vars, param$dat)
-
-ADLB_02 <- bind_rows(ADLB, new_vars)
-ADLB_02 |> group_by(PARAM, PARAMCD) |> tally()
-```
-
-
-```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}
- 
-trans_data <- ADLB_02 |> 
-  filter(PARAM_TYPE == "DERIVED") |>
-  mutate(join_var = PARAM_DERIVED)
-
-orig_data <- ADLB_02 |>
-  mutate(join_var = PARAMCD,
-         AVAL_ORIG = AVAL) |>
-  select(USUBJID, join_var, AVAL_ORIG)
-  
-both <- trans_data |>
-  left_join(orig_data)
-
-source(here::here("R", "U2-cont-describe-plot.R"))
-library(patchwork)
-
-plt_hist <- function(dat){
-  a <- dat |>
-    describe_plot()    
-  
-  b <- dat |>
-    mutate(AVAL = AVAL_ORIG) |>
-    describe_plot()    
-  
-  a + b
-
-}
-
-both |>
-  group_by(PARAMCD) |>
-  group_map(~ plt_hist(.x))
-  
+# new_vars <- NULL
+# 
+# for (param in res)
+#   if(!is.na(param$const))
+#     new_vars <- bind_rows(new_vars, param$dat)
+# 
+# ADLB_02 <- bind_rows(ADLB, new_vars)
+# ADLB_02 |> group_by(PARAM, PARAMCD) |> tally()
+# ```
+# 
+# 
+# ```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}
+#  
+# trans_data <- ADLB_02 |> 
+#   filter(PARAM_TYPE == "DERIVED") |>
+#   mutate(join_var = PARAM_DERIVED)
+# 
+# orig_data <- ADLB_02 |>
+#   mutate(join_var = PARAMCD,
+#          AVAL_ORIG = AVAL) |>
+#   select(USUBJID, join_var, AVAL_ORIG)
+#   
+# both <- trans_data |>
+#   left_join(orig_data)
+# 
+# source(here::here("R", "U2-cont-describe-plot.R"))
+# library(patchwork)
+# 
+# plt_hist <- function(dat){
+#   a <- dat |>
+#     describe_plot()    
+#   
+#   b <- dat |>
+#     mutate(AVAL = AVAL_ORIG) |>
+#     describe_plot()    
+#   
+#   a + b
+# 
+# }
+# 
+# both |>
+#   group_by(PARAMCD) |>
+#   group_map(~ plt_hist(.x))
+#   
 
 
 
@@ -282,13 +308,13 @@ plot side by side
 
 ```{r}
 ## plot side by side
-source(here("R", "fun_compare_dist_plot.R"))
-
-res <- 
-  ADLB |> 
-  group_by(PARAMCD) |>
-  group_map(~ compare_dist_plot(.x), .keep = TRUE)
-res
+# source(here("R", "fun_compare_dist_plot.R"))
+# 
+# res <- 
+#   ADLB |> 
+#   group_by(PARAMCD) |>
+#   group_map(~ compare_dist_plot(.x), .keep = TRUE)
+# res
 ```
 
 
@@ -319,5 +345,5 @@ The comparison is only shown for variables where a transformation is suggested.
 ## Section session info
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-sessionInfo()
+# sessionInfo()
 ```
