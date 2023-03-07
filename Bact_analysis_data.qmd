@@ -10,10 +10,11 @@ library(ggplot2)
 library(tidyselect)
 library(here)
 library(janitor)
+library(gt)
 ```
 
 
-Based on the IDA plan prepare the data to be analysis ready: read, clean and tidy. 
+Based on the IDA plan, this section prepares the source data to be analysis ready: read, clean, tidy and transform. 
 
 
 ## Analysis ready dataset
@@ -31,7 +32,7 @@ At the stage we could select the variables of interest to take in to the IDA pha
 
 Read in the source data dictionary 
 
-```{r read_dict}
+```{r read_dict, warning=FALSE, message=FALSE, echo=FALSE}
 ## Read in the source data dictionary and display 
 bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")) %>%
   arrange(VariableNr) |>
@@ -41,7 +42,7 @@ bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")
 
 Read in the source data.
 
-```{r read_source, warning=FALSE, message=FALSE}
+```{r read_source, warning=FALSE, message=FALSE, echo=FALSE}
 bact_data <- read_csv(here("data-raw", "Bacteremia_public_S2.csv")) 
 ```
 
@@ -130,11 +131,24 @@ attr(bact_data03$NOTE2, "label") <- "Remarks from source data dictionary - free 
 Check we have not introduced any errors with the outcome variable. 
 
 ```{r outcome_check, warning=FALSE, message=FALSE, echo=FALSE} 
-table(bact_data02$BloodCulture)
-table(bact_data03$BACTEREMIA)
+
+cat("Display marginal distribution from source data variable")
+
+bact_data02 |>
+  group_by(BloodCulture) |> 
+  tally() |>
+  gt()
+
+cat("Display marginal distribution from transformed data variable")
+
+bact_data03 |>
+  group_by(BACTEREMIA) |> 
+  tally() |>
+  gt()
+
 ```
 
-Set flags for predictors as per the IDA plan:
+Set flags for predictors as per the IDA plan (see Section 2.1.1 Analysis strategy).
 
 * age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors
 
@@ -145,25 +159,42 @@ Set flags for predictors as per the IDA plan:
 bact_data04 <-
   bact_data03 |>
   mutate(
-    KEY_PRED_FL = case_when(
+    KEY_PRED_FL01 = case_when(
       PARAMCD %in% c("AGE", "WBC", "BUN", "CREA", "PLT", "NEU") ~ "Y"
       ),
-    MED_PRED_FL = case_when(
+    MED_PRED_FL01 = case_when(
       PARAMCD %in% c("POTASS", "FIB", "CRP", "ASAT", "ALAT", "GGT") ~ "Y"
       ),
-    REM_PRED_FL = case_when(
+    REM_PRED_FL01 = case_when(
       PARAMCD %in% c("MCV", "HGB", "HCT", "MCH", "MCHC", "RDW", "MPV", "LYM", "MONO", "EOS", "BASO", "NT", "APTT", "SODIUM", "CA", "PHOS", "MG", "HS", "GBIL", "TP", "ALB", "AMY", "PAMY", "LIP", "CHE", "AP", "LDH", "CK", "GLU", "TRIG", "CHOL", "BASOR", "EOSR", "LYMR", "MONOR", "NEUR", "PDW", "RBC") ~ "Y"
       )
   )
 
 
-attr(bact_data04$KEY_PRED_FL, "label") <- "Key Predictor Flag"
-attr(bact_data04$MED_PRED_FL, "label") <- "Predictors of medium importance Flag"
-attr(bact_data04$REM_PRED_FL, "label") <- "Remaining Predictors Flag"
+attr(bact_data04$KEY_PRED_FL01, "label") <- "Key Predictor Flag - Section 2.1.1 Analysis strategy"
+attr(bact_data04$MED_PRED_FL01, "label") <- "Predictors of medium importance Flag - Section 2.1.1 Analysis strategy"
+attr(bact_data04$REM_PRED_FL01, "label") <- "Remaining Predictors flag - Section 2.1.1 Analysis strategy"
 ```
 
-TODO: something with this text?
-*"For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age."*
+
+Add metadata flags to indicate relationship between blood cell parameters. See section 2.1.3 of the IDA plan 
+
+
+```{r wbc_relationship}
+
+bact_data05 <-
+  bact_data04 |>
+    mutate(PARCAT01 = if_else(PARAMCD %in% c("BASO","EOS", "NEU", "LYM", "MONO"), "Y", ""),
+           PARAMTYP = if_else(PARCAT01 == "Y", "DERVIVED", ""))
+
+attr(bact_data05$PARAMTYP, "label") <- "Parameter type (indicator of derived variables)"
+attr(bact_data05$PARCAT01, "label") <- "Leukocytes parameter categories"
+
+
+
+```
+
+
 
 
 Derive age groups. 
@@ -175,8 +206,8 @@ For the purpose of stratifying IDA results by age, age will be categorized into 
 * (65, 101].
 
 ```{r age_groups, warning=FALSE, message=FALSE, echo=FALSE} 
-bact_data05 <-
-  bact_data04 |>
+bact_data06 <-
+  bact_data05 |>
   mutate(AGEGR01 = case_when(AGE >= 16  & AGE <= 50 ~ 1,
                            AGE > 50 & AGE <= 65 ~ 2,
                            AGE > 65 & AGE <= 101 ~ 3),
@@ -184,8 +215,8 @@ bact_data05 <-
                               AGEGR01 == 2 ~ "(50, 65]",
                               AGEGR01 == 3 ~ "(65, 101]"))
 
-attr(bact_data05$AGEGR01, "label") <- "Age group 01 (Numeric coding)"
-attr(bact_data05$AGEGR01C, "label") <- "Age group 01 (Character coding)"
+attr(bact_data06$AGEGR01, "label") <- "Age group 01 (Numeric coding)"
+attr(bact_data06$AGEGR01C, "label") <- "Age group 01 (Character coding)"
 ```
 
 Save the analysis data sets in to two linked data sets following a structure similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specific data sets are stored in ADLB (a long format data set). 
@@ -193,8 +224,9 @@ Save the analysis data sets in to two linked data sets following a structure sim
 ADSL:
 
 ```{r save_adsl, warning=FALSE, message=FALSE, echo=FALSE} 
-ADSL <- bact_data05 %>%
-  filter(PARAMCD == "WBC") %>%
+## Filter on AGE as we only require one instance of the long data set. AGE should correspond 1:1 across ADSL and ADLB
+ADSL <- bact_data06 |>
+  filter(PARAMCD == "AGE") |>  
   select(USUBJID, SUBJID, AGE, AGEGR01, AGEGR01C, SEX, SEXC, BACTEREMIA, BACTEREMIAN)
 
 saveRDS(ADSL, file = here("data", "ADSL_01.rds"))
@@ -204,7 +236,7 @@ ADLB: *Note AGE is also in ADLB as a key predictor*
 
 ```{r save_adlb, warning=FALSE, message=FALSE, echo=FALSE} 
 
-ADLB <- bact_data05 %>%
+ADLB <- bact_data06 |>
   select(-AGE, -AGEGR01, -AGEGR01C, -SEX, -SEXC, -BACTEREMIA, -BACTEREMIAN)
 
 saveRDS(ADLB, file = here("data", "ADLB_01.rds"))
