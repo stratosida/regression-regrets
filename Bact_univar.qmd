@@ -137,10 +137,15 @@ for (plts in rem_plts) {
 source(here::here("R", "fun_describe_long_dataset.R"))
 # summary stats 
 ARD <- describe_long_dataset(ADLB)
-#ARD  |> glimpse()
-#ARD |> filter(STATISTIC == "top_1")
+ARD  |> glimpse()
+table(ARD$STATISTIC)
 ```
 
+```{r}
+ARD |>
+  pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+  gt()
+```
 
 
 ```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
