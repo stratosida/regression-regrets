@@ -13,11 +13,11 @@ book:
   date: today  
   chapters:
     - index.qmd  
-  #  - Bact_intro.qmd 
-  #  - Bact_IDA_plan.qmd
+    - Bact_intro.qmd 
+    - Bact_IDA_plan.qmd
   #  - Bact_analysis_data.qmd
-  #  - Bact_missing.qmd
-    - Bact_univar.qmd  
+    - Bact_missing.qmd
+  #  - Bact_univar.qmd  
   #  - Bact_multivar.qmd
   #  - Bact_suppl.qmd 
     - Pseudo_log_explainer.qmd

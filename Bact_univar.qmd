@@ -10,7 +10,9 @@ library(ggplot2)
 library(tidyselect)
 library(gt)
 library(gtExtras)
+library(patchwork)
 library(summarytools)
+library(Hmisc)
 
 #library(skimr)
 #library(Hmisc)
@@ -19,14 +21,6 @@ library(summarytools)
 #source(here("R", "ida_plot_univar_orig_vs_trans.R"))  ## function for side-by-side comparison of original vs. transformed scale, calls ida_plot_univar.R
 #source(here("R", "ida_trans.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). 
 #source(here("R", "main_descriptives.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). 
-
-# st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
-#            plain.ascii       = FALSE,       # One of the essential settings
-#            style             = "rmarkdown", # Idem.
-#            dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
-#            footnote          = NA,          # Keeping the results minimalistic
-#            subtitle.emphasis = FALSE)       # For the vignette theme, this gives better results.
-#                                             # For other themes, using TRUE might be preferable.
 
 
 ## Load the first iteration of the analysis ready datasets
@@ -151,20 +145,17 @@ ARD |>
 
 ```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
 
-dat <-
+key_predictors <-
   ADLB |>
   filter(KEY_PRED_FL01 == "Y") |>
   select(USUBJID, PARAMCD, AVAL) |>
   pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
   select(-USUBJID)
 
-
-library(Hmisc)
-
-html(describe(dat))
+html(describe(key_predictors))
 
 # print(dfSummary(
-#   dat,
+#   key_predictors,
 #   varnumbers = FALSE,
 #   round.digits = 2,
 #   plain.ascii = FALSE,
@@ -180,24 +171,25 @@ html(describe(dat))
 
 ```{r uni06, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
 
-dat <-
+medium_predictors <-
   ADLB |>
   filter(MED_PRED_FL01 == "Y") |>
   select(USUBJID, PARAMCD, AVAL) |>
   pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
   select(-USUBJID)
 
+html(describe(medium_predictors))
 
-print(dfSummary(
-  dat,
-  varnumbers = FALSE,
-  round.digits = 2,
-  plain.ascii = FALSE,
-  style = "grid",
-  graph.magnif = .33,
-  valid.col = FALSE,
-  tmp.img.dir = "img"
-))
+# print(dfSummary(
+#   medium_predictors,
+#   varnumbers = FALSE,
+#   round.digits = 2,
+#   plain.ascii = FALSE,
+#   style = "grid",
+#   graph.magnif = .33,
+#   valid.col = FALSE,
+#   tmp.img.dir = "img"
+# ))
 
 ```
 
@@ -205,7 +197,7 @@ print(dfSummary(
 
 ```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
 
-dat <-
+remaining_predictors <-
   ADLB |>
   filter(REM_PRED_FL01 == "Y") |>
   select(USUBJID, PARAMCD, AVAL) |>
@@ -213,16 +205,19 @@ dat <-
   select(-USUBJID)
 
 
-dfSummary(
-  dat,
-  varnumbers = FALSE,
-  round.digits = 2,
-  plain.ascii = FALSE,
-  style = "grid",
-  graph.magnif = .33,
-  valid.col = FALSE,
-  tmp.img.dir = "img"
-)
+html(describe(remaining_predictors))
+
+# 
+# dfSummary(
+#   dat,
+#   varnumbers = FALSE,
+#   round.digits = 2,
+#   plain.ascii = FALSE,
+#   style = "grid",
+#   graph.magnif = .33,
+#   valid.col = FALSE,
+#   tmp.img.dir = "img"
+# )
 
 ```
 
@@ -231,96 +226,89 @@ dfSummary(
 Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function `ida_trans` for this purpose, which optimises the parameter `sigma` of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.
 
 ```{r uni08, message =FALSE, warning =FALSE , echo=FALSE}
+
 source(here("R", "fun_ida_trans.R"))
 
-# x <- ADLB |> filter(PARAMCD == "TRIG") 
-# b <- ida_trans(x, equ.marg=0.2)
-# 
-# ## need to rethink the param and paramcd interaction
-res <- 
+## need to rethink the param and paramcd interaction
+suggested_transforms <- 
    ADLB |> 
-# #  filter(KEY_PRED_FL == "Y") |>
    group_by(PARAMCD) |>
    group_map(~ ida_trans(.x, equ.marg=0.2), .keep = TRUE)
-#   
 
-
-# variables<- c(structural_vars, key_predictors, medimp_predictors, remaining_predictors)
-# unique.variables <- unique(variables)
-# 
-# # TODO: using b_bact. Track down the formatting issue
-# res<-sapply(unique.variables, function(X) ida_trans(b_bact[,X], equ.marg=0.2)$const) #takes long, calculate once, and save?
- #res
- cat("Predictors where a transformation may symmetrize the distribution:\n")
- cat("Number:     ", sum(!is.na(res)), "\n")
- cat("Proportion: ", mean(!is.na(res)), "\n")
 ```
 
 Register transformed variables in the data set:
 
 ```{r}
-# new_vars <- NULL
-# 
-# for (param in res)
-#   if(!is.na(param$const))
-#     new_vars <- bind_rows(new_vars, param$dat)
-# 
-# ADLB_02 <- bind_rows(ADLB, new_vars)
-# ADLB_02 |> group_by(PARAM, PARAMCD) |> tally()
-# ```
-# 
-# 
-# ```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}
-#  
-# trans_data <- ADLB_02 |> 
-#   filter(PARAM_TYPE == "DERIVED") |>
-#   mutate(join_var = PARAM_DERIVED)
-# 
-# orig_data <- ADLB_02 |>
-#   mutate(join_var = PARAMCD,
-#          AVAL_ORIG = AVAL) |>
-#   select(USUBJID, join_var, AVAL_ORIG)
-#   
-# both <- trans_data |>
-#   left_join(orig_data)
-# 
-# source(here::here("R", "U2-cont-describe-plot.R"))
-# library(patchwork)
-# 
-# plt_hist <- function(dat){
-#   a <- dat |>
-#     describe_plot()    
-#   
-#   b <- dat |>
-#     mutate(AVAL = AVAL_ORIG) |>
-#     describe_plot()    
-#   
-#   a + b
-# 
-# }
-# 
-# both |>
-#   group_by(PARAMCD) |>
-#   group_map(~ plt_hist(.x))
-#   
+new_vars <- NULL
+ 
+for (param in suggested_transforms)
+   if(!is.na(param$const))
+     new_vars <- bind_rows(new_vars, param$dat)
 
+ 
+ADLB_02 <- bind_rows(ADLB, new_vars)
+ADLB_02 |> group_by(PARAM, PARAMCD) |> tally()
 
+saveRDS(ADLB_02, file = here("data", "ADLB_02.rds"))
 
+```
+ 
+ 
+```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}
+ 
+trans_data <- ADLB_02 |> 
+   filter(PARAM_TYPE == "DERIVED") |>
+   mutate(join_var = PARAM_DERIVED)
+ 
+orig_data <- ADLB_02 |>
+   mutate(join_var = PARAMCD,
+          AVAL_ORIG = AVAL) |>
+   select(USUBJID, join_var, AVAL_ORIG)
+   
+both <- trans_data |>
+   left_join(orig_data)
+ 
+source(here::here("R", "U2-cont-describe-plot.R"))
+
+ 
+plt_hist <- function(dat){
+   a <- dat |>
+     describe_plot()    
+   
+   b <- dat |>
+     mutate(AVAL = AVAL_ORIG) |>
+     describe_plot()    
+   
+   b + a
+ 
+ }
+ 
+both |>
+   group_by(PARAMCD) |>
+   group_map(~ plt_hist(.x))
 
 ```
 
 
-plot side by side
+TODO: Do we want to plot side by side all variables? Would need the routine to calaculte sigma in the function. 
 
 ```{r}
 ## plot side by side
-# source(here("R", "fun_compare_dist_plot.R"))
-# 
-# res <- 
-#   ADLB |> 
-#   group_by(PARAMCD) |>
-#   group_map(~ compare_dist_plot(.x), .keep = TRUE)
-# res
+source(here("R", "fun_compare_dist_plot.R"))
+library(patchwork)
+library(purrr)
+#sigmas <- map(suggested_transforms, ~ pluck(.x, "const")) 
+
+ADLB_02 <- readRDS(here::here("data", "ADLB_02.rds"))
+
+res <- 
+   ADLB_02 |> 
+   filter(PARCAT02 == "Y") |>
+   group_by(PARAMCD) |>
+   group_map(~ compare_dist_plot(.x), .keep = TRUE)
+
+res
 ```
 
 

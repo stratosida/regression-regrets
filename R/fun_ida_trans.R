@@ -59,7 +59,6 @@ ida_trans <- function(dat, equ.marg=0.05){
 
       x_t <- pseudo_log(dat$AVAL, sigma = 2**topt$minimum, base=10)
       
-      dat$AVAL <- x_t
       dat <- dat |>
         mutate(
           PARAM_DERIVED = PARAMCD, 
@@ -68,9 +67,14 @@ ida_trans <- function(dat, equ.marg=0.05){
           PARAM = paste0(PARAM, " : pseudo log transformed"),
           KEY_PRED_FL02 = KEY_PRED_FL01,
           MED_PRED_FL02 = MED_PRED_FL01,
-          REM_PRED_FL02 = REM_PRED_FL01
+          REM_PRED_FL02 = REM_PRED_FL01,
+          PARCAT02 = "Y",
+          SIGMA = 2**topt$minimum,   ## store constant for traceability 
+          AVAL02 = AVAL ## store original variable as a reference and traceability - this is a temporary variable 
           )
   
+      dat$AVAL <- x_t
+      
       res <- list(dat = dat, code = PARAMCD, const=2**topt$minimum, fun=function(x) log(x))
     } 
   }
