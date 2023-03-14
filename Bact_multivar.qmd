@@ -47,7 +47,9 @@ A scatterplot of each predictor with age, with different panels for males and fe
 
 New version 
 
-```{r}
+```{r mvi03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 4
+
 library(tidyverse)
 library(tidyselect)
 library(patchwork)
@@ -56,10 +58,11 @@ library(ggpubr)
 library(here)
 source(here("R", "fun_compare_dist_plot.R"))
 source(here("R", "fun_compare_mult_dists.R"))
+source(here("R", "fun_ida_trans.R"))
 
 ## Load the datasets
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
-ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
+ADLB <- readRDS(here::here("data", "ADLB_02.rds"))
 
 
 ADSL01 <-
@@ -67,15 +70,21 @@ ADSL01 <-
   select(USUBJID, AGEGR01C, AGE, SEXC) 
 
 dat <- ADLB |> 
-  left_join(ADSL01, by = "USUBJID") |>
-  mutate(AVAL = pseudo_log(AVAL)) 
+  left_join(ADSL01, by = "USUBJID") 
+#|>
+#  mutate(AVAL = pseudo_log(AVAL)) 
 
 res <- dat |> 
+  filter(!PARAMCD == "AGE") |>
+  filter(KEY_PRED_FL02 == "Y" | KEY_PRED_FL01 == "Y") |>
   group_by(PARAMCD) |>
   group_map(~ plot_assoc_by(.x), .keep = TRUE)
 
 
-res[[3]]
+
+for (plts in res) {
+  print(plts)
+}
 
 
 
@@ -84,17 +93,38 @@ res[[3]]
 
 ### Predictors of medium importance
 
-```{r}
-## use filters 
+```{r mvi04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 4 
+res <- dat |> 
+  filter(!PARAMCD == "AGE") |>
+  filter(MED_PRED_FL01 == "Y" | MED_PRED_FL02 == "Y") |>
+  group_by(PARAMCD) |>
+  group_map(~ plot_assoc_by(.x), .keep = TRUE)
 
+
+
+
+for (plts in res) {
+  print(plts)
+}
 
 ```
 
 ### Remaining predictors
 
-```{r}
+```{r mvi05, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 4 
+res <- dat |> 
+  filter(!PARAMCD == "AGE") |>
+  filter(REM_PRED_FL01 == "Y" | REM_PRED_FL02 == "Y") |>
+  group_by(PARAMCD) |>
+  group_map(~ plot_assoc_by(.x), .keep = TRUE)
 
-## use filters 
+
+for (plts in res) {
+  print(plts)
+}
+
 ```
 
 
@@ -107,10 +137,21 @@ res[[3]]
 #      cor(use="pairwise.complete.obs", method="spearman")
 
 
-  
 wide <- ADLB |>
   select(USUBJID, PARAMCD, AVAL) |>
   pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) 
+
+
+library(corrr)
+d <- 
+  wide |> 
+  select(-USUBJID) |>
+  correlate(use = "pairwise.complete.obs",
+            method = "spearman",
+            diagonal = NA)
+
+
+
 
 corrs <-
   wide |> 
@@ -119,6 +160,9 @@ corrs <-
 
 
 #summarise(r = cor(AGE, AVAL, use="pairwise.complete.obs", method="spearman"))
+
+
+corrs |> glimpse()
 
 ```
 
@@ -131,7 +175,22 @@ library(ggcorrplot)
 # Get the lower triangle
 ggcorrplot(corrs, hc.order = TRUE, type = "lower",
      outline.col = "white")
+
+
+autoplot(d)
+rplot(d)
+network_plot(d)
 ```
+
+
+```{r}
+d |>
+  shave(upper = TRUE) |>
+  fashion() |>
+  gt::gt()
+```
+
+
 
 ### VE1: Comparing nonparametric and parametric predictor correlation
 
@@ -140,6 +199,17 @@ ggcorrplot(corrs, hc.order = TRUE, type = "lower",
 #corrp <- c_bact %>%
 #    dplyr::select(all_of(variables)) %>%
 #      cor(use="pairwise.complete.obs", method="pearson")
+
+
+d2 <- 
+  wide |> 
+  select(-USUBJID) |>
+  correlate(use = "pairwise.complete.obs",
+            method = "pearson",
+            diagonal = NA)
+
+d3 <- d |> left_join(d2)
+
 
 corrp <-
   wide |> 
@@ -155,6 +225,9 @@ corrd_sp <- corrd
 corrd_sp[abs(corrd)<0.1] <-0
 
 ggcorrplot(corrd_sp, tl.cex=5, tl.srt=90)
+
+ggcorrplot(corrd_sp, type = "lower", outline.col = "white")
+
 
 ```
 Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units will be depicted in scatterplots:

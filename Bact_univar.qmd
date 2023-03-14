@@ -11,17 +11,7 @@ library(tidyselect)
 library(gt)
 library(gtExtras)
 library(patchwork)
-library(summarytools)
 library(Hmisc)
-
-#library(skimr)
-#library(Hmisc)
-#library(e1071)   # ADD for skewness and kurtosis
-#source(here("R", "ida_plot_univar.R"))  ## function to plot univariate summaries. 
-#source(here("R", "ida_plot_univar_orig_vs_trans.R"))  ## function for side-by-side comparison of original vs. transformed scale, calls ida_plot_univar.R
-#source(here("R", "ida_trans.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). 
-#source(here("R", "main_descriptives.R"))  ## function to determine transformation (pseudolog(x, sigma) or identity). 
-
 
 ## Load the first iteration of the analysis ready datasets
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
@@ -152,18 +142,8 @@ key_predictors <-
   pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
   select(-USUBJID)
 
-html(describe(key_predictors))
+html(describe(key_predictors, size = "tiny"))
 
-# print(dfSummary(
-#   key_predictors,
-#   varnumbers = FALSE,
-#   round.digits = 2,
-#   plain.ascii = FALSE,
-#   style = "grid",
-#   graph.magnif = .33,
-#   valid.col = FALSE,
-#   tmp.img.dir = "img"
-# ))
 ```
 
 
@@ -178,18 +158,7 @@ medium_predictors <-
   pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
   select(-USUBJID)
 
-html(describe(medium_predictors))
-
-# print(dfSummary(
-#   medium_predictors,
-#   varnumbers = FALSE,
-#   round.digits = 2,
-#   plain.ascii = FALSE,
-#   style = "grid",
-#   graph.magnif = .33,
-#   valid.col = FALSE,
-#   tmp.img.dir = "img"
-# ))
+html(describe(medium_predictors, size = "tiny"))
 
 ```
 
@@ -205,19 +174,7 @@ remaining_predictors <-
   select(-USUBJID)
 
 
-html(describe(remaining_predictors))
-
-# 
-# dfSummary(
-#   dat,
-#   varnumbers = FALSE,
-#   round.digits = 2,
-#   plain.ascii = FALSE,
-#   style = "grid",
-#   graph.magnif = .33,
-#   valid.col = FALSE,
-#   tmp.img.dir = "img"
-# )
+html(describe(remaining_predictors, size = "tiny"))
 
 ```
 
@@ -237,7 +194,7 @@ suggested_transforms <-
 
 ```
 
-Register transformed variables in the data set:
+Register transformed variables in the data set. The updated data set with suggested log transformed data sets is save at **data/ADLB_02.rds**.
 
 ```{r}
 new_vars <- NULL
@@ -247,59 +204,27 @@ for (param in suggested_transforms)
      new_vars <- bind_rows(new_vars, param$dat)
 
  
-ADLB_02 <- bind_rows(ADLB, new_vars)
-ADLB_02 |> group_by(PARAM, PARAMCD) |> tally()
+ADLB_02 <- bind_rows(ADLB, new_vars) 
+
+ADLB_02 |> group_by(PARAM, PARAMCD) |> tally() |> gt()
 
 saveRDS(ADLB_02, file = here("data", "ADLB_02.rds"))
 
 ```
  
- 
-```{r uni09, message =FALSE, warning =FALSE , echo=FALSE}
- 
-trans_data <- ADLB_02 |> 
-   filter(PARAM_TYPE == "DERIVED") |>
-   mutate(join_var = PARAM_DERIVED)
- 
-orig_data <- ADLB_02 |>
-   mutate(join_var = PARAMCD,
-          AVAL_ORIG = AVAL) |>
-   select(USUBJID, join_var, AVAL_ORIG)
-   
-both <- trans_data |>
-   left_join(orig_data)
- 
-source(here::here("R", "U2-cont-describe-plot.R"))
-
- 
-plt_hist <- function(dat){
-   a <- dat |>
-     describe_plot()    
-   
-   b <- dat |>
-     mutate(AVAL = AVAL_ORIG) |>
-     describe_plot()    
-   
-   b + a
- 
- }
- 
-both |>
-   group_by(PARAMCD) |>
-   group_map(~ plt_hist(.x))
-
-```
 
 
-TODO: Do we want to plot side by side all variables? Would need the routine to calaculte sigma in the function. 
+### Comparison of univariate distributions with and without pseudo-log transformation
 
-```{r}
+The comparison is only shown for variables where a transformation is suggested.
+
+```{r uni-plots, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 2
+
 ## plot side by side
 source(here("R", "fun_compare_dist_plot.R"))
-library(patchwork)
-library(purrr)
-#sigmas <- map(suggested_transforms, ~ pluck(.x, "const")) 
 
+## Load in updated data set with transformations 
 ADLB_02 <- readRDS(here::here("data", "ADLB_02.rds"))
 
 res <- 
@@ -308,36 +233,10 @@ res <-
    group_by(PARAMCD) |>
    group_map(~ compare_dist_plot(.x), .keep = TRUE)
 
-res
-```
-
-
-
-### Comparison of univariate distributions with and without pseudo-log transformation
-
-The comparison is only shown for variables where a transformation is suggested.
-
-```{r uni10}
-#| layout-ncol: 1
-# for(j in 1:length(unique.variables)){
-#  if(!is.na(sigma_values[j])){
-#    print(ida_plot_univar_orig_vs_trans(c_bact, unique.variables[j], sigma=sigma_values[j], n_bars=100))
-#  }
-# }
+for (plts in res) {
+  print(plts)
+}
 
 ## COMMENT @Mark we must pick two from these plots for the paper - the old version has BUN which is now no longer transformed (as we raised the threshold for indicating relevance of a  pseudolog transformation) I would suggest ASAT and GGT. Can you please produce a TIF plot for these two (similar to what we already have in the paper?)
-```
 
-
-```{r uni11}
-# save(list=c("b_bact", "c_bact", "bact_variables", "sigma_values", "bact_transformed"), 
-#      file=here::here("data", "bact_env_c.rda"))
-```
-
-
-
-## Section session info
-
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
-# sessionInfo()
 ```

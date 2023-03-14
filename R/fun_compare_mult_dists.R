@@ -49,7 +49,7 @@ plot_assoc_by <- function(dat){
     facet_wrap(~ SEXC) +
     labs(x = attr(dat$AGE, "label"),
          y = xaxis)  + 
-    theme_bw(base_size = 14) +
+    theme_bw(base_size = 10) +
     stat_cor(aes(label = after_stat(r.label)), method = "spearman", r.accuracy = 0.001, position = "jitter") 
 
   return(gg)  
