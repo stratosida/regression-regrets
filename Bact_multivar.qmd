@@ -15,7 +15,7 @@ source(here("R", "fun_compare_mult_dists.R"))
 source(here("R", "fun_ida_trans.R"))
 
 ## Load the datasets - make sure to load the correct ADLB2 
-## TODO: have a make workflow to ensure depencies run in correct order
+## TODO: have a make workflow to ensure dependencies run in correct order
 
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "ADLB_02.rds"))
@@ -205,7 +205,7 @@ corr_difference_conditional <-
   retract() |>
   as_cordf()
 
-
+## todo: remove zero entries?
 corr_difference_conditional |> 
   rearrange(method = "HC") |>
   autoplot(
@@ -305,7 +305,7 @@ A variable clustering analysis has been performed to evaluate which predictors a
 
 ```{r}
 
-dat <- wide |> select(-USUBJID)
+dat <- dat_wide |> select(-USUBJID)
 
 vc_bact<-Hmisc::varclus(as.matrix(dat))
 plot(vc_bact, cex=0.7, hang=0.01)

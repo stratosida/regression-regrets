@@ -8,6 +8,7 @@ library(dplyr)
 library(tidyr)
 library(naniar) ## for missing data 
 library(gt)
+library(dendextend)
 
 # Load the first iteration of the analysis ready data sets
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
