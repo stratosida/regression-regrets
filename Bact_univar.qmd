@@ -194,7 +194,9 @@ suggested_transforms <-
 
 ```
 
-Register transformed variables in the data set. The updated data set with suggested log transformed data sets is save at **data/ADLB_02.rds**.
+
+Display the proposed variable transformations and the new parameter codes. 
+
 
 ```{r}
 new_vars <- NULL
@@ -206,12 +208,46 @@ for (param in suggested_transforms)
  
 ADLB_02 <- bind_rows(ADLB, new_vars) 
 
-ADLB_02 |> group_by(PARAM, PARAMCD) |> tally() |> gt()
+#ADLB_02 |> group_by(PARAM, PARAMCD) |> tally() |> gt()
+
+new_vars |> group_by(PARAMCD) |> tally() |> gt()
+#new_vars |> group_by(PARAM, PARAMCD) |> tally() |> gt()
+
+```
+
+Register transformed variables in the data set. The updated data set with suggested log transformed data sets is save at **data/ADLB_02.rds**.
+
+Update the IDA analysis plan with the proposed variable transformations. Create a new flag to indicate the selection of predictors including transformations. 
+
+```{r}
+ADLB_02 <-
+  ADLB_02 |>
+  mutate(
+    KEY_PRED_FL02 = case_when(
+      PARAMCD %in% c("AGE", "WBC_T", "BUN", "CREA_T", "PLT", "NEU") ~ "Y"
+      ),
+    MED_PRED_FL02 = case_when(
+      PARAMCD %in% c("POTASS", "FIB", "CRP", "ASAT_T", "ALAT_T", "GGT_T") ~ "Y"
+      ),
+    REM_PRED_FL02 = case_when(
+      PARAMCD %in% c("MCV", "HGB", "HCT", "MCH", "MCHC", "RDW", "MPV", "LYM_T", "MONO", "EOS_T", "BASO", "NT", "APTT", "SODIUM", "CA", "PHOS", "MG", "HS", "GBIL_T", "TP", "ALB", "AMY_T", "PAMY_T", "LIP_T", "CHE", "AP_T", "LDH_T", "CK_T", "GLU", "TRIG", "CHOL", "BASOR_T", "EOSR", "LYMR", "MONOR", "NEUR", "PDW", "RBC") ~ "Y"
+      )
+  )
+
+attr(ADLB_02$KEY_PRED_FL02, "label") <- "Key predictor flag - including scale transformations, Section 2.2.5 U2"
+attr(ADLB_02$MED_PRED_FL02, "label") <- "Predictors of medium importance flag - including scale transformations"
+attr(ADLB_02$REM_PRED_FL02, "label") <- "Remaining predictors flag - including scale transformations"
+
+attr(ADLB_02$PARCAT02, "label") <- "Pseudo log transformed categories"
+attr(ADLB_02$SIGMA, "label") <- "Constant variable for Pseudo log transformation"
+
 
 saveRDS(ADLB_02, file = here("data", "ADLB_02.rds"))
 
 ```
- 
+
+
+
 
 
 ### Comparison of univariate distributions with and without pseudo-log transformation

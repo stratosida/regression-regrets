@@ -1,22 +1,24 @@
 #  Multivariate analyses
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE }
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(purrr)
+library(tidyselect)
+library(corrr) ## tidy correlation
+library(patchwork)
+library(ggpubr)
 library(here)
-library(tidyverse)
-library(plotly)
-library(Hmisc)
-library(gtsummary)
-library(ggcorrplot)
-library(mice)
-## Read data 
-load(here::here("data", "bact_env_c.rda"))
+source(here("R", "fun_compare_dist_plot.R"))
+source(here("R", "fun_compare_mult_dists.R"))
+source(here("R", "fun_ida_trans.R"))
 
-alpha_value <- 0.1
+## Load the datasets - make sure to load the correct ADLB2 
+## TODO: have a make workflow to ensure depencies run in correct order
 
-variables <- unique(c(bact_transformed$structural_vars,
-                      bact_transformed$key_predictors,
-                      bact_transformed$medimp_predictors,
-                      bact_transformed$remaining_predictors))
+ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "ADLB_02.rds"))
 
 ```
 
@@ -28,65 +30,29 @@ A scatterplot of each predictor with age, with different panels for males and fe
 
 ### Key predictors
 
-```{r}
-# for(j in 1:length(bact_transformed$key_predictors)){
-#   predictor <- bact_transformed$key_predictors[j]
-#   if(predictor!="AGE"){
-#   p1<-ggplot(data=c_bact, mapping=aes(x=.data[["AGE"]], y=.data[[predictor]]))+ geom_point(alpha=alpha_value) + facet_grid(cols=vars(.data[["GENDER"]])) 
-#   print(p1)
-#   
-#     spear_sex<-by(c_bact[,c("AGE",predictor)], c_bact$GENDER, FUN=function(X) data = cor(X,use="pairwise.complete.obs",method="spearman")[1,2])
-#     cat("\n\nSpearman correlation coefficients of AGE with ", predictor, ":\n", paste(c("male", "female"), round(spear_sex,3), sep=":" ))
-#   # COMMENT @Mark: is there some way to print the spearman correlation coefficients (spear_sex) into the graphs or into the column labels (in a standardized way)??
-#     # COMMENT @Mark: can we display inverse pseudolog (back-transformed) y-axis labels for better interpretation? see function inv_pseudo_log() in ida_trans.R
-# 
-#   }
-# }
-
-```
-
-New version 
 
 ```{r mvi03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 #| layout-ncol: 4
 
-library(tidyverse)
-library(tidyselect)
-library(patchwork)
-library(ggpubr)
-  
-library(here)
-source(here("R", "fun_compare_dist_plot.R"))
-source(here("R", "fun_compare_mult_dists.R"))
-source(here("R", "fun_ida_trans.R"))
-
-## Load the datasets
-ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
-ADLB <- readRDS(here::here("data", "ADLB_02.rds"))
-
-
+## Join with ADSL for structural variables 
 ADSL01 <-
   ADSL |> 
-  select(USUBJID, AGEGR01C, AGE, SEXC) 
+  select(USUBJID, AGEGR01C, AGE, SEXC, SEX) 
 
 dat <- ADLB |> 
   left_join(ADSL01, by = "USUBJID") 
-#|>
-#  mutate(AVAL = pseudo_log(AVAL)) 
 
-res <- dat |> 
+## plots for key predictors
+key_predictors <- dat |> 
   filter(!PARAMCD == "AGE") |>
-  filter(KEY_PRED_FL02 == "Y" | KEY_PRED_FL01 == "Y") |>
+  filter(KEY_PRED_FL02 == "Y") |>
   group_by(PARAMCD) |>
   group_map(~ plot_assoc_by(.x), .keep = TRUE)
 
-
-
-for (plts in res) {
+## print out. TODO: ask GH which plots to save
+for (plts in key_predictors) {
   print(plts)
 }
-
-
 
 ```
 
@@ -95,16 +61,14 @@ for (plts in res) {
 
 ```{r mvi04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 #| layout-ncol: 4 
-res <- dat |> 
+
+medium_predictors <- dat |> 
   filter(!PARAMCD == "AGE") |>
-  filter(MED_PRED_FL01 == "Y" | MED_PRED_FL02 == "Y") |>
+  filter(MED_PRED_FL02 == "Y") |>
   group_by(PARAMCD) |>
   group_map(~ plot_assoc_by(.x), .keep = TRUE)
 
-
-
-
-for (plts in res) {
+for (plts in medium_predictors) {
   print(plts)
 }
 
@@ -114,14 +78,15 @@ for (plts in res) {
 
 ```{r mvi05, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 #| layout-ncol: 4 
-res <- dat |> 
+
+remain_predictors <- dat |> 
   filter(!PARAMCD == "AGE") |>
-  filter(REM_PRED_FL01 == "Y" | REM_PRED_FL02 == "Y") |>
+  filter( REM_PRED_FL02 == "Y") |>
   group_by(PARAMCD) |>
   group_map(~ plot_assoc_by(.x), .keep = TRUE)
 
 
-for (plts in res) {
+for (plts in remain_predictors) {
   print(plts)
 }
 
@@ -135,15 +100,20 @@ for (plts in res) {
 #corrs <- c_bact %>%
 #    dplyr::select(all_of(variables)) %>%
 #      cor(use="pairwise.complete.obs", method="spearman")
+# corrs <-
+#   wide |> 
+#   select(-USUBJID) |>
+#   cor(use="pairwise.complete.obs", method="spearman")
+# 
 
 
-wide <- ADLB |>
-  select(USUBJID, PARAMCD, AVAL) |>
+## tidy parameters in to a wide data set
+wide <- dat |>
+  filter(KEY_PRED_FL02 == "Y" | MED_PRED_FL02 == "Y" | REM_PRED_FL02 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL, SEX) |>
   pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) 
 
-
-library(corrr)
-d <- 
+spearman_corr <- 
   wide |> 
   select(-USUBJID) |>
   correlate(use = "pairwise.complete.obs",
@@ -151,18 +121,7 @@ d <-
             diagonal = NA)
 
 
-
-
-corrs <-
-  wide |> 
-  select(-USUBJID) |>
-  cor(use="pairwise.complete.obs", method="spearman")
-
-
-#summarise(r = cor(AGE, AVAL, use="pairwise.complete.obs", method="spearman"))
-
-
-corrs |> glimpse()
+# spearman_corr |> glimpse()
 
 ```
 
@@ -170,21 +129,46 @@ The Spearman correlation coefficients are depicted in a quadratic heat map:
 
 ```{r}
 
-library(ggcorrplot)
+# library(ggcorrplot)
 #ggcorrplot(corrs, tl.cex=5, tl.srt=90)
 # Get the lower triangle
-ggcorrplot(corrs, hc.order = TRUE, type = "lower",
-     outline.col = "white")
+# ggcorrplot(corrs, hc.order = TRUE, type = "lower",
+     # outline.col = "white")
+
+theme_set(theme_minimal(base_size = 6))
 
 
-autoplot(d)
-rplot(d)
-network_plot(d)
+gg <- autoplot(spearman_corr,
+         method = "PCA",
+         triangular = "lower",
+         barheight = 10) +
+  theme(
+    axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1, size = 4),
+    axis.text.y = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1, size = 4)
+  )
+
+gg
+
+spearman_corr |>
+  shave() |>
+  rplot(print_cor = TRUE)
+
+
+# wide |> 
+#   select(-USUBJID) |>
+#   correlate(use = "pairwise.complete.obs",
+#             method = "spearman") |>
+#   network_plot()
+# 
+# 
+# x <- correlate(wide |> select(-USUBJID) )
+# network_plot(x)
+
 ```
 
 
 ```{r}
-d |>
+spearman_corr |>
   shave(upper = TRUE) |>
   fashion() |>
   gt::gt()
@@ -201,32 +185,45 @@ d |>
 #      cor(use="pairwise.complete.obs", method="pearson")
 
 
-d2 <- 
+a <- spearman_corr |>  as_matrix()
+
+pearson_corr <- 
   wide |> 
   select(-USUBJID) |>
   correlate(use = "pairwise.complete.obs",
             method = "pearson",
             diagonal = NA)
 
-d3 <- d |> left_join(d2)
+b <- pearson_corr |> as_matrix()
+
+corrd <- a - b
+
+corr_difference <- corrd |> as_cordf()
+
+autoplot(corr_difference)
 
 
-corrp <-
-  wide |> 
-  select(-USUBJID) |>
-  cor(use="pairwise.complete.obs", method="pearson")
+corr_difference_conditional <-
+  corr_difference |> 
+  stretch() |>
+  mutate(r = if_else(abs(r) > 0.1, r, 0)) |>
+  retract() |>
+  as_cordf()
+
+autoplot(corr_difference_conditional)
 
 
-
-corrd <- corrp-corrs
+corr_difference_conditional |>
+  shave() |>
+  rplot(print_cor = TRUE)
 
 # sparsified differences of correlation coefficients
-corrd_sp <- corrd
-corrd_sp[abs(corrd)<0.1] <-0
+#corrd_sp <- corrd
+#corrd_sp[abs(corrd)<0.1] <-0
 
-ggcorrplot(corrd_sp, tl.cex=5, tl.srt=90)
+#ggcorrplot(corrd_sp, tl.cex=5, tl.srt=90)
 
-ggcorrplot(corrd_sp, type = "lower", outline.col = "white")
+#ggcorrplot(corrd_sp, type = "lower", outline.col = "white")
 
 
 ```
@@ -247,7 +244,7 @@ count <- 0
 for (i in 1:49) {
   
   for (j in (i+1):50) {
-    if (abs(corrd[i , j]) > 0.25) {
+    if (abs(corrd[i , j]) > 0.1) {
       
       count <- count + 1 
         
@@ -392,35 +389,35 @@ print(round(red$rsq1,4))
 #### Redundancy by parametric additive model: key predictor model
 
 ```{r}
-formula <- as.formula(paste(c("~",paste(bact_variables$key_predictors, collapse="+")), collapse=" "))
-
-red<-Hmisc::redun(formula, data=c_bact, pr=FALSE)
-vif<-1/(1-red$rsq1)
-
-cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-
-cat("\nVariance inflation factors:\n")
-print(round(vif,2))
-
-cat("\nMultiple R-squared:\n")
-print(round(red$rsq1,4))
+# formula <- as.formula(paste(c("~",paste(bact_variables$key_predictors, collapse="+")), collapse=" "))
+# 
+# red<-Hmisc::redun(formula, data=c_bact, pr=FALSE)
+# vif<-1/(1-red$rsq1)
+# 
+# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+# 
+# cat("\nVariance inflation factors:\n")
+# print(round(vif,2))
+# 
+# cat("\nMultiple R-squared:\n")
+# print(round(red$rsq1,4))
 ```
 
 #### Redundancy by parametric additive model: key predictors and predictors of medium importance
 
 ```{r}
-formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors), collapse="+")), collapse=""))
-
-red<-Hmisc::redun(formula, data=c_bact,  pr=FALSE)
-vif<-1/(1-red$rsq1)
-
-cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-
-cat("\nVariance inflation factors:\n")
-print(round(vif,2))
-
-cat("\nMultiple R-squared:\n")
-print(round(red$rsq1,4))
+# formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors), collapse="+")), collapse=""))
+# 
+# red<-Hmisc::redun(formula, data=c_bact,  pr=FALSE)
+# vif<-1/(1-red$rsq1)
+# 
+# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+# 
+# cat("\nVariance inflation factors:\n")
+# print(round(vif,2))
+# 
+# cat("\nMultiple R-squared:\n")
+# print(round(red$rsq1,4))
 ```
 
 
@@ -428,22 +425,22 @@ print(round(red$rsq1,4))
 
 ```{r}
 # For redun(), for heavily clumped predictors, linearity must be enforced
-remaining_predictors_redun <- bact_variables$remaining_predictors
-remaining_predictors_redun[remaining_predictors_redun=="BASO"] <- "I(BASO)"
-remaining_predictors_redun[remaining_predictors_redun=="EOS"] <- "I(EOS)"
-
-formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors, remaining_predictors_redun), collapse="+")), collapse=""))
-
-red<-Hmisc::redun(formula, data=c_bact,  pr=FALSE)
-vif<-1/(1-red$rsq1)
-
-cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-
-cat("\nVariance inflation factors:\n")
-print(round(vif,2))
-
-cat("\nMultiple R-squared:\n")
-print(round(red$rsq1,4))
+# remaining_predictors_redun <- bact_variables$remaining_predictors
+# remaining_predictors_redun[remaining_predictors_redun=="BASO"] <- "I(BASO)"
+# remaining_predictors_redun[remaining_predictors_redun=="EOS"] <- "I(EOS)"
+# 
+# formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors, remaining_predictors_redun), collapse="+")), collapse=""))
+# 
+# red<-Hmisc::redun(formula, data=c_bact,  pr=FALSE)
+# vif<-1/(1-red$rsq1)
+# 
+# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
+# 
+# cat("\nVariance inflation factors:\n")
+# print(round(vif,2))
+# 
+# cat("\nMultiple R-squared:\n")
+# print(round(red$rsq1,4))
 ```
 
 
