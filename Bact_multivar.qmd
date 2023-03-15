@@ -32,7 +32,7 @@ A scatterplot of each predictor with age, with different panels for males and fe
 
 
 ```{r mvi03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 4
+#| layout-ncol: 3
 
 ## Join with ADSL for structural variables 
 ADSL01 <-
@@ -42,7 +42,7 @@ ADSL01 <-
 dat <- ADLB |> 
   left_join(ADSL01, by = "USUBJID") 
 
-## plots for key predictors
+## plots for key predictors - remove age to avoid age vs age plot
 key_predictors <- dat |> 
   filter(!PARAMCD == "AGE") |>
   filter(KEY_PRED_FL02 == "Y") |>
@@ -60,10 +60,9 @@ for (plts in key_predictors) {
 ### Predictors of medium importance
 
 ```{r mvi04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 4 
+#| layout-ncol: 3 
 
 medium_predictors <- dat |> 
-  filter(!PARAMCD == "AGE") |>
   filter(MED_PRED_FL02 == "Y") |>
   group_by(PARAMCD) |>
   group_map(~ plot_assoc_by(.x), .keep = TRUE)
@@ -77,10 +76,9 @@ for (plts in medium_predictors) {
 ### Remaining predictors
 
 ```{r mvi05, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 4 
+#| layout-ncol: 3 
 
 remain_predictors <- dat |> 
-  filter(!PARAMCD == "AGE") |>
   filter( REM_PRED_FL02 == "Y") |>
   group_by(PARAMCD) |>
   group_map(~ plot_assoc_by(.x), .keep = TRUE)
@@ -95,83 +93,52 @@ for (plts in remain_predictors) {
 
 ## V2: Correlation coefficients between all predictors
 
+Calaulcate correlation matrix using Spearman correlation coefficient. 
 
-```{r}
-#corrs <- c_bact %>%
-#    dplyr::select(all_of(variables)) %>%
-#      cor(use="pairwise.complete.obs", method="spearman")
-# corrs <-
-#   wide |> 
-#   select(-USUBJID) |>
-#   cor(use="pairwise.complete.obs", method="spearman")
-# 
-
+```{r mcorrs, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 
 ## tidy parameters in to a wide data set
-wide <- dat |>
+dat_wide <- dat |>
   filter(KEY_PRED_FL02 == "Y" | MED_PRED_FL02 == "Y" | REM_PRED_FL02 == "Y") |>
   select(USUBJID, PARAMCD, AVAL, SEX) |>
   pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) 
 
-spearman_corr <- 
-  wide |> 
+## calculate corr matrix using spearman cc
+corr_spearman <- 
+  dat_wide |> 
   select(-USUBJID) |>
   correlate(use = "pairwise.complete.obs",
             method = "spearman",
             diagonal = NA)
 
 
-# spearman_corr |> glimpse()
-
 ```
 
 The Spearman correlation coefficients are depicted in a quadratic heat map:
 
-```{r}
-
-# library(ggcorrplot)
-#ggcorrplot(corrs, tl.cex=5, tl.srt=90)
-# Get the lower triangle
-# ggcorrplot(corrs, hc.order = TRUE, type = "lower",
-     # outline.col = "white")
-
-theme_set(theme_minimal(base_size = 6))
+```{r plotcorr, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
 
 
-gg <- autoplot(spearman_corr,
-         method = "PCA",
+corr_spearman |> rearrange(method = "HC") |>
+  autoplot(
+#         method = "PCA",
          triangular = "lower",
-         barheight = 10) +
+         barheight = 20) +
   theme(
-    axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1, size = 4),
-    axis.text.y = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1, size = 4)
+    axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1, size = 8),
+    axis.text.y = ggplot2::element_text(vjust = 1, hjust = 1, size = 9)
   )
-
-gg
-
-spearman_corr |>
-  shave() |>
-  rplot(print_cor = TRUE)
-
-
-# wide |> 
-#   select(-USUBJID) |>
-#   correlate(use = "pairwise.complete.obs",
-#             method = "spearman") |>
-#   network_plot()
-# 
-# 
-# x <- correlate(wide |> select(-USUBJID) )
-# network_plot(x)
 
 ```
 
 
+
 ```{r}
-spearman_corr |>
-  shave(upper = TRUE) |>
-  fashion() |>
-  gt::gt()
+## If we want to write to file or save
+# spearman_corr |>
+#   shave(upper = TRUE) |>
+#   fashion() |>
+#   gt::gt()
 ```
 
 
@@ -180,44 +147,87 @@ spearman_corr |>
 
 ```{r}
 # differences of pearson and spearman correlations to check for outliers
-#corrp <- c_bact %>%
-#    dplyr::select(all_of(variables)) %>%
-#      cor(use="pairwise.complete.obs", method="pearson")
 
+## cast as a matrix 
+corr_spearman_mat <- 
+  corr_spearman |>  
+  as_matrix()
 
-a <- spearman_corr |>  as_matrix()
-
-pearson_corr <- 
-  wide |> 
+## calculat pearson cc
+corr_pearson <- 
+  dat_wide |> 
   select(-USUBJID) |>
   correlate(use = "pairwise.complete.obs",
             method = "pearson",
             diagonal = NA)
 
-b <- pearson_corr |> as_matrix()
+## cast as matrix 
+corr_pearson_mat <- 
+  corr_pearson |> 
+  as_matrix()
 
-corrd <- a - b
 
+## calculate the difference 
+corrd <- corr_spearman_mat - corr_pearson_mat
+
+## cast as tidy data frame 
 corr_difference <- corrd |> as_cordf()
+```
 
-autoplot(corr_difference)
 
+Plot the difference matrix 
 
+```{r plotcorr_diff, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+
+## plot
+
+corr_difference |> rearrange(method = "HC") |>
+  autoplot(
+#         method = "PCA",
+         triangular = "lower",
+         barheight = 20) +
+  theme(
+    axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1, size = 8),
+    axis.text.y = ggplot2::element_text(vjust = 1, hjust = 1, size = 9)
+  )
+
+```
+
+Plot the matrix but suppress differences less then 0.1. 
+
+```{r plotcorr02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+
+# sparsified differences of correlation coefficients
 corr_difference_conditional <-
   corr_difference |> 
   stretch() |>
-  mutate(r = if_else(abs(r) > 0.1, r, 0)) |>
+  mutate(r = if_else(abs(r) > 0.1, r, NA)) |>
   retract() |>
   as_cordf()
 
-autoplot(corr_difference_conditional)
 
+corr_difference_conditional |> 
+  rearrange(method = "HC") |>
+  autoplot(
+#         method = "PCA",
+         triangular = "lower",
+         barheight = 20) +
+  theme(
+    axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1, size = 8),
+    axis.text.y = ggplot2::element_text(vjust = 1, hjust = 1, size = 9)
+  )
+
+
+```
+
+
+```{r plotcorr03, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
 
 corr_difference_conditional |>
   shave() |>
   rplot(print_cor = TRUE)
 
-# sparsified differences of correlation coefficients
+
 #corrd_sp <- corrd
 #corrd_sp[abs(corrd)<0.1] <-0
 
@@ -225,8 +235,22 @@ corr_difference_conditional |>
 
 #ggcorrplot(corrd_sp, type = "lower", outline.col = "white")
 
+```
+
+
+```{r plotcorr04, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+corr_difference_conditional |> network_plot(max.overlaps = 10)
+```
+
+
+```{r plotcorr05, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+
+corr_difference |> network_plot()
 
 ```
+
+
+
 Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units will be depicted in scatterplots:
 
 ```{r}
