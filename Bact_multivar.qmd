@@ -1,5 +1,7 @@
 #  Multivariate analyses
 
+First load the required packages and data. Note:, from the univariate analyses the analysis data set for the lab parameters has been updated to include transformed variables. Therefore, we load the second iteration of the data `data/ADLB_02.rds`. 
+
 ```{r, echo = FALSE, message = FALSE, warning = FALSE }
 library(tidyr)
 library(dplyr)
@@ -9,7 +11,13 @@ library(tidyselect)
 library(corrr) ## tidy correlation
 library(patchwork)
 library(ggpubr)
+library(ggrepel)
 library(here)
+library(dendextend)
+
+## for network plot
+options(ggrepel.max.overlaps = 30)
+
 source(here("R", "fun_compare_dist_plot.R"))
 source(here("R", "fun_compare_mult_dists.R"))
 source(here("R", "fun_ida_trans.R"))
@@ -26,13 +34,9 @@ ADLB <- readRDS(here::here("data", "ADLB_02.rds"))
 
 ## V1: Association with structural variables
 
-A scatterplot of each predictor with age, with different panels for males and females have been constructed. Associated Spearman correlation coefficients have been computed.
+Attached the required structural variables to the lab data. 
 
-### Key predictors
-
-
-```{r mvi03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 3
+```{r mvi01, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 
 ## Join with ADSL for structural variables 
 ADSL01 <-
@@ -40,7 +44,18 @@ ADSL01 <-
   select(USUBJID, AGEGR01C, AGE, SEXC, SEX) 
 
 dat <- ADLB |> 
-  left_join(ADSL01, by = "USUBJID") 
+  left_join(ADSL01, by = "USUBJID")
+```
+
+
+
+A scatterplot of each predictor with age, with different panels for males and females have been constructed. Associated Spearman correlation coefficients have been computed.
+
+### Key predictors
+
+
+```{r mvi03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 3 
 
 ## plots for key predictors - remove age to avoid age vs age plot
 key_predictors <- dat |> 
@@ -239,7 +254,7 @@ corr_difference_conditional |>
 
 
 ```{r plotcorr04, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
-corr_difference_conditional |> network_plot(max.overlaps = 10)
+corr_difference_conditional |> network_plot()
 ```
 
 
@@ -263,57 +278,125 @@ Predictor pairs for which Spearman and Pearson correlation coefficients differ b
 
 ## COMMENT @Mark can we print pearson and spearman correlation coefficients into/over the graphs?
 
-count <- 0
+combos <-
+  corr_difference_conditional |>
+  stretch() |>
+  filter(r > 0.1) 
 
-for (i in 1:49) {
-  
-  for (j in (i+1):50) {
-    if (abs(corrd[i , j]) > 0.1) {
-      
-      count <- count + 1 
-        
-      print(paste0(i, " ", j, " ", corrd[i , j]))
-      print(paste0(attr(corrd, "dimnames")[[1]][i], " vs ", attr(corrd, "dimnames")[[2]][j]))
-      
-      x_lab <- attr(corrd, "dimnames")[[1]][i]
-      y_lab <- attr(corrd, "dimnames")[[2]][j]
-      
-      dat <- 
-        wide |>
-        select(all_of(c(x_lab, y_lab))) |>
-        tidyr::drop_na()
-      
-      #print(dat |>
-      #  ggplot(mapping = aes(x = dat[[x_lab]], y = dat[[y_lab]])) +
-      #    geom_point())
-      
-      
-      
-    }
-  }
+combos |>
+  gt::gt()
+
+
+# count <- 0
+# 
+# for (i in 1:49) {
+#   
+#   for (j in (i+1):50) {
+#     if (abs(corrd[i , j]) > 0.1) {
+#       
+#       count <- count + 1 
+#         
+#       print(paste0(i, " ", j, " ", corrd[i , j]))
+#       print(paste0(attr(corrd, "dimnames")[[1]][i], " vs ", attr(corrd, "dimnames")[[2]][j]))
+#       
+#       x_lab <- attr(corrd, "dimnames")[[1]][i]
+#       y_lab <- attr(corrd, "dimnames")[[2]][j]
+#       
+#       dat <- 
+#         dat_wide |>
+#         select(all_of(c(x_lab, y_lab))) |>
+#         tidyr::drop_na()
+#       
+#       #print(dat |>
+#       #  ggplot(mapping = aes(x = dat[[x_lab]], y = dat[[y_lab]])) +
+#       #    geom_point())
+#       
+#       
+#       
+#     }
+#   }
+# }
+# 
+# 
+# count
+
+```
+
+
+
+```{r ve3, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 3 
+
+
+combos01 <- combos |>
+  mutate(grp = row_number())
+
+combos_spearman <-
+  corr_spearman |>
+  stretch() |>
+  rename(spearman = r)
+
+combos_pearson <-
+  corr_pearson |>
+  stretch() |>
+  rename(pearson = r)
+
+
+combos02 <- combos01 |>
+  left_join(combos_spearman) |>
+  left_join(combos_pearson)
+
+
+source(here("R", "V2-mv-descriptions.R"))
+
+combos3 <-
+  combos02 |>
+  group_by(grp) |>
+  group_map(~ plot_scatter_corr(.x), .keep = TRUE)
+
+
+
+## print out. TODO: ask GH which plots to save
+for (plts in combos3) {
+  print(plts)
 }
 
 
-count
-
 ```
+
 
 
 ### VE2: Variable clustering
 
 A variable clustering analysis has been performed to evaluate which predictors are closely associated. The dendrogram groups predictors by their correlation.
 
-```{r}
+```{r varclust, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+source(here("R", "VE2-varclust.R"))
 
-dat <- dat_wide |> select(-USUBJID)
+ve2_varclust(corr_spearman)
 
-vc_bact<-Hmisc::varclus(as.matrix(dat))
-plot(vc_bact, cex=0.7, hang=0.01)
-
-
-
-
+#vc_bact<-Hmisc::varclus(as.matrix(dat))
+#plot(vc_bact, cex=0.7, hang=0.01)
 ```
+
+
+plot network plot
+
+```{r varclust02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=6}
+#options(ggrepel.max.overlaps = 100)
+corr_spearman |> network_plot()
+```
+
+
+plot network with min cor of 0.3. 
+
+```{r varclust03, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=6}
+corr_spearman |> network_plot(min_cor = 0.3)
+```
+
+
+
+
 
 In the following scatterplots we show predictor pairs with Spearman correlation coefficients greater than 0.8:
 
@@ -352,23 +435,23 @@ Variance inflation factors (VIF) will be computed between the candidate predicto
 # print(round(red$rsq1,4))
 
 
-
-names(dat)
-
-formula <- as.formula(paste(c("~",paste(names(dat), collapse="+")), collapse=""))
-
-formula
-
-red<-Hmisc::redun(formula, data = dat, nk=0, pr=FALSE)
-vif<-1/(1-red$rsq1)
-
-cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(dat),2), "%)\n")
-
-cat("\nVariance inflation factors:\n")
-print(round(vif,2))
-
-cat("\nMultiple R-squared:\n")
-print(round(red$rsq1,4))
+# 
+# names(dat)
+# 
+# formula <- as.formula(paste(c("~",paste(names(dat), collapse="+")), collapse=""))
+# 
+# formula
+# 
+# red<-Hmisc::redun(formula, data = dat, nk=0, pr=FALSE)
+# vif<-1/(1-red$rsq1)
+# 
+# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(dat),2), "%)\n")
+# 
+# cat("\nVariance inflation factors:\n")
+# print(round(vif,2))
+# 
+# cat("\nMultiple R-squared:\n")
+# print(round(red$rsq1,4))
 
 
 ```
