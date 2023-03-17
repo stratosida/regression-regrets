@@ -12,6 +12,7 @@ library(gt)
 library(gtExtras)
 library(patchwork)
 library(Hmisc)
+library(sjlabelled)
 
 ## Load the first iteration of the analysis ready datasets
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
@@ -208,14 +209,15 @@ for (param in suggested_transforms)
 
 ## TODO: losing the label attributes with this bind 
 ADLB_02 <- bind_rows(ADLB, new_vars) 
-
-## this fixes it 
 ADLB_02 <- sjlabelled::copy_labels(ADLB_02, ADLB)  
 
 #ADLB_02 |> group_by(PARAM, PARAMCD) |> tally() |> gt()
 
-new_vars |> group_by(PARAMCD) |> tally() |> gt()
-#new_vars |> group_by(PARAM, PARAMCD) |> tally() |> gt()
+new_vars |> group_by(PARAMCD) |> 
+  tally() |> 
+  gt() |> 
+  gt_theme_538()
+
 
 ```
 
@@ -245,13 +247,8 @@ attr(ADLB_02$REM_PRED_FL02, "label") <- "Remaining predictors flag - including s
 attr(ADLB_02$PARCAT02, "label") <- "Pseudo log transformed categories"
 attr(ADLB_02$SIGMA, "label") <- "Constant variable for Pseudo log transformation"
 
-
 saveRDS(ADLB_02, file = here("data", "ADLB_02.rds"))
-
 ```
-
-
-
 
 
 ### Comparison of univariate distributions with and without pseudo-log transformation

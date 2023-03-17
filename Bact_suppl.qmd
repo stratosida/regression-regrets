@@ -71,7 +71,7 @@ key_predictors_trans <- bact_transformed$vip_vars %>%
   str_replace('WBC', 'WBC_noNEU')
 
 key_predictors_trans
-
+key_predictors_orig
 
 # include only complete cases
 model_df_complete <-

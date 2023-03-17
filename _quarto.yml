@@ -20,7 +20,7 @@ book:
   #- Bact_univar.qmd
   #- Bact_multivar.qmd
   - Bact_analysis_data_final.qmd
-  - Bact_suppl.qmd 
+  #- Bact_suppl.qmd 
   #  - Pseudo_log_explainer.qmd
   #- references.qmd 
   #  - SessionInfo.qmd

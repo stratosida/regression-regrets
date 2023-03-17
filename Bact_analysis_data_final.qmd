@@ -13,7 +13,7 @@ library(janitor)
 library(gt)
 library(gtExtras)
 library(patchwork)
-
+library(sjlabelled)
 
 
 ## Load the datasets - make sure to load the correct ADLB2 
@@ -37,7 +37,8 @@ wbc_no_neu_01 <-
   pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
   mutate(AVAL = WBC - NEU,
          PARAMCD = "WBC_noNEU",
-         PARAM = "WBC with NEU subtracted") |>
+         PARAM = "White blood count without Neutrophiles (G/L)",
+         PARAMTYPE = "DERVIVED") |>
   select(-WBC, -NEU)
 
 
@@ -54,11 +55,9 @@ compare_dist_plot(wbc_no_neu_trans_02)
 
 ```{r}
 
-## TODO: check lineage of labels
-
 ADLB_02 <- bind_rows(ADLB, wbc_no_neu_01, wbc_no_neu_trans_02) 
 ADLB_02 <- sjlabelled::copy_labels(ADLB_02, ADLB)  
-
+#ADLB_02 |> group_by(PARAMCD) |> tally()
 ```
 
 
@@ -67,12 +66,7 @@ ADLB_02 <- sjlabelled::copy_labels(ADLB_02, ADLB)
 
 Handled by ADSL
 
-$demog_vars
-[1] "Alter" "sex"  
-
-$outcome_vars
-[1] "BloodCulture" "BC" 
-
+  
 Flags within ADBL
 
 $pivotal_vars
@@ -98,28 +92,38 @@ $remaining_vars
 
 
 ```{r set_flags, warning=FALSE, message=FALSE, echo=FALSE} 
+
 ADLB02 <-
   ADLB |>
   mutate(
-    KEY_PRED_FL01 = case_when(
-      PARAMCD %in% c("AGE", "WBC", "BUN", "CREA", "PLT", "NEU") ~ "Y"
+    KEY_PRED_FL03 = case_when(
+      PARAMCD %in% c("AGE", "WBC_noNEU", "BUN", "CREA", "PLT", "NEU") ~ "Y"
       ),
-    MED_PRED_FL01 = case_when(
-      PARAMCD %in% c("POTASS", "FIB", "CRP", "ASAT", "ALAT", "GGT") ~ "Y"
-      ),
-    REM_PRED_FL01 = case_when(
-      PARAMCD %in% c("MCV", "HGB", "HCT", "MCH", "MCHC", "RDW", "MPV", "LYM", "MONO", "EOS", "BASO", "NT", "APTT", "SODIUM", "CA", "PHOS", "MG", "HS", "GBIL", "TP", "ALB", "AMY", "PAMY", "LIP", "CHE", "AP", "LDH", "CK", "GLU", "TRIG", "CHOL", "BASOR", "EOSR", "LYMR", "MONOR", "NEUR", "PDW", "RBC") ~ "Y"
+    KEY_PRED_FL04 = case_when(
+      PARAMCD %in% c("AGE", "WBC_noNEU_T", "BUN_T", "CREA_T", "PLT", "NEU_T") ~ "Y"
       )
-  )
+    )
 
 
-attr(bact_data04$KEY_PRED_FL01, "label") <- "Key Predictor Flag - Section 2.1.1 Analysis strategy"
-attr(bact_data04$MED_PRED_FL01, "label") <- "Predictors of medium importance Flag - Section 2.1.1 Analysis strategy"
-attr(bact_data04$REM_PRED_FL01, "label") <- "Remaining Predictors flag - Section 2.1.1 Analysis strategy"
+attr(ADLB02$KEY_PRED_FL03, "label") <- "Key Predictor Flag - original"
+attr(ADLB02$KEY_PRED_FL04, "label") <- "Key Predictor Flag - transformed"
+
+
+```
+
+```{r}
+vars <- ADLB02 |> 
+  filter(KEY_PRED_FL03 == "Y") |> select(PARAMCD) |> distinct() |> as.list()
+#paste(vars, collapse = ', ')
+
+print(paste(vars, collapse = ', '))
+
 ```
 
 
-Add metadata flags to indicate relationship between blood cell parameters. See section 2.1.3 of the IDA plan 
+`r print(paste(vars, collapse = ', '))`
+
+# Add metadata flags to indicate relationship between blood cell parameters. See section 2.1.3 of the IDA plan 
 
 
 
