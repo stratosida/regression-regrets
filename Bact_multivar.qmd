@@ -14,6 +14,7 @@ library(ggpubr)
 library(ggrepel)
 library(here)
 library(dendextend)
+library(gt)
 
 ## for network plot
 options(ggrepel.max.overlaps = 100)
@@ -413,27 +414,58 @@ Variance inflation factors (VIF) will be computed between the candidate predicto
 
 #### VIF for key predictor model
 
-```{r}
+```{r vif}
 
-dat <- dat_wide |>
+dat_vif <- dat_wide |>
   select(-USUBJID)
 
-
-formula <- as.formula(paste(c("~",paste(names(dat), collapse="+")), collapse=""))
+formula <- as.formula(paste(c("~",paste(names(dat_vif), collapse="+")), collapse=""))
  
-formula
+#formula
 
-red <- Hmisc::redun(formula, data = dat, nk=0, pr=FALSE)
+red <- Hmisc::redun(formula, data = dat_vif, nk=0, pr=FALSE)
 vif <- 1/(1-red$rsq1)
  
-cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(dat),2), "%)\n")
+#cat("\nAvailable samvple size:\n", red$n, " (", #round(100*red$n/nrow(dat),2), "%)\n")
 
-cat("\nVariance inflation factors:\n")
-print(round(vif,2))
- 
-cat("\nMultiple R-squared:\n")
-print(round(red$rsq1,4))
+vif_df <- as_tibble(vif, rownames = "PARAMCD") |>
+  rename(vif = value)
+
+red_df <- as_tibble(red$rsq1, rownames = "PARAMCD") |>
+  rename(r2 = value)
+
+tab_df <- vif_df |> left_join(red_df, by = "PARAMCD")
+
+
 ```
+
+The available sample size is `r red$n` (`r round(100*red$n/nrow(dat),2)` %).
+
+```{r}
+#vif_df |> gt::gt(caption = "Variance inflation factors")
+#red_df |> gt::gt(caption = "Multiple R-squared")
+library(gt)
+library(gtExtras)
+tab_df |> 
+  gt() |>
+    gt::cols_label(
+    PARAMCD = "Parameter code",
+    r2 = "Multiple R-squared",
+    vif = "Variance inflation factor"
+  ) |>
+  fmt_number(
+    columns = c(r2),
+    decimals = 2
+  ) |>
+  fmt_number(
+    columns = c(vif),
+    decimals = 1
+  ) |>
+  gt_theme_538()
+  
+
+```
+
 
 #### VIF for model with key predictors and predictors of medium importance
 

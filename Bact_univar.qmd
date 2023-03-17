@@ -121,7 +121,7 @@ for (plts in rem_plts) {
 source(here::here("R", "fun_describe_long_dataset.R"))
 # summary stats 
 ARD <- describe_long_dataset(ADLB)
-ARD  |> glimpse()
+#ARD  |> glimpse()
 table(ARD$STATISTIC)
 ```
 
@@ -129,7 +129,8 @@ table(ARD$STATISTIC)
 ARD |>
   filter(STATISTIC %in% c("mean", "median", "min")) |>
   pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
-  gt()
+  gt() |>
+  gtExtras::gt_theme_538()
 ```
 
 
@@ -205,8 +206,11 @@ for (param in suggested_transforms)
    if(!is.na(param$const))
      new_vars <- bind_rows(new_vars, param$dat)
 
- 
+## TODO: losing the label attributes with this bind 
 ADLB_02 <- bind_rows(ADLB, new_vars) 
+
+## this fixes it 
+ADLB_02 <- sjlabelled::copy_labels(ADLB_02, ADLB)  
 
 #ADLB_02 |> group_by(PARAM, PARAMCD) |> tally() |> gt()
 

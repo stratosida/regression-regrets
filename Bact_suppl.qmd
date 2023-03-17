@@ -1,0 +1,655 @@
+# Supplementary Example
+
+```{r setup-suppl, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(here)
+library(dplyr)
+library(tidyr)
+library(Hmisc)
+library(ggplot2)
+library(mfp)
+library(mice)
+library(patchwork)
+library(ggthemes)
+library(gt)
+library(stats)
+library(pROC)
+
+## Read data - load final
+load(here::here("data", "bact_env_suppl.rda"))
+source(here::here("R", "fun_ida_trans.R"))
+source(here::here("R", "tidy_mfp.R"))
+
+logreg_summary_plot <- function(model, title = NA){
+  tibble(
+    BR = model$y,
+    p_hat = predict(model, type = 'response')
+    ) %>%
+    ggplot(aes(x = as.factor(BR), y = p_hat, group = BR)) +
+    geom_boxplot(width = .4) +
+    theme_minimal() +
+    labs(
+      title = title,
+      x = 'Bacteremia',
+      y = 'prediction',
+      caption = paste0('scaled Brier score = ', 
+                       scaled_brier(model) %>% round(3) , 
+                       '\nAUC = ', 
+                       auc(model$y, predict(model, type = 'response')) %>% round(2))
+    )
+}
+
+gt_model_table <- function(data, title = NA){
+  data %>%
+    gt %>%
+      fmt_number(
+        2:4,
+        decimals = 2
+      ) %>%
+      fmt_scientific(5) %>%
+      tab_header(title = title)
+}
+
+scaled_brier <- function(model){
+  cor(model$y, predict(model, type = 'response'))^2
+}
+
+```
+
+## Overview
+
+```{r overview}
+# define key predictors without pseudo-log trafo ('orig') and transformed ('trans'), replace WBC with WBC_noNEU
+key_predictors_orig  <- bact_variables$vip_vars %>%
+  str_replace('WBC', 'WBC_noNEU')
+
+bact_variables
+
+bact_variables$vip_vars
+
+key_predictors_trans <- bact_transformed$vip_vars %>%
+  str_replace('WBC', 'WBC_noNEU')
+
+key_predictors_trans
+
+
+# include only complete cases
+model_df_complete <-
+  c_bact[c('BC', unique(c(
+    bact_variables$vip_vars, bact_transformed$vip_vars
+  )))] %>%
+  mutate(WBC_noNEU = WBC - NEU) %>%
+  na.omit
+
+model_df_complete |> glimpse()
+
+
+model_df_complete <- model_df_complete %>%
+  mutate_all(as.numeric) 
+
+model_df_complete |> glimpse()
+
+model_df_complete <- 
+  model_df_complete %>%
+  mutate(t_WBC_noNEU = log(1+WBC_noNEU))
+
+n_excl_cases <- dim(c_bact)[1] - dim(model_df_complete)[1]
+ 
+pct_excl <-
+  round((1 - (dim(model_df_complete)[1] / dim(c_bact)[1])) * 100, 1)
+
+pct_complete <- dim(model_df_complete)[1] / dim(c_bact)[1] * 100
+```
+
+In the following examples we use the Bacteremia data with complete observations regarding the key predictors `r paste(key_predictors_orig, collapse = ', ')`, which represent `r round(pct_complete, 1)`% of the whole dataset. We will fit a global logistic regression model with the outcome 'BC' and the key predictors as covariates. We will use pseudo-log transformations as suggested in the IDA. Within the model, all key predictors will be transformed by fractional polynomials of order 1 (df = 2).
+
+The aim of the examples is to showcase how decisions derived from IDA influence the results of the fitted model.
+
+## Global Model
+
+The global model will be fitted by the *mfp* function. If not indicated otherwise, we will use the fp-transformations of the key predictors determined in global model in all consecutive models. For all models we report McFaddens's R² and the AUC, i.e. the area under the ROC curve, and boxplots comparing BC predictions with outcomes.
+
+### Model Summary
+
+```{r global model, message = FALSE, warning = FALSE, fig.width=4, fig.height=3}
+
+global_formula <- paste0('BC ~ ', paste(paste0(paste0('fp(', key_predictors_trans), ',df=2)'), collapse = ' + '))
+
+global_formula
+
+fit_mfp_complete <- mfp(as.formula(global_formula),
+                        data = model_df_complete,
+                        family = binomial)
+
+# save global formula with fp-trafos
+global_formula_fp <- paste('BC ~ ', paste0(tidy(fit_mfp_complete)$term[-1], collapse = ' + '))
+
+tidy(fit_mfp_complete) %>%
+  gt_model_table(title = 'global model')
+
+#Mc Fadden's R²
+#r_squared_mcfadden <- with(summary(fit_mfp_complete), 1 - deviance/null.deviance)
+
+#AUC
+AUC = auc(fit_mfp_complete$y, predict(fit_mfp_complete, type = 'response'))
+
+p_model_complete <- logreg_summary_plot(fit_mfp_complete, 'global model')
+
+p_model_complete
+```
+
+### Functional forms of global model
+
+We now take a look at the functional forms of the covariates in the global model, which are determined by the fp algorithm. Besides scaling factors, only for t_WBC_noNEU the fp algorithm chose a non-linear transformation (note the '\^0.5' in the term column). This means all other covariates enter the model in a linear fashion. In the following effect plots, each variable is adjusted to the median of the other variables in the model.
+
+```{r global model functional forms, message = FALSE, warning = FALSE}
+
+# medians of all key predictors, selected variables will be adjusted to these medians in effect plots
+model_df_medians <- model_df_complete[,unique(c(key_predictors_orig, key_predictors_trans))] %>%
+  summarise_all(median)
+
+for(i in 1:length(key_predictors_trans)){
+
+  new_data <- bind_cols(
+    model_df_medians,
+    x = model_df_complete[,key_predictors_trans[i]]
+    ) %>%
+    select(-key_predictors_trans[i]) %>%
+    as_tibble() %>%
+    distinct()
+  
+  pred_complete <- predict(fit_mfp_complete, 
+                        newdata = new_data %>%
+                          rename(!!key_predictors_trans[i] := x),  # is needed so predict finds the variables
+                        type = 'link', se.fit = TRUE)
+
+  plot_df <- cbind(
+    new_data,
+    yhat = pred_complete$fit,
+    yhat.lwr = pred_complete$fit - 1.96*pred_complete$se.fit,
+    yhat.upr = pred_complete$fit + 1.96*pred_complete$se.fit
+    ) %>%
+    as_tibble() 
+  
+  p <- plot_df %>% 
+    ggplot(aes(x = x, y = yhat, ymin = yhat.lwr, ymax = yhat.upr)) +
+    geom_ribbon(alpha = .2, color = NA) +
+    geom_line() +
+    geom_rug(
+      data = fit_mfp_complete$X %>% as.data.frame, 
+      aes_string(x = key_predictors_trans[i]), 
+      inherit.aes = FALSE) +
+    labs(
+      y = 'log odds',
+      x = key_predictors_trans[i]
+    ) +
+    theme_minimal()
+  
+  print(p)
+  
+  if(key_predictors_trans[i] == 'PLT'){ p_effect_PLT <- p} # save for example 5
+}
+
+```
+
+## Example 1: to transform or not to transform
+
+Only for one out of the six key predictors did the fp algorithm chose a non-linear transformation. But out of those six variables, four were pseudo-log transformed before entering the model. In the first example we want to compare the global model to a model using the key predictors on their original scale.
+
+```{r global model no trans, message = FALSE, warning = FALSE, fig.width=2, fig.height=3}
+# fit the complete mfp model using only original, non-transformed variables
+fit_mfp_complete_notrans <- mfp(as.formula(global_formula %>% str_replace_all('t\\_', '')),
+                     data = model_df_complete,
+                     family = binomial)
+
+tidy(fit_mfp_complete_notrans) %>% gt_model_table('global model without pseudo-log tranformations')
+
+```
+
+Note the different fp-transformation arising when the key predictors are not pseudo-log transformed. On the original scale, three covariates instead of one now enter the model via a non-linear fp-transformation. This suggests that a transfromation prior to the regression model 'outsources' the need for transformations within the model. Now let us compare the model performances.
+
+```{r, message = FALSE, warning = FALSE, fig.width=4, fig.height=4}
+p_model_notrans <- logreg_summary_plot(fit_mfp_complete_notrans, 'global model \nwithout pseudo-log \ntransformations') # maybe side by side with global model?
+
+p_model_complete + coord_cartesian(ylim = c(0,.8)) + p_model_notrans + theme(axis.title.y = element_blank()) + coord_cartesian(ylim = c(0,.8))
+```
+
+With regards to McFadden's R² and the AUC, the differences between the two approaches is marginal.
+
+Next we will compare the differences of the functional forms in the two models for those covariates where a pseudo-log transformation was suggested in IDA. We will look at the log odds for bacteremia by each covariate on the original and the transformed scale, and compare the global model using the original and the pseudo-log transformed covariates. Each variable is adjusted for the median of all other variables used.
+
+```{r trafo of variables, message = FALSE, warning = FALSE, fig.width=10, fig.height=4}
+
+for(i in 1:length(key_predictors_trans)){
+  if(key_predictors_orig[i] != key_predictors_trans[i]){
+  
+    new_data <- bind_cols(
+      model_df_medians,
+      x_orig  = model_df_complete[,key_predictors_orig[i]],
+      x_trans = model_df_complete[,key_predictors_trans[i]]
+      ) %>%
+      select(-key_predictors_orig[i], -key_predictors_trans[i]) %>%
+      as_tibble() %>%
+      distinct()
+    
+    pred_trans <- predict(fit_mfp_complete, 
+                          newdata = new_data %>%
+                            rename(  # is needed so predict finds the variables
+                              !!key_predictors_orig[i] := x_orig,
+                              !!key_predictors_trans[i] := x_trans), 
+                          type = 'link', se.fit = TRUE)
+    pred_original <- predict(fit_mfp_complete_notrans, 
+                             newdata = new_data %>%
+                               rename(
+                                 !!key_predictors_orig[i] := x_orig,
+                                 !!key_predictors_trans[i] := x_trans), 
+                             type = 'link', se.fit = TRUE)
+    
+    plot_df <- cbind(
+      new_data,
+      yhat_original = pred_original$fit,
+      yhat.lwr_original = pred_original$fit - 1.96*pred_original$se.fit,
+      yhat.upr_original = pred_original$fit + 1.96*pred_original$se.fit,
+      yhat_trans = pred_trans$fit,
+      yhat.lwr_trans = pred_trans$fit - 1.96*pred_trans$se.fit,
+      yhat.upr_trans = pred_trans$fit + 1.96*pred_trans$se.fit
+      ) %>%
+      as_tibble() %>%
+      pivot_longer(
+        cols = contains('yhat')
+      ) %>%
+      separate(name, c('var', 'model'), sep = '_') %>%
+      pivot_wider(
+        names_from = 'var', values_from = 'value'
+      ) %>%
+      mutate(
+        model = case_when(
+          model == 'trans' ~ 'pseudo-log transformed',
+          model == 'original' ~ 'original scale'
+        )
+      )
+    
+    
+    p_original <- plot_df %>% 
+      ggplot(aes(x = x_orig, y = yhat, ymin = yhat.lwr, ymax = yhat.upr, color = model, fill = model)) +
+      geom_ribbon(alpha = .2, color = NA) +
+      geom_line() +
+      geom_rug(data = fit_mfp_complete_notrans$X %>% as.data.frame, 
+        aes_string(x = key_predictors_orig[i]), 
+        inherit.aes = FALSE
+      ) +
+      labs(
+        y = 'log odds',
+        title = 'on original scale',
+        x = key_predictors_orig[i],
+        color = 'model with data on',
+        fill = 'model with data on'
+      ) +
+      theme_minimal() +
+      scale_color_ptol() +
+      scale_fill_ptol()
+    
+    p_trans <- plot_df %>%
+      ggplot(aes(x = x_trans, y = yhat, ymin = yhat.lwr, ymax = yhat.upr, color = model, fill = model)) +
+      geom_ribbon(alpha = .2, color = NA) +
+      geom_line() +
+      geom_rug(data = fit_mfp_complete$X %>% as.data.frame, 
+        aes_string(x = key_predictors_trans[i]), 
+        inherit.aes = FALSE
+      ) +
+      labs(
+        y = 'log odds',
+        title = 'on pseudo-log scale',
+        x = key_predictors_trans[i],
+        color = 'model with data on',
+        fill = 'model with data on'
+      ) +
+      theme_minimal() +
+      scale_color_ptol() +
+      scale_fill_ptol()
+    
+    p <- p_original + (p_trans +
+                    theme(
+                      axis.title.y = element_text(color = NA)
+                    )) +
+      plot_layout(guides = 'collect') +
+      plot_annotation(caption = 'adjusted to medians of all other covariates')  & 
+      theme(legend.position = 'bottom')
+    
+    print(p)
+  }
+  
+}
+
+```
+
+## Example 2: the support of a model determines what it can explain
+
+Next we compare the global model to a model were for an important variable, in our case we chose age, the variable support is reduced to the central 50% of the data (i.e. data within the 25% and 75% quantiles). Again, in the reduced models we use the same fp-transformations as in the global model.
+
+```{r prediction validity, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}
+
+m_pct <- .5
+
+sel_central <- (model_df_complete$Alter > quantile(model_df_complete$Alter, 0.5-m_pct/2)) & 
+  (model_df_complete$Alter < quantile(model_df_complete$Alter, 0.5+m_pct/2)) #needed later
+
+set.seed(2)
+sel_sample <- as.logical(round(runif(dim(model_df_complete)[1]))) # 50% random selection, needed later
+
+pred_complete <- predict(fit_mfp_complete, 
+                         newdata = model_df_complete,
+                         type = 'response')
+y_complete <- fit_mfp_complete$y
+
+pred_central <- predict(fit_mfp_complete, 
+                         newdata = model_df_complete[sel_central,],
+                         type = 'response')
+y_central <- fit_mfp_complete$y[sel_central]
+
+pred_sample <- predict(fit_mfp_complete, 
+                         newdata = model_df_complete[sel_sample,],
+                         type = 'response')
+y_sample <- fit_mfp_complete$y[sel_sample]
+
+
+r_squared_efron <- function(y, prediction){
+  n <- length(y)
+  1-(((1/n)*sum((y-prediction)^2))/((1/n)*sum((y-mean(y))^2)))
+}
+
+tribble(
+  ~data, ~AUC, ~`sacled Brier score`,
+  'complete', auc(y_complete, pred_complete) %>% as.numeric(), cor(y_complete, pred_complete)^2,
+  'central 50%', auc(y_central, pred_central) %>% as.numeric(), cor(y_central, pred_central)^2,
+  '50% sample', auc(y_sample, pred_sample) %>% as.numeric(), cor(y_sample, pred_sample)^2,
+  ) %>%
+  gt() %>%
+  fmt_number(2, decimals = 3) %>%
+  fmt_number(3, decimals = 5)
+
+p_ex2 <- rbind(
+  tibble(
+    BC = y_complete,
+    prediction = pred_complete,
+    model = 'complete data'
+  ),
+  tibble(
+    BC = y_central,
+    prediction = pred_central,
+    model = 'within IQR (age)'
+  ),
+  tibble(
+    BC = y_sample,
+    prediction = pred_sample,
+    model = 'random 50% subsample'
+  )) %>%
+  mutate(model = factor(model, levels = c('complete data', 'within IQR (age)', 'random 50% subsample'))) %>%
+  ggplot(aes(x = factor(BC), y = prediction, group = BC)) +
+  geom_boxplot() + 
+  facet_grid(~model) +
+  theme_minimal() +
+  labs(x = 'BC')
+
+p_ex2
+```
+
+## Example 3: the limits of mulitiple imputation
+
+To show the effect of multiple imputation if the number of missing values is high, we construct a dataset with 50% artificially generated missing values in one variable. First, recall the output of the complete model, relying on the Bacteremia data with complete cases regarding the key predictors.
+
+```{r, message = FALSE, warning = FALSE}
+
+tidy(fit_mfp_complete) %>% gt_model_table('global model')
+
+```
+
+Creatinine ('KREA') is significant at a level that might not survive substantial missingness. We thus create a dataset were we artificially introduce 50% missing creatinine values, missing completely at random.
+
+```{r create missing crea, message = FALSE, warning = FALSE, fig.width = 10, fig.height=6, fig.width=12}
+# create 50% missings for t_KREA
+set.seed(3) # with seed=3, z-statistic for t_KREA is 1.48
+model_df_missings <- model_df_complete %>%
+  mutate(
+    t_KREA = ifelse(
+      runif(dim(model_df_complete)[1]) < .5,  #~50%/50% TURE/FALSE
+      t_KREA,
+      NA
+    )
+  )
+```
+
+Next we fit a 'complete case' model in the case of missing creatinine data, using the fp-transformations from the global model.
+
+```{r, message = FALSE, warning = FALSE}
+
+fit_mfp_missing <- glm(as.formula(global_formula_fp), #use same fp-trafos as in global model
+                       data = model_df_missings,
+                       family = binomial)
+
+```
+
+Now we impute the missing creatinine data using MICE with 50 imputations, fit the model using the fp-transformations from the global model and pool the results.
+
+```{r multiple imputation, message = FALSE, warning = FALSE, results='hide'}
+
+# impute
+imp_data <- mice(model_df_missings %>%
+                   select(BC, key_predictors_trans), 
+                 m=50, maxit = 50, method='pmm', seed = 1)
+
+# fit imputed data
+imp_fits <- with(imp_data,
+                 glm(as.formula(global_formula_fp), #use same fp-trafos as in global model
+                 family = binomial)
+  )
+
+# pooled results
+fit_pooled <- pool(imp_fits)
+
+```
+
+We now can compare the outputs of the complete model, the complete model with missing data (i.e. only half of the original complete data is used), and the imputed model.
+
+```{r imputation comparison, message = FALSE, warning = FALSE}
+
+bind_rows(
+  tidy(fit_mfp_complete)  %>% mutate(model = 'global model'),
+  tidy(fit_mfp_missing) %>% mutate(model = 'missing, complete cases'),
+  summary(fit_pooled) %>% select(-df) %>% as_tibble() %>% mutate(model = 'missing, imputed')
+  ) %>%
+  relocate(term, model) %>%
+  arrange(term, model) %>%
+  group_by(term) %>%
+  group_by(term_old = term) %>%
+  mutate(
+    term = c(unique(term_old), rep('', n()-1))
+  ) %>%
+  ungroup %>%
+  select(-term_old) %>%
+  gt %>%
+  fmt_number(
+    3:5,
+    decimals = 3
+  ) %>%
+  fmt_scientific(6)
+  
+```
+
+The z-statistic for creatinine drops from 2.98 to 1.49 when half the data is missing. Also in other variables the z-statistic is less extreme in the 'missing, complete case analysis' compared to the global model. The interesting observations is that MI recreates estimates and standard errors very close to the global model in most variables, but not in the one that was being imputed, namely creatinine. In variable selection, chreatinine, which is highly significant in the 'true' model, is likely to be dropped, based on the imputed data.
+
+```{r, message = FALSE, warning = FALSE}
+#pearson & spearman correalation of CREA and BUN
+
+r_pearson  <- cor(model_df_complete$t_KREA, model_df_complete$BUN, method = 'pearson') %>% round(3)
+r_spearman <- cor(model_df_complete$t_KREA, model_df_complete$BUN, method = 'spearman') %>% round(3)
+
+```
+
+## Example 4: Interpretation of regression coefficient 'size'
+
+The variables WBC_noNEU and t_WBC_noNEU are on two very different scales:
+
+```{r ex 4 plots, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}
+
+p_ex4 <- model_df_complete %>%
+  select(key_predictors_trans[str_detect(key_predictors_trans, 't_')]) %>%
+  mutate_all(as.numeric) %>%
+  pivot_longer(cols = everything()) %>%
+  ggplot(aes(x = value, group = name)) + 
+  facet_wrap(~name, scales = 'free', strip.position = "bottom") +
+  geom_histogram(fill = 'firebrick2', color = NA, alpha = 0.5) +
+  theme_minimal() +
+  theme(strip.placement = 'outside')
+
+p_ex4
+
+# standardized regression coefficients
+
+tidy(fit_mfp_complete) %>%
+  select(term, estimate) %>%
+  filter(term != '(Intercept)') 
+
+model_df_complete %>%
+  summarise(
+    WBC_noNEU = sd(((t_WBC_noNEU + 0.1)^0.5) * fit_mfp_complete$coefficients[2]),
+    NEU = sd((t_NEU + 0.1) * fit_mfp_complete$coefficients[3]),
+    Age = sd((Alter / 100) * fit_mfp_complete$coefficients[4]),
+    CREA = sd((t_KREA) * fit_mfp_complete$coefficients[5]),
+    PLT = sd(((PLT + 1) / 100) * fit_mfp_complete$coefficients[6]),
+    BUN = sd((t_BUN) * fit_mfp_complete$coefficients[7])
+  ) %>%
+  pivot_longer(cols = everything(), names_to = 'variable', values_to = 'standardized beta') %>%
+  gt %>%
+  fmt_number(
+    2, decimals = 4
+  )
+
+  
+```
+
+Let us recall the two estimates to the covariates WBC_noNEU and t_WBC_noNEU.
+
+```{r ex 4 estimates, message = FALSE, warning = FALSE}
+
+bind_rows(
+  tidy(fit_mfp_complete) %>% select(term, estimate),
+  tidy(fit_mfp_complete_notrans) %>% select(term, estimate)
+  ) %>% 
+  filter(str_detect(term, 'WBC')) %>%
+  gt %>%
+  fmt_number(2, decimals = 2)
+
+```
+
+(Suggestion: show this with models without fp trafo?)
+
+Because the fp-transformations further complicate the interpretation of the regression coefficients, let us consider two logisitc regression models with WBC_noNEU and t_WBC_noNEU as single covariate, respectively.
+
+```{r, ex 4 estimates2, message = FALSE, warning = FALSE}
+
+fit_wbc_orig <- glm(BC ~ WBC_noNEU,
+                    data = model_df_complete,
+                    family = binomial) 
+
+fit_wbc_trans <- glm(BC ~ t_WBC_noNEU,
+                     data = model_df_complete,
+                     family = binomial) 
+
+bind_rows(
+  tidy(fit_wbc_orig),
+  tidy(fit_wbc_trans)
+  ) %>%
+  filter(str_detect(term, 'WBC')) %>%
+  select(term, estimate) %>%
+  gt %>%
+  fmt_number(estimate, decimals = 2)
+
+
+fit_wbc_orig$coefficients[2] %>% round(2)
+
+```
+
+The estimates `r fit_wbc_orig$coefficients[2] %>% round(2)` and `r fit_wbc_trans$coefficients[2] %>% round(2)` denote the change in log odds for the outcome when the 'term' variable changes by 1 unit, but cannot be compared directly. A $1$ unit change is only a small step on the original scale, where WBC_noNEU covers values from `r range(model_df_complete$WBC_noNEU)[1]` up to `r range(model_df_complete$WBC_noNEU)[2]`. In comparison, t_WBC_noNEU lies between `r round(range(model_df_complete$t_WBC_noNEU)[1],2)` up to `r round(range(model_df_complete$t_WBC_noNEU)[2],2)`, so change of $1$ unit cover almost half the range of the variable.
+
+## Example 5: Plot of functional form should be resticted to areas with high density
+
+The functional forms have wide confidence intervals when the data is sparse. In presentations of the effects, plots of the functional forms can be limited to areas with high density. In this analysis, PLT was very sparse above \~800 \[UNITS\], which is reflected in a large confidence interval for high PLT values. In the effect plot PLT values could be limited to values \<800 \[UNITS\].
+
+```{r}
+
+fit_linear_complete <- glm(as.formula(paste0('BC ~ ', paste(key_predictors_trans, collapse = '+'))),
+                           data = model_df_complete,
+                           family = 'binomial') 
+
+new_data <- bind_cols(
+  model_df_medians[,names(model_df_medians) != 't_WBC_noNEU'],
+  t_WBC_noNEU = model_df_complete[,'t_WBC_noNEU']
+  ) %>%
+  as_tibble() %>%
+  distinct()
+
+pred_linear <- predict(fit_linear_complete,
+                       newdata = new_data,  # is needed so predict finds the variables
+                      type = 'link', se.fit = TRUE)
+
+pred_complete <- predict(fit_mfp_complete, 
+                      newdata = new_data,  # is needed so predict finds the variables
+                      type = 'link', se.fit = TRUE)
+
+plot_df <- 
+  rbind(
+    cbind(
+      new_data,
+      yhat = pred_linear$fit,
+      yhat.lwr = pred_linear$fit - 1.96*pred_linear$se.fit,
+      yhat.upr = pred_linear$fit + 1.96*pred_linear$se.fit,
+      model = 'linear'
+      ),
+    cbind(
+      new_data,
+      yhat = pred_complete$fit,
+      yhat.lwr = pred_complete$fit - 1.96*pred_complete$se.fit,
+      yhat.upr = pred_complete$fit + 1.96*pred_complete$se.fit,
+      model = 'mfp'
+      )
+  ) %>%
+  as_tibble() 
+
+p_ex5 <- plot_df %>% 
+  ggplot(aes(x = t_WBC_noNEU, y = yhat, ymin = yhat.lwr, ymax = yhat.upr, color = model, group = model)) +
+  geom_ribbon(alpha = .2, color = NA) +
+  geom_line(size = 1) +
+  geom_rug(
+    data = fit_mfp_complete$X %>% as.data.frame, 
+    aes(x = t_WBC_noNEU), 
+    inherit.aes = FALSE) +
+  labs(
+    y = 'log odds'
+  ) +
+  theme_minimal() +
+  scale_color_ptol()
+
+
+logreg_summary_plot(fit_linear_complete, 'linear model')
+
+p_ex5  + (p_ex5 + coord_cartesian(xlim = quantile(model_df_complete$t_WBC_noNEU, c(.05,.95)), ylim = c(-4.5, -0.5))) +
+  plot_layout(guides = 'collect')
+
+
+
+```
+
+```{r example 5 plots, message = FALSE, warning = FALSE, fig.width=12, fig.height=5}
+
+#p_effect_PLT + p_effect_PLT + coord_cartesian(xlim = c(0,800)) # not working because of ggplot bug
+
+#workaround because of ggplot bug
+p_effect_PLT + geom_ribbon(fill = gray(.9)) + geom_line() + 
+  p_effect_PLT + 
+    coord_cartesian(xlim = c(0,800)) + 
+    geom_ribbon(fill = gray(.9)) + 
+    geom_line() +
+    theme(axis.title.y = element_blank())
+
+```
