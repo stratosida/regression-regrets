@@ -93,8 +93,10 @@ $remaining_vars
 
 ```{r set_flags, warning=FALSE, message=FALSE, echo=FALSE} 
 
-ADLB02 <-
-  ADLB |>
+## CHECK BUN was actually transformed
+
+ADLB_03 <-
+  ADLB_02 |>
   mutate(
     KEY_PRED_FL03 = case_when(
       PARAMCD %in% c("AGE", "WBC_noNEU", "BUN", "CREA", "PLT", "NEU") ~ "Y"
@@ -105,14 +107,14 @@ ADLB02 <-
     )
 
 
-attr(ADLB02$KEY_PRED_FL03, "label") <- "Key Predictor Flag - original"
-attr(ADLB02$KEY_PRED_FL04, "label") <- "Key Predictor Flag - transformed"
+attr(ADLB_03$KEY_PRED_FL03, "label") <- "Key Predictor Flag - original"
+attr(ADLB_03$KEY_PRED_FL04, "label") <- "Key Predictor Flag - transformed"
 
 
 ```
 
 ```{r}
-vars <- ADLB02 |> 
+vars <- ADLB_03 |> 
   filter(KEY_PRED_FL03 == "Y") |> select(PARAMCD) |> distinct() |> as.list()
 #paste(vars, collapse = ', ')
 
@@ -132,4 +134,9 @@ print(paste(vars, collapse = ', '))
 ## key predictors orig
 
 ## key predictors transformed
+
+```{r}
+saveRDS(ADLB_03, file = here("data", "ADLB_final.rds"))
+```
+
 

@@ -17,6 +17,10 @@ library(pROC)
 
 ## Read data - load final
 load(here::here("data", "bact_env_suppl.rda"))
+
+ADLB <- readRDS(here::here("data", "ADLB_final.rds"))
+ADSL <-readRDS(here::here("data", "ADSL_01.rds"))
+
 source(here::here("R", "fun_ida_trans.R"))
 source(here::here("R", "tidy_mfp.R"))
 
@@ -60,45 +64,66 @@ scaled_brier <- function(model){
 
 ```{r overview}
 # define key predictors without pseudo-log trafo ('orig') and transformed ('trans'), replace WBC with WBC_noNEU
-key_predictors_orig  <- bact_variables$vip_vars %>%
-  str_replace('WBC', 'WBC_noNEU')
-
-bact_variables
-
-bact_variables$vip_vars
-
-key_predictors_trans <- bact_transformed$vip_vars %>%
-  str_replace('WBC', 'WBC_noNEU')
-
-key_predictors_trans
-key_predictors_orig
+# key_predictors_orig  <- bact_variables$vip_vars %>%
+#   str_replace('WBC', 'WBC_noNEU')
+# 
+# bact_variables
+# 
+# bact_variables$vip_vars
+# 
+# key_predictors_trans <- bact_transformed$vip_vars %>%
+#   str_replace('WBC', 'WBC_noNEU')
+# 
+# key_predictors_trans
+# key_predictors_orig
 
 # include only complete cases
-model_df_complete <-
-  c_bact[c('BC', unique(c(
-    bact_variables$vip_vars, bact_transformed$vip_vars
-  )))] %>%
-  mutate(WBC_noNEU = WBC - NEU) %>%
-  na.omit
+# model_df_complete <-
+#   c_bact[c('BC', unique(c(
+#     bact_variables$vip_vars, bact_transformed$vip_vars
+#   )))] %>%
+#   mutate(WBC_noNEU = WBC - NEU) %>%
+#   na.omit
+# 
+# model_df_complete |> glimpse()
+# 
+# 
+# model_df_complete <- model_df_complete %>%
+#   mutate_all(as.numeric) 
+# 
+# model_df_complete |> glimpse()
+# 
+# model_df_complete <- 
+#   model_df_complete %>%
+#   mutate(t_WBC_noNEU = log(1+WBC_noNEU))
 
-model_df_complete |> glimpse()
+model_df <- 
+  ADLB |> filter(KEY_PRED_FL03 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL)
 
+model_df_complete <- model_df |> drop_na()
 
-model_df_complete <- model_df_complete %>%
-  mutate_all(as.numeric) 
+model_df_trans <- 
+  ADLB |> filter(KEY_PRED_FL04 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL)
 
-model_df_complete |> glimpse()
+model_df_trans_complete <- model_df_trans |> drop_na()
 
-model_df_complete <- 
-  model_df_complete %>%
-  mutate(t_WBC_noNEU = log(1+WBC_noNEU))
-
-n_excl_cases <- dim(c_bact)[1] - dim(model_df_complete)[1]
+n_excl_cases <- dim(model_df)[1] - dim(model_df_complete)[1]
  
 pct_excl <-
-  round((1 - (dim(model_df_complete)[1] / dim(c_bact)[1])) * 100, 1)
+  round((1 - (dim(model_df_complete)[1] / dim(model_df)[1])) * 100, 1)
 
-pct_complete <- dim(model_df_complete)[1] / dim(c_bact)[1] * 100
+pct_complete <- dim(model_df_complete)[1] / dim(model_df)[1] * 100
+
+model_df |> group_by(PARAMCD) |> tally() |> gt() |> gt_theme_538()
+model_df_complete |> group_by(PARAMCD) |> tally() |> gt() |> gt_theme_538()
+model_df_trans |> group_by(PARAMCD) |> tally() |> gt() |> gt_theme_538()
+model_df_trans_complete |> group_by(PARAMCD) |> tally() |> gt() |> gt_theme_538()
+
+model_data <- model_df_complete |> left_join(ADSL |> select(USUBJID, BACTEREMIAN), by = "USUBJID")
+model_data_transformed <- model_df_trans_complete |> left_join(ADSL |> select(USUBJID, BACTEREMIAN), by = "USUBJID")
+
 ```
 
 In the following examples we use the Bacteremia data with complete observations regarding the key predictors `r paste(key_predictors_orig, collapse = ', ')`, which represent `r round(pct_complete, 1)`% of the whole dataset. We will fit a global logistic regression model with the outcome 'BC' and the key predictors as covariates. We will use pseudo-log transformations as suggested in the IDA. Within the model, all key predictors will be transformed by fractional polynomials of order 1 (df = 2).
@@ -113,12 +138,26 @@ The global model will be fitted by the *mfp* function. If not indicated otherwis
 
 ```{r global model, message = FALSE, warning = FALSE, fig.width=4, fig.height=3}
 
-global_formula <- paste0('BC ~ ', paste(paste0(paste0('fp(', key_predictors_trans), ',df=2)'), collapse = ' + '))
+model_dat_wide <- model_data |>
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL")
+
+key_predictors <- model_dat_wide |> select(-USUBJID, -BACTEREMIAN) |> names()
+key_predictors
+formula <- as.formula(paste(c(" ~ ", paste(key_predictors, collapse="+")), collapse=""))
+
+formula 
+
+global_formula <- paste0('BACTEREMIAN ~ ', paste(paste0(paste0('fp(', key_predictors), ',df=2)'), collapse = ' + '))
+
+global_formula
+
+
+global_formula <- paste0('BACTEREMIAN ~ ', paste(paste0(paste0('fp(', key_predictors_trans), ',df=2)'), collapse = ' + '))
 
 global_formula
 
 fit_mfp_complete <- mfp(as.formula(global_formula),
-                        data = model_df_complete,
+                        data = model_dat_wide,
                         family = binomial)
 
 # save global formula with fp-trafos
