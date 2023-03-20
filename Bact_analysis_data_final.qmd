@@ -102,13 +102,13 @@ ADLB_03 <-
       PARAMCD %in% c("AGE", "WBC_noNEU", "BUN", "CREA", "PLT", "NEU") ~ "Y"
       ),
     KEY_PRED_FL04 = case_when(
-      PARAMCD %in% c("AGE", "WBC_noNEU_T", "BUN_T", "CREA_T", "PLT", "NEU_T") ~ "Y"
+      PARAMCD %in% c("AGE", "WBC_noNEU_T", "BUN", "CREA_T", "PLT", "NEU") ~ "Y"
       )
     )
 
 
 attr(ADLB_03$KEY_PRED_FL03, "label") <- "Key Predictor Flag - original"
-attr(ADLB_03$KEY_PRED_FL04, "label") <- "Key Predictor Flag - transformed"
+attr(ADLB_03$KEY_PRED_FL04, "label") <- "Key Predictor Flag - including transformed variables"
 
 
 ```
@@ -135,7 +135,11 @@ print(paste(vars, collapse = ', '))
 
 ## key predictors transformed
 
+
+# Save final analysis ready data sets 
+
 ```{r}
+saveRDS(ADSL, file = here("data", "ADSL_final.rds"))
 saveRDS(ADLB_03, file = here("data", "ADLB_final.rds"))
 ```
 

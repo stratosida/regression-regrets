@@ -12,6 +12,7 @@ library(mice)
 library(patchwork)
 library(ggthemes)
 library(gt)
+library(gtExtras)
 library(stats)
 library(pROC)
 
@@ -19,7 +20,7 @@ library(pROC)
 load(here::here("data", "bact_env_suppl.rda"))
 
 ADLB <- readRDS(here::here("data", "ADLB_final.rds"))
-ADSL <-readRDS(here::here("data", "ADSL_01.rds"))
+ADSL <-readRDS(here::here("data", "ADSL_final.rds"))
 
 source(here::here("R", "fun_ida_trans.R"))
 source(here::here("R", "tidy_mfp.R"))
@@ -62,67 +63,42 @@ scaled_brier <- function(model){
 
 ## Overview
 
+Define key predictors without pseudo-log transform ('orig') and transformed ('trans'), replace WBC with WBC_noNEU.
+
 ```{r overview}
-# define key predictors without pseudo-log trafo ('orig') and transformed ('trans'), replace WBC with WBC_noNEU
-# key_predictors_orig  <- bact_variables$vip_vars %>%
-#   str_replace('WBC', 'WBC_noNEU')
-# 
-# bact_variables
-# 
-# bact_variables$vip_vars
-# 
-# key_predictors_trans <- bact_transformed$vip_vars %>%
-#   str_replace('WBC', 'WBC_noNEU')
-# 
-# key_predictors_trans
-# key_predictors_orig
 
-# include only complete cases
-# model_df_complete <-
-#   c_bact[c('BC', unique(c(
-#     bact_variables$vip_vars, bact_transformed$vip_vars
-#   )))] %>%
-#   mutate(WBC_noNEU = WBC - NEU) %>%
-#   na.omit
-# 
-# model_df_complete |> glimpse()
-# 
-# 
-# model_df_complete <- model_df_complete %>%
-#   mutate_all(as.numeric) 
-# 
-# model_df_complete |> glimpse()
-# 
-# model_df_complete <- 
-#   model_df_complete %>%
-#   mutate(t_WBC_noNEU = log(1+WBC_noNEU))
 
+##TODO: need to do this when wide or use a flag - not complete cases
 model_df <- 
   ADLB |> filter(KEY_PRED_FL03 == "Y") |>
-  select(USUBJID, PARAMCD, AVAL)
+  select(USUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") 
 
-model_df_complete <- model_df |> drop_na()
+model_df_complete <- 
+  model_df |>
+  drop_na()
+
 
 model_df_trans <- 
   ADLB |> filter(KEY_PRED_FL04 == "Y") |>
-  select(USUBJID, PARAMCD, AVAL)
+  select(USUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") 
 
-model_df_trans_complete <- model_df_trans |> drop_na()
+## transformed model data frame 
+model_df_trans_complete <- 
+  model_df_trans |> 
+  drop_na()
 
-n_excl_cases <- dim(model_df)[1] - dim(model_df_complete)[1]
- 
+n_excl_cases <- dim(model_df_trans)[1] - dim(model_df_trans_complete)[1]
+
 pct_excl <-
-  round((1 - (dim(model_df_complete)[1] / dim(model_df)[1])) * 100, 1)
+  round((1 - (dim(model_df_trans_complete)[1] / dim(model_df_trans)[1])) * 100, 1)
 
-pct_complete <- dim(model_df_complete)[1] / dim(model_df)[1] * 100
+pct_complete <- dim(model_df_trans_complete)[1] / dim(model_df_trans)[1] * 100
 
-model_df |> group_by(PARAMCD) |> tally() |> gt() |> gt_theme_538()
-model_df_complete |> group_by(PARAMCD) |> tally() |> gt() |> gt_theme_538()
-model_df_trans |> group_by(PARAMCD) |> tally() |> gt() |> gt_theme_538()
-model_df_trans_complete |> group_by(PARAMCD) |> tally() |> gt() |> gt_theme_538()
+pct_complete
 
-model_data <- model_df_complete |> left_join(ADSL |> select(USUBJID, BACTEREMIAN), by = "USUBJID")
-model_data_transformed <- model_df_trans_complete |> left_join(ADSL |> select(USUBJID, BACTEREMIAN), by = "USUBJID")
+key_predictors <- model_df_trans_complete |> select(-USUBJID) |> names() 
 
 ```
 
@@ -138,11 +114,10 @@ The global model will be fitted by the *mfp* function. If not indicated otherwis
 
 ```{r global model, message = FALSE, warning = FALSE, fig.width=4, fig.height=3}
 
-model_dat_wide <- model_data |>
-  pivot_wider(names_from = "PARAMCD", values_from = "AVAL")
 
-key_predictors <- model_dat_wide |> select(-USUBJID, -BACTEREMIAN) |> names()
-key_predictors
+model_data <-  model_df_trans_complete |> left_join(ADSL |> select(USUBJID, BACTEREMIAN), by = "USUBJID")
+
+## use transformed data 
 formula <- as.formula(paste(c(" ~ ", paste(key_predictors, collapse="+")), collapse=""))
 
 formula 
@@ -152,23 +127,25 @@ global_formula <- paste0('BACTEREMIAN ~ ', paste(paste0(paste0('fp(', key_predic
 global_formula
 
 
-global_formula <- paste0('BACTEREMIAN ~ ', paste(paste0(paste0('fp(', key_predictors_trans), ',df=2)'), collapse = ' + '))
-
-global_formula
-
 fit_mfp_complete <- mfp(as.formula(global_formula),
-                        data = model_dat_wide,
+                        data = model_data,
                         family = binomial)
 
 # save global formula with fp-trafos
 global_formula_fp <- paste('BC ~ ', paste0(tidy(fit_mfp_complete)$term[-1], collapse = ' + '))
 
 tidy(fit_mfp_complete) %>%
-  gt_model_table(title = 'global model')
+  gt_model_table(title = 'global model') |>
+  gt_theme_538()
 
 #Mc Fadden's R²
 #r_squared_mcfadden <- with(summary(fit_mfp_complete), 1 - deviance/null.deviance)
 
+```
+
+Report AUC
+
+```{r}
 #AUC
 AUC = auc(fit_mfp_complete$y, predict(fit_mfp_complete, type = 'response'))
 
@@ -177,57 +154,52 @@ p_model_complete <- logreg_summary_plot(fit_mfp_complete, 'global model')
 p_model_complete
 ```
 
+
 ### Functional forms of global model
 
-We now take a look at the functional forms of the covariates in the global model, which are determined by the fp algorithm. Besides scaling factors, only for t_WBC_noNEU the fp algorithm chose a non-linear transformation (note the '\^0.5' in the term column). This means all other covariates enter the model in a linear fashion. In the following effect plots, each variable is adjusted to the median of the other variables in the model.
+We now take a look at the functional forms of the covariates in the global model, which are determined by the fp algorithm. Besides scaling factors, only for `WBC_noNEU_T` the fp algorithm chose a non-linear transformation (note the '\^0.5' in the term column). This means all other covariates enter the model in a linear fashion. In the following effect plots, each variable is adjusted to the median of the other variables in the model.
 
 ```{r global model functional forms, message = FALSE, warning = FALSE}
 
 # medians of all key predictors, selected variables will be adjusted to these medians in effect plots
-model_df_medians <- model_df_complete[,unique(c(key_predictors_orig, key_predictors_trans))] %>%
+model_df_medians <- model_data |>
+  select(-USUBJID, -BACTEREMIAN) |>
   summarise_all(median)
 
-for(i in 1:length(key_predictors_trans)){
+for(predictor in key_predictors){
 
+  ## bind model data with median of current predictor
   new_data <- bind_cols(
-    model_df_medians,
-    x = model_df_complete[,key_predictors_trans[i]]
-    ) %>%
-    select(-key_predictors_trans[i]) %>%
-    as_tibble() %>%
-    distinct()
-  
-  pred_complete <- predict(fit_mfp_complete, 
-                        newdata = new_data %>%
-                          rename(!!key_predictors_trans[i] := x),  # is needed so predict finds the variables
-                        type = 'link', se.fit = TRUE)
+    model_data |> select(predictor), 
+    model_df_medians |> select(-predictor)) |>
+    as_tibble() 
+
+  pred_complete <- predict(fit_mfp_complete, newdata = new_data, type = 'link', se.fit = TRUE)
 
   plot_df <- cbind(
     new_data,
     yhat = pred_complete$fit,
     yhat.lwr = pred_complete$fit - 1.96*pred_complete$se.fit,
     yhat.upr = pred_complete$fit + 1.96*pred_complete$se.fit
-    ) %>%
+    ) |>
     as_tibble() 
-  
-  p <- plot_df %>% 
-    ggplot(aes(x = x, y = yhat, ymin = yhat.lwr, ymax = yhat.upr)) +
+
+  p <- plot_df |> 
+    ggplot(aes(x = !! sym(predictor), y = yhat, ymin = yhat.lwr, ymax = yhat.upr)) +
     geom_ribbon(alpha = .2, color = NA) +
     geom_line() +
-    geom_rug(
-      data = fit_mfp_complete$X %>% as.data.frame, 
-      aes_string(x = key_predictors_trans[i]), 
-      inherit.aes = FALSE) +
+    geom_rug(sides="b") +
     labs(
       y = 'log odds',
-      x = key_predictors_trans[i]
+      x = predictor
     ) +
     theme_minimal()
   
   print(p)
   
-  if(key_predictors_trans[i] == 'PLT'){ p_effect_PLT <- p} # save for example 5
+  if(predictor == 'PLT'){ p_effect_PLT <- p} # save for example 5
 }
+
 
 ```
 
@@ -237,20 +209,42 @@ Only for one out of the six key predictors did the fp algorithm chose a non-line
 
 ```{r global model no trans, message = FALSE, warning = FALSE, fig.width=2, fig.height=3}
 # fit the complete mfp model using only original, non-transformed variables
-fit_mfp_complete_notrans <- mfp(as.formula(global_formula %>% str_replace_all('t\\_', '')),
-                     data = model_df_complete,
+
+model_data_02 <-  model_df_complete |> left_join(ADSL |> select(USUBJID, BACTEREMIAN), by = "USUBJID")
+key_predictors_02 <- model_df_complete |> select(-USUBJID) |> names() 
+
+## use transformed data 
+formula_02 <- as.formula(paste(c(" ~ ", paste(key_predictors_02, collapse="+")), collapse=""))
+
+formula_02
+
+global_formula_02 <- paste0('BACTEREMIAN ~ ', paste(paste0(paste0('fp(', key_predictors_02), ',df=2)'), collapse = ' + '))
+
+global_formula_02
+
+fit_mfp_complete_02 <- mfp(as.formula(global_formula_02),
+                     data = model_data_02,
                      family = binomial)
 
-tidy(fit_mfp_complete_notrans) %>% gt_model_table('global model without pseudo-log tranformations')
+tidy(fit_mfp_complete_02) |> 
+  gt_model_table('global model without pseudo-log tranformations') |> 
+  gt_theme_538()
 
 ```
 
-Note the different fp-transformation arising when the key predictors are not pseudo-log transformed. On the original scale, three covariates instead of one now enter the model via a non-linear fp-transformation. This suggests that a transfromation prior to the regression model 'outsources' the need for transformations within the model. Now let us compare the model performances.
+Note the different fp-transformation arising when the key predictors are not pseudo-log transformed. On the original scale, three covariates instead of one now enter the model via a non-linear fp-transformation. This suggests that a transformation prior to the regression model 'outsources' the need for transformations within the model. Now let us compare the model performances.
 
 ```{r, message = FALSE, warning = FALSE, fig.width=4, fig.height=4}
-p_model_notrans <- logreg_summary_plot(fit_mfp_complete_notrans, 'global model \nwithout pseudo-log \ntransformations') # maybe side by side with global model?
+library(patchwork)
 
-p_model_complete + coord_cartesian(ylim = c(0,.8)) + p_model_notrans + theme(axis.title.y = element_blank()) + coord_cartesian(ylim = c(0,.8))
+p_model_notrans <- logreg_summary_plot(fit_mfp_complete_02, 'global model \nwithout pseudo-log \ntransformations') 
+
+## plot side by side
+p_model_complete + 
+  coord_cartesian(ylim = c(0,.8)) + 
+  p_model_notrans + 
+  theme(axis.title.y = element_blank()) + 
+  coord_cartesian(ylim = c(0,.8))
 ```
 
 With regards to McFadden's R² and the AUC, the differences between the two approaches is marginal.

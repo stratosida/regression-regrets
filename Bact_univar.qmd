@@ -14,6 +14,8 @@ library(patchwork)
 library(Hmisc)
 library(sjlabelled)
 
+set.seed(1972)  ## for any simulation or numerical approx calculations 
+
 ## Load the first iteration of the analysis ready datasets
 ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
