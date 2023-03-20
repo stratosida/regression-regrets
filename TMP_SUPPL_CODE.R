@@ -8,7 +8,8 @@ model_df_medians_02 <- model_data_02 |>
   select(-USUBJID, -BACTEREMIAN) |>
   summarise_all(median)
 
-
+lookup <- c(WBC_noNEU_T = "WBC_noNEU", CREA_T = "CREA")
+lookup02 <- c(WBC_noNEU = "WBC_noNEU_T", CREA = "CREA_T")
 
 for(predictor in key_predictors){
   
@@ -22,102 +23,87 @@ for(predictor in key_predictors){
     
     ## bind model data with median of current predictor
     new_data <- bind_cols(
-      model_data |> select(predictor), 
-      model_df_medians |> select(-predictor)) |>
-      as_tibble() 
+      model_data |> select(USUBJID, all_of(predictor)), 
+      model_df_medians |> select(-predictor)) 
+    
     
     ## bind model data with median of current predictor
     new_data02 <- bind_cols(
-      model_data_02 |> select(predictor_02), 
-      model_df_medians_02 |> select(-predictor_02)) |>
-      as_tibble() 
-    
-        
-  }
+      model_data_02 |> select(USUBJID, all_of(predictor_02)), 
+      model_df_medians_02 |> select(-predictor_02)) 
   
+    new_data1 <- new_data |>
+      left_join(new_data02 |> select(USUBJID, all_of(predictor_02)), by = "USUBJID") |>
+      select(-USUBJID) |>
+      distinct()
   
-  
-  
-}
-
-
-
+    new_data02_1 <- new_data02 |>     
+      left_join(new_data |> select(USUBJID, all_of(predictor)), by = "USUBJID") |>
+      select(-USUBJID) |>
+      distinct()
     
-    pred_trans <- predict(fit_mfp_complete, 
-                          newdata = new_data %>%
-                            rename(  # is needed so predict finds the variables
-                              !!key_predictors_orig[i] := x_orig,
-                              !!key_predictors_trans[i] := x_trans), 
-                          type = 'link', se.fit = TRUE)
-    pred_original <- predict(fit_mfp_complete_notrans, 
-                             newdata = new_data %>%
-                               rename(
-                                 !!key_predictors_orig[i] := x_orig,
-                                 !!key_predictors_trans[i] := x_trans), 
-                             type = 'link', se.fit = TRUE)
+      
     
-    plot_df <- cbind(
-      new_data,
-      yhat_original = pred_original$fit,
-      yhat.lwr_original = pred_original$fit - 1.96*pred_original$se.fit,
-      yhat.upr_original = pred_original$fit + 1.96*pred_original$se.fit,
-      yhat_trans = pred_trans$fit,
-      yhat.lwr_trans = pred_trans$fit - 1.96*pred_trans$se.fit,
-      yhat.upr_trans = pred_trans$fit + 1.96*pred_trans$se.fit
-    ) %>%
-      as_tibble() %>%
-      pivot_longer(
-        cols = contains('yhat')
-      ) %>%
-      separate(name, c('var', 'model'), sep = '_') %>%
-      pivot_wider(
-        names_from = 'var', values_from = 'value'
-      ) %>%
-      mutate(
-        model = case_when(
-          model == 'trans' ~ 'pseudo-log transformed',
-          model == 'original' ~ 'original scale'
-        )
-      )
+    # predict on transformed data
+    pred_trans <- predict(fit_mfp_complete, newdata = new_data1 , type = 'link', se.fit = TRUE)    
+    
+    pred_original <- predict(fit_mfp_complete_02, newdata = new_data02_1 , type = 'link', se.fit = TRUE)
     
     
-    p_original <- plot_df %>% 
-      ggplot(aes(x = x_orig, y = yhat, ymin = yhat.lwr, ymax = yhat.upr, color = model, fill = model)) +
+    plot_df_a <- bind_cols(
+      new_data1,
+      yhat = pred_original$fit,
+      yhat.lwr = pred_original$fit - 1.96*pred_original$se.fit,      
+      yhat.upr = pred_original$fit + 1.96*pred_original$se.fit) |>
+      mutate(model = "pseudo-log transformed")
+    
+    plot_df_b <- bind_cols(
+      new_data02_1,
+      yhat = pred_trans$fit,
+      yhat.lwr = pred_trans$fit - 1.96*pred_trans$se.fit,
+      yhat.upr = pred_trans$fit + 1.96*pred_trans$se.fit) |>
+      mutate(model = "original scale")
+    
+    plot_df <- bind_rows(plot_df_a, plot_df_b)
+    
+    
+    
+    p_trans <- 
+      plot_df |>
+      ggplot(aes(x = !!sym(predictor), y = yhat, ymin = yhat.lwr, ymax = yhat.upr, color = model, fill = model)) +
       geom_ribbon(alpha = .2, color = NA) +
       geom_line() +
-      geom_rug(data = fit_mfp_complete_notrans$X %>% as.data.frame, 
-               aes_string(x = key_predictors_orig[i]), 
-               inherit.aes = FALSE
-      ) +
-      labs(
-        y = 'log odds',
-        title = 'on original scale',
-        x = key_predictors_orig[i],
-        color = 'model with data on',
-        fill = 'model with data on'
-      ) +
-      theme_minimal() +
-      scale_color_ptol() +
-      scale_fill_ptol()
-    
-    p_trans <- plot_df %>%
-      ggplot(aes(x = x_trans, y = yhat, ymin = yhat.lwr, ymax = yhat.upr, color = model, fill = model)) +
-      geom_ribbon(alpha = .2, color = NA) +
-      geom_line() +
-      geom_rug(data = fit_mfp_complete$X %>% as.data.frame, 
-               aes_string(x = key_predictors_trans[i]), 
-               inherit.aes = FALSE
-      ) +
+      geom_rug(sides="b") +
       labs(
         y = 'log odds',
         title = 'on pseudo-log scale',
-        x = key_predictors_trans[i],
+        x = predictor,
         color = 'model with data on',
         fill = 'model with data on'
       ) +
       theme_minimal() +
       scale_color_ptol() +
       scale_fill_ptol()
+    
+    
+    p_original <- 
+      plot_df |>
+      ggplot(aes(x = !!sym(predictor_02), y = yhat, ymin = yhat.lwr, ymax = yhat.upr, color = model, fill = model)) +
+      geom_ribbon(alpha = .2, color = NA) +
+      geom_line() +
+      geom_rug(sides="b") +
+      labs(
+        y = 'log odds',
+        title = 'on original scale',
+        x = predictor_02,
+        color = 'model with data on',
+        fill = 'model with data on'
+      ) +
+      theme_minimal() +
+      scale_color_ptol() +
+      scale_fill_ptol()
+    
+    
     
     p <- p_original + (p_trans +
                          theme(
@@ -128,6 +114,13 @@ for(predictor in key_predictors){
       theme(legend.position = 'bottom')
     
     print(p)
+    
+    
+    
+    
   }
-  
 }
+
+    
+    
+      
