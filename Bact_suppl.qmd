@@ -1,4 +1,4 @@
-# Supplementary Example
+# Supplementary Example {.appendix}
 
 ```{r setup-supplement, message = FALSE, warning = FALSE, echo=FALSE}
 library(here)
