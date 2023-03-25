@@ -14,45 +14,19 @@ library(here)
 
 We will exemplify our proposed systematic approach to data screening by means of a diagnostic study with the primary aim of using age, sex and 49 laboratory variables to fit a diagnostic prediction model for the bacteremia status (= presence of bacteria in the blood stream) of a blood sample. A secondary aim of the study is to describe the functional form of each predictor in the model. Between January 2006 and December 2010, patients with the clinical suspicion to suffer from bacteremia were included if blood culture analysis was requested by the responsible physician and blood was sampled for assessment of hematology and biochemistry. An analysis of this study can be found in @Ratzinger2014.
 
-The data consists of 14,691 observations from different patients and 51 potential predictors. To protect data privacy our version of this data was slightly modified compared to the original version, and this modified version was cleared by the Medical University of Vienna for public use (**DC 2019-0054**). Compared to the official results given in [@Ratzinger2014], our results may differ to a negligible degree. 
+The data consists of 14,691 observations from different patients and 51 potential predictors. To protect data privacy our version of this data was slightly modified compared to the original, and this modified version was cleared by the Medical University of Vienna for public use (**DC 2019-0054**). Compared to the official results given in [@Ratzinger2014], our results may differ to a negligible degree. 
 
 
-## Source dataset
-
-### Where to access the data?
+## Where to access the data?
 
 We refer to the **source** data as the raw data set available in this repository (**DC 2019-0054**). The data set is published on [Zenodo](https://doi.org/10.5281/zenodo.7554815) with the following doi: https://doi.org/10.5281/zenodo.7554815. 
 
 For simplicity, we have also stored the *source* data and accompanying materials such as the **data dictionary** the `data-raw` directory. 
 
+
 ### Data dictionary
 
-The data dictionary provides an overview of the collected data. First, we read and display the data dictionary below providing an overview of the collected measurements. 
-
-```{r datadict, warning=FALSE, message=FALSE, echo=FALSE}
-
-## Read in the source data dictionary, 
-## clean column names to be consistent format 
-## and arrange by variable order.  
-
-bact_dd <- read_csv(
-  here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")
-  ) |>
-  arrange(VariableNr) |>
-  clean_names()
-```
-
-The `variable` name and `label` are displayed alongside the measurement `scale` and `units` as well as `remarks` and relevant study information `from_paper`. 
-
-```{r datadict_display}
-
-## display the dictionary. 
-
-bact_dd |> 
-  select(-variable_nr) |>
-  gt()
-
-```
+The data dictionary provides an overview of the collected *source* data - see [Appendix @sec-data_dict] for further details. 
 
 ### Source data
 

@@ -10,7 +10,7 @@ execute:
 book:
   title: "Regression without regrets"
   author: "M. Baillie, G. Heinze & M. Huebner"
-  date: today  
+  date: today  ## day report is complied 
   chapters:
   - index.qmd  
   - Bact_intro.qmd 
@@ -20,23 +20,27 @@ book:
   - Bact_univar.qmd
   - Bact_multivar.qmd
   - Bact_analysis_data_final.qmd
-  - Bact_suppl.qmd 
-  - Pseudo_log_explainer.qmd
   - references.qmd 
+  appendices:
+    - Source_data.qmd
+    - Bact_suppl.qmd 
+    - Pseudo_log_explainer.qmd
   #- SessionInfo.qmd
   
 bibliography: references.bib
 
 format:
   # html:
-  #   theme: cosmo
-  #   css: styles.css
-  #   toc: true
-  #   code-fold: true
-  #   code-tools: true
-  #   code-summary: "Show the code"
+  #    theme: cosmo
+  #    css: styles.css
+  #    toc: true
+  #    code-fold: true
+  #    code-tools: true
+  #    code-summary: "Show the code"
   docx:
     toc: true
     toc-depth: 2
     number-sections: true
     highlight-style: github
+    crossref:
+      chapters: true
