@@ -8,11 +8,12 @@ library(dplyr)
 library(tidyr)
 library(naniar) ## for missing data 
 library(gt)
+library(gtExtras)
 library(dendextend)
 
-# Load the first iteration of the analysis ready data sets
-ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
-ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
+# Load the first iteration of the IDA ready data sets
+ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
 ```
 
 
@@ -22,7 +23,8 @@ Number and percentage of missingness for each predictor, sorted by descending mi
 
 ### Outcome and Structural variables
 
-```{r, message = FALSE, warning = FALSE, echo = FALSE}
+```{r m1-structural, message = FALSE, warning = FALSE, echo = FALSE}
+
 ADSL |>
   select(BACTEREMIA, AGE, SEX) |>
   miss_var_summary() |>
@@ -34,37 +36,35 @@ ADSL |>
   ) |>
   fmt_number(
     columns = vars(pct_miss),
-    decimals = 2
-  )
+    decimals = 1
+  ) |>
+  tab_header(title = "Summary of missing values for outcome and structural predictors") |>
+  gt_theme_538()
 
 ```
 
 ### Lab parameters 
 
-```{r, message = FALSE, warning = FALSE, echo = FALSE}
+```{r m1-lab-predictors-key, message = FALSE, warning = FALSE, echo = FALSE}
 
-describe_predictor_cont_vars <-
-  ADLB |>
-  select(PARAM, PARAMCD, AVAL) |>
-  group_by(PARAM, PARAMCD) |>
-  miss_var_summary() |>
-  select(-variable) |>
-  ungroup()
+source(here("R", "M1-predictor-missing.R"))
 
-describe_predictor_cont_vars |>
-  select(-PARAMCD) |>
-  arrange(-n_miss) |>
-  gt() |>
-  cols_label(PARAM  = "Variable",
-             n_miss = "Missing (count)",
-             pct_miss = "Missing (%)") |>
-  fmt_number(columns = vars(pct_miss),
-             decimals = 2)
+table_pred_missing_by_type(data = ABLB, flag = "KEY_PRED_FL01", tab_title = "Summary of missing values for key predictors")
+
+```
+
+```{r m1-lab-predictors-med, message = FALSE, warning = FALSE, echo = FALSE}
+
+table_pred_missing_by_type(data = ABLB, flag = "MED_PRED_FL01", tab_title = "Summary of missing values for medium importance predictors")
 
 ```
 
 
+```{r m1-lab-predictors-rem, message = FALSE, warning = FALSE, echo = FALSE}
 
+table_pred_missing_by_type(data = ABLB, flag = "REM_PRED_FL01", tab_title = "Summary of missing values for remaining predictors")
+
+```
 
 
 ## M2: Complete cases
@@ -87,7 +87,9 @@ m2_ard |>
   fmt_number(
     columns = c(pct_cases),
     decimals = 1
-  )
+  ) |>
+  tab_header(title = "Summary of complete cases by sets of predictors") |>
+  gt_theme_538() 
 
 ```
 
@@ -98,12 +100,13 @@ m2_ard |>
 
 ```{r summiss2, message =FALSE, warning =FALSE , echo=FALSE}
 
-##TODO -  add a proper structure with GENDER and AGEGROUP.
 source(here("R", "M3-complete-cases-sets.R"))
+
 m3_ard <- m3_analysis(ADSL, ADLB)
 
 m3_ard |> 
-  select(Set, n_cases, pct_cases, SEXC, AGEGR01C ) |>
+  arrange(SEXC, AGEGR01) |>
+  select(Set, n_cases, pct_cases, SEXC, AGEGR01, AGEGR01C ) |>
   group_by(SEXC, AGEGR01C) |>
   gt() |>
    gt::cols_label(
@@ -114,22 +117,26 @@ m3_ard |>
   gt::fmt_number(
     columns = c(pct_cases),
     decimals = 1
-  )
+  ) |>
+  tab_header(title = "Summary of complete cases by sets of predictors") |>
+  gt_theme_538()
 
 
 ```
 
-
-
 ### Dendrogram of missingness indicators 
 
-The dendrogram depicts the results of a cluster analysis using the complete linkage method based on the percentage of discordant missing indicators. (This percentage was computed via the squared Euclidian distance of missingness indicators between predictors.) The vertical axis shows the distance between two clusters, which is given by the maximum distance between any element of the first and the second clusters.  For example, if two clusters are merged at a height of 25 it means that in 25% of the observations the missingness indicators of the most discordant predictors contained in the two clusters are discordant.
+The dendrogram depicts the results of a cluster analysis using the complete linkage method based on the percentage of discordant missing indicators. (This percentage was computed via the squared Euclidian distance of missingness indicators between predictors.) The horizontal axis shows the distance between two clusters, which is given by the maximum distance between any element of the first and the second clusters.  For example, if two clusters are merged at a height of 25 it means that in 25% of the observations the missingness indicators of the most discordant predictors contained in the two clusters are discordant.
 
 The numbers in brackets are the percentages of missing observations for each predictor.
 
-```{r, message =FALSE, warning =FALSE , echo=FALSE, fig.height=12, fig.width=12, fig.cap="Clustered variables by percentage observations discordantly missing [by variable percentage missing]"}
+```{r m3-dendogram, message =FALSE, warning =FALSE , echo=FALSE, fig.height=12, fig.width=12}
+
+#fig.cap="Clustered variables by percentage observations discordantly missing [by variable percentage missing]"
+
 source(here("R", "M3-dendogram.R"))
 m3_dendogram(ADLB)
+
 ```
 
 

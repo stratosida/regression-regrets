@@ -1,15 +1,19 @@
 ## TODO align x-axis 
-describe_plot <- function(data) {
+describe_plot <- function(data, num_bins = 200) {
   
 
-## Parameter of interest
-#data |> filter(PARAMCD == param) -> dat
 dat <- data 
 
 title <- dat |> 
   filter(row_number()==1) |> 
-  select(PARAM) |> 
+  select(PARAMCD) |> 
   as.character()
+
+
+n_distinct <- length(unique(dat$AVAL))
+n_bins <- min(num_bins, n_distinct)
+
+#cat(title, " ", n_bins, " ", n_distinct, "\n")
 
 ## filter on data
 ## remove missing 
@@ -57,14 +61,19 @@ dat_median <- median(dat$AVAL, na.rm = TRUE)
 
 dat_5 <- fivenum(dat$AVAL, na.rm = TRUE)
 
+#rng  <- bind_cols(rng, dat_median) 
+
+rng[3] <- median(dat$AVAL)
+
 
 gg <- dat |>
   ggplot(aes(AVAL)) +
   
   scale_x_continuous(
-    breaks = rng,
+    breaks = dat_5,
 #    breaks = dat_5#,
-    labels = scales::label_number(big.mark = ",", scale_cut = scales::cut_long_scale())(rng) 
+    labels = scales::label_number(big.mark = ",", scale_cut = scales::cut_long_scale())(dat_5),
+    guide = guide_axis(check.overlap = TRUE)
   ) +
   
   geom_point(data = NULL, aes(x = rng_vals[1], y = 1), color = "transparent", size = 0.1) +
@@ -73,15 +82,15 @@ gg <- dat |>
   scale_y_continuous(expand = c(0, 0)) +
   {
     if (length(unique(dat$AVAL)) > 2){
-      geom_vline(xintercept = dat_median)
+      geom_vline(xintercept = dat_median, colour = "black", alpha = 0.6, linewidth = 0.8)
     } 
 
   } +
 
-  geom_vline(xintercept = dat_5[1], colour = "black", alpha = 0.4, linewidth = 0.5) +
-  geom_vline(xintercept = dat_5[2], colour = "black", alpha = 0.4, linewidth = 0.5) +
-  geom_vline(xintercept = dat_5[4], colour = "black", alpha = 0.4, linewidth = 0.5) +
-  geom_vline(xintercept = dat_5[5], colour = "black", alpha = 0.4, linewidth = 0.5) +
+  geom_vline(xintercept = dat_5[1], colour = "black", alpha = 0.4, linewidth = 0.6) +
+  geom_vline(xintercept = dat_5[2], colour = "black", alpha = 0.4, linewidth = 0.6) +
+  geom_vline(xintercept = dat_5[4], colour = "black", alpha = 0.4, linewidth = 0.6) +
+  geom_vline(xintercept = dat_5[5], colour = "black", alpha = 0.4, linewidth = 0.6) +
   
   
   
@@ -90,15 +99,14 @@ gg <- dat |>
 
   geom_histogram(#color = "firebrick2",
     fill = "firebrick2",
-#    binwidth = bw, 
-    bins = 200,
+    bins = n_bins,
     alpha = 0.8) +
   
   
   labs(xlab = "", ylab = "") +
   ggplot2::ggtitle(title) +
 
-  theme_void(base_size = 15) +
+  theme_void(base_size = 16) +
   theme(
     axis.text.x = element_text(
       color = "black",

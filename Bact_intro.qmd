@@ -1,15 +1,5 @@
 # Bacteremia study  {#Bacteremia}
 
-```{r intro01, warning=FALSE, message=FALSE}
-## Load libraries for this chapter
-library(readr)
-library(dplyr)
-library(gt)
-library(janitor)
-library(here)
-```
-
-
 ## Bacteremia study overview 
 
 We will exemplify our proposed systematic approach to data screening by means of a diagnostic study with the primary aim of using age, sex and 49 laboratory variables to fit a diagnostic prediction model for the bacteremia status (= presence of bacteria in the blood stream) of a blood sample. A secondary aim of the study is to describe the functional form of each predictor in the model. Between January 2006 and December 2010, patients with the clinical suspicion to suffer from bacteremia were included if blood culture analysis was requested by the responsible physician and blood was sampled for assessment of hematology and biochemistry. An analysis of this study can be found in @Ratzinger2014.
@@ -21,31 +11,4 @@ The data consists of 14,691 observations from different patients and 51 potentia
 
 We refer to the **source** data as the raw data set available in this repository (**DC 2019-0054**). The data set is published on [Zenodo](https://doi.org/10.5281/zenodo.7554815) with the following doi: https://doi.org/10.5281/zenodo.7554815. 
 
-For simplicity, we have also stored the *source* data and accompanying materials such as the **data dictionary** the `data-raw` directory. 
-
-
-### Data dictionary
-
-The data dictionary provides an overview of the collected *source* data - see [Appendix @sec-data_dict] for further details. 
-
-### Source data
-
-We also display a short snapshot of source data set from the `data-raw` folder of the project directory. The snapshot provides a glimpse of the data, giving the data dictionary more context.  
-
-```{r contents_bact,  warning=FALSE, message=FALSE, echo=FALSE} 
-
-## read the source data set from the data folder.
-
-bact <- read_csv(here("data-raw", "Bacteremia_public_S2.csv"))
-
-```
-
-We do not display all observations measured as it is too wide and long to fit reasonably in to the report. However, we refer you to the [Zenodo page](https://doi.org/10.5281/zenodo.7554815) for an interactive overview of the source data. 
-
-```{r contents_bact_glimpse,  warning=FALSE, message=FALSE, echo=FALSE}
-
-# TODO: Move to appendix?
-bact |> glimpse(width = getOption("width"))
-
-```
-
+For simplicity, we have also stored the *source* data and accompanying materials such as the **data dictionary** the `data-raw` directory. The data dictionary provides an overview of the collected *source* data - see [Appendix @sec-data_dict] for further details. Within the appendix, we also display a short snapshot of source data set from the `data-raw` folder of the project directory. The snapshot provides a glimpse of the data and the data dictionary for more context. However, we refer you to the [Zenodo page](https://doi.org/10.5281/zenodo.7554815) for an interactive overview of the source data. 

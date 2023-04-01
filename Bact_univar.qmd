@@ -16,16 +16,16 @@ library(sjlabelled)
 
 set.seed(1972)  ## for any simulation or numerical approx calculations 
 
-## Load the first iteration of the analysis ready datasets
-ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
-ADLB <- readRDS(here::here("data", "ADLB_01.rds"))
+# Load the first iteration of the IDA ready data sets
+ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
 ```
 
 ## U1: Categorical variables
 
 Age group, sex and bactermia status are described by frequencies and proportions in each category.
 
-```{r catplot, message=FALSE, warning =FALSE , echo=FALSE, include = TRUE}
+```{r U1-catplot, message=FALSE, warning =FALSE , echo=FALSE, include = TRUE}
 
 source(here("R", "U1-categorical.R"))
  
@@ -42,7 +42,11 @@ u1_display_table_word(u1_ard)
 
 Also plot the categories. 
 
-```{r catplot2, message=FALSE, warning=FALSE, echo=FALSE, fig.height=2.5, fig.width=12}
+```{r u1-catplot2, message=FALSE, warning=FALSE, echo=FALSE}
+#| fig-cap: "Summary of categorical variables including outcome"
+#| fig-width: 16
+#| fig-height: 3.5
+#| fig-align: center
 
 source(here("R", "U1-categorical.R"))
 u1_display_plot(u1_ard)
@@ -62,16 +66,21 @@ The only structural continuous variables is AGE. This variable is also a key pre
 
 Note: the structural variable Age is also considered a key predictor.
 
-```{r uni02, message=FALSE, warning =FALSE , echo=FALSE, fig.height= 3}
-#| layout-ncol: 4
+Distribution of key predictors. Lines indicate the 5-number summary including reported numerical values (where possible). 
+
+```{r uni02, message=FALSE, warning =FALSE , echo=FALSE}
+#| layout-ncol: 3
+#| fig-width: 4
+#| fig-height: 2
+
 
 source(here::here("R", "U2-cont-describe-plot.R"))
 
 key_plts <-
   ADLB |>
   filter(KEY_PRED_FL01 == "Y") |>
-  group_by(PARAMCD) |>
-  group_map(~ describe_plot(.x))
+  group_by(PARAM) |>
+  group_map(~ describe_plot(.x, num_bins = 300))
 
 for (plts in key_plts) {
   print(plts)
@@ -82,13 +91,15 @@ for (plts in key_plts) {
 #### U2: Predictors of medium importance
 
 ```{r uni03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 4
+#| layout-ncol: 3
+#| fig-width: 4
+#| fig-height: 2
 
 med_plts <-
   ADLB |>
   filter(MED_PRED_FL01 == "Y") |>
-  group_by(PARAMCD) |>
-  group_map(~ describe_plot(.x))
+  group_by(PARAM) |>
+  group_map(~ describe_plot(.x, num_bins = 300))
 
 for (plts in med_plts) {
   print(plts)
@@ -99,13 +110,15 @@ for (plts in med_plts) {
 #### U2: Remaining predictors
 
 ```{r uni04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 4
+#| layout-ncol: 3
+#| fig-width: 4
+#| fig-height: 2
 
 rem_plts <-
   ADLB |>
   filter(REM_PRED_FL01 == "Y") |>
-  group_by(PARAMCD) |>
-  group_map(~ describe_plot(.x))
+  group_by(PARAM) |>
+  group_map(~ describe_plot(.x, num_bins = 300))
 
 for (plts in rem_plts) {
   print(plts)

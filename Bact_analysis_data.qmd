@@ -14,27 +14,37 @@ library(gt)
 ```
 
 
-Based on the IDA plan, this section prepares the source data to be analysis ready: read, clean, tidy and transform. 
-
+Based on the IDA plan, this section prepares the source data to be analysis ready: read, clean, tidy and transform. This  section focuses on the steps prior to IDA (data screening) and the required additions to the **source data** in order to prepare the data. The aim is to produce an analysis ready data set for the research objective. 
 
 ## Analysis ready dataset
 
-The aim of this section and the remaining chapters of the report are to document the steps taken towards transforming the *source* data set to an *analysis ready* data set.
+The aim of this section and the remaining chapters of the report are to document the steps taken towards transforming the *source* data set to an *analysis ready* data set. These are the steps prior to the IDA analysis plan being executed. 
 
 
-In this section, additional meta-data is added to the *source* data set. 
+The steps taken in this section are guided by the [data set specification](https://docs.google.com/spreadsheets/d/1Ft5eyenvDnMBoLvJmcBaklfrYcwyW-rkt-ivIkaphdA/edit#gid=2082358047) for the analysis ready data set, which is based on review of the IDA and analysis strategy.  
 
-We write this new modified (annotated) data set back to the `data` folder after adding additional meta-data for all variables. The meta-data is taken from the data dictionary. The aim is to produce an analysis ready data set for the research objective. 
+For example, additional meta-data, data derivations and indicator flags are added to the *source* data set. 
 
-At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
+To support IDA, it is important that we keep track of the changes to the source data inclusing all new modifications. Therefore, we store references to the source data in the `data` folder after adding additional meta-data for all variables. 
+
+## Data set specifications
+
+
+### Analysis data sets
+
+CDISC influence. See [here](https://www.cdisc.org/standards). Advantage of standardization. 
+
+### Meta data
+
+First important meta-data is added to the data set from the data dictionary. At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
 
 ## Steps
 
 Read in the source data dictionary 
 
-```{r read_dict, warning=FALSE, message=FALSE, echo=FALSE}
+```{r read_source_dict, warning=FALSE, message=FALSE, echo=FALSE}
 ## Read in the source data dictionary and display 
-bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")) %>%
+bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")) |>
   arrange(VariableNr) |>
   clean_names() |>
   mutate(PARAMCD = variable )
@@ -61,6 +71,7 @@ bact_data01 <-
     values_drop_na = FALSE
   ) |>
   mutate(PARAMCD = if_else(PARAMCD == "AGEP", "AGE", PARAMCD)) ## rename AGE param code 
+
 ```
 
 Add the parameter information such as labels and units on to the transformed data directly from the data dictionary. 
@@ -73,6 +84,7 @@ Derive additional variables and metadata are per the analysis plan such as:
 * rename outcome 
 
 ```{r transform, warning=FALSE, message=FALSE, echo=FALSE} 
+
 bact_data02 <- 
   bact_data01 |> 
   left_join(bact_dd, by = "PARAMCD") |>
@@ -106,11 +118,13 @@ bact_data03 <-
   bact_data02 %>%
   relocate(USUBJID, SUBJID, AGE, SEX, SEXC, BACTEREMIA, BACTEREMIAN, PARAM, PARAMCD, AVAL, UNIT, TYPE, NOTE, NOTE2) |>
   select(USUBJID, SUBJID, AGE, SEX, SEXC, BACTEREMIA, BACTEREMIAN, PARAM, PARAMCD, AVAL, UNIT, TYPE, NOTE, NOTE2)
+
 ```
 
 Add variable metadata as label attributes
 
 ```{r meta_data, warning=FALSE, message=FALSE, echo=FALSE} 
+
 attr(bact_data03$SUBJID, "label") <- "Patient Identifer"  
 attr(bact_data03$USUBJID, "label") <- "Unique Patient Identifer with data souce reference: DC 2019-0054"  
 attr(bact_data03$SEX, "label") <- "Patient gender"  
@@ -128,7 +142,7 @@ attr(bact_data03$NOTE, "label") <- "Notes from source data dictionary - free tex
 attr(bact_data03$NOTE2, "label") <- "Remarks from source data dictionary - free text"
 ```
 
-Check we have not introduced any errors with the outcome variable. 
+Visual check we have not introduced any errors with the outcome variable. 
 
 ```{r outcome_check, warning=FALSE, message=FALSE, echo=FALSE} 
 
@@ -148,7 +162,7 @@ bact_data03 |>
 
 ```
 
-Set flags for predictors as per the IDA plan (see Section 2.1.1 Analysis strategy).
+Set indicator flags for predictors as per the IDA plan (see @sec-IDA_data_derivations):
 
 * age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors
 
@@ -177,7 +191,7 @@ attr(bact_data04$REM_PRED_FL01, "label") <- "Remaining Predictors flag - Section
 ```
 
 
-Add metadata flags to indicate relationship between blood cell parameters. See section 2.1.3 of the IDA plan 
+Add metadata flags to indicate relationship between blood cell parameters. See @sec-IDA_data_derivations. 
 
 
 ```{r wbc_relationship}
@@ -195,11 +209,9 @@ attr(bact_data05$PARCAT01, "label") <- "Leukocytes parameter categories"
 ```
 
 
-
-
 Derive age groups. 
 
-For the purpose of stratifying IDA results by age, age will be categorized into the following three groups: 
+For the purpose of stratifying IDA results by age, age will be categorized into the following three groups (@sec-IDA_data_derivations):  
 
 * [16, 50], 
 * (50, 65], 
@@ -229,18 +241,18 @@ ADSL <- bact_data06 |>
   filter(PARAMCD == "AGE") |>  
   select(USUBJID, SUBJID, AGE, AGEGR01, AGEGR01C, SEX, SEXC, BACTEREMIA, BACTEREMIAN)
 
-saveRDS(ADSL, file = here("data", "ADSL_01.rds"))
+saveRDS(ADSL, file = here("data","IDA", "ADSL_01.rds"))
 ```
 
-ADLB: *Note AGE is also in ADLB as a key predictor*
+ADLB:
 
 ```{r save_adlb, warning=FALSE, message=FALSE, echo=FALSE} 
 
 ADLB <- bact_data06 |>
   select(-AGE, -AGEGR01, -AGEGR01C, -SEX, -SEXC, -BACTEREMIA, -BACTEREMIAN)
 
-saveRDS(ADLB, file = here("data", "ADLB_01.rds"))
+saveRDS(ADLB, file = here("data", "IDA", "ADLB_01.rds"))
 
 ```
 
-Note: At this stage of IDA, both ADSL and ADLB are intermediate files that will be used for further IDA. Findings in IDA may require updates to either data set. 
+Note: At this stage of IDA, both ADSL and ADLB are *intermediate* files that will be used for further IDA. Findings in IDA may require updates to either data set. 

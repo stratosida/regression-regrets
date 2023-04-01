@@ -1,5 +1,4 @@
-# IDA plan {#IDA_plan}
-
+# IDA plan {#sec-IDA_plan}
 
 
 ```{r planintro01, warning=FALSE, message=FALSE}
@@ -26,45 +25,36 @@ Continuous predictors should be modelled by allowing for flexible functional for
 
 An adequate strategy to cope with missing values will also be chosen after screening the data. Candidate strategies are omission of predictors with abundant missing values, complete case analysis, single value imputation or multiple imputation with chained equations. 
 
-### Data dictionary
+### Analysis Ready Data dictionary
 
-The data dictionary of the bacteremia data set consists of columns for variable names, variable labels, scale of measurement (continuous or categorical), units, plausibility limits, and remarks:
+The **source** data dictionary of the bacteremia data set consists of columns for variable names, variable labels, scale of measurement (continuous or categorical), units, plausibility limits, and remarks. See [@sec-source-data]. 
 
-```{r datadict, warning=FALSE, message=FALSE, echo=FALSE}
-
-## Read in the source data dictionary, 
-## clean column names to be consistent format 
-## and arrange by variable order.  
-
-bact_dd <- read_csv(
-  here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")
-  ) |>
-  arrange(VariableNr) |>
-  clean_names()
-```
-
-```{r datadict_display}
-
-## display the dictionary. 
-
-bact_dd |> 
-  select(-variable_nr) |>
-  gt()
-
-```
-
+An additional [**analysis ready** data dictionary](https://docs.google.com/spreadsheets/d/1Ft5eyenvDnMBoLvJmcBaklfrYcwyW-rkt-ivIkaphdA/edit#gid=1128598743) will be created to capture additional derivation, transformations and metadata relevant to the research question. 
 
 ### Domain expertise
 
 The demographic variables age and sex are are chosen as the structural variables in this analysis for illustration purposes, since they are commonly considered important for describing a cohort in health studies. Key predictors and predictors of medium importance are as defined above. Laboratory analyses always bear the risk of machine failures, and hence missing values are a frequent challenge. This may differ between laboratory variables, but no a priori estimate about the expected proportion of missing values can be assumed. As most predictors measure concentrations of chemical compounds or cell counts, skewed distributions are expected. Some predictors describe related types of cells or chemical compounds, and hence some correlation between them is to be expected. For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age.
 
-For the purpose of stratifying IDA results by age, age will be categorized into the following three groups: [16, 50], (50, 65], (65, 101]. 
+## IDA data derivations {#sec-IDA_data_derivations}
 
-The predictor grouping is defined here:
+Based on the prerequisites the following data derivations will be performed on the **source data** to form an **analysis ready data set** stored in the **data** folder.   
+
+The outcome variable from the source data **BC** will be renamed to **BACTEREMIA** to be more informative. A numeric variable **BACTEREMIAN** will also be derived to enable modelling with the following coding, 0: no, 1: yes.
+
+For the purpose of stratifying IDA results by age, **AGE** will be categorized into the following three groups: [16, 50], (50, 65], (65, 101], both with numeric (**AGEGR01**) and character coding (**AGEGR01C**). 
+
+Predictors will be grouped by importance to the research question. Indicator flags for the predictor grouping will be derived:
+
+*	**KEY_PRED_FL01** will indicate the key predictors: AGE, WBC, BUN, CREA, PLT, and NEU 
+* **MED_PRED_FL01** will indicate the medium importance predictors: POTASS, FIB, CRP, ASAT, ALAT, GGT
+*	**REM_PRED_FL01** will indicator all remaining predictors not defined as key or medium importance. 
+
+An additional metadata flag **PARCAT01** will de derived to indicate the blood cell variables which form the Leukocytes predictor (**WBC**):  BASO, EOS, NEU, LYM and MONO.
 
 
-## IDA plan
+## IDA planned analyses
 
+The following sections detail the IDA planned analyses. 
 
 ### M1: Prevalence of missing values
 
@@ -74,10 +64,10 @@ Numbers and proportions of missing values will be reported for each predictor se
 
 The number of available complete cases (outcome and predictors) will be reported when considering:
 
-1.  the outcome variable (BC)
-2.  outcome and structural variables (BC, AGE, SEX)
-3.	outcome and key predictors only (BC, AGE, WBC, BUN, CREA, PLT, NEU)
-4.	outcome, key predictors and predictors of medium importance (BC, AGE, WBC, BUN, CREA, PLT, NEU, POTASS, FIB, CRP, ASAT, ALAT, GGT)
+1.  the outcome variable (BACTEREMIA)
+2.  outcome and structural variables (BACTEREMIA, AGE, SEX)
+3.	outcome and key predictors only (BACTEREMIA, AGE, WBC, BUN, CREA, PLT, NEU)
+4.	outcome, key predictors and predictors of medium importance (BACTEREMIA, AGE, WBC, BUN, CREA, PLT, NEU, POTASS, FIB, CRP, ASAT, ALAT, GGT)
 5.	outcome and all predictors.
 
 ### M3: Patterns of missing values
@@ -98,7 +88,7 @@ For all continuous predictors, combo plots consisting of high-resolution histogr
 
 As numerical summaries, minimum and maximum values, main quantiles (5th, 10th, 25th, 50th, 75th, 90th, 95th), and the first four moments (mean, standard deviation, skewness, curtosis) will be reported. The number of distinct values and the five most frequent values will be given, as well as the concentration ratio (ratio of frequency of most frequent value and mean frequency of each unique value).  
 
-Graphical and parametric multivariate analyses of the predictor space such as cluster analyses or the computation of variance inflation factors are heavily influenced by the distribution of the predictors. In order to make this set of analyses more robust to highly influential points or areas of the predictor support, some predictors may need transformation (e.g. logarithmic). We will compute the correlation of the untransformed and log-transformed predictors with normal deviates. Since some predictors may have values at or close to 0, we will consider the pseudolog transformation $f(x;\sigma) = sinh^{-1}(x/2\sigma)/\log10$ (Johnson, 1949) which provides a smooth transition from linear (close to 0) to logarithmic (further away from 0). The transformation has a parameter $\sigma$ which we will optimize separately for each predictor in order to achieve an optimal approximation to a normal distribution monitored via the correlation of normal deviates with the transformed predictor. For those predictors for which the pseudolog-transformation increases correlation with normal deviates by at least 0.2 units of the correlation coefficient, the pseudolog-transformed predictor will be used in multivariate IDA instead of the respective original predictor. For those predictors, histograms and boxplots will be provided on both the original and the transformed scale.
+Graphical and parametric multivariate analyses of the predictor space such as cluster analyses or the computation of variance inflation factors are heavily influenced by the distribution of the predictors. In order to make this set of analyses more robust to highly influential points or areas of the predictor support, some predictors may need transformation (e.g. logarithmic). We will compute the correlation of the untransformed and log-transformed predictors with normal deviates. Since some predictors may have values at or close to 0, we will consider the pseudolog transformation $f(x;\sigma) = sinh^{-1}(x/2\sigma)/\log10$ [@Johnson49] which provides a smooth transition from linear (close to 0) to logarithmic (further away from 0). The transformation has a parameter $\sigma$ which we will optimize separately for each predictor in order to achieve an optimal approximation to a normal distribution monitored via the correlation of normal deviates with the transformed predictor. For those predictors for which the pseudolog-transformation increases correlation with normal deviates by at least 0.2 units of the correlation coefficient, the pseudolog-transformed predictor will be used in multivariate IDA instead of the respective original predictor. For those predictors, histograms and boxplots will be provided on both the original and the transformed scale.
 
 ### V1: Multivariate descriptions: associations of predictors with structural variables
 

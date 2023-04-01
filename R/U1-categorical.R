@@ -105,6 +105,7 @@ u1_display_table_word <- function(ARD){
       )
     ) |>
     group_by(name)|>
+    arrange(name, -prop) |>
     gt() |>
     cols_align("left", name) |>
     cols_align("left", value) |>
@@ -165,12 +166,13 @@ u1_display_plot <- function(ARD){
       alpha = .6,
       width = .4
     ) +
-    ylab("proportion") +
+    labs(caption = "Proportions are displayed") +
+    #ylab("proportion") +
     scale_y_continuous(limits = c(0, 1)) +
     facet_wrap( ~ labs, ncol = 3, scales = "free_y") +
     coord_flip() +
-    theme_bw(base_size = 12) +
-    theme(axis.title.y = element_blank(),
+    theme_bw(base_size = 14) +
+    theme(axis.title = element_blank(),
           panel.grid.minor = element_blank())
   
   

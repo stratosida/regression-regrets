@@ -16,16 +16,16 @@ m3_analysis <- function(ADSL, ADLB){
   final_ard <- NULL
   
   ## join structural variables on
-  ADLB <- ADLB |> left_join(ADSL |> select(USUBJID, SEXC, AGEGR01C), by = "USUBJID")
+  ADLB <- ADLB |> left_join(ADSL |> select(USUBJID, SEXC, AGEGR01, AGEGR01C), by = "USUBJID")
   
   
   ## all predictors
   ard_all <- ADLB |> 
     filter(KEY_PRED_FL01 == "Y") |>
-    select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01C) |>
+    select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01, AGEGR01C) |>
     pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) |>
     select(-SUBJID) |>
-    group_by(SEXC, AGEGR01C) |>
+    group_by(SEXC, AGEGR01, AGEGR01C) |>
     miss_case_table() |> 
     filter(n_miss_in_case == 0) |>
     mutate(Set = "All predictors", 
@@ -35,10 +35,10 @@ m3_analysis <- function(ADSL, ADLB){
   ## key predictors
   ard_key <- ADLB |> 
     filter(KEY_PRED_FL01 == "Y") |>
-    select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01C) |>
+    select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01, AGEGR01C) |>
     pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) |>
     select(-SUBJID) |>
-    group_by(SEXC, AGEGR01C) |>
+    group_by(SEXC, AGEGR01, AGEGR01C) |>
     miss_case_table() |> 
     filter(n_miss_in_case == 0) |>
     mutate(Set = "Key predictors", 
@@ -49,10 +49,10 @@ m3_analysis <- function(ADSL, ADLB){
   ## medium predictors
   ard_med <- ADLB |> 
     filter(MED_PRED_FL01 == "Y") |>
-    select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01C) |>
+    select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01, AGEGR01C) |>
     pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) |>
     select(-SUBJID) |>
-    group_by(SEXC, AGEGR01C) |>
+    group_by(SEXC, AGEGR01, AGEGR01C) |>
     miss_case_table() |> 
     filter(n_miss_in_case == 0) |>
     mutate(Set = "Medium importance predictors", 
@@ -62,6 +62,6 @@ m3_analysis <- function(ADSL, ADLB){
   ### create a final analysis results table for display
   final_ard <- bind_rows(ard_all, ard_key, ard_med)
   
-  
+ 
   return(final_ard)
 }
