@@ -1,0 +1,56 @@
+# Descriptive summaries {#sec-descriptive-stats}
+
+```{r}
+library(here)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidyselect)
+library(gt)
+library(gtExtras)
+library(patchwork)
+library(Hmisc)
+library(sjlabelled)
+
+set.seed(1972)  ## for any simulation or numerical approx calculations 
+
+# Load the first iteration of the IDA ready data sets
+ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
+```
+
+
+
+```{r}
+source(here::here("R", "fun_describe_long_dataset.R"))
+
+# summary stats 
+ARD <- describe_long_dataset(ADLB)
+#ARD  |> glimpse()
+```
+
+
+```{r}
+table(ARD$STATISTIC)
+```
+
+
+```{r}
+#ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+#  readr::write_csv(file = "tmp.csv")
+
+
+#ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+#  gt()
+
+
+```
+
+```{r}
+ARD |>
+  filter(STATISTIC %in% c("mean", "median", "min")) |>
+  pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+  gt() |>
+  gtExtras::gt_theme_538()
+```
+

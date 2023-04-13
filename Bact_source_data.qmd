@@ -1,0 +1,66 @@
+# Source data {#sec-source-data}
+
+```{r appendix-source-data-set-up, warning=FALSE, message=FALSE}
+## Load libraries for this chapter
+library(readr)
+library(dplyr)
+library(gt)
+library(gtExtras)
+library(janitor)
+library(here)
+```
+
+The **source** data available in this repository (**DC 2019-0054**) can be located in the `data-raw` folder. For persistance, the data set is also published on [Zenodo](https://doi.org/10.5281/zenodo.7554815) with the following doi: https://doi.org/10.5281/zenodo.7554815. 
+
+The following sections provide a short overview of the data dictionary which accompanies the source data, and a short description of the data. 
+
+
+## Data dictionary {#sec-data_dict}
+
+The data dictionary provides an overview of the collected data. First, we read and display the data dictionary below providing an overview of the collected measurements. 
+
+```{r datadict, warning=FALSE, message=FALSE, echo=FALSE}
+
+## Read in the source data dictionary, 
+## clean column names to be consistent format 
+## and arrange by variable order.  
+
+bact_dd <- read_csv(
+  here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")
+  ) |>
+  arrange(VariableNr) |>
+  clean_names()
+```
+The `variable` name and `label` are displayed alongside the measurement `scale` and `units` as well as `remarks` and relevant study information `from_paper`. 
+
+```{r datadict_display}
+
+## display the dictionary. 
+
+bact_dd |> 
+  select(-variable_nr, -remark, -from_paper) |>
+  gt() |>
+  gt_theme_538()
+
+```
+
+## Source data
+
+We also display a short snapshot of source data set from the `data-raw` folder of the project directory. The snapshot provides a glimpse of the data, giving the data dictionary more context.  
+
+```{r contents_bact,  warning=FALSE, message=FALSE, echo=FALSE} 
+
+## read the source data set from the data folder.
+bact <- read_csv(here("data-raw", "Bacteremia_public_S2.csv"))
+
+```
+
+We do not display all observations measured as it is too wide and long to fit reasonably in to the report. However, we refer you to the [Zenodo page](https://doi.org/10.5281/zenodo.7554815) for an interactive overview of the source data. 
+
+```{r contents_bact_glimpse,  warning=FALSE, message=FALSE, echo=FALSE}
+
+# TODO: Move to appendix?
+bact |> glimpse(width = getOption("width"))
+
+```
+

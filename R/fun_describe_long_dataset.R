@@ -58,6 +58,7 @@ describe_long_dataset <- function(x){
       skewness = e1071::skewness(AVAL, na.rm = TRUE),
       kurtosis = e1071::kurtosis(AVAL, na.rm = TRUE),
       min = min(AVAL, na.rm = TRUE),
+      median = median(AVAL, na.rm = TRUE),
       max = max(AVAL, na.rm = TRUE),
       range = max - min,
       n_distinct = dplyr::n_distinct(AVAL, na.rm = TRUE),
@@ -67,36 +68,32 @@ describe_long_dataset <- function(x){
       qt_50 = quantile(AVAL, 0.5, na.rm = TRUE),
       qt_75 = quantile(AVAL, 0.75, na.rm = TRUE),
       qt_90 = quantile(AVAL, 0.9, na.rm = TRUE),
-      qt_95 = quantile(AVAL, 0.95, na.rm = TRUE)
-      #    mostfreq01 = tail(sort(table(AVAL)), most_frequent)[1],
-      #    mostfreq02 = tail(sort(table(AVAL)), most_frequent)[2],
-      #    mostfreq03 = tail(sort(table(AVAL)), most_frequent)[3],
-      #    mostfreq04 = tail(sort(table(AVAL)), most_frequent)[4],
-      #    mostfreq05 = tail(sort(table(AVAL)), most_frequent)[5]
+      qt_95 = quantile(AVAL, 0.95, na.rm = TRUE),
+      .groups = 'drop'
     ) |>
     tidyr::pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "RESULT")
   
-  top_5 <- 
+  max_5 <- 
     x |> 
     dplyr::group_by(PARAM, PARAMCD) |>  ## this assumes CDISC data structure
-    arrange(AVAL) |>
     slice_min(n = 5, order_by = -AVAL) |>
+    filter(row_number() <= 5) |> # condition for ties
     select(PARAM, PARAMCD, AVAL) |>
     pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "RESULT") |>
-    mutate(STATISTIC = paste0("top_", row_number())) |>
+    mutate(STATISTIC = paste0("max_", row_number())) |>
     ungroup()
   
-  bottom_5 <- 
+  min_5 <- 
     x |> 
     dplyr::group_by(PARAM, PARAMCD) |>  ## this assumes CDISC data structure
-    arrange(AVAL) |>
     slice_min(n = 5, order_by = AVAL) |>
+    filter(row_number() <= 5) |> # condition for ties
     select(PARAM, PARAMCD, AVAL) |>
     pivot_longer(cols = c(-PARAM, -PARAMCD), names_to = "STATISTIC", values_to = "RESULT") |>
-    mutate(STATISTIC = paste0("bottom_", row_number())) |>
+    mutate(STATISTIC = paste0("min_", row_number())) |>
     ungroup()
   
-  summary <- bind_rows(summary, top_5, bottom_5) 
+  summary <- bind_rows(summary, max_5, min_5) 
   
   return(summary)
 }
