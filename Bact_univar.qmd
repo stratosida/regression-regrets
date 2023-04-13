@@ -90,7 +90,7 @@ for (plts in key_plts) {
 
 #### U2: Predictors of medium importance
 
-```{r uni03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+```{r uni03, message=FALSE, warning=FALSE, echo=FALSE}
 #| layout-ncol: 3
 #| fig-width: 4
 #| fig-height: 2
@@ -109,7 +109,7 @@ for (plts in med_plts) {
 
 #### U2: Remaining predictors
 
-```{r uni04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+```{r uni04, message=FALSE, warning=FALSE, echo=FALSE}
 #| layout-ncol: 3
 #| fig-width: 4
 #| fig-height: 2
@@ -134,19 +134,32 @@ for (plts in rem_plts) {
 ```{r uni05, message=FALSE, warning =FALSE , echo=FALSE}
 #TODO: COMMENT @Mark is there a way to make nicer looking tables out of the numerical summaries??
 
-source(here::here("R", "fun_describe_long_dataset.R"))
-# summary stats 
-ARD <- describe_long_dataset(ADLB)
-#ARD  |> glimpse()
-table(ARD$STATISTIC)
+# source(here::here("R", "fun_describe_long_dataset.R"))
+# # summary stats 
+# ARD <- describe_long_dataset(ADLB)
+# ARD  |> glimpse()
+# table(ARD$STATISTIC)
+# 
+# 
+# ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+#   readr::write_csv(file = "tmp.csv")
+# 
+# 
+# ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+#   gt()
+# 
+
+
+
+
 ```
 
 ```{r}
-ARD |>
-  filter(STATISTIC %in% c("mean", "median", "min")) |>
-  pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
-  gt() |>
-  gtExtras::gt_theme_538()
+# ARD |>
+#   filter(STATISTIC %in% c("mean", "median", "min")) |>
+#   pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+#   gt() |>
+#   gtExtras::gt_theme_538()
 ```
 
 
