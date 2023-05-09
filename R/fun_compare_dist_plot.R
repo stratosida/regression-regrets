@@ -91,8 +91,8 @@ compare_dist_plot <- function(dat, n_bars = 200, bin_width = NULL, sigma = NULL)
   plt <- original_plot + trans_plot + 
     plot_annotation(
     title = title,
-    subtitle = 'Displayed on the original [left] vs. pseudo-log transformed scale [right]',
-    caption = 'All observed values, and the distribution min, max and interquartile range as reference lines, are displayed.'
+    subtitle = 'Displayed on the original [left] vs. pseudo-log transformed scale [right]'
+#    caption = 'All observed values, and the distribution min, max and interquartile range as reference lines, are displayed.'
   )
     
     return(plt)

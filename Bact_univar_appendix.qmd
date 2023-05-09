@@ -1,0 +1,65 @@
+# Univariate distribution checks {#sec-univar-appendix}
+
+This section reports a series of univariate summary checks of the bacteremia dataset.
+
+```{r uni01, message =FALSE, warning =FALSE , echo=FALSE}
+library(here)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidyselect)
+library(gt)
+library(gtExtras)
+library(patchwork)
+library(Hmisc)
+library(sjlabelled)
+
+set.seed(1972)  ## for any simulation or numerical approx calculations 
+
+# Load the first iteration of the IDA ready data sets
+ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
+```
+
+
+
+## U2: Remaining predictors {#sec-u2-remaining}
+
+### Visual summary
+
+```{r uni04, message=FALSE, warning=FALSE, echo=FALSE}
+#| layout-ncol: 3
+#| fig-width: 4
+#| fig-height: 2
+
+source(here::here("R", "U2-cont-describe-plot.R"))
+
+rem_plts <-
+  ADLB |>
+  filter(REM_PRED_FL01 == "Y") |>
+  group_by(PARAM) |>
+  group_map(~ describe_plot(.x, num_bins = 300))
+
+for (plts in rem_plts) {
+  print(plts)
+}
+
+```
+
+### Descriprive summary
+
+
+```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
+
+remaining_predictors <-
+  ADLB |>
+  filter(REM_PRED_FL01 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
+  select(-USUBJID)
+
+
+html(describe(remaining_predictors, size = "tiny"))
+
+```
+

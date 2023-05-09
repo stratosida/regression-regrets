@@ -1,4 +1,4 @@
-# Analysis ready data {#ARD}
+# Analysis ready data for IDA {#ARD}
 
 
 ```{r ard01, warning=FALSE, message=FALSE, echo=FALSE}
@@ -20,29 +20,24 @@ Based on the IDA plan, this section prepares the source data to be analysis read
 
 The aim of this section and the remaining chapters of the report are to document the steps taken towards transforming the *source* data set to an *analysis ready* data set. These are the steps prior to the IDA analysis plan being executed. 
 
-
 The steps taken in this section are guided by the [data set specification](https://docs.google.com/spreadsheets/d/1Ft5eyenvDnMBoLvJmcBaklfrYcwyW-rkt-ivIkaphdA/edit#gid=2082358047) for the analysis ready data set, which is based on review of the IDA and analysis strategy.  
 
 For example, additional meta-data, data derivations and indicator flags are added to the *source* data set. 
 
-To support IDA, it is important that we keep track of the changes to the source data inclusing all new modifications. Therefore, we store references to the source data in the `data` folder after adding additional meta-data for all variables. 
+To support IDA, it is important that we keep track of the changes to the source data including all new modifications, data derivations and transformations. Therefore, we store references to the source data in the `data` folder after adding additional meta-data for all variables. 
 
-## Data set specifications
+The format of the analysis ready data set follows that of the analysis ready [CDISC data model](https://www.cdisc.org/standards). 
 
+### Data set transformations
 
-### Analysis data sets
+Important meta-data is added to the data set from the data dictionary. At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
 
-CDISC influence. See [here](https://www.cdisc.org/standards). Advantage of standardization. 
+First the source data set and corresponding data dictionary are loaded. The variable names are normalized. 
 
-### Meta data
-
-First important meta-data is added to the data set from the data dictionary. At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
-
-## Steps
-
-Read in the source data dictionary 
+A new variable is created called `PARAMCD` which stores the abbreviated variable name as a reference. This provides a link between the dictionary and source data. 
 
 ```{r read_source_dict, warning=FALSE, message=FALSE, echo=FALSE}
+
 ## Read in the source data dictionary and display 
 bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")) |>
   arrange(VariableNr) |>
@@ -50,13 +45,11 @@ bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")
   mutate(PARAMCD = variable )
 ```
 
-Read in the source data.
-
 ```{r read_source, warning=FALSE, message=FALSE, echo=FALSE}
 bact_data <- read_csv(here("data-raw", "Bacteremia_public_S2.csv")) 
 ```
 
-Transform source data to a *long* format for the lab specific measurements. A long format enables efficient data processing. 
+The source data is then transform in to a *long* format to store the lab specific measurements called `ADLB`. A long format enables efficient data processing and also allows new transformed variables to be added during the course of IDA. Structural and demographic variables will be stored in a *wide* format in a separate data set named `ADSL`. 
 
 ```{r contents_abact, warning=FALSE, message=FALSE, echo=FALSE} 
 
@@ -74,14 +67,16 @@ bact_data01 <-
 
 ```
 
-Add the parameter information such as labels and units on to the transformed data directly from the data dictionary. 
+### Add lab variable meta-data
 
-Derive additional variables and metadata are per the analysis plan such as:
+The lab parameter variable information such as labels and units on to the transformed data are added directly from the data dictionary. 
+
+At this point, additional variables and metadata are derived per the analysis plan including:
 
 * Units 
 * Variable type
 * Categories for sex
-* rename outcome 
+* rename outcome to be more informative
 
 ```{r transform, warning=FALSE, message=FALSE, echo=FALSE} 
 
@@ -109,6 +104,8 @@ bact_data02 <-
 
 ```
 
+### Reorder variables 
+
 Select and re-order the variables as per the data set specification. 
 
 ```{r reorder, warning=FALSE, message=FALSE, echo=FALSE} 
@@ -121,7 +118,9 @@ bact_data03 <-
 
 ```
 
-Add variable metadata as label attributes
+### Add informative variable meta-data 
+
+Add variable metadata as label attributes.
 
 ```{r meta_data, warning=FALSE, message=FALSE, echo=FALSE} 
 
@@ -142,27 +141,31 @@ attr(bact_data03$NOTE, "label") <- "Notes from source data dictionary - free tex
 attr(bact_data03$NOTE2, "label") <- "Remarks from source data dictionary - free text"
 ```
 
-Visual check we have not introduced any errors with the outcome variable. 
+### Visual check outcome is correct
+
+Visual check we have not introduced any errors with the outcome variable. First display marginal distribution from source data variable.
+
 
 ```{r outcome_check, warning=FALSE, message=FALSE, echo=FALSE} 
-
-cat("Display marginal distribution from source data variable")
-
 bact_data02 |>
   group_by(BloodCulture) |> 
   tally() |>
-  gt()
+  gt() |> gtExtras::gt_theme_538()
+```
 
-cat("Display marginal distribution from transformed data variable")
+Second, display marginal distribution from transformed data variable.
 
+```{r outcome_check2, warning=FALSE, message=FALSE, echo=FALSE} 
 bact_data03 |>
   group_by(BACTEREMIA) |> 
   tally() |>
-  gt()
+  gt() |> gtExtras::gt_theme_538()
 
 ```
 
-Set indicator flags for predictors as per the IDA plan (see @sec-IDA_data_derivations):
+### Dervive indicator flags 
+
+The next step is to dervive indicator flags for predictors as per the IDA plan (see @sec-IDA_data_derivations):
 
 * age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors
 
@@ -191,7 +194,7 @@ attr(bact_data04$REM_PRED_FL01, "label") <- "Remaining Predictors flag - Section
 ```
 
 
-Add metadata flags to indicate relationship between blood cell parameters. See @sec-IDA_data_derivations. 
+Next step, add metadata flags to indicate relationship between blood cell parameters. See @sec-IDA_data_derivations. 
 
 
 ```{r wbc_relationship}
@@ -204,20 +207,18 @@ bact_data05 <-
 attr(bact_data05$PARAMTYP, "label") <- "Parameter type (indicator of derived variables)"
 attr(bact_data05$PARCAT01, "label") <- "Leukocytes parameter categories"
 
-
-
 ```
 
+### Data dervivations 
 
-Derive age groups. 
-
-For the purpose of stratifying IDA results by age, age will be categorized into the following three groups (@sec-IDA_data_derivations):  
+Now, derive age groups. For the purpose of stratifying IDA results by age, age will be categorized into the following three groups (@sec-IDA_data_derivations):  
 
 * [16, 50], 
 * (50, 65], 
 * (65, 101].
 
 ```{r age_groups, warning=FALSE, message=FALSE, echo=FALSE} 
+
 bact_data06 <-
   bact_data05 |>
   mutate(AGEGR01 = case_when(AGE >= 16  & AGE <= 50 ~ 1,
@@ -231,9 +232,11 @@ attr(bact_data06$AGEGR01, "label") <- "Age group 01 (Numeric coding)"
 attr(bact_data06$AGEGR01C, "label") <- "Age group 01 (Character coding)"
 ```
 
+### Save analysis ready data for IDA
+
 Save the analysis data sets in to two linked data sets following a structure similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specific data sets are stored in ADLB (a long format data set). 
 
-ADSL:
+Saving ADSL into an intermediate location `DATA/IDA/ADSL_01.rds` prior to IDA. 
 
 ```{r save_adsl, warning=FALSE, message=FALSE, echo=FALSE} 
 ## Filter on AGE as we only require one instance of the long data set. AGE should correspond 1:1 across ADSL and ADLB
@@ -244,7 +247,7 @@ ADSL <- bact_data06 |>
 saveRDS(ADSL, file = here("data","IDA", "ADSL_01.rds"))
 ```
 
-ADLB:
+Saving ADLB into an intermediate location `DATA/IDA/ADLB_01.rds` prior to IDA. 
 
 ```{r save_adlb, warning=FALSE, message=FALSE, echo=FALSE} 
 

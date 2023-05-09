@@ -20,8 +20,8 @@ library(Hmisc)
 set.seed(1972)
 
 ## Read data - load final data
-ADLB <- readRDS(here::here("data", "ADLB_final.rds"))
-ADSL <- readRDS(here::here("data", "ADSL_final.rds"))
+ADLB <- readRDS(here::here("data", "ADLB.rds"))
+ADSL <- readRDS(here::here("data", "ADSL.rds"))
 
 ## source utility functions 
 source(here("R", "fun_ida_trans.R"))

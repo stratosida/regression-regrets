@@ -42,7 +42,7 @@ u1_display_table_html <- function(ARD){
       name = case_when(
         name == "AGEGR01C" ~ "Age group",
         name == "SEXC" ~ "Sex",
-        name == "BACTEREMIA" ~ "Presence of bactermia"
+        name == "BACTEREMIA" ~ "Presence of bacteremia"
       )
     ) |>
     group_by(name) |>
@@ -73,7 +73,7 @@ u1_display_table_html <- function(ARD){
                5 ~ px(125)) |>
     gt::fmt_number(columns = c(perc),
                    decimals = 1)  |>
-    row_group_order(groups = c("Age group", "Sex", "Presence of bactermia")) |>
+    row_group_order(groups = c("Age group", "Sex", "Presence of bacteremia")) |>
     gt_theme_538() 
   
   
@@ -101,7 +101,7 @@ u1_display_table_word <- function(ARD){
       name = case_when(
         name == "AGEGR01C" ~ "Age group",
         name == "SEXC" ~ "Sex",
-        name == "BACTEREMIA" ~ "Presence of bactermia"
+        name == "BACTEREMIA" ~ "Presence of bacteremia"
       )
     ) |>
     group_by(name)|>
@@ -125,7 +125,7 @@ u1_display_table_word <- function(ARD){
       columns = c(prop),
       decimals = 2
     )  |>
-    row_group_order(groups = c("Age group", "Sex", "Presence of bactermia")) |>
+    row_group_order(groups = c("Age group", "Sex", "Presence of bacteremia")) |>
     gt_theme_538() 
   
   
@@ -152,7 +152,7 @@ u1_display_plot <- function(ARD){
       labs = case_when(
         name == "AGEGR01C" ~ "Age group",
         name == "SEXC" ~ "Sex",
-        name == "BACTEREMIA" ~ "Presence of bactermia")
+        name == "BACTEREMIA" ~ "Presence of bacteremia")
     ) |>
     ggplot(aes(x = value,
                y = prop,

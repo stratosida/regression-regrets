@@ -1,0 +1,26 @@
+# Results of IDA: Missing values Appendix {#sec-Missing-appendix}
+
+
+```{r, warning=FALSE, message=FALSE}
+## Load libraries
+library(here)
+library(dplyr)
+library(tidyr)
+library(naniar) ## for missing data 
+library(gt)
+library(gtExtras)
+library(dendextend)
+
+# Load the first iteration of the IDA ready data sets
+ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
+```
+
+## M1: Prevalence of missing values for remaining predictors {#sec-M1-appendix}
+
+```{r m1-lab-predictors-rem, message = FALSE, warning = FALSE, echo = FALSE}
+
+source(here("R", "M1-predictor-missing.R"))
+table_pred_missing_by_type(data = ABLB, flag = "REM_PRED_FL01", tab_title = "Summary of missing values for remaining predictors")
+
+```

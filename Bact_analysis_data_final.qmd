@@ -1,4 +1,4 @@
-# Analysis ready data - second iteration {#ARD}
+# Final Analysis ready data {#sec-ARD-final}
 
 
 ```{r ard01, warning=FALSE, message=FALSE, echo=FALSE}
@@ -17,18 +17,24 @@ library(sjlabelled)
 
 
 ## Load the datasets - make sure to load the correct ADLB2 
-## TODO: have a make workflow to ensure dependencies run in correct order
 
-ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
-ADLB <- readRDS(here::here("data", "ADLB_02.rds"))
+ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "IDA", "ADLB_02.rds"))
 
 ```
 
-## dervive WBC_NEU
+## Final dervivations and transformations
 
-```{r}
+From the IDA exercise a decision was made to derive a new variable based on `White Blood Count` in the absence of Neutrophiles: 
+
+* WBC_NEU: WBC - NEU
+
+The new derivation will also be checked as a candidate for pseudo-log transformation. 
+
+```{r final-ders, warning=FALSE, message=FALSE, echo=FALSE, fig.height = 3}
 
 source(here("R", "fun_ida_trans.R"))
+source(here("R", "fun_compare_dist_plot.R"))
 
 wbc_no_neu_01 <-
   ADLB |>
@@ -47,53 +53,21 @@ wbc_no_neu_trans_01 <- ida_trans(wbc_no_neu_01)
 wbc_no_neu_trans_02 <- wbc_no_neu_trans_01$dat
 
 ## plot side by side
-source(here("R", "fun_compare_dist_plot.R"))
-
 compare_dist_plot(wbc_no_neu_trans_02)
 
 ```
 
-```{r}
+The new derivation and transformation is added to the analysis ready data, setting the correct indicator flags to enable final analyses and modelling. 
+
+```{r final-steps, warning=FALSE, message=FALSE, echo=FALSE, fig.height = 3}
 
 ADLB_02 <- bind_rows(ADLB, wbc_no_neu_01, wbc_no_neu_trans_02) 
 ADLB_02 <- sjlabelled::copy_labels(ADLB_02, ADLB)  
-#ADLB_02 |> group_by(PARAMCD) |> tally()
 ```
-
-
-# Set analysis flags for 
-
-
-Handled by ADSL
-
-  
-Flags within ADBL
-
-$pivotal_vars
-[1] "WBC"   "AGE"
-
-$vip_vars
-[1] "WBC"   "AGE" "BUN"   "CREA"  "NEU"   "PLT"  
-
-$leuko_related_vars
-[1] "WBC"  "NEU"  "EOS"  "BASO" "LYM"  "MONO"
-
-$leuko_ratio_vars
-[1] "NEUR"  "EOSR"  "BASOR" "LYMR"  "MONOR"
-
-$acute_related_vars
-[1] "FIB"  "CRP"  "ASAT" "ALAT" "GGT" 
-
-$remaining_vars
- [1] "MCV"  "HGB"  "HCT"  "MCH"  "MCHC" "RDW"  "MPV"  "NT"   "APTT" "NA."  "CA"   "PHOS" "MG"   "HS"   "GBIL"
-[16] "TP"   "ALB"  "AMY"  "PAMY" "LIP"  "CHE"  "AP"   "LDH"  "CK"   "GLU"  "TRIG" "CHOL" "PDW"  "RBC" 
-
 
 
 
 ```{r set_flags, warning=FALSE, message=FALSE, echo=FALSE} 
-
-## CHECK BUN was actually transformed
 
 ADLB_03 <-
   ADLB_02 |>
@@ -109,11 +83,12 @@ ADLB_03 <-
 
 attr(ADLB_03$KEY_PRED_FL03, "label") <- "Key Predictor Flag - original"
 attr(ADLB_03$KEY_PRED_FL04, "label") <- "Key Predictor Flag - including transformed variables"
-
-
 ```
 
-```{r}
+
+Visual check of indicator flag and new derviation added to the analysis data set. 
+
+```{r check_flags, warning=FALSE, message=FALSE, echo=FALSE}
 vars <- ADLB_03 |> 
   filter(KEY_PRED_FL03 == "Y") |> select(PARAMCD) |> distinct() |> as.list()
 #paste(vars, collapse = ', ')
@@ -123,24 +98,13 @@ print(paste(vars, collapse = ', '))
 ```
 
 
-`r print(paste(vars, collapse = ', '))`
+## Save final analysis ready data sets 
 
-# Add metadata flags to indicate relationship between blood cell parameters. See section 2.1.3 of the IDA plan 
+The final analysis ready data sets are then stored in `data/`. 
 
-
-
-## Complete cases flag
-
-## key predictors orig
-
-## key predictors transformed
-
-
-# Save final analysis ready data sets 
-
-```{r}
-saveRDS(ADSL, file = here("data", "ADSL_final.rds"))
-saveRDS(ADLB_03, file = here("data", "ADLB_final.rds"))
+```{r save_data, warning=FALSE, message=FALSE, echo=FALSE}
+saveRDS(ADSL, file = here("data", "ADSL.rds"))
+saveRDS(ADLB_03, file = here("data", "ADLB.rds"))
 ```
 
 
