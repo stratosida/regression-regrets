@@ -203,7 +203,7 @@ Plot the matrix but suppress differences less then 0.1.
 corr_difference_conditional <-
   corr_difference |> 
   stretch() |>
-  mutate(r = if_else(abs(r) > 0.1, r, NA)) |>
+  mutate(r = if_else(abs(r) > 0.1, r, 0)) |>
   retract() |>
   as_cordf()
 
