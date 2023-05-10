@@ -2,7 +2,7 @@
 
 This section reports a series of univariate summary checks of the bacteremia dataset.
 
-```{r uni01, message =FALSE, warning =FALSE , echo=FALSE}
+```{r uni01a, message =FALSE, warning =FALSE , echo=FALSE}
 library(here)
 library(dplyr)
 library(tidyr)
@@ -21,13 +21,13 @@ ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
 ```
 
+## U2: Descriptive summaries 
 
+### U2: Remaining predictors {#sec-u2-remaining}
 
-## U2: Remaining predictors {#sec-u2-remaining}
+We present a visual summary. 
 
-### Visual summary
-
-```{r uni04, message=FALSE, warning=FALSE, echo=FALSE}
+```{r uni04a, message=FALSE, warning=FALSE, echo=FALSE}
 #| layout-ncol: 3
 #| fig-width: 4
 #| fig-height: 2
@@ -46,7 +46,7 @@ for (plts in rem_plts) {
 
 ```
 
-### Descriprive summary
+And a descriprive summary
 
 
 ```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
@@ -62,4 +62,20 @@ remaining_predictors <-
 html(describe(remaining_predictors, size = "tiny"))
 
 ```
+
+### Full descriptive summaries 
+
+For U2, we present only a limited number of statistics are presented for brevity. However, a full set of descriptive summaries are available according to the specifications in the IDA plan as a data set. The summary statistics can be viewed and analysed in the following directory `data/results/U2-descriptive-stats.csv`. 
+
+```{r full_desc, message = FALSE, warning = FALSE , echo = FALSE}
+source(here::here("R", "fun_describe_long_dataset.R"))
+
+# summary stats 
+ARD <- describe_long_dataset(ADLB)
+
+ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+  readr::write_csv(file = here("data", "results", "U2-descriptive-stats.csv"))
+
+```
+
 

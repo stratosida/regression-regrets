@@ -60,11 +60,9 @@ u1_display_plot(u1_ard)
 
 #### U2: Structural variables
 
-The only structural continuous variables is AGE. This variable is also a key predictor (see below).
+The only structural continuous variable is AGE. This variable is also a key predictor and reported in the following section (see below).
 
 #### U2: Key predictors
-
-Note: the structural variable Age is also considered a key predictor.
 
 Distribution of key predictors. Lines indicate the 5-number summary including reported numerical values (where possible). 
 

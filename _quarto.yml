@@ -13,24 +13,22 @@ book:
   date: today  ## day report is complied 
   chapters:
   - index.qmd  
-  - Bact_intro.qmd # ok
-  - Bact_IDA_plan.qmd # ok
-  - Bact_analysis_data.qmd ## - needs editing
-  - Bact_missing.qmd  # ok
+  - Bact_intro.qmd 
+  - Bact_IDA_plan.qmd 
+  - Bact_analysis_data.qmd 
+  - Bact_missing.qmd  
   - Bact_univar.qmd
   - Bact_multivar.qmd
   - Bact_analysis_data_final.qmd
   - references.qmd 
   appendices:
-  - Bact_source_data.qmd # ok
+  - Bact_suppl.qmd 
+  - Bact_source_data.qmd 
   - Bact_missing_appendix.qmd
   - Bact_univar_appendix.qmd
-  - Bact_descriptives.qmd
   - Bact_multivar_appendix.qmd
-  - Bact_suppl.qmd 
   - Pseudo_log_explainer.qmd
-#  - SessionInfo.qmd
-  
+
 bibliography: references.bib
 
 format:
@@ -44,7 +42,7 @@ format:
   docx:
     toc: true
     toc-depth: 2
-    number-sections: true
+    number-sections: false  # true
     highlight-style: github
     crossref:
       chapters: true
