@@ -32,10 +32,11 @@ source(here("R", "U1-categorical.R"))
 u1_ard <- u1_describe(ADSL = ADSL)
 # u1_ard |> glimpse()
 
-u1_display_table_word(u1_ard) 
+## Run this for word report
+##u1_display_table_word(u1_ard) 
 
 ## Run this for online website
-## u1_display_table_html(u1_ard)
+u1_display_table_html(u1_ard)
 
 ```
 

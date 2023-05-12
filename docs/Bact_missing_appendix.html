@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Regression without regrets - Appendix C — Results of IDA: Missing values Appendix</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Bact_univar_appendix.html" rel="next">
+<link href="./Bact_source_data.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Appendix C — Results of IDA: Missing values Appendix</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Regression without regrets</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-M1-appendix" id="toc-sec-M1-appendix" class="nav-link active" data-scroll-target="#sec-M1-appendix"><span class="toc-section-number">C.1</span>  M1: Prevalence of missing values for remaining predictors</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-Missing-appendix" class="quarto-section-identifier d-none d-lg-block">Appendix C — Results of IDA: Missing values Appendix</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-hash="Bact_missing_appendix_cache/html/unnamed-chunk-1_2c10c9ecbee987a70de5957cc62ea2a7">
+
+</div>
+<section id="sec-M1-appendix" class="level2" data-number="C.1">
+<h2 data-number="C.1" class="anchored" data-anchor-id="sec-M1-appendix"><span class="header-section-number">C.1</span> M1: Prevalence of missing values for remaining predictors</h2>
+<div class="cell" data-hash="Bact_missing_appendix_cache/html/m1-lab-predictors-rem_2dea2a0ae1a3d23aeaf18c5b4804bf96">
+<div class="cell-output-display">
+
+<div id="fnvmtjykwt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#fnvmtjykwt) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 3px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#fnvmtjykwt) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#fnvmtjykwt) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#fnvmtjykwt) .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#fnvmtjykwt) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#fnvmtjykwt) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#fnvmtjykwt) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#fnvmtjykwt) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#fnvmtjykwt) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#fnvmtjykwt) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #FFFFFF;
+  vertical-align: middle;
+}
+
+:where(#fnvmtjykwt) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#fnvmtjykwt) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#fnvmtjykwt) .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#fnvmtjykwt) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 0px;
+  border-right-color: #FFFFFF;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#fnvmtjykwt) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#fnvmtjykwt) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#fnvmtjykwt) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#fnvmtjykwt) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#fnvmtjykwt) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#fnvmtjykwt) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#fnvmtjykwt) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#fnvmtjykwt) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#fnvmtjykwt) .gt_sourcenote {
+  font-size: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#fnvmtjykwt) .gt_left {
+  text-align: left;
+}
+
+:where(#fnvmtjykwt) .gt_center {
+  text-align: center;
+}
+
+:where(#fnvmtjykwt) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#fnvmtjykwt) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#fnvmtjykwt) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#fnvmtjykwt) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#fnvmtjykwt) .gt_super {
+  font-size: 65%;
+}
+
+:where(#fnvmtjykwt) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#fnvmtjykwt) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#fnvmtjykwt) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#fnvmtjykwt) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#fnvmtjykwt) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#fnvmtjykwt) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#fnvmtjykwt) .gt_indent_5 {
+  text-indent: 25px;
+}
+
+tbody tr:last-child {
+  border-bottom: 2px solid #ffffff00;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Summary of missing values for remaining predictors</td>
+    </tr>
+    
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Predictor">Predictor</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Description">Description</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Missing (count)">Missing (count)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Missing (%)">Missing (%)</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="PARAMCD" class="gt_row gt_left">PAMY</td>
+<td headers="PARAM" class="gt_row gt_left">Pancreas amylase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">7114</td>
+<td headers="pct_miss" class="gt_row gt_right">48.4</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">TRIG</td>
+<td headers="PARAM" class="gt_row gt_left">Triclyceride (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">5061</td>
+<td headers="pct_miss" class="gt_row gt_right">34.4</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">CHOL</td>
+<td headers="PARAM" class="gt_row gt_left">Cholesterol (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">5045</td>
+<td headers="pct_miss" class="gt_row gt_right">34.3</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">GLU</td>
+<td headers="PARAM" class="gt_row gt_left">Glucoses (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">4192</td>
+<td headers="pct_miss" class="gt_row gt_right">28.5</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">AMY</td>
+<td headers="PARAM" class="gt_row gt_left">Amylase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">3913</td>
+<td headers="pct_miss" class="gt_row gt_right">26.6</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">LIP</td>
+<td headers="PARAM" class="gt_row gt_left">Lipases (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">3699</td>
+<td headers="pct_miss" class="gt_row gt_right">25.2</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">HS</td>
+<td headers="PARAM" class="gt_row gt_left">Uric acid (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">3061</td>
+<td headers="pct_miss" class="gt_row gt_right">20.8</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">APTT</td>
+<td headers="PARAM" class="gt_row gt_left">Activated partial thromboplastin time (sec)</td>
+<td headers="n_miss" class="gt_row gt_right">2549</td>
+<td headers="pct_miss" class="gt_row gt_right">17.4</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">NT</td>
+<td headers="PARAM" class="gt_row gt_left">Normotest (%)</td>
+<td headers="n_miss" class="gt_row gt_right">2467</td>
+<td headers="pct_miss" class="gt_row gt_right">16.8</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">CHE</td>
+<td headers="PARAM" class="gt_row gt_left">Cholinesterase (kU/L)</td>
+<td headers="n_miss" class="gt_row gt_right">2447</td>
+<td headers="pct_miss" class="gt_row gt_right">16.7</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">CK</td>
+<td headers="PARAM" class="gt_row gt_left">Creatinine kinases (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">2080</td>
+<td headers="pct_miss" class="gt_row gt_right">14.2</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">MG</td>
+<td headers="PARAM" class="gt_row gt_left">Magnesium (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1869</td>
+<td headers="pct_miss" class="gt_row gt_right">12.7</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">LDH</td>
+<td headers="PARAM" class="gt_row gt_left">Lactate dehydrogenase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1714</td>
+<td headers="pct_miss" class="gt_row gt_right">11.7</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">ALB</td>
+<td headers="PARAM" class="gt_row gt_left">Albumin (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1676</td>
+<td headers="pct_miss" class="gt_row gt_right">11.4</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">TP</td>
+<td headers="PARAM" class="gt_row gt_left">Total protein (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1583</td>
+<td headers="pct_miss" class="gt_row gt_right">10.8</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">GBIL</td>
+<td headers="PARAM" class="gt_row gt_left">Bilirubin (mg/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">1441</td>
+<td headers="pct_miss" class="gt_row gt_right">9.8</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">AP</td>
+<td headers="PARAM" class="gt_row gt_left">Alkaline phosphatase (U/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1400</td>
+<td headers="pct_miss" class="gt_row gt_right">9.5</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">SODIUM</td>
+<td headers="PARAM" class="gt_row gt_left">Sodium (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1282</td>
+<td headers="pct_miss" class="gt_row gt_right">8.7</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">CA</td>
+<td headers="PARAM" class="gt_row gt_left">Calcium (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1276</td>
+<td headers="pct_miss" class="gt_row gt_right">8.7</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">PHOS</td>
+<td headers="PARAM" class="gt_row gt_left">Phosphate (mmol/L)</td>
+<td headers="n_miss" class="gt_row gt_right">1242</td>
+<td headers="pct_miss" class="gt_row gt_right">8.5</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">PDW</td>
+<td headers="PARAM" class="gt_row gt_left">Platelet distribution width (%)</td>
+<td headers="n_miss" class="gt_row gt_right">1102</td>
+<td headers="pct_miss" class="gt_row gt_right">7.5</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">BASOR</td>
+<td headers="PARAM" class="gt_row gt_left">Basophile ratio (%)</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">5.0</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">EOSR</td>
+<td headers="PARAM" class="gt_row gt_left">Eosinophil ratio (%)</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">5.0</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">LYMR</td>
+<td headers="PARAM" class="gt_row gt_left">Lymphocyte ratio (% (mg/dl))</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">5.0</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">MONOR</td>
+<td headers="PARAM" class="gt_row gt_left">Monocyte ratio (%)</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">5.0</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">NEUR</td>
+<td headers="PARAM" class="gt_row gt_left">Neutrophile ratio (%)</td>
+<td headers="n_miss" class="gt_row gt_right">732</td>
+<td headers="pct_miss" class="gt_row gt_right">5.0</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">MPV</td>
+<td headers="PARAM" class="gt_row gt_left">Mean platelet volume (fl)</td>
+<td headers="n_miss" class="gt_row gt_right">702</td>
+<td headers="pct_miss" class="gt_row gt_right">4.8</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">RBC</td>
+<td headers="PARAM" class="gt_row gt_left">Red blood count (T/L)</td>
+<td headers="n_miss" class="gt_row gt_right">461</td>
+<td headers="pct_miss" class="gt_row gt_right">3.1</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">LYM</td>
+<td headers="PARAM" class="gt_row gt_left">Lymphocytes (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">262</td>
+<td headers="pct_miss" class="gt_row gt_right">1.8</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">MONO</td>
+<td headers="PARAM" class="gt_row gt_left">Monocytes (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">246</td>
+<td headers="pct_miss" class="gt_row gt_right">1.7</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">BASO</td>
+<td headers="PARAM" class="gt_row gt_left">Basophiles (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">146</td>
+<td headers="pct_miss" class="gt_row gt_right">1.0</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">EOS</td>
+<td headers="PARAM" class="gt_row gt_left">Eosinophils (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">135</td>
+<td headers="pct_miss" class="gt_row gt_right">0.9</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">RDW</td>
+<td headers="PARAM" class="gt_row gt_left">Red blood cell distribution width (%)</td>
+<td headers="n_miss" class="gt_row gt_right">56</td>
+<td headers="pct_miss" class="gt_row gt_right">0.4</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">MCV</td>
+<td headers="PARAM" class="gt_row gt_left">Mean corpuscular volume (pg)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.3</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">HCT</td>
+<td headers="PARAM" class="gt_row gt_left">Haematocrit (%)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.3</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">MCH</td>
+<td headers="PARAM" class="gt_row gt_left">Mean corpuscular hemoglobin (fl)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.3</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">MCHC</td>
+<td headers="PARAM" class="gt_row gt_left">Mean corpuscular hemoglobin concentration (g/dl)</td>
+<td headers="n_miss" class="gt_row gt_right">42</td>
+<td headers="pct_miss" class="gt_row gt_right">0.3</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">HGB</td>
+<td headers="PARAM" class="gt_row gt_left">Haemoglobin (G/L)</td>
+<td headers="n_miss" class="gt_row gt_right">41</td>
+<td headers="pct_miss" class="gt_row gt_right">0.3</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Bact_source_data.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Bact_univar_appendix.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Results of IDA: Missing values Appendix {#sec-Missing-appendix}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warning=FALSE, message=FALSE}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Load libraries</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar) <span class="do">## for missing data </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtExtras)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the first iteration of the IDA ready data sets</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>ADSL <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADSL_01.rds"</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ADLB <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_01.rds"</span>))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## M1: Prevalence of missing values for remaining predictors {#sec-M1-appendix}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r m1-lab-predictors-rem, message = FALSE, warning = FALSE, echo = FALSE}</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"M1-predictor-missing.R"</span>))</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">table_pred_missing_by_type</span>(<span class="at">data =</span> ABLB, <span class="at">flag =</span> <span class="st">"REM_PRED_FL01"</span>, <span class="at">tab_title =</span> <span class="st">"Summary of missing values for remaining predictors"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
