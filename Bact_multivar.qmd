@@ -1,6 +1,6 @@
 #  Multivariate analyses
 
-First load the required packages and data. Note:, from the univariate analyses the analysis data set for the lab parameters has been updated to include transformed variables. Therefore, we load the second iteration of the data `data/ADLB_02.rds`. 
+First load the required packages and data. Note that from the univariate analyses the analysis data set for the lab parameters has been updated to include transformed variables. Therefore, we load the second iteration of the data `data/ADLB_02.rds`. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE }
 library(tidyr)
@@ -15,6 +15,7 @@ library(ggrepel)
 library(here)
 library(dendextend)
 library(gt)
+library(gtExtras)
 
 ## for network plot
 options(ggrepel.max.overlaps = 100)
@@ -26,11 +27,10 @@ source(here("R", "fun_ida_trans.R"))
 ## Load the datasets - make sure to load the correct ADLB2 
 ## TODO: have a make workflow to ensure dependencies run in correct order
 
-ADSL <- readRDS(here::here("data", "ADSL_01.rds"))
-ADLB <- readRDS(here::here("data", "ADLB_02.rds"))
+ADSL <- readRDS(here::here("data","IDA", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data","IDA", "ADLB_02.rds"))
 
 ```
-
 
 
 ## V1: Association with structural variables
@@ -49,14 +49,15 @@ dat <- ADLB |>
 ```
 
 
-
 A scatterplot of each predictor with age, with different panels for males and females have been constructed. Associated Spearman correlation coefficients have been computed.
+
+The remaining predictors are reported in appendix @sec-V1-appendix.
 
 ### Key predictors
 
 
 ```{r mvi03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 3 
+#| layout-ncol: 2 
 
 ## plots for key predictors - remove age to avoid age vs age plot
 key_predictors <- dat |> 
@@ -76,7 +77,7 @@ for (plts in key_predictors) {
 ### Predictors of medium importance
 
 ```{r mvi04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 3 
+#| layout-ncol: 2 
 
 medium_predictors <- dat |> 
   filter(MED_PRED_FL02 == "Y") |>
@@ -89,27 +90,10 @@ for (plts in medium_predictors) {
 
 ```
 
-### Remaining predictors
-
-```{r mvi05, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 3 
-
-remain_predictors <- dat |> 
-  filter( REM_PRED_FL02 == "Y") |>
-  group_by(PARAMCD) |>
-  group_map(~ plot_assoc_by(.x), .keep = TRUE)
-
-
-for (plts in remain_predictors) {
-  print(plts)
-}
-
-```
-
 
 ## V2: Correlation coefficients between all predictors
 
-Calaulcate correlation matrix using Spearman correlation coefficient. 
+Calculate correlation matrix using Spearman correlation coefficient. 
 
 ```{r mcorrs, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 
@@ -132,7 +116,7 @@ corr_spearman <-
 
 The Spearman correlation coefficients are depicted in a quadratic heat map:
 
-```{r plotcorr, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+```{r plotcorr, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 16, fig.height=16}
 
 
 corr_spearman |> rearrange(method = "HC") |>
@@ -161,7 +145,7 @@ corr_spearman |> rearrange(method = "HC") |>
 
 ### VE1: Comparing nonparametric and parametric predictor correlation
 
-```{r corr_setup, message = FALSE, warning = FALSE, echo = FALSE, fig.width = 12, fig.height=12}
+```{r corr_setup, message = FALSE, warning = FALSE, echo = FALSE, fig.width = 16, fig.height=16}
 # differences of pearson and spearman correlations to check for outliers
 
 ## cast as a matrix 
@@ -191,9 +175,9 @@ corr_difference <- corrd |> as_cordf()
 ```
 
 
-Plot the difference matrix 
+Plot the difference matrix. 
 
-```{r plotcorr_diff, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+```{r plotcorr_diff, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 16, fig.height=16}
 
 ## plot
 
@@ -211,13 +195,13 @@ corr_difference |> rearrange(method = "HC") |>
 
 Plot the matrix but suppress differences less then 0.1. 
 
-```{r plotcorr02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+```{r plotcorr02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 16, fig.height=16}
 
 # sparsified differences of correlation coefficients
 corr_difference_conditional <-
   corr_difference |> 
   stretch() |>
-  mutate(r = if_else(abs(r) > 0.1, r, NA)) |>
+  mutate(r = if_else(abs(r) > 0.1, r, 0)) |>
   retract() |>
   as_cordf()
 
@@ -239,9 +223,9 @@ corr_difference_conditional |>
 
 ```{r plotcorr03, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
 
-corr_difference_conditional |>
-  shave() |>
-  rplot(print_cor = TRUE)
+#corr_difference_conditional |>
+#  shave() |>
+#  rplot(print_cor = TRUE)
 
 
 #corrd_sp <- corrd
@@ -254,25 +238,9 @@ corr_difference_conditional |>
 ```
 
 
-```{r plotcorr04, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units will be depicted in scatterplots. First report the table of predictor parirs where `r` is greater than 0.1. 
 
-## for network plot
-#options(ggrepel.max.overlaps = Inf)
-#corr_difference_conditional |> network_plot()
-```
-
-
-```{r plotcorr05, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
-
-#corr_difference |> network_plot()
-
-```
-
-
-
-Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units will be depicted in scatterplots:
-
-```{r}
+```{r pred_corr, message=FALSE, warning=FALSE, echo=FALSE}
 
 ## COMMENT @Mark can we print pearson and spearman correlation coefficients into/over the graphs?
 
@@ -283,15 +251,21 @@ combos <-
   filter(r > 0.1) 
 
 combos |>
-  gt::gt()
+  gt::gt() |>
+     gt::fmt_number(
+      columns = c(r),
+      decimals = 2
+    ) |> 
+  gtExtras::gt_theme_538()
 
 ```
-Data prep
 
+Then plot the scatter plots. 
 
 ```{r ve3, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 #| layout-ncol: 3 
 
+## Data prep
 
 combos01 <- combos |>
   mutate(grp = row_number())
@@ -312,10 +286,12 @@ combos02 <- combos01 |>
   left_join(combos_pearson)
 ```
 
-Plot the data. 
+
 
 ```{r ve3_02, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 #| layout-ncol: 3 
+
+## Plot the data. 
 
 source(here("R", "V2-mv-descriptions.R"))
 
@@ -329,7 +305,6 @@ combos3 <-
 
 ```{r ve3_03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 #| layout-ncol: 3 
-
 
 ## print out. TODO: ask GH which plots to save
 for (plts in combos3) {
@@ -353,27 +328,24 @@ ve2_varclust(corr_spearman)
 ```
 
 
-plot network plot
+This can also be displayed as a network plot
 
-```{r varclust02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=6}
+```{r varclust02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=8}
 #options(ggrepel.max.overlaps = 100)
 corr_spearman |> network_plot()
 ```
 
 
-plot network with min cor of 0.3. 
-
 ```{r varclust03, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=6}
-corr_spearman |> network_plot(min_cor = 0.3)
+# plot network with min cor of 0.3. 
+# corr_spearman |> network_plot(min_cor = 0.3)
 ```
-
-
 
 
 
 In the following scatterplots we show predictor pairs with Spearman correlation coefficients greater than 0.8:
 
-```{r}
+```{r varclust04, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=6}
 
 combos_spearman_02 <-
   corr_spearman |>
@@ -383,11 +355,10 @@ combos_spearman_02 <-
   filter(abs(spearman) > 0.8) |>
   mutate(grp = row_number())
 
-
 ```
 
-```{r}
-#| layout-ncol: 4 
+```{r varclust05, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+#| layout-ncol: 2 
 
 source(here("R", "V2-mv-descriptions.R"))
 
@@ -409,12 +380,21 @@ for (plts in combos_spearman_03 ) {
 
 ### VE3: Redundancy
 
-Variance inflation factors (VIF) will be computed between the candidate predictors. This will be done for the three possible candidate models, and using all complete cases in the respective candidate predictor sets.  Since $VIF = (1-R^2)^{-1}$, we also report the multiple R-squared values. Redundancy was further  explored by computing parametric additive models for each predictor in the key predictor model and the extended predictor model. VIFs and multiple $R^2$ are reported from those models, again for the three predictor sets.
+Variance inflation factors (VIF) will be computed between the candidate predictors. This will be done for the three possible candidate models, and using all complete cases in the respective candidate predictor sets. Since $VIF = (1-R^2)^{-1}$, we also report the multiple R-squared values. 
 
+Redundancy was further explored by computing parametric additive models for each predictor in the key predictor model and the extended predictor model. VIFs and multiple $R^2$ are reported from those models, again for the three predictor sets.
+
+Note, the all predictor model is reported in appendix @sec-VE3-appendix. 
 
 #### VIF for key predictor model
 
-```{r vif}
+```{r vif, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+
+
+dat_wide <- dat |>
+  filter(KEY_PRED_FL02 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL, SEX) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) 
 
 dat_vif <- dat_wide |>
   select(-USUBJID)
@@ -441,11 +421,11 @@ tab_df <- vif_df |> left_join(red_df, by = "PARAMCD")
 
 The available sample size is `r red$n` (`r round(100*red$n/nrow(dat),2)` %).
 
-```{r}
+```{r vif02, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+
 #vif_df |> gt::gt(caption = "Variance inflation factors")
 #red_df |> gt::gt(caption = "Multiple R-squared")
-library(gt)
-library(gtExtras)
+
 tab_df |> 
   gt() |>
     gt::cols_label(
@@ -469,96 +449,185 @@ tab_df |>
 
 #### VIF for model with key predictors and predictors of medium importance
 
-```{r}
-# formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors), collapse="+")), collapse=""))
-# 
-# red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
-# vif<-1/(1-red$rsq1)
-# 
-# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-# 
-# cat("\nVariance inflation factors:\n")
-# print(round(vif,2))
-# 
-# cat("\nMultiple R-squared:\n")
-# print(round(red$rsq1,4))
+```{r vif03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+
+dat_wide <- dat |>
+  filter(KEY_PRED_FL02 == "Y" | MED_PRED_FL02 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL, SEX) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) 
+
+
+dat_vif <- dat_wide |>
+  select(-USUBJID)
+
+formula <- as.formula(paste(c("~",paste(names(dat_vif), collapse="+")), collapse=""))
+ 
+#formula
+
+red <- Hmisc::redun(formula, data = dat_vif, nk=0, pr=FALSE)
+vif <- 1/(1-red$rsq1)
+ 
+#cat("\nAvailable samvple size:\n", red$n, " (", #round(100*red$n/nrow(dat),2), "%)\n")
+
+vif_df <- as_tibble(vif, rownames = "PARAMCD") |>
+  rename(vif = value)
+
+red_df <- as_tibble(red$rsq1, rownames = "PARAMCD") |>
+  rename(r2 = value)
+
+tab_df <- vif_df |> left_join(red_df, by = "PARAMCD")
+
+
+```
+
+The available sample size is `r red$n` (`r round(100*red$n/nrow(dat),2)` %).
+
+```{r vif04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+
+#vif_df |> gt::gt(caption = "Variance inflation factors")
+#red_df |> gt::gt(caption = "Multiple R-squared")
+
+tab_df |> 
+  gt() |>
+    gt::cols_label(
+    PARAMCD = "Parameter code",
+    r2 = "Multiple R-squared",
+    vif = "Variance inflation factor"
+  ) |>
+  fmt_number(
+    columns = c(r2),
+    decimals = 2
+  ) |>
+  fmt_number(
+    columns = c(vif),
+    decimals = 1
+  ) |>
+  gt_theme_538()
+  
+
 ```
 
 #### VIF for all predictor model
 
-```{r}
-# formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors, bact_variables$remaining_predictors), collapse="+")), collapse=""))
-# 
-# red<-Hmisc::redun(formula, data=c_bact, nk=0, pr=FALSE)
-# vif<-1/(1-red$rsq1)
-# 
-# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-# 
-# cat("\nVariance inflation factors:\n")
-# print(round(vif,2))
-# 
-# cat("\nMultiple R-squared:\n")
-# print(round(red$rsq1,4))
-```
-
-
+See appendix @sec-VE3-appendix. 
 
 
 #### Redundancy by parametric additive model: key predictor model
 
-```{r}
-# formula <- as.formula(paste(c("~",paste(bact_variables$key_predictors, collapse="+")), collapse=" "))
-# 
-# red<-Hmisc::redun(formula, data=c_bact, pr=FALSE)
-# vif<-1/(1-red$rsq1)
-# 
-# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-# 
-# cat("\nVariance inflation factors:\n")
-# print(round(vif,2))
-# 
-# cat("\nMultiple R-squared:\n")
-# print(round(red$rsq1,4))
+```{r key_vif, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+
+
+dat_wide <- dat |>
+  filter(KEY_PRED_FL02 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL, SEX) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) 
+
+dat_vif <- dat_wide |>
+  select(-USUBJID)
+
+formula <- as.formula(paste(c("~",paste(names(dat_vif), collapse="+")), collapse=""))
+ 
+red <- Hmisc::redun(formula, data = dat_vif, pr=FALSE)
+vif <- 1/(1-red$rsq1)
+ 
+#cat("\nAvailable samvple size:\n", red$n, " (", #round(100*red$n/nrow(dat),2), "%)\n")
+
+vif_df <- as_tibble(vif, rownames = "PARAMCD") |>
+  rename(vif = value)
+
+red_df <- as_tibble(red$rsq1, rownames = "PARAMCD") |>
+  rename(r2 = value)
+
+tab_df <- vif_df |> left_join(red_df, by = "PARAMCD")
+
+
 ```
+
+The available sample size is `r red$n` (`r round(100*red$n/nrow(dat),2)` %).
+
+```{r key_vif02, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+
+#vif_df |> gt::gt(caption = "Variance inflation factors")
+#red_df |> gt::gt(caption = "Multiple R-squared")
+
+tab_df |> 
+  gt() |>
+    gt::cols_label(
+    PARAMCD = "Parameter code",
+    r2 = "Multiple R-squared",
+    vif = "Variance inflation factor"
+  ) |>
+  fmt_number(
+    columns = c(r2),
+    decimals = 2
+  ) |>
+  fmt_number(
+    columns = c(vif),
+    decimals = 1
+  ) |>
+  gt_theme_538()
+  
+
+```
+
 
 #### Redundancy by parametric additive model: key predictors and predictors of medium importance
 
-```{r}
-# formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors), collapse="+")), collapse=""))
-# 
-# red<-Hmisc::redun(formula, data=c_bact,  pr=FALSE)
-# vif<-1/(1-red$rsq1)
-# 
-# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-# 
-# cat("\nVariance inflation factors:\n")
-# print(round(vif,2))
-# 
-# cat("\nMultiple R-squared:\n")
-# print(round(red$rsq1,4))
+
+```{r key_vif03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
+
+dat_wide <- dat |>
+  filter(KEY_PRED_FL02 == "Y" | MED_PRED_FL02 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL, SEX) |>
+  pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) 
+
+
+dat_vif <- dat_wide |>
+  select(-USUBJID)
+
+formula <- as.formula(paste(c("~",paste(names(dat_vif), collapse="+")), collapse=""))
+ 
+#formula
+
+red <- Hmisc::redun(formula, data = dat_vif, pr=FALSE)
+vif <- 1/(1-red$rsq1)
+ 
+#cat("\nAvailable samvple size:\n", red$n, " (", #round(100*red$n/nrow(dat),2), "%)\n")
+
+vif_df <- as_tibble(vif, rownames = "PARAMCD") |>
+  rename(vif = value)
+
+red_df <- as_tibble(red$rsq1, rownames = "PARAMCD") |>
+  rename(r2 = value)
+
+tab_df <- vif_df |> left_join(red_df, by = "PARAMCD")
+
+
 ```
 
+The available sample size is `r red$n` (`r round(100*red$n/nrow(dat),2)` %).
 
-#### Redundancy by parametric additive model: all predictors
+```{r key_vif04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 
-```{r}
-# For redun(), for heavily clumped predictors, linearity must be enforced
-# remaining_predictors_redun <- bact_variables$remaining_predictors
-# remaining_predictors_redun[remaining_predictors_redun=="BASO"] <- "I(BASO)"
-# remaining_predictors_redun[remaining_predictors_redun=="EOS"] <- "I(EOS)"
-# 
-# formula <- as.formula(paste(c("~",paste(c(bact_variables$key_predictors,bact_variables$medimp_predictors, remaining_predictors_redun), collapse="+")), collapse=""))
-# 
-# red<-Hmisc::redun(formula, data=c_bact,  pr=FALSE)
-# vif<-1/(1-red$rsq1)
-# 
-# cat("\nAvailable sample size:\n", red$n, " (", round(100*red$n/nrow(c_bact),2), "%)\n")
-# 
-# cat("\nVariance inflation factors:\n")
-# print(round(vif,2))
-# 
-# cat("\nMultiple R-squared:\n")
-# print(round(red$rsq1,4))
+#vif_df |> gt::gt(caption = "Variance inflation factors")
+#red_df |> gt::gt(caption = "Multiple R-squared")
+
+tab_df |> 
+  gt() |>
+    gt::cols_label(
+    PARAMCD = "Parameter code",
+    r2 = "Multiple R-squared",
+    vif = "Variance inflation factor"
+  ) |>
+  fmt_number(
+    columns = c(r2),
+    decimals = 2
+  ) |>
+  fmt_number(
+    columns = c(vif),
+    decimals = 1
+  ) |>
+  gt_theme_538()
+  
+
 ```
-
-

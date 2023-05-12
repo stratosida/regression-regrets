@@ -21,7 +21,7 @@ m3_analysis <- function(ADSL, ADLB){
   
   ## all predictors
   ard_all <- ADLB |> 
-    filter(KEY_PRED_FL01 == "Y") |>
+    #filter(KEY_PRED_FL01 == "Y") |>
     select(SUBJID, PARAMCD, AVAL, SEXC, AGEGR01, AGEGR01C) |>
     pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) |>
     select(-SUBJID) |>
@@ -59,8 +59,12 @@ m3_analysis <- function(ADSL, ADLB){
            row_order = 3) |>
     ungroup()
   
+  
+  marginals <- ADSL |> group_by(AGEGR01C, SEXC) |> tally()
+  
   ### create a final analysis results table for display
-  final_ard <- bind_rows(ard_all, ard_key, ard_med)
+  final_ard <- bind_rows(ard_all, ard_key, ard_med) |> 
+    left_join(marginals, by = c("AGEGR01C", "SEXC"))
   
  
   return(final_ard)

@@ -23,7 +23,7 @@ ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
 
 ## U1: Categorical variables
 
-Age group, sex and bactermia status are described by frequencies and proportions in each category.
+Age group, sex and bacteremia status are described by frequencies and proportions in each category.
 
 ```{r U1-catplot, message=FALSE, warning =FALSE , echo=FALSE, include = TRUE}
 
@@ -40,12 +40,12 @@ u1_display_table_word(u1_ard)
 ```
 
 
-Also plot the categories. 
+Also plot the categories as simple bar charts.  
 
 ```{r u1-catplot2, message=FALSE, warning=FALSE, echo=FALSE}
 #| fig-cap: "Summary of categorical variables including outcome"
-#| fig-width: 16
-#| fig-height: 3.5
+#| fig-width: 18
+#| fig-height: 5
 #| fig-align: center
 
 source(here("R", "U1-categorical.R"))
@@ -60,13 +60,14 @@ u1_display_plot(u1_ard)
 
 #### U2: Structural variables
 
-The only structural continuous variables is AGE. This variable is also a key predictor (see below).
+The only structural continuous variable is AGE. This variable is also a key predictor and reported in the following section (see below).
 
 #### U2: Key predictors
 
-Note: the structural variable Age is also considered a key predictor.
-
 Distribution of key predictors. Lines indicate the 5-number summary including reported numerical values (where possible). 
+
+The remaining predictors are reported in the appendix @sec-u2-remaining.
+
 
 ```{r uni02, message=FALSE, warning =FALSE , echo=FALSE}
 #| layout-ncol: 3
@@ -107,60 +108,10 @@ for (plts in med_plts) {
 
 ```
 
-#### U2: Remaining predictors
-
-```{r uni04, message=FALSE, warning=FALSE, echo=FALSE}
-#| layout-ncol: 3
-#| fig-width: 4
-#| fig-height: 2
-
-rem_plts <-
-  ADLB |>
-  filter(REM_PRED_FL01 == "Y") |>
-  group_by(PARAM) |>
-  group_map(~ describe_plot(.x, num_bins = 300))
-
-for (plts in rem_plts) {
-  print(plts)
-}
-
-```
 
 ### Numerical summaries
 
-
 #### Key predictors
-
-```{r uni05, message=FALSE, warning =FALSE , echo=FALSE}
-#TODO: COMMENT @Mark is there a way to make nicer looking tables out of the numerical summaries??
-
-# source(here::here("R", "fun_describe_long_dataset.R"))
-# # summary stats 
-# ARD <- describe_long_dataset(ADLB)
-# ARD  |> glimpse()
-# table(ARD$STATISTIC)
-# 
-# 
-# ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
-#   readr::write_csv(file = "tmp.csv")
-# 
-# 
-# ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
-#   gt()
-# 
-
-
-
-
-```
-
-```{r}
-# ARD |>
-#   filter(STATISTIC %in% c("mean", "median", "min")) |>
-#   pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
-#   gt() |>
-#   gtExtras::gt_theme_538()
-```
 
 
 ```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
@@ -192,21 +143,6 @@ html(describe(medium_predictors, size = "tiny"))
 
 ```
 
-#### Remaining predictors
-
-```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
-
-remaining_predictors <-
-  ADLB |>
-  filter(REM_PRED_FL01 == "Y") |>
-  select(USUBJID, PARAMCD, AVAL) |>
-  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
-  select(-USUBJID)
-
-
-html(describe(remaining_predictors, size = "tiny"))
-
-```
 
 ### Suggested transformations
 
@@ -249,11 +185,11 @@ new_vars |> group_by(PARAMCD) |>
 
 ```
 
-Register transformed variables in the data set. The updated data set with suggested log transformed data sets is save at **data/ADLB_02.rds**.
+Register transformed variables in the data set. The updated data set with suggested log transformed data sets is saved at `data/IDA/ADLB_02.rds`.
 
-Update the IDA analysis plan with the proposed variable transformations. Create a new flag to indicate the selection of predictors including transformations. 
+The IDA analysis plan and specifications are updated with the proposed variable transformations. A new flag is derived to indicate the categorization of predictors now including transformations. 
 
-```{r}
+```{r savedata, message=FALSE, warning=FALSE, echo=FALSE}
 ADLB_02 <-
   ADLB_02 |>
   mutate(
@@ -275,13 +211,13 @@ attr(ADLB_02$REM_PRED_FL02, "label") <- "Remaining predictors flag - including s
 attr(ADLB_02$PARCAT02, "label") <- "Pseudo log transformed categories"
 attr(ADLB_02$SIGMA, "label") <- "Constant variable for Pseudo log transformation"
 
-saveRDS(ADLB_02, file = here("data", "ADLB_02.rds"))
+saveRDS(ADLB_02, file = here("data", "IDA", "ADLB_02.rds"))
 ```
 
 
 ### Comparison of univariate distributions with and without pseudo-log transformation
 
-The comparison is only shown for variables where a transformation is suggested.
+The comparison is only shown for variables where a transformation is suggested. Note, all observed values, and the distribution min, max and interquartile range as reference lines, are displayed.
 
 ```{r uni-plots, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 #| layout-ncol: 2
@@ -290,7 +226,7 @@ The comparison is only shown for variables where a transformation is suggested.
 source(here("R", "fun_compare_dist_plot.R"))
 
 ## Load in updated data set with transformations 
-ADLB_02 <- readRDS(here::here("data", "ADLB_02.rds"))
+ADLB_02 <- readRDS(here::here("data", "IDA", "ADLB_02.rds"))
 
 res <- 
    ADLB_02 |> 
@@ -301,7 +237,5 @@ res <-
 for (plts in res) {
   print(plts)
 }
-
-## COMMENT @Mark we must pick two from these plots for the paper - the old version has BUN which is now no longer transformed (as we raised the threshold for indicating relevance of a  pseudolog transformation) I would suggest ASAT and GGT. Can you please produce a TIF plot for these two (similar to what we already have in the paper?)
 
 ```

@@ -1,0 +1,81 @@
+# Univariate distribution checks {#sec-univar-appendix}
+
+This section reports a series of univariate summary checks of the bacteremia dataset.
+
+```{r uni01a, message =FALSE, warning =FALSE , echo=FALSE}
+library(here)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidyselect)
+library(gt)
+library(gtExtras)
+library(patchwork)
+library(Hmisc)
+library(sjlabelled)
+
+set.seed(1972)  ## for any simulation or numerical approx calculations 
+
+# Load the first iteration of the IDA ready data sets
+ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
+ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
+```
+
+## U2: Descriptive summaries 
+
+### U2: Remaining predictors {#sec-u2-remaining}
+
+We present a visual summary. 
+
+```{r uni04a, message=FALSE, warning=FALSE, echo=FALSE}
+#| layout-ncol: 3
+#| fig-width: 4
+#| fig-height: 2
+
+source(here::here("R", "U2-cont-describe-plot.R"))
+
+rem_plts <-
+  ADLB |>
+  filter(REM_PRED_FL01 == "Y") |>
+  group_by(PARAM) |>
+  group_map(~ describe_plot(.x, num_bins = 300))
+
+for (plts in rem_plts) {
+  print(plts)
+}
+
+```
+
+And a descriprive summary
+
+
+```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
+
+remaining_predictors <-
+  ADLB |>
+  filter(REM_PRED_FL01 == "Y") |>
+  select(USUBJID, PARAMCD, AVAL) |>
+  pivot_wider(names_from = "PARAMCD", values_from = "AVAL") |>
+  select(-USUBJID)
+
+
+html(describe(remaining_predictors, size = "tiny"))
+
+```
+
+### Full descriptive summaries 
+
+For U2, we present only a limited number of statistics are presented for brevity. However, a full set of descriptive summaries are available according to the specifications in the IDA plan as a data set. The summary statistics can be viewed and analysed in the following directory `data/results/U2-descriptive-stats.csv`. 
+
+```{r full_desc, message = FALSE, warning = FALSE , echo = FALSE}
+source(here::here("R", "fun_describe_long_dataset.R"))
+
+# summary stats 
+ARD <- describe_long_dataset(ADLB)
+
+ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
+  readr::write_csv(file = here("data", "results", "U2-descriptive-stats.csv"))
+
+```
+
+

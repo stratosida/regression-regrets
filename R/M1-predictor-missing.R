@@ -21,7 +21,7 @@ table_pred_missing_by_type <- function(data = ABLB, flag = NULL, tab_title = NA)
                n_miss = "Missing (count)",
                pct_miss = "Missing (%)") |>
     fmt_number(columns = vars(pct_miss),
-               decimals = 2) |>
+               decimals = 1) |>
     tab_header(title = tab_title) |>
     gt_theme_538()  
 }
