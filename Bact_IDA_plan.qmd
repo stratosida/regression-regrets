@@ -49,6 +49,8 @@ Predictors will be grouped by importance to the research question. Indicator fla
 * **MED_PRED_FL01** will indicate the medium importance predictors: POTASS, FIB, CRP, ASAT, ALAT, GGT
 *	**REM_PRED_FL01** will indicator all remaining predictors not defined as key or medium importance. 
 
+Note that depending on the consequences of IDA, additional flags may be defined and derived to track the changes to the original analysis plan. For example, an addition to the key predictors can be handled by creating a new flag **KEY_PRED_FL02**, with an increment the index to indicate that a change has occurred. This provides traceability to the consumer of the analysis data.   
+
 An additional metadata flag **PARCAT01** will de derived to indicate the blood cell variables which form the Leukocytes predictor (**WBC**):  BASO, EOS, NEU, LYM and MONO.
 
 

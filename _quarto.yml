@@ -15,7 +15,7 @@ book:
   - index.qmd  
   - Bact_intro.qmd 
   - Bact_IDA_plan.qmd 
-  - Bact_analysis_data.qmd 
+  - Bact_analysis_data_IDA.qmd 
   - Bact_missing.qmd  
   - Bact_univar.qmd
   - Bact_multivar.qmd
@@ -42,7 +42,7 @@ format:
   docx:
     toc: true
     toc-depth: 2
-    number-sections: false  # true
+    number-sections: true
     highlight-style: github
     crossref:
       chapters: true

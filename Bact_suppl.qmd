@@ -1,5 +1,7 @@
 # Supplementary Example {.appendix}
 
+We now perform an example research project on the final **analysis ready data** which is stored at `data/analysis`.
+
 ```{r setup-supplement, message = FALSE, warning = FALSE, echo=FALSE}
 library(here)
 library(dplyr)
@@ -19,9 +21,9 @@ library(Hmisc)
 
 set.seed(1972)
 
-## Read data - load final data
-ADLB <- readRDS(here::here("data", "ADLB.rds"))
-ADSL <- readRDS(here::here("data", "ADSL.rds"))
+## Read data - load final analysis ready data
+ADLB <- readRDS(here::here("data", "Analysis", "ADLB.rds"))
+ADSL <- readRDS(here::here("data", "Analysis", "ADSL.rds"))
 
 ## source utility functions 
 source(here("R", "fun_ida_trans.R"))
@@ -32,11 +34,12 @@ source(here("R", "fun_suppl_utilities.R"))
 
 ## Overview
 
-Define key predictors without pseudo-log transform ('orig') and transformed ('trans').
 
 ```{r overview, message = FALSE, warning = FALSE, echo=FALSE}
 
 ## Set up the data for the supplement examples 
+
+# Define key predictors without pseudo-log transform ('orig') and transformed ('trans').
 
 # Complete cases data on the original scale - in wide format. Without outcome variable. 
 data_model_orig <- get_model_ready_data("KEY_PRED_FL03")
@@ -105,8 +108,8 @@ tidy(fit_mfp_trans) |>
 Plot predictions by outcome and report the model AUC. 
 
 ```{r global model auc, message = FALSE, warning = FALSE, echo=FALSE, fig.width=4, fig.height=3, fig.cap= "Global model - including covariates on the transformed psuedo log scale"}
+#| layout-ncol: 2
 
-#logreg_summary_plot(fit_mfp_trans, 'global model - including covariates on transformed scale')
 logreg_summary_plot(fit_mfp_trans)
 ```
 
@@ -125,7 +128,7 @@ We now take a look at the functional forms of the covariates in the global model
 #|  - "" 
 #|  - ""
 #|  - ""
-#| layout-ncol: 3 
+#| layout-ncol: 2 
 
 
 
@@ -177,6 +180,7 @@ fit_mfp_orig |>
 Note the different fp-transformation arising when the key predictors are not pseudo-log transformed. On the original scale, three covariates instead of one now enter the model via a non-linear fp-transformation. This suggests that a transformation prior to the regression model 'outsources' the need for transformations within the model. Now let us compare the model performances.
 
 ```{r ex1: plot side by side, message = FALSE, warning = FALSE, fig.width=4, fig.height=6, fig.cap= "Global model(s) with covariates on original and transformed scale."}
+#| layout-ncol: 2
 
 p_model_orig <- logreg_summary_plot(fit_mfp_orig, "Original scale") 
 p_model_trans <- logreg_summary_plot(fit_mfp_trans, "Psuedo log transformed") 
@@ -192,7 +196,7 @@ With regards to McFadden's R² and the AUC, the differences between the two appr
 Next we will compare the differences of the functional forms in the two models for those covariates where a pseudo-log transformation was suggested in IDA. We will look at the log odds for bacteremia by each covariate on the original and the transformed scale, and compare the global model using the original and the pseudo-log transformed covariates. Each variable is adjusted for the median of all other variables used.
 
 ```{r trafo of variables, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}
-#| layout-ncol: 2 
+#| layout-ncol: 1 
 #| fig-cap: "Comparing functional form of both global models. "
 #| fig-subcap: 
 #|   - ""
@@ -259,11 +263,12 @@ tribble(
 ) |>
   gt() %>%
   fmt_number(2, decimals = 3) |>
-  fmt_number(3, decimals = 5) |>
+  fmt_number(3, decimals = 3) |>
   gt_theme_538()
 
 ```
 
+Plot the model predictions based on different missing data scenarios
 
 ```{r example2: plot, message = FALSE, warning = FALSE, fig.width=6, fig.height=5}
 #| fig-cap: "Model predictions based on different missing data scenarios."

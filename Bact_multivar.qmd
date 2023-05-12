@@ -1,6 +1,6 @@
 #  Multivariate analyses
 
-First load the required packages and data. Note:, from the univariate analyses the analysis data set for the lab parameters has been updated to include transformed variables. Therefore, we load the second iteration of the data `data/ADLB_02.rds`. 
+First load the required packages and data. Note that from the univariate analyses the analysis data set for the lab parameters has been updated to include transformed variables. Therefore, we load the second iteration of the data `data/ADLB_02.rds`. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE }
 library(tidyr)
@@ -33,7 +33,6 @@ ADLB <- readRDS(here::here("data","IDA", "ADLB_02.rds"))
 ```
 
 
-
 ## V1: Association with structural variables
 
 Attached the required structural variables to the lab data. 
@@ -50,16 +49,15 @@ dat <- ADLB |>
 ```
 
 
-
 A scatterplot of each predictor with age, with different panels for males and females have been constructed. Associated Spearman correlation coefficients have been computed.
 
-The remaining predicotrs are reported in appendix @sec-V1-appendix.
+The remaining predictors are reported in appendix @sec-V1-appendix.
 
 ### Key predictors
 
 
 ```{r mvi03, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 3 
+#| layout-ncol: 2 
 
 ## plots for key predictors - remove age to avoid age vs age plot
 key_predictors <- dat |> 
@@ -79,7 +77,7 @@ for (plts in key_predictors) {
 ### Predictors of medium importance
 
 ```{r mvi04, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 3 
+#| layout-ncol: 2 
 
 medium_predictors <- dat |> 
   filter(MED_PRED_FL02 == "Y") |>
@@ -118,7 +116,7 @@ corr_spearman <-
 
 The Spearman correlation coefficients are depicted in a quadratic heat map:
 
-```{r plotcorr, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+```{r plotcorr, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 16, fig.height=16}
 
 
 corr_spearman |> rearrange(method = "HC") |>
@@ -147,7 +145,7 @@ corr_spearman |> rearrange(method = "HC") |>
 
 ### VE1: Comparing nonparametric and parametric predictor correlation
 
-```{r corr_setup, message = FALSE, warning = FALSE, echo = FALSE, fig.width = 12, fig.height=12}
+```{r corr_setup, message = FALSE, warning = FALSE, echo = FALSE, fig.width = 16, fig.height=16}
 # differences of pearson and spearman correlations to check for outliers
 
 ## cast as a matrix 
@@ -177,9 +175,9 @@ corr_difference <- corrd |> as_cordf()
 ```
 
 
-Plot the difference matrix 
+Plot the difference matrix. 
 
-```{r plotcorr_diff, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+```{r plotcorr_diff, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 16, fig.height=16}
 
 ## plot
 
@@ -197,7 +195,7 @@ corr_difference |> rearrange(method = "HC") |>
 
 Plot the matrix but suppress differences less then 0.1. 
 
-```{r plotcorr02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=12}
+```{r plotcorr02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 16, fig.height=16}
 
 # sparsified differences of correlation coefficients
 corr_difference_conditional <-
@@ -330,9 +328,9 @@ ve2_varclust(corr_spearman)
 ```
 
 
-This could also be displayed as a network plot
+This can also be displayed as a network plot
 
-```{r varclust02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=6}
+```{r varclust02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=8}
 #options(ggrepel.max.overlaps = 100)
 corr_spearman |> network_plot()
 ```
@@ -360,7 +358,7 @@ combos_spearman_02 <-
 ```
 
 ```{r varclust05, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
-#| layout-ncol: 4 
+#| layout-ncol: 2 
 
 source(here("R", "V2-mv-descriptions.R"))
 

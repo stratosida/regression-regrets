@@ -1,0 +1,261 @@
+# Analysis ready data for IDA {#ARD}
+
+
+```{r ard01, warning=FALSE, message=FALSE, echo=FALSE}
+## Load libraries for this chapter
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidyselect)
+library(here)
+library(janitor)
+library(gt)
+```
+
+
+Based on the IDA plan, this section prepares the source data to be analysis ready: read, clean, tidy and transform. This  section focuses on the steps prior to IDA (data screening) and the required additions to the **source data** in order to prepare the data. The aim is to produce an analysis ready data set for the research objective. 
+
+## Analysis ready dataset
+
+The aim of this section and the remaining chapters of the report are to document the steps taken towards transforming the *source* data set to an *analysis ready* data set. These are the steps prior to the IDA analysis plan being executed. 
+
+The steps taken in this section are guided by the [data set specification](https://docs.google.com/spreadsheets/d/1Ft5eyenvDnMBoLvJmcBaklfrYcwyW-rkt-ivIkaphdA/edit#gid=2082358047) for the analysis ready data set, which is based on review of the IDA and analysis strategy.  
+
+For example, additional meta-data, data derivations and indicator flags are added to the *source* data set. 
+
+To support IDA, it is important that we keep track of the changes to the source data including all new modifications, data derivations and transformations. Therefore, we store references to the source data in the `data` folder after adding additional meta-data for all variables. 
+
+The format of the analysis ready data set follows that of the analysis ready [CDISC data model](https://www.cdisc.org/standards). 
+
+### Data set transformations
+
+Important meta-data is added to the data set from the data dictionary. At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
+
+First the source data set and corresponding data dictionary are loaded. The variable names are normalized. 
+
+A new variable is created called `PARAMCD` which stores the abbreviated variable name as a reference. This provides a link between the dictionary and source data. 
+
+```{r read_source_dict, warning=FALSE, message=FALSE, echo=FALSE}
+
+## Read in the source data dictionary and display 
+bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")) |>
+  arrange(VariableNr) |>
+  clean_names() |>
+  mutate(PARAMCD = variable )
+```
+
+```{r read_source, warning=FALSE, message=FALSE, echo=FALSE}
+bact_data <- read_csv(here("data-raw", "Bacteremia_public_S2.csv")) 
+```
+
+The source data is then transform in to a *long* format to store the lab specific measurements called `ADLB`. A long format enables efficient data processing and also allows new transformed variables to be added during the course of IDA. Structural and demographic variables will be stored in a *wide* format in a separate data set named `ADSL`. 
+
+```{r contents_abact, warning=FALSE, message=FALSE, echo=FALSE} 
+
+## transform
+bact_data01 <-
+  bact_data |>
+  mutate(AGEP = AGE) |>  ## Create a copy of AGE to store as a predictor
+  pivot_longer(
+    cols = c(-ID,-SEX,-AGE,-BloodCulture),
+    names_to = "PARAMCD",
+    values_to = "AVAL",
+    values_drop_na = FALSE
+  ) |>
+  mutate(PARAMCD = if_else(PARAMCD == "AGEP", "AGE", PARAMCD)) ## rename AGE param code 
+
+```
+
+### Add lab variable meta-data
+
+The lab parameter variable information such as labels and units on to the transformed data are added directly from the data dictionary. 
+
+At this point, additional variables and metadata are derived per the analysis plan including:
+
+* Units 
+* Variable type
+* Categories for sex
+* rename outcome to be more informative
+
+```{r transform, warning=FALSE, message=FALSE, echo=FALSE} 
+
+bact_data02 <- 
+  bact_data01 |> 
+  left_join(bact_dd, by = "PARAMCD") |>
+  mutate(
+    UNIT = units,
+    TYPE = if_else(scale_of_measurement == "continuous", "numeric", "NA"), 
+    NOTE = remark, 
+    NOTE2 = from_paper,
+    SEXC = case_when(
+      SEX == 1 ~ "male",
+      SEX == 2 ~ "female",
+      TRUE ~ "NA"
+    ),
+    SUBJID = ID + 100000, 
+    USUBJID = paste0("DC-2019-0054-", SUBJID),
+    PARAM = paste0(label, " (", UNIT, ")"),
+    BACTEREMIA = BloodCulture,
+    BACTEREMIAN = case_when(
+      BloodCulture == "no" ~ 0,
+      BloodCulture == "yes" ~ 1)
+  )
+
+```
+
+### Reorder variables 
+
+Select and re-order the variables as per the data set specification. 
+
+```{r reorder, warning=FALSE, message=FALSE, echo=FALSE} 
+
+# Should come from the data set specification
+bact_data03 <- 
+  bact_data02 %>%
+  relocate(USUBJID, SUBJID, AGE, SEX, SEXC, BACTEREMIA, BACTEREMIAN, PARAM, PARAMCD, AVAL, UNIT, TYPE, NOTE, NOTE2) |>
+  select(USUBJID, SUBJID, AGE, SEX, SEXC, BACTEREMIA, BACTEREMIAN, PARAM, PARAMCD, AVAL, UNIT, TYPE, NOTE, NOTE2)
+
+```
+
+### Add informative variable meta-data 
+
+Add variable metadata as label attributes.
+
+```{r meta_data, warning=FALSE, message=FALSE, echo=FALSE} 
+
+attr(bact_data03$SUBJID, "label") <- "Patient Identifer"  
+attr(bact_data03$USUBJID, "label") <- "Unique Patient Identifer with data souce reference: DC 2019-0054"  
+attr(bact_data03$SEX, "label") <- "Patient gender"  
+attr(bact_data03$SEX, "label") <- "Patient gender (Numeric coding, 1: male, 2: female)"  
+attr(bact_data03$SEXC, "label") <- "Patient gender (Character coding)"  
+attr(bact_data03$AGE, "label") <- "Patient age (years)"
+attr(bact_data03$BACTEREMIA, "label") <- "Blood culture result for bacteremia (Character coding)"
+attr(bact_data03$BACTEREMIAN, "label") <- "Blood culture result for bacteremia (Numeric coding, 0: No, 1: Yes)"
+attr(bact_data03$PARAM, "label") <- "Parameter name"
+attr(bact_data03$PARAMCD, "label") <- "Parameter code"
+attr(bact_data03$AVAL, "label") <- "Parameter analysis value (Numeric)"
+attr(bact_data03$UNIT, "label") <- "Parameter unit"
+attr(bact_data03$TYPE, "label") <- "Parameter: variable type (Numeric, Character)"
+attr(bact_data03$NOTE, "label") <- "Notes from source data dictionary - free text"
+attr(bact_data03$NOTE2, "label") <- "Remarks from source data dictionary - free text"
+```
+
+### Visual check outcome is correct
+
+Visual check we have not introduced any errors with the outcome variable. First display marginal distribution from source data variable.
+
+
+```{r outcome_check, warning=FALSE, message=FALSE, echo=FALSE} 
+bact_data02 |>
+  group_by(BloodCulture) |> 
+  tally() |>
+  gt() |> gtExtras::gt_theme_538()
+```
+
+Second, display marginal distribution from transformed data variable.
+
+```{r outcome_check2, warning=FALSE, message=FALSE, echo=FALSE} 
+bact_data03 |>
+  group_by(BACTEREMIA) |> 
+  tally() |>
+  gt() |> gtExtras::gt_theme_538()
+
+```
+
+### Dervive indicator flags 
+
+The next step is to dervive indicator flags for predictors as per the IDA plan (see @sec-IDA_data_derivations):
+
+* age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors
+
+* Predictors of medium importance are potassium (POTASS), and some acute-phase related parameters such as fibrinogen (FIB), C-reactive protein (CRP), aspartate transaminase (ASAT), alanine transaminase (ALAT), and gamma-glutamyl transpeptidase (GGT).
+
+
+```{r set_flags, warning=FALSE, message=FALSE, echo=FALSE} 
+bact_data04 <-
+  bact_data03 |>
+  mutate(
+    KEY_PRED_FL01 = case_when(
+      PARAMCD %in% c("AGE", "WBC", "BUN", "CREA", "PLT", "NEU") ~ "Y"
+      ),
+    MED_PRED_FL01 = case_when(
+      PARAMCD %in% c("POTASS", "FIB", "CRP", "ASAT", "ALAT", "GGT") ~ "Y"
+      ),
+    REM_PRED_FL01 = case_when(
+      PARAMCD %in% c("MCV", "HGB", "HCT", "MCH", "MCHC", "RDW", "MPV", "LYM", "MONO", "EOS", "BASO", "NT", "APTT", "SODIUM", "CA", "PHOS", "MG", "HS", "GBIL", "TP", "ALB", "AMY", "PAMY", "LIP", "CHE", "AP", "LDH", "CK", "GLU", "TRIG", "CHOL", "BASOR", "EOSR", "LYMR", "MONOR", "NEUR", "PDW", "RBC") ~ "Y"
+      )
+  )
+
+
+attr(bact_data04$KEY_PRED_FL01, "label") <- "Key Predictor Flag - Section 2.1.1 Analysis strategy"
+attr(bact_data04$MED_PRED_FL01, "label") <- "Predictors of medium importance Flag - Section 2.1.1 Analysis strategy"
+attr(bact_data04$REM_PRED_FL01, "label") <- "Remaining Predictors flag - Section 2.1.1 Analysis strategy"
+```
+
+
+Next step, add metadata flags to indicate relationship between blood cell parameters. See @sec-IDA_data_derivations. 
+
+
+```{r wbc_relationship}
+
+bact_data05 <-
+  bact_data04 |>
+    mutate(PARCAT01 = if_else(PARAMCD %in% c("BASO","EOS", "NEU", "LYM", "MONO"), "Y", ""),
+           PARAMTYP = if_else(PARCAT01 == "Y", "DERVIVED", ""))
+
+attr(bact_data05$PARAMTYP, "label") <- "Parameter type (indicator of derived variables)"
+attr(bact_data05$PARCAT01, "label") <- "Leukocytes parameter categories"
+
+```
+
+### Data dervivations 
+
+Now, derive age groups. For the purpose of stratifying IDA results by age, age will be categorized into the following three groups (@sec-IDA_data_derivations):  
+
+* [16, 50], 
+* (50, 65], 
+* (65, 101].
+
+```{r age_groups, warning=FALSE, message=FALSE, echo=FALSE} 
+
+bact_data06 <-
+  bact_data05 |>
+  mutate(AGEGR01 = case_when(AGE >= 16  & AGE <= 50 ~ 1,
+                           AGE > 50 & AGE <= 65 ~ 2,
+                           AGE > 65 & AGE <= 101 ~ 3),
+         AGEGR01C = case_when(AGEGR01 == 1 ~ "[16, 50]",
+                              AGEGR01 == 2 ~ "(50, 65]",
+                              AGEGR01 == 3 ~ "(65, 101]"))
+
+attr(bact_data06$AGEGR01, "label") <- "Age group 01 (Numeric coding)"
+attr(bact_data06$AGEGR01C, "label") <- "Age group 01 (Character coding)"
+```
+
+### Save analysis ready data for IDA
+
+Save the analysis data sets in to two linked data sets following a structure similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specific data sets are stored in ADLB (a long format data set). 
+
+Saving ADSL into an intermediate location `DATA/IDA/ADSL_01.rds` prior to IDA. 
+
+```{r save_adsl, warning=FALSE, message=FALSE, echo=FALSE} 
+## Filter on AGE as we only require one instance of the long data set. AGE should correspond 1:1 across ADSL and ADLB
+ADSL <- bact_data06 |>
+  filter(PARAMCD == "AGE") |>  
+  select(USUBJID, SUBJID, AGE, AGEGR01, AGEGR01C, SEX, SEXC, BACTEREMIA, BACTEREMIAN)
+
+saveRDS(ADSL, file = here("data","IDA", "ADSL_01.rds"))
+```
+
+Saving ADLB into an intermediate location `DATA/IDA/ADLB_01.rds` prior to IDA. 
+
+```{r save_adlb, warning=FALSE, message=FALSE, echo=FALSE} 
+
+ADLB <- bact_data06 |>
+  select(-AGE, -AGEGR01, -AGEGR01C, -SEX, -SEXC, -BACTEREMIA, -BACTEREMIAN)
+
+saveRDS(ADLB, file = here("data", "IDA", "ADLB_01.rds"))
+
+```
+
+Note: At this stage of IDA, both ADSL and ADLB are *intermediate* files that will be used for further IDA. Findings in IDA may require updates to either data set. 

@@ -56,6 +56,7 @@ wbc_no_neu_trans_02 <- wbc_no_neu_trans_01$dat
 compare_dist_plot(wbc_no_neu_trans_02)
 
 ```
+A visual check confirms that a psuedo-log transformation is appropriate for the newly derived variable. 
 
 The new derivation and transformation is added to the analysis ready data, setting the correct indicator flags to enable final analyses and modelling. 
 
@@ -64,7 +65,6 @@ The new derivation and transformation is added to the analysis ready data, setti
 ADLB_02 <- bind_rows(ADLB, wbc_no_neu_01, wbc_no_neu_trans_02) 
 ADLB_02 <- sjlabelled::copy_labels(ADLB_02, ADLB)  
 ```
-
 
 
 ```{r set_flags, warning=FALSE, message=FALSE, echo=FALSE} 
@@ -100,11 +100,11 @@ print(paste(vars, collapse = ', '))
 
 ## Save final analysis ready data sets 
 
-The final analysis ready data sets are then stored in `data/`. 
+The final analysis ready data sets are then stored in `data/Analysis`. 
 
 ```{r save_data, warning=FALSE, message=FALSE, echo=FALSE}
-saveRDS(ADSL, file = here("data", "ADSL.rds"))
-saveRDS(ADLB_03, file = here("data", "ADLB.rds"))
+saveRDS(ADSL, file = here("data","Analysis", "ADSL.rds"))
+saveRDS(ADLB_03, file = here("data","Analysis", "ADLB.rds"))
 ```
 
 

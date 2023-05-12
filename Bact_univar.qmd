@@ -40,12 +40,12 @@ u1_display_table_word(u1_ard)
 ```
 
 
-Also plot the categories. 
+Also plot the categories as simple bar charts.  
 
 ```{r u1-catplot2, message=FALSE, warning=FALSE, echo=FALSE}
 #| fig-cap: "Summary of categorical variables including outcome"
-#| fig-width: 16
-#| fig-height: 4.5
+#| fig-width: 18
+#| fig-height: 5
 #| fig-align: center
 
 source(here("R", "U1-categorical.R"))
@@ -112,34 +112,6 @@ for (plts in med_plts) {
 ### Numerical summaries
 
 #### Key predictors
-
-```{r uni05, message=FALSE, warning =FALSE , echo=FALSE}
-#TODO: COMMENT @Mark is there a way to make nicer looking tables out of the numerical summaries??
-
-# source(here::here("R", "fun_describe_long_dataset.R"))
-# # summary stats 
-# ARD <- describe_long_dataset(ADLB)
-# ARD  |> glimpse()
-# table(ARD$STATISTIC)
-# 
-# 
-# ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
-#   readr::write_csv(file = "tmp.csv")
-# 
-# 
-# ARD |> pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
-#   gt()
-# 
-
-```
-
-```{r}
-# ARD |>
-#   filter(STATISTIC %in% c("mean", "median", "min")) |>
-#   pivot_wider(names_from = "STATISTIC", values_from = "RESULT") |>
-#   gt() |>
-#   gtExtras::gt_theme_538()
-```
 
 
 ```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}
@@ -217,7 +189,7 @@ Register transformed variables in the data set. The updated data set with sugges
 
 The IDA analysis plan and specifications are updated with the proposed variable transformations. A new flag is derived to indicate the categorization of predictors now including transformations. 
 
-```{r}
+```{r savedata, message=FALSE, warning=FALSE, echo=FALSE}
 ADLB_02 <-
   ADLB_02 |>
   mutate(
@@ -265,7 +237,5 @@ res <-
 for (plts in res) {
   print(plts)
 }
-
-## COMMENT @Mark we must pick two from these plots for the paper - the old version has BUN which is now no longer transformed (as we raised the threshold for indicating relevance of a  pseudolog transformation) I would suggest ASAT and GGT. Can you please produce a TIF plot for these two (similar to what we already have in the paper?)
 
 ```

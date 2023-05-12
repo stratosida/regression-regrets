@@ -1,6 +1,6 @@
 # Pseudo-log transformations {.appendix}
 
-```{r pl-setup, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
+```{r pl-setup, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -34,7 +34,7 @@ inv_pseudo_log <-
 Next, we investigate how the parameter $\sigma$ impacts the result of the transformation. We assume that $x$ follows a log-normal distribution, and we will show results of $f(x)$ with different choices of $\sigma$. We center and scale $f(x)$ before plotting.
 
 
-```{r pl03, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
+```{r pl03, message=FALSE, warning=FALSE, echo=TRUE, fig.height=4}
 p <- seq(0.001, 0.999, 0.001)
 x <- exp(qnorm(p, mean = 0, sd = 1))
 
@@ -44,7 +44,7 @@ hist(x)
 
 
 
-```{r pl03b, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
+```{r pl03b, message=FALSE, warning=FALSE, echo=TRUE, fig.height=8}
 y <-
   cbind(
     log(x),
@@ -74,7 +74,7 @@ legend(
 
 In the next code chunk, we multiply by 10 and repeat the exercise. We learn that the transformations become more similar and the choice of $\sigma$ less relevant.
 
-```{r pl04, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
+```{r pl04, message=FALSE, warning=FALSE, echo=TRUE, fig.height=5}
 x <- x * 10
 
 y <-
@@ -103,8 +103,8 @@ legend(
 
 Finally, we apply the pseudo-logarithmic transformation to the original normal deviates. We learn that a higher value for the parameter $\sigma$ makes the distribution 'slimmer' while a lower value makes it 'fatter', and it is even possible to induce bimodality with low values of sigma:
 
-```{r pl05, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
-#| layout-ncol: 5 
+```{r pl05, message=FALSE, warning=FALSE, echo=TRUE, fig.height=5}
+#| layout-ncol: 3 
 
 z <- qnorm(p, mean = 0, sd = 1)
 hist(z)
@@ -160,8 +160,7 @@ hist(pseudo_log(x, optsigma))
 
 Also with an exponential distribution, the pseudo-logarithm may achieve a better agreement with a normal:
 
-```{r pl07, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
-#| layout-ncol: 3 
+```{r pl07, message=FALSE, warning=FALSE, echo=TRUE, fig.height=5}
 
 x <- sort(exp(rnorm(1000) + 3))
 
@@ -199,8 +198,7 @@ hist(pseudo_log(x, optsigma))
 
 Now we mix a normal, lognormal and exponential distribution:
 
-```{r pl08, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
-#| layout-ncol: 3 
+```{r pl08, message=FALSE, warning=FALSE, echo=TRUE, fig.height=5}
 
 x1 <- scale(rnorm(1000))
 x2 <- scale(rexp(1000))
@@ -248,8 +246,7 @@ hist(pseudo_log(x, optsigma))
 
 With simulated normal deviates, the pseudo-logarithm cannot improve the already perfect normality.
 
-```{r pl09, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
-#| layout-ncol: 3 
+```{r pl09, message=FALSE, warning=FALSE, echo=TRUE, fig.height=5}
 
 x <- sort(rnorm(1000))
 
