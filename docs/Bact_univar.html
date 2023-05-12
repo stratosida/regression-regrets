@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Regression without regrets - 5&nbsp; Univariate distribution checks</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Bact_multivar.html" rel="next">
+<link href="./Bact_missing.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Regression without regrets</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#u1-categorical-variables" id="toc-u1-categorical-variables" class="nav-link active" data-scroll-target="#u1-categorical-variables"><span class="toc-section-number">5.1</span>  U1: Categorical variables</a></li>
+  <li><a href="#continuous-variables" id="toc-continuous-variables" class="nav-link" data-scroll-target="#continuous-variables"><span class="toc-section-number">5.2</span>  Continuous variables</a>
+  <ul class="collapse">
+  <li><a href="#u2-univariate-distributions-of-continuous-variables" id="toc-u2-univariate-distributions-of-continuous-variables" class="nav-link" data-scroll-target="#u2-univariate-distributions-of-continuous-variables"><span class="toc-section-number">5.2.1</span>  U2: Univariate distributions of continuous variables</a></li>
+  <li><a href="#numerical-summaries" id="toc-numerical-summaries" class="nav-link" data-scroll-target="#numerical-summaries"><span class="toc-section-number">5.2.2</span>  Numerical summaries</a></li>
+  <li><a href="#suggested-transformations" id="toc-suggested-transformations" class="nav-link" data-scroll-target="#suggested-transformations"><span class="toc-section-number">5.2.3</span>  Suggested transformations</a></li>
+  <li><a href="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" id="toc-comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="nav-link" data-scroll-target="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="toc-section-number">5.2.4</span>  Comparison of univariate distributions with and without pseudo-log transformation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This section reports a series of univariate summary checks of the bacteremia dataset.</p>
+<div class="cell" data-hash="Bact_univar_cache/html/uni01_bb27bf7772b7c734413f779aa32adee4">
+
+</div>
+<section id="u1-categorical-variables" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="u1-categorical-variables"><span class="header-section-number">5.1</span> U1: Categorical variables</h2>
+<p>Age group, sex and bacteremia status are described by frequencies and proportions in each category.</p>
+<div class="cell" data-hash="Bact_univar_cache/html/U1-catplot_85c750a8e172f336b350b23846aba70e">
+<div class="cell-output-display">
+
+<div id="tjyqcgojog" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#tjyqcgojog .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 3px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#tjyqcgojog .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tjyqcgojog .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tjyqcgojog .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tjyqcgojog .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tjyqcgojog .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tjyqcgojog .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tjyqcgojog .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tjyqcgojog .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#tjyqcgojog .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #FFFFFF;
+  vertical-align: middle;
+}
+
+#tjyqcgojog .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tjyqcgojog .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tjyqcgojog .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tjyqcgojog .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 0px;
+  border-right-color: #FFFFFF;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyqcgojog .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#tjyqcgojog .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#tjyqcgojog .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyqcgojog .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#tjyqcgojog .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyqcgojog .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tjyqcgojog .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyqcgojog .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tjyqcgojog .gt_sourcenote {
+  font-size: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyqcgojog .gt_left {
+  text-align: left;
+}
+
+#tjyqcgojog .gt_center {
+  text-align: center;
+}
+
+#tjyqcgojog .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tjyqcgojog .gt_font_normal {
+  font-weight: normal;
+}
+
+#tjyqcgojog .gt_font_bold {
+  font-weight: bold;
+}
+
+#tjyqcgojog .gt_font_italic {
+  font-style: italic;
+}
+
+#tjyqcgojog .gt_super {
+  font-size: 65%;
+}
+
+#tjyqcgojog .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#tjyqcgojog .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#tjyqcgojog .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#tjyqcgojog .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#tjyqcgojog .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#tjyqcgojog .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#tjyqcgojog .gt_indent_5 {
+  text-indent: 25px;
+}
+
+tbody tr:last-child {
+  border-bottom: 2px solid #ffffff00;
+}
+</style>
+<table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:75px;">
+    <col style="width:75px;">
+    <col style="width:125px;">
+    <col style="width:125px;">
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Category">Category</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Count">Count</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="%">%</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id=""></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="4" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;" scope="colgroup" id="Age group">Age group</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="Age group  value" class="gt_row gt_left">(50, 65]</td>
+<td headers="Age group  freq" class="gt_row gt_right">4250</td>
+<td headers="Age group  perc" class="gt_row gt_right">28.9</td>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="30.94" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+    <tr><td headers="Age group  value" class="gt_row gt_left">(65, 101]</td>
+<td headers="Age group  freq" class="gt_row gt_right">5076</td>
+<td headers="Age group  perc" class="gt_row gt_right">34.6</td>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="36.96" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+    <tr><td headers="Age group  value" class="gt_row gt_left">[16, 50]</td>
+<td headers="Age group  freq" class="gt_row gt_right">5365</td>
+<td headers="Age group  perc" class="gt_row gt_right">36.5</td>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="39.06" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="4" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;" scope="colgroup" id="Sex">Sex</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="Sex  value" class="gt_row gt_left">female</td>
+<td headers="Sex  freq" class="gt_row gt_right">6155</td>
+<td headers="Sex  perc" class="gt_row gt_right">41.9</td>
+<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="44.81" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+    <tr><td headers="Sex  value" class="gt_row gt_left">male</td>
+<td headers="Sex  freq" class="gt_row gt_right">8536</td>
+<td headers="Sex  perc" class="gt_row gt_right">58.1</td>
+<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="62.15" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="4" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;" scope="colgroup" id="Presence of bacteremia">Presence of bacteremia</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="Presence of bacteremia  value" class="gt_row gt_left">no</td>
+<td headers="Presence of bacteremia  freq" class="gt_row gt_right">13511</td>
+<td headers="Presence of bacteremia  perc" class="gt_row gt_right">92.0</td>
+<td headers="Presence of bacteremia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="98.37" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+    <tr><td headers="Presence of bacteremia  value" class="gt_row gt_left">yes</td>
+<td headers="Presence of bacteremia  freq" class="gt_row gt_right">1180</td>
+<td headers="Presence of bacteremia  perc" class="gt_row gt_right">8.0</td>
+<td headers="Presence of bacteremia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="8.59" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<p>Also plot the categories as simple bar charts.</p>
+<div class="cell" data-layout-align="center" data-hash="Bact_univar_cache/html/u1-catplot2_b263a06dc5fe950ec13e7f48421cba3c">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Bact_univar_files/figure-html/u1-catplot2-1.png" class="img-fluid figure-img" width="1728"></p>
+<p></p><figcaption class="figure-caption">Summary of categorical variables including outcome</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="continuous-variables" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="continuous-variables"><span class="header-section-number">5.2</span> Continuous variables</h2>
+<section id="u2-univariate-distributions-of-continuous-variables" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="u2-univariate-distributions-of-continuous-variables"><span class="header-section-number">5.2.1</span> U2: Univariate distributions of continuous variables</h3>
+<section id="u2-structural-variables" class="level4" data-number="5.2.1.1">
+<h4 data-number="5.2.1.1" class="anchored" data-anchor-id="u2-structural-variables"><span class="header-section-number">5.2.1.1</span> U2: Structural variables</h4>
+<p>The only structural continuous variable is AGE. This variable is also a key predictor and reported in the following section (see below).</p>
+</section>
+<section id="u2-key-predictors" class="level4" data-number="5.2.1.2">
+<h4 data-number="5.2.1.2" class="anchored" data-anchor-id="u2-key-predictors"><span class="header-section-number">5.2.1.2</span> U2: Key predictors</h4>
+<p>Distribution of key predictors. Lines indicate the 5-number summary including reported numerical values (where possible).</p>
+<p>The remaining predictors are reported in the appendix <a href="Bact_univar_appendix.html#sec-u2-remaining"><span>Section&nbsp;D.1.1</span></a>.</p>
+<div class="cell quarto-layout-panel" data-hash="Bact_univar_cache/html/uni02_236cc5e2eb976c5ee9e204297e410128">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni02-1.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni02-2.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni02-3.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni02-4.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni02-5.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni02-6.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="u2-predictors-of-medium-importance" class="level4" data-number="5.2.1.3">
+<h4 data-number="5.2.1.3" class="anchored" data-anchor-id="u2-predictors-of-medium-importance"><span class="header-section-number">5.2.1.3</span> U2: Predictors of medium importance</h4>
+<div class="cell quarto-layout-panel" data-hash="Bact_univar_cache/html/uni03_6ff653e13eafdffc3ceaba7ab71fc03d">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-1.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-2.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-3.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-4.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-5.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni03-6.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="numerical-summaries" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="numerical-summaries"><span class="header-section-number">5.2.2</span> Numerical summaries</h3>
+<section id="key-predictors" class="level4" data-number="5.2.2.1">
+<h4 data-number="5.2.2.1" class="anchored" data-anchor-id="key-predictors"><span class="header-section-number">5.2.2.1</span> Key predictors</h4>
+<div class="cell" data-hash="Bact_univar_cache/html/sumtools_763e1e69dee229ea5e2a7f520311a28f">
+<div class="cell-output-display">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<script type="text/javascript">
+<!--
+    function expand_collapse(id) {
+       var e = document.getElementById(id);
+       var f = document.getElementById(id+"_earrows");
+       if(e.style.display == 'none'){
+          e.style.display = 'block';
+          f.innerHTML = '&#9650';
+       }
+       else {
+          e.style.display = 'none';
+          f.innerHTML = '&#9660';
+       }
+    }
+//-->
+</script>
+<style>
+.earrows {color:silver;font-size:11px;}
+
+fcap {
+ font-family: Verdana;
+ font-size: 12px;
+ color: MidnightBlue
+ }
+
+smg {
+ font-family: Verdana;
+ font-size: 10px;
+ color: 󅒐
+}
+
+hr.thinhr { margin-top: 0.15em; margin-bottom: 0.15em; }
+
+span.xscript {
+position: relative;
+}
+span.xscript sub {
+position: absolute;
+left: 0.1em;
+bottom: -1ex;
+}
+</style>
+ <font color="MidnightBlue"><div align="center"><span style="font-weight:bold">key_predictors <br><br> 6  Variables   14691  Observations</span></div></font> <hr class="thinhr"> <span style="font-weight:bold">PLT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAb0lEQVQ4jc3VSxKAIAwD0NT7H1oRyoTyW6YRBHZvdDLAOEAZGYKHA5SRIdFVI8KwZDikdIGiAzmGtplg1L7BpWtiw3RgjPJr9f84qdQwbFlaGk4sIe3qEuEQi7hOvTl5+mL4HzNfWp/oPXXt1sVvvvKdC/MeZXfKAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable412771 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable412771 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable412771 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable412771">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14649</td><td>42</td><td>718</td><td>1</td><td>220</td><td>130.1</td><td> 50</td><td> 81</td><td>140</td><td>204</td><td>277</td><td>369</td><td>445</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    0    1    2    3    4 ,  <font color="MidnightBlue">highest</font>: 1068 1211 1321 1639 2092</span> <hr class="thinhr"> <span style="font-weight:bold">CREA</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAWUlEQVQ4je2TMQoAIAwDE///aG3sIAqCWwqeQ6mKHoWAAqAXaAKD5sT3euN7vZE5DC+rSM4pSctqYBW8nMxqePm4RQjB1Usd93LuXK5pUU9nZX6TzT36cdoBj3gMym+2tjYAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable606017 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable606017 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable606017 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable606017">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14532</td><td>159</td><td>674</td><td>1</td><td>1.329</td><td>0.8518</td><td>0.620</td><td>0.690</td><td>0.810</td><td>1.000</td><td>1.350</td><td>2.160</td><td>3.144</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.26  0.27  0.28  0.29  0.30 ,  <font color="MidnightBlue">highest</font>: 15.24 15.40 15.67 16.64 20.75</span> <hr class="thinhr"> <span style="font-weight:bold">BUN</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZElEQVQ4jdXTwQrAIAwD0NT//+jhaiZ0U7wlCz1IT49iEAx6wiVozO1qLvmJywZWXS4yMgAzF///jLSHzPteHidLA2rEqqVLTlu7tDbsWEJhb98BCzFn//xalW0WbsxT/1yMV1y21QwKyo8xNQAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable121876 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable121876 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable121876 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable121876">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14519</td><td>172</td><td>947</td><td>1</td><td>22.66</td><td>16.92</td><td> 7.1</td><td> 8.6</td><td>11.6</td><td>16.6</td><td>26.9</td><td>44.8</td><td>60.8</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   2.5   2.7   2.8   2.9   3.0 ,  <font color="MidnightBlue">highest</font>: 160.6 171.3 171.9 176.0 184.8</span> <hr class="thinhr"> <span style="font-weight:bold">NEU</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lEQVQ4jc2VSw7AIAgFx97/0A19JUVru+WNnwCriRFlJKDlAUcCWh5Ur8BFbfXC18tCLRXAzCvv/0RrK8rn1nvTfF6+Xnq4dnR7/eHqRc9by9qKG+LbvMaz1bgWRkzFJZ077TOpxRPORQvfG+yn6gAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable589478 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable589478 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable589478 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable589478">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13963</td><td>728</td><td>374</td><td>1</td><td>8.367</td><td>5.776</td><td> 1.60</td><td> 2.70</td><td> 4.60</td><td> 7.30</td><td>10.80</td><td>15.08</td><td>18.40</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.0  0.1  0.2  0.3  0.4 ,  <font color="MidnightBlue">highest</font>: 54.0 56.4 63.7 71.6 83.8</span> <hr class="thinhr"> <span style="font-weight:bold">WBC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAIIAAAANCAMAAABSO0bCAAAACVBMVEUAAADMzMz////1iUV5AAAAVklEQVQ4je2TSwoAIAhEx+5/6PwRSdB2XDiRVG4e0oNoACEGSwOvrDRBwCA0QHAhqErkFJhjGIQbgciAJGAihBBPQhNb4hf7uVLM8d45Rwm/6vPfBt0b3GoLNRPwTDwAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable892281 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable892281 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable892281 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable892281">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14229</td><td>462</td><td>2710</td><td>1</td><td>11.23</td><td>7.602</td><td> 2.66</td><td> 4.26</td><td> 6.63</td><td> 9.60</td><td>13.53</td><td>18.22</td><td>22.27</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   0.00   0.01   0.02   0.03   0.04 ,  <font color="MidnightBlue">highest</font>: 365.30 383.74 387.73 433.83 604.47</span> <hr class="thinhr"> <span style="font-weight:bold">AGE</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeUlEQVQ4jcXTSw4AERAE0Gr3P/REhzDM+PSHWohVe0iB7IMczYxgGSCgimaSpemF0tFUrnxuz1HLpK4hpZWlxcNVTeXtjkvyevPOgHsldXyEVoraXCDdqby9X9b/0VMhd51VzWi4hhrLLrt+cdw1y7YJEgtalughegBpCgbX7iPW9QAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable888322 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable888322 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable888322 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable888322">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14691</td><td>0</td><td>85</td><td>1</td><td>56.17</td><td>20.78</td><td>24</td><td>29</td><td>43</td><td>58</td><td>70</td><td>79</td><td>84</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  16  17  18  19  20 ,  <font color="MidnightBlue">highest</font>:  96  97  98  99 101</span> <hr class="thinhr">
+</div>
+</div>
+</section>
+<section id="predictors-of-medium-importance" class="level4" data-number="5.2.2.2">
+<h4 data-number="5.2.2.2" class="anchored" data-anchor-id="predictors-of-medium-importance"><span class="header-section-number">5.2.2.2</span> Predictors of medium importance</h4>
+<div class="cell" data-hash="Bact_univar_cache/html/uni06_c296f49b8bc71499abc1438b90ae4d6b">
+<div class="cell-output-display">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<script type="text/javascript">
+<!--
+    function expand_collapse(id) {
+       var e = document.getElementById(id);
+       var f = document.getElementById(id+"_earrows");
+       if(e.style.display == 'none'){
+          e.style.display = 'block';
+          f.innerHTML = '&#9650';
+       }
+       else {
+          e.style.display = 'none';
+          f.innerHTML = '&#9660';
+       }
+    }
+//-->
+</script>
+<style>
+.earrows {color:silver;font-size:11px;}
+
+fcap {
+ font-family: Verdana;
+ font-size: 12px;
+ color: MidnightBlue
+ }
+
+smg {
+ font-family: Verdana;
+ font-size: 10px;
+ color: 󅒐
+}
+
+hr.thinhr { margin-top: 0.15em; margin-bottom: 0.15em; }
+
+span.xscript {
+position: relative;
+}
+span.xscript sub {
+position: absolute;
+left: 0.1em;
+bottom: -1ex;
+}
+</style>
+ <font color="MidnightBlue"><div align="center"><span style="font-weight:bold">medium_predictors <br><br> 6  Variables   14691  Observations</span></div></font> <hr class="thinhr"> <span style="font-weight:bold">FIB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdUlEQVQ4jdXT4QrAIAgE4HPv/9BDV1vBzEndxi6k/CMfgZAwgFW5zuIG2zCAlqZ92pub0OWETRtOd1UV94krUlF1/tSnLJLLXcJEXtzHlIvwaXcDsyaG7y+uGdNKWzNkBam6ppG6SzjOukjfXKdr+rZe5hHZAUlUCS1CNfA/AAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable100227 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable100227 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable100227 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable100227">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>12124</td><td>2567</td><td>1084</td><td>1</td><td>547.4</td><td>231</td><td>247</td><td>301</td><td>397</td><td>529</td><td>674</td><td>816</td><td>892</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   55   60   66   67   69 ,  <font color="MidnightBlue">highest</font>: 1506 1508 1529 1537 1593</span> <hr class="thinhr"> <span style="font-weight:bold">POTASS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAADcAAAANCAMAAAA65Aa/AAAACVBMVEUAAADMzMz////1iUV5AAAAO0lEQVQokWNgZGRkYGAkGTAwMTExgAgSwQDoY6CrPlBwkhGgEPtIt3Do6GMgTx84OKEAFE4gRDB4GRgBpaoEm4UN9kgAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable245633 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable245633 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable245633 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable245633">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>12683</td><td>2008</td><td>408</td><td>1</td><td>4.003</td><td>0.6004</td><td>3.20</td><td>3.39</td><td>3.66</td><td>3.95</td><td>4.29</td><td>4.67</td><td>4.92</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  1.92  2.07  2.11  2.12  2.21 ,  <font color="MidnightBlue">highest</font>:  8.57 11.34 13.55 14.60 36.62</span> <pre style="font-size:85%;"> Value        2.0   2.5   3.0   3.5   4.0   4.5   5.0   5.5   6.0   6.5   7.0   7.5
+ Frequency      6    91   650  3385  5088  2455   692   201    73    26     7     2
+ Proportion 0.000 0.007 0.051 0.267 0.401 0.194 0.055 0.016 0.006 0.002 0.001 0.000
+                                               
+ Value        8.0   8.5  11.5  13.5  14.5  36.5
+ Frequency      2     1     1     1     1     1
+ Proportion 0.000 0.000 0.000 0.000 0.000 0.000
+ </pre>
+  For the frequency table, variable is rounded to the nearest 0.5 <hr class="thinhr"> <span style="font-weight:bold">ASAT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAUUlEQVQ4je2TOw4AIAjFivc/tKiRz8jGQCNRgeEtRQSkH6yFVjsmV43JVYPxsUTrXA2DTa4a10cjvnPnKPKOfbRuCxOav2NW+e3SB/3Jk7CwAYVuDSQpvkmaAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable140949 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable140949 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable140949 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable140949">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13537</td><td>1154</td><td>650</td><td>1</td><td>86.9</td><td>115.6</td><td> 15</td><td> 17</td><td> 22</td><td> 31</td><td> 56</td><td>121</td><td>218</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     3     5     6     7     8 ,  <font color="MidnightBlue">highest</font>: 10845 11928 12079 12380 13991</span> <hr class="thinhr"> <span style="font-weight:bold">ALAT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAGcAAAANCAMAAACD8ID3AAAACVBMVEUAAADMzMz////1iUV5AAAAPElEQVQ4jWNgZGBgpANgYGJgYKIDGLVnkNszmt5G7YHaQw+LQOkNBaNxIImFEZwqQWJoyRNrYsUQAwoAAOjvCPHpfMT7AAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable416746 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable416746 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable416746 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable416746">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13704</td><td>987</td><td>578</td><td>1</td><td>67.66</td><td>90.07</td><td>  9</td><td> 11</td><td> 16</td><td> 26</td><td> 48</td><td>101</td><td>175</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     0     1     2     3     4 ,  <font color="MidnightBlue">highest</font>:  7109  9136  9314 12329 15059</span> <hr class="thinhr"> <span style="font-weight:bold">GGT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAWElEQVQ4je2TOQoAIBADE///aPdQQVHQLoWD8WwGIaABUA0UAzFL8b3egFt9r2vgbdTso+Z/pZecmLqXmtjwEjNrfQyY2S5ty8M7ffTEufdqbtl6se+ipQIV2Az96NLBUwAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable130234 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable130234 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable130234 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable130234">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13429</td><td>1262</td><td>858</td><td>1</td><td>115.1</td><td>141.3</td><td> 13.0</td><td> 16.0</td><td> 25.0</td><td> 49.0</td><td>117.0</td><td>262.2</td><td>429.0</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    3    5    6    7    8 ,  <font color="MidnightBlue">highest</font>: 2932 3303 3782 3919 5171</span> <hr class="thinhr"> <span style="font-weight:bold">CRP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAaElEQVQ4je2T0QrAIAhFr/7/R5fLVVsRbrD0YUcs9OkgXFAGoGiAGRmOhnqFM/u9nlG9ilkYP0gab3hnUejuNeB6r4WXp57By8XO7LVZ8Y3Xafel4SyPNuhoKf1aTRbUjSVw2tcU1jcBTcULVJrKiXAAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable517449 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable517449 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable517449 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable517449">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14536</td><td>155</td><td>3328</td><td>1</td><td>10.92</td><td>10.39</td><td> 0.29</td><td> 0.77</td><td> 2.87</td><td> 8.57</td><td>16.45</td><td>24.49</td><td>29.61</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.00  0.01  0.02  0.03  0.04 ,  <font color="MidnightBlue">highest</font>: 58.40 61.81 63.96 73.04 76.32</span> <hr class="thinhr">
+</div>
+</div>
+</section>
+</section>
+<section id="suggested-transformations" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="suggested-transformations"><span class="header-section-number">5.2.3</span> Suggested transformations</h3>
+<p>Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function <code>ida_trans</code> for this purpose, which optimises the parameter <code>sigma</code> of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.</p>
+<div class="cell" data-hash="Bact_univar_cache/html/uni08_1a262063bc043e08614d5a934261ede0">
+
+</div>
+<p>Display the proposed variable transformations and the new parameter codes.</p>
+<div class="cell" data-hash="Bact_univar_cache/html/unnamed-chunk-1_746a24cf02cef278b52b7099b7a7eddc">
+<div class="cell-output-display">
+
+<div id="zsunsrtmqi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#zsunsrtmqi) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 3px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#zsunsrtmqi) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#zsunsrtmqi) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#zsunsrtmqi) .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#zsunsrtmqi) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#zsunsrtmqi) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#zsunsrtmqi) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#zsunsrtmqi) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#zsunsrtmqi) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#zsunsrtmqi) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #FFFFFF;
+  vertical-align: middle;
+}
+
+:where(#zsunsrtmqi) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#zsunsrtmqi) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#zsunsrtmqi) .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#zsunsrtmqi) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 0px;
+  border-right-color: #FFFFFF;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#zsunsrtmqi) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#zsunsrtmqi) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#zsunsrtmqi) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#zsunsrtmqi) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#zsunsrtmqi) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#zsunsrtmqi) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#zsunsrtmqi) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#zsunsrtmqi) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#zsunsrtmqi) .gt_sourcenote {
+  font-size: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#zsunsrtmqi) .gt_left {
+  text-align: left;
+}
+
+:where(#zsunsrtmqi) .gt_center {
+  text-align: center;
+}
+
+:where(#zsunsrtmqi) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#zsunsrtmqi) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#zsunsrtmqi) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#zsunsrtmqi) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#zsunsrtmqi) .gt_super {
+  font-size: 65%;
+}
+
+:where(#zsunsrtmqi) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#zsunsrtmqi) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#zsunsrtmqi) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#zsunsrtmqi) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#zsunsrtmqi) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#zsunsrtmqi) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#zsunsrtmqi) .gt_indent_5 {
+  text-indent: 25px;
+}
+
+tbody tr:last-child {
+  border-bottom: 2px solid #ffffff00;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="PARAMCD">PARAMCD</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="n">n</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="PARAMCD" class="gt_row gt_left">ALAT_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">AMY_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">AP_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">ASAT_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">BASO_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">CK_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">CREA_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">EOS_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">GBIL_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">GGT_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">LDH_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">LIP_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">LYM_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">PAMY_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+    <tr><td headers="PARAMCD" class="gt_row gt_left">WBC_T</td>
+<td headers="n" class="gt_row gt_right">14691</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<p>Register transformed variables in the data set. The updated data set with suggested log transformed data sets is saved at <code>data/IDA/ADLB_02.rds</code>.</p>
+<p>The IDA analysis plan and specifications are updated with the proposed variable transformations. A new flag is derived to indicate the categorization of predictors now including transformations.</p>
+<div class="cell" data-hash="Bact_univar_cache/html/savedata_40350860dd6a3af93f1ead4e0a040909">
+
+</div>
+</section>
+<section id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="header-section-number">5.2.4</span> Comparison of univariate distributions with and without pseudo-log transformation</h3>
+<p>The comparison is only shown for variables where a transformation is suggested. Note, all observed values, and the distribution min, max and interquartile range as reference lines, are displayed.</p>
+<div class="cell quarto-layout-panel" data-hash="Bact_univar_cache/html/uni-plots_e7d942d9725ab20f781fcf64b27e82ad">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-8.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-9.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-10.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-11.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-12.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-13.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-14.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="Bact_univar_files/figure-html/uni-plots-15.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Bact_missing.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Bact_multivar.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Univariate distribution checks</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>This section reports a series of univariate summary checks of the bacteremia dataset.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni01, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyselect)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtExtras)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjlabelled)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1972</span>)  <span class="do">## for any simulation or numerical approx calculations </span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the first iteration of the IDA ready data sets</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ADSL <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADSL_01.rds"</span>))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>ADLB <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_01.rds"</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## U1: Categorical variables</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>Age group, sex and bacteremia status are described by frequencies and proportions in each category.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r U1-catplot, message=FALSE, warning =FALSE , echo=FALSE, include = TRUE}</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U1-categorical.R"</span>))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>u1_ard <span class="ot">&lt;-</span> <span class="fu">u1_describe</span>(<span class="at">ADSL =</span> ADSL)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># u1_ard |&gt; glimpse()</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Run this for word report</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="do">##u1_display_table_word(u1_ard) </span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Run this for online website</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">u1_display_table_html</span>(u1_ard)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>Also plot the categories as simple bar charts.  </span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r u1-catplot2, message=FALSE, warning=FALSE, echo=FALSE}</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Summary of categorical variables including outcome"</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 18</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U1-categorical.R"</span>))</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">u1_display_plot</span>(u1_ard)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Continuous variables</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### U2: Univariate distributions of continuous variables</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Structural variables</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>The only structural continuous variable is AGE. This variable is also a key predictor and reported in the following section (see below).</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Key predictors</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>Distribution of key predictors. Lines indicate the 5-number summary including reported numerical values (where possible). </span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>The remaining predictors are reported in the appendix @sec-u2-remaining.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni02, message=FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 3</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 4</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U2-cont-describe-plot.R"</span>))</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>key_plts <span class="ot">&lt;-</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(KEY_PRED_FL01 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PARAM) <span class="sc">|&gt;</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">describe_plot</span>(.x, <span class="at">num_bins =</span> <span class="dv">300</span>))</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> key_plts) {</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">#### U2: Predictors of medium importance</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni03, message=FALSE, warning=FALSE, echo=FALSE}</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 3</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 4</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>med_plts <span class="ot">&lt;-</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MED_PRED_FL01 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PARAM) <span class="sc">|&gt;</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">describe_plot</span>(.x, <span class="at">num_bins =</span> <span class="dv">300</span>))</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> med_plts) {</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numerical summaries</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Key predictors</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r sumtools, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>key_predictors <span class="ot">&lt;-</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(KEY_PRED_FL01 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, PARAMCD, AVAL) <span class="sc">|&gt;</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"PARAMCD"</span>, <span class="at">values_from =</span> <span class="st">"AVAL"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>USUBJID)</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span>(<span class="fu">describe</span>(key_predictors, <span class="at">size =</span> <span class="st">"tiny"</span>))</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Predictors of medium importance</span></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni06, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>medium_predictors <span class="ot">&lt;-</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MED_PRED_FL01 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, PARAMCD, AVAL) <span class="sc">|&gt;</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"PARAMCD"</span>, <span class="at">values_from =</span> <span class="st">"AVAL"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>USUBJID)</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span>(<span class="fu">describe</span>(medium_predictors, <span class="at">size =</span> <span class="st">"tiny"</span>))</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="fu">### Suggested transformations</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function <span class="in">`ida_trans`</span> for this purpose, which optimises the parameter <span class="in">`sigma`</span> of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni08, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"fun_ida_trans.R"</span>))</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="do">## need to rethink the param and paramcd interaction</span></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>suggested_transforms <span class="ot">&lt;-</span> </span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>   ADLB <span class="sc">|&gt;</span> </span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">ida_trans</span>(.x, <span class="at">equ.marg=</span><span class="fl">0.2</span>), <span class="at">.keep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>Display the proposed variable transformations and the new parameter codes. </span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>new_vars <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (param <span class="cf">in</span> suggested_transforms)</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(param<span class="sc">$</span>const))</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>     new_vars <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(new_vars, param<span class="sc">$</span>dat)</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="do">## </span><span class="al">TODO</span><span class="do">: losing the label attributes with this bind </span></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(ADLB, new_vars) </span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">copy_labels</span>(ADLB_02, ADLB)  </span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a><span class="co">#ADLB_02 |&gt; group_by(PARAM, PARAMCD) |&gt; tally() |&gt; gt()</span></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>new_vars <span class="sc">|&gt;</span> <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span> </span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>Register transformed variables in the data set. The updated data set with suggested log transformed data sets is saved at <span class="in">`data/IDA/ADLB_02.rds`</span>.</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>The IDA analysis plan and specifications are updated with the proposed variable transformations. A new flag is derived to indicate the categorization of predictors now including transformations. </span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="in">```{r savedata, message=FALSE, warning=FALSE, echo=FALSE}</span></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span></span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>  ADLB_02 <span class="sc">|&gt;</span></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>    <span class="at">KEY_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"AGE"</span>, <span class="st">"WBC_T"</span>, <span class="st">"BUN"</span>, <span class="st">"CREA_T"</span>, <span class="st">"PLT"</span>, <span class="st">"NEU"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>    <span class="at">MED_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"POTASS"</span>, <span class="st">"FIB"</span>, <span class="st">"CRP"</span>, <span class="st">"ASAT_T"</span>, <span class="st">"ALAT_T"</span>, <span class="st">"GGT_T"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>    <span class="at">REM_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"MCV"</span>, <span class="st">"HGB"</span>, <span class="st">"HCT"</span>, <span class="st">"MCH"</span>, <span class="st">"MCHC"</span>, <span class="st">"RDW"</span>, <span class="st">"MPV"</span>, <span class="st">"LYM_T"</span>, <span class="st">"MONO"</span>, <span class="st">"EOS_T"</span>, <span class="st">"BASO"</span>, <span class="st">"NT"</span>, <span class="st">"APTT"</span>, <span class="st">"SODIUM"</span>, <span class="st">"CA"</span>, <span class="st">"PHOS"</span>, <span class="st">"MG"</span>, <span class="st">"HS"</span>, <span class="st">"GBIL_T"</span>, <span class="st">"TP"</span>, <span class="st">"ALB"</span>, <span class="st">"AMY_T"</span>, <span class="st">"PAMY_T"</span>, <span class="st">"LIP_T"</span>, <span class="st">"CHE"</span>, <span class="st">"AP_T"</span>, <span class="st">"LDH_T"</span>, <span class="st">"CK_T"</span>, <span class="st">"GLU"</span>, <span class="st">"TRIG"</span>, <span class="st">"CHOL"</span>, <span class="st">"BASOR_T"</span>, <span class="st">"EOSR"</span>, <span class="st">"LYMR"</span>, <span class="st">"MONOR"</span>, <span class="st">"NEUR"</span>, <span class="st">"PDW"</span>, <span class="st">"RBC"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>KEY_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Key predictor flag - including scale transformations, Section 2.2.5 U2"</span></span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>MED_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Predictors of medium importance flag - including scale transformations"</span></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>REM_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Remaining predictors flag - including scale transformations"</span></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>PARCAT02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Pseudo log transformed categories"</span></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>SIGMA, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Constant variable for Pseudo log transformation"</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ADLB_02, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_02.rds"</span>))</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparison of univariate distributions with and without pseudo-log transformation</span></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>The comparison is only shown for variables where a transformation is suggested. Note, all observed values, and the distribution min, max and interquartile range as reference lines, are displayed.</span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni-plots, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}</span></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="do">## plot side by side</span></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"fun_compare_dist_plot.R"</span>))</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a><span class="do">## Load in updated data set with transformations </span></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_02.rds"</span>))</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> </span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>   ADLB_02 <span class="sc">|&gt;</span> </span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(PARCAT02 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">compare_dist_plot</span>(.x), <span class="at">.keep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> res) {</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

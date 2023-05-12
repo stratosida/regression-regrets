@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Regression without regrets - Appendix D — Univariate distribution checks</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Bact_multivar_appendix.html" rel="next">
+<link href="./Bact_missing_appendix.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Appendix D — Univariate distribution checks</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Regression without regrets</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#u2-descriptive-summaries" id="toc-u2-descriptive-summaries" class="nav-link active" data-scroll-target="#u2-descriptive-summaries"><span class="toc-section-number">D.1</span>  U2: Descriptive summaries</a>
+  <ul class="collapse">
+  <li><a href="#sec-u2-remaining" id="toc-sec-u2-remaining" class="nav-link" data-scroll-target="#sec-u2-remaining"><span class="toc-section-number">D.1.1</span>  U2: Remaining predictors</a></li>
+  <li><a href="#full-descriptive-summaries" id="toc-full-descriptive-summaries" class="nav-link" data-scroll-target="#full-descriptive-summaries"><span class="toc-section-number">D.1.2</span>  Full descriptive summaries</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-univar-appendix" class="quarto-section-identifier d-none d-lg-block">Appendix D — Univariate distribution checks</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This section reports a series of univariate summary checks of the bacteremia dataset.</p>
+<div class="cell" data-hash="Bact_univar_appendix_cache/html/uni01a_6eb7a1b1040a516e10f8ea417636b099">
+
+</div>
+<section id="u2-descriptive-summaries" class="level2" data-number="D.1">
+<h2 data-number="D.1" class="anchored" data-anchor-id="u2-descriptive-summaries"><span class="header-section-number">D.1</span> U2: Descriptive summaries</h2>
+<section id="sec-u2-remaining" class="level3" data-number="D.1.1">
+<h3 data-number="D.1.1" class="anchored" data-anchor-id="sec-u2-remaining"><span class="header-section-number">D.1.1</span> U2: Remaining predictors</h3>
+<p>We present a visual summary.</p>
+<div class="cell quarto-layout-panel" data-hash="Bact_univar_appendix_cache/html/uni04a_dab12ce527f4d6876694185c53ffb77d">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-1.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-2.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-3.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-4.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-5.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-6.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-7.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-8.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-9.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-10.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-11.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-12.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-13.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-14.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-15.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-16.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-17.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-18.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-19.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-20.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-21.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-22.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-23.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-24.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-25.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-26.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-27.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-28.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-29.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-30.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-31.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-32.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-33.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-34.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-35.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-36.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-37.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="Bact_univar_appendix_files/figure-html/uni04a-38.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+</div>
+<p>And a descriprive summary</p>
+<div class="cell" data-hash="Bact_univar_appendix_cache/html/uni07_4849b840b430257944a24305f7484793">
+<div class="cell-output-display">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<script type="text/javascript">
+<!--
+    function expand_collapse(id) {
+       var e = document.getElementById(id);
+       var f = document.getElementById(id+"_earrows");
+       if(e.style.display == 'none'){
+          e.style.display = 'block';
+          f.innerHTML = '&#9650';
+       }
+       else {
+          e.style.display = 'none';
+          f.innerHTML = '&#9660';
+       }
+    }
+//-->
+</script>
+<style>
+.earrows {color:silver;font-size:11px;}
+
+fcap {
+ font-family: Verdana;
+ font-size: 12px;
+ color: MidnightBlue
+ }
+
+smg {
+ font-family: Verdana;
+ font-size: 10px;
+ color: 󅒐
+}
+
+hr.thinhr { margin-top: 0.15em; margin-bottom: 0.15em; }
+
+span.xscript {
+position: relative;
+}
+span.xscript sub {
+position: absolute;
+left: 0.1em;
+bottom: -1ex;
+}
+</style>
+ <font color="MidnightBlue"><div align="center"><span style="font-weight:bold">remaining_predictors <br><br> 38  Variables   14691  Observations</span></div></font> <hr class="thinhr"> <span style="font-weight:bold">MCV</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcElEQVQ4jdWTUQrAIAxDn7v/ocesiB8dTpPBFqnoh+mjEopBEGUUh0EQZZTuxigDUXPVHf7BZWLTXMjk4dJSk+kDeczn5RjZvkXKZPvKd7h0ts3nMyjUaC4/fUDkGNuVnl6UYd0cVzWxq62p7WNrlxOhtwtH44vcgwAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable402756 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable402756 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable402756 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable402756">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14649</td><td>42</td><td>506</td><td>1</td><td>88.35</td><td>6.992</td><td>78.2</td><td>81.1</td><td>84.7</td><td>88.3</td><td>92.0</td><td>95.9</td><td>99.0</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  51.0  52.6  54.9  56.3  57.5 ,  <font color="MidnightBlue">highest</font>: 121.0 121.8 124.6 127.9 128.7</span> <hr class="thinhr"> <span style="font-weight:bold">HGB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeklEQVQ4jcXVjQqAIAwE4LP3f+jYlQoh4W5TD8MKfz6EIYoY1PD9eRKDSwiG4X9lueEWea7uO+H6NzVblLfIFT437+x5VszmqyKnitlQjwpLPLMNLgnnmBBQrXOFUAJuYmwKyYvj9cZmN5w1+2CP1ufmuzo3rGX4EsoNO8II7dvgDOcAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable226929 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable226929 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable226929 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable226929">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14650</td><td>41</td><td>157</td><td>1</td><td>11.57</td><td>2.558</td><td> 8.2</td><td> 8.8</td><td> 9.9</td><td>11.4</td><td>13.2</td><td>14.6</td><td>15.4</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  3.0  3.1  3.5  3.9  4.1 ,  <font color="MidnightBlue">highest</font>: 19.5 20.5 20.7 20.8 21.0</span> <hr class="thinhr"> <span style="font-weight:bold">HCT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcklEQVQ4jc3TUQrAIAwD0Or9Dy1miAjq2kTB/NT91Icjlk7EkDaObMxibBp1a77kkmmqa8kSbZprr1Jkiutfxcv49vhUbD35h/aHWn+fRcnY3/+kK6hicHEXh4rSal2mlUGRsGxsnruHm6Q+2+34+k6YBR+yCdg4QZ3BAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable211603 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable211603 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable211603 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable211603">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14649</td><td>42</td><td>404</td><td>1</td><td>34.48</td><td>7.316</td><td>24.6</td><td>26.4</td><td>29.8</td><td>34.3</td><td>39.1</td><td>42.9</td><td>44.8</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.0  0.1  0.2  9.7  9.8 ,  <font color="MidnightBlue">highest</font>: 61.4 61.9 63.2 65.3 66.6</span> <hr class="thinhr"> <span style="font-weight:bold">MCH</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdElEQVQ4jeWTUQqAMAxDo/c/9Kqb0tZNcMmHaECXr8ejECx0YOEpGbqSwR57WFDC0oC3e2nNSBjwNy9qNGdaVa2R2WM7kruX8mZf8woy3kukNkO5yEQvidkjxkgmewnctgnZmuovlE51yxtVV25RR+1u0b4CzcYLwaC5pgUAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable142889 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable142889 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable142889 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable142889">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14649</td><td>42</td><td>232</td><td>1</td><td>29.58</td><td>2.693</td><td>25.3</td><td>26.7</td><td>28.4</td><td>29.7</td><td>31.0</td><td>32.4</td><td>33.4</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 14.9 15.6 15.9 16.0 16.5 ,  <font color="MidnightBlue">highest</font>: 42.0 42.3 42.4 42.5 47.4</span> <hr class="thinhr"> <span style="font-weight:bold">MCHC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcUlEQVQ4jd2T0QoAERRE5/r/j17cJQkrM7Vloni446QOTBO8EdUZgiSo0fQFOZeITNKCPoJKPdTdXLQ4w/zu4xiL/zGuYEbFkxHjKyga7Hz6C4tDOxndIWLRkjluD8pyy/LKupVLe9pP12DtKzMX434A7S8LO8VcvNwAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable136606 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable136606 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable136606 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable136606">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14649</td><td>42</td><td>124</td><td>0.999</td><td>33.47</td><td>1.546</td><td>31.1</td><td>31.7</td><td>32.6</td><td>33.5</td><td>34.4</td><td>35.2</td><td>35.6</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 23.7 24.4 24.8 25.1 26.1 ,  <font color="MidnightBlue">highest</font>: 38.3 38.4 38.9 39.3 43.5</span> <hr class="thinhr"> <span style="font-weight:bold">RDW</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdElEQVQ4jc3TgQqAMAgE0Fv//9G1JErPjTbo1oEEDvIhiJIEluxJFWwc3EleNeHJcFlAMgV38AcZjY2sKluAe+NasTU6uoZLfZ1hEU2Veml+Vp+llA26ZLYJl4Tnfj/C+lhYz8xqEnWmcCWt0LbJ1/d5i0ftuIIK0HvoXwYAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable747262 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable747262 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable747262 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable747262">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14635</td><td>56</td><td>173</td><td>1</td><td>15</td><td>2.385</td><td>12.4</td><td>12.7</td><td>13.4</td><td>14.5</td><td>16.0</td><td>18.0</td><td>19.5</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 10.6 11.1 11.2 11.3 11.4 ,  <font color="MidnightBlue">highest</font>: 28.6 28.9 29.1 29.7 31.8</span> <hr class="thinhr"> <span style="font-weight:bold">MPV</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdUlEQVQ4jc3T3QrAIAgFYNv7P/SKGdhF5fFndaKLBurHQCqWUIupUj3hQUJjvg9QB/Ukj0sAT7pmqgyZuuEKlWC71gUsoC6/7SNgivtx2x64KsS2qbeq3LJFtcfk5s3KglBmYVufvkJU167wyYhoz0PEgx39vmZECVh6tdxsAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable559561 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable559561 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable559561 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable559561">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13989</td><td>702</td><td>71</td><td>0.999</td><td>10.38</td><td>1.132</td><td> 8.9</td><td> 9.2</td><td> 9.7</td><td>10.3</td><td>11.0</td><td>11.7</td><td>12.2</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  7.3  7.7  7.8  7.9  8.0 ,  <font color="MidnightBlue">highest</font>: 14.2 14.3 14.6 14.8 15.0</span> <hr class="thinhr"> <span style="font-weight:bold">LYM</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAADQAAAANCAMAAADR0728AAAACVBMVEUAAADMzMz////1iUV5AAAAJ0lEQVQokWNgYGAkGTAwMDCRDIapptHQo0QTCDBCICNGUGIJXQZGAAh1BHO9ZpTEAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable514624 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable514624 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable514624 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable514624">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14429</td><td>262</td><td>114</td><td>0.998</td><td>1.366</td><td>1.162</td><td>0.2</td><td>0.4</td><td>0.7</td><td>1.0</td><td>1.6</td><td>2.1</td><td>2.6</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   0.0   0.1   0.2   0.3   0.4 ,  <font color="MidnightBlue">highest</font>: 149.9 357.5 366.8 375.1 578.1</span> <pre style="font-size:85%;"> Value          0     5    10    15    20    30    35    40    45    75   100   115
+ Frequency  13675   703    27     7     4     2     1     1     1     1     1     1
+ Proportion 0.948 0.049 0.002 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+                                         
+ Value        150   360   365   375   580
+ Frequency      1     1     1     1     1
+ Proportion 0.000 0.000 0.000 0.000 0.000
+ </pre>
+  For the frequency table, variable is rounded to the nearest 5 <hr class="thinhr"> <span style="font-weight:bold">MONO</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZElEQVQ4jc3TQQrAIAxE0R/vf+g2SQVt6/7PQkQMPAJDVLgTpjAq6RqmtAZsMLULt8sEqxZOl6iS275EC0sK+GBsLA/s7bLAPi6JjKWN5wT1L7q9T2PqmC/0cWrXMrde/wfy9QKVEwyUdyZZMgAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable301298 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable301298 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable301298 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable301298">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14445</td><td>246</td><td>67</td><td>0.996</td><td>0.8527</td><td>0.5965</td><td>0.1</td><td>0.3</td><td>0.5</td><td>0.8</td><td>1.1</td><td>1.5</td><td>1.8</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.0  0.1  0.2  0.3  0.4 ,  <font color="MidnightBlue">highest</font>: 13.9 14.6 16.2 17.3 20.4</span> <hr class="thinhr"> <span style="font-weight:bold">EOS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAG0AAAANCAMAAACU0hA+AAAACVBMVEUAAADMzMz////1iUV5AAAAQklEQVQ4jWNgZGBgpBtgYGJgYKIbGLWNmrbRzzoGYJqkX6Kks9/obxvdrBvWtoHSJBoAFZ3AdIqUVvGlWgacHEyFAKxGCXLIBO+sAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable663904 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable663904 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable663904 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable663904">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14556</td><td>135</td><td>36</td><td>0.867</td><td>0.1148</td><td>0.1585</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.1</td><td>0.1</td><td>0.3</td><td>0.4</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.0  0.1  0.2  0.3  0.4 ,  <font color="MidnightBlue">highest</font>:  3.8  5.3  9.6 11.5 15.8</span> <hr class="thinhr"> <span style="font-weight:bold">BASO</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAADcAAAANCAMAAAA65Aa/AAAACVBMVEUAAADMzMz////1iUV5AAAAJklEQVQokWNgYGAkBzAwMDCRA0aAvtHwxK6PLI0MqAASVoRDkxEAwHkEtC6j9aoAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable366949 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable366949 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable366949 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable366949">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14545</td><td>146</td><td>18</td><td>0.337</td><td>0.01725</td><td>0.03111</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.1</td><td>0.1</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.0 0.1 0.2 0.3 0.4 ,  <font color="MidnightBlue">highest</font>: 1.3 1.4 1.5 2.2 6.5</span> <pre style="font-size:85%;"> Value        0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0   1.1
+ Frequency  12671  1636   109    59    31    14     6     7     1     2     1     2
+ Proportion 0.871 0.112 0.007 0.004 0.002 0.001 0.000 0.000 0.000 0.000 0.000 0.000
+                                               
+ Value        1.2   1.3   1.4   1.5   2.2   6.5
+ Frequency      1     1     1     1     1     1
+ Proportion 0.000 0.000 0.000 0.000 0.000 0.000
+ </pre>
+ <hr class="thinhr"> <span style="font-weight:bold">NT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAg0lEQVQ4jc2U2wqAMAxDM///o7UMUbt2621gJDD30B4iEa1IQDc/R8cdBQJkZ0buYvoxVwYvxTXL6sUVYYtzscULLi9bvDVX4e7eKZau9/ZRCWSRlyc3P5e6mGTisrD5uIbFBsXY1lzy1JjsvxF2P/0S5ZrESBXB8+Dj8bVWfF93I6YTnuAJy58nGcwAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable387385 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable387385 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable387385 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable387385">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>12224</td><td>2467</td><td>149</td><td>1</td><td>83.22</td><td>30.56</td><td> 35</td><td> 48</td><td> 67</td><td> 83</td><td>101</td><td>118</td><td>128</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   4   5   6   7   8 ,  <font color="MidnightBlue">highest</font>: 148 149 150 151 152</span> <hr class="thinhr"> <span style="font-weight:bold">APTT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAbklEQVQ4je2TQQ7AIAgEl/7/0Y0ULautPS6HDlERLxOThTGAlQAHg3kggjXgiFSIJ68KZqSA3+sLit/wUqUwqZAkyvxYEgCjc3KZ1M7orJLXYqUV23oJ7Vr00OodixrN/tKvtr7d0whd7Ne4H75OK0cMQxHtiFsAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable852918 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable852918 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable852918 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable852918">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>12142</td><td>2549</td><td>631</td><td>1</td><td>40.06</td><td>9.533</td><td>30.1</td><td>31.4</td><td>34.1</td><td>37.7</td><td>42.7</td><td>49.9</td><td>56.6</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  21.4  21.6  23.4  23.5  23.6 ,  <font color="MidnightBlue">highest</font>: 160.7 163.0 168.7 171.6 176.1</span> <hr class="thinhr"> <span style="font-weight:bold">SODIUM</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeklEQVQ4je2TUQqAMAxDE+9/aLc66uqGig0IYvYTBsteCwFlQpEubJEITZq0GiiKgZhMkVNgfq77CYhcGrR8g6yGOxc1pcwO50vq9qXY2De5Akywr3EFnJErS/bo+cgw40qh1fJYgWDHDc5M172DiXfXSfTybr83AnIFjHcLui7Xzt8AAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable974274 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable974274 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable974274 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable974274">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13409</td><td>1282</td><td>58</td><td>0.994</td><td>137.2</td><td>5.034</td><td>129</td><td>132</td><td>135</td><td>137</td><td>140</td><td>142</td><td>144</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 106 108 109 110 112 ,  <font color="MidnightBlue">highest</font>: 161 165 166 168 170</span> <hr class="thinhr"> <span style="font-weight:bold">CA</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdklEQVQ4jc3T0QrAIAgF0Gv//9FjkmUjRrfl0F6SMA+RkI2Axk7leovCBlBQg64luvAVKV3KSeeqHCBc9tEVJmOmyijiXQnmsT3RH+9Fq3K5BgoQLjvhiqAtXDmDxLvuv68DMCyfPAZwlr5U2+3WoyXSTy11mwvxHQuvQvNUbgAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable723231 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable723231 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable723231 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable723231">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13415</td><td>1276</td><td>185</td><td>1</td><td>2.214</td><td>0.2213</td><td>1.89</td><td>1.96</td><td>2.09</td><td>2.22</td><td>2.35</td><td>2.45</td><td>2.51</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 1.03 1.15 1.18 1.20 1.23 ,  <font color="MidnightBlue">highest</font>: 3.84 3.88 3.96 4.18 4.40</span> <hr class="thinhr"> <span style="font-weight:bold">PHOS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAa0lEQVQ4jc2TSQoAIQwEO/7/0YML0SzmOG0RhPTFQmlIAOhDBs2BiY//xglA4ehsEbvhFbG7F1fsWS9TAguri0PldAzQnuv8x6hFFNObMyuiGEornhlqKZoeYg3vyD6lCEafdGa6trR6WfABbasLwR0lD8AAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable412771 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable412771 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable412771 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable412771">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13449</td><td>1242</td><td>306</td><td>1</td><td>1.048</td><td>0.3993</td><td>0.55</td><td>0.64</td><td>0.81</td><td>0.99</td><td>1.20</td><td>1.47</td><td>1.74</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.30 0.31 0.32 0.33 0.34 ,  <font color="MidnightBlue">highest</font>: 4.36 4.43 4.53 5.48 6.22</span> <hr class="thinhr"> <span style="font-weight:bold">MG</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAfElEQVQ4jc2TgQqAIAxEb/3/R9dWStq0K5n4Ch2k2yM4CA+UD+dHwEaDBH/lP+wQFIQqnfPYc5PFyAlY0qu2muFFhePJCnl0tMJ/2Wt7XypcbMAr1Kzbu+cUrNZuTEgFymmwcDyaObH32rwQtihv1W0kVTbKPll9W/KW6x1Hygtarmv88wAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable606017 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable606017 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable606017 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable606017">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>12822</td><td>1869</td><td>146</td><td>0.999</td><td>0.8136</td><td>0.1609</td><td>0.59</td><td>0.64</td><td>0.72</td><td>0.81</td><td>0.89</td><td>0.98</td><td>1.06</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.20 0.21 0.22 0.26 0.28 ,  <font color="MidnightBlue">highest</font>: 1.83 1.88 1.96 2.07 2.22</span> <hr class="thinhr"> <span style="font-weight:bold">HS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAd0lEQVQ4je3V0QqAIAyF4X+9/0Nnm4TiEinauuigKLv6UKaIF3DLgWHzgl8OzABQ0u+6Sg8onoOErpbvuIxDLqxvvNKHVSO0yexHu8DxvHKOrXN5niQcDWpuiqVRWWuoOByVdSsvvnNoFz6JrE859/YF6xheBK3symYLHOFQ42YAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable121876 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable121876 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable121876 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable121876">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>11630</td><td>3061</td><td>169</td><td>1</td><td>5.413</td><td>2.625</td><td> 2.2</td><td> 2.7</td><td> 3.7</td><td> 5.0</td><td> 6.6</td><td> 8.5</td><td>10.0</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  1.3  1.4  1.5  1.6  1.7 ,  <font color="MidnightBlue">highest</font>: 19.8 20.2 22.2 22.3 22.7</span> <hr class="thinhr"> <span style="font-weight:bold">GBIL</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAXklEQVQ4je2TUQrAIAxDk93/0HZpq+BgbH/5MGItbZWHEDAE0E24QlC00uH6J3MuOzA5EX6GtP0vhcP1Vc3lBja5zMhuI6LEtZ/pa1Mpwa5Qz2rlWdW8wu7XwOZE1QZdRA0CQR2HNAAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable589478 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable589478 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable589478 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable589478">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13250</td><td>1441</td><td>885</td><td>1</td><td>1.406</td><td>1.477</td><td>0.33</td><td>0.39</td><td>0.53</td><td>0.77</td><td>1.23</td><td>2.34</td><td>3.96</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.11  0.12  0.13  0.14  0.15 ,  <font color="MidnightBlue">highest</font>: 42.82 43.83 45.10 51.72 51.77</span> <hr class="thinhr"> <span style="font-weight:bold">TP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAh0lEQVQ4jcWV2w7AIAhD6/7/oxfsJNuyecFGGyL6IJ6gCNK8ADOtcIQEmNGBCwRD/RwQhkIhcu3j8szgS8qUDUSqEO3jur2kljRcffWW2jiuNfU4AKRMWT1E172t5opCSdD+9k8QSdDem8FvXKU4l7393OHY5lBGja7e6T5P2VETjeX7KGJbnJG6CWzjhVAaAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable892281 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable892281 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable892281 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable892281">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13108</td><td>1583</td><td>649</td><td>1</td><td>64.9</td><td>12.97</td><td>45.20</td><td>49.47</td><td>56.90</td><td>65.70</td><td>73.30</td><td>78.80</td><td>82.00</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  29.9  30.0  30.3  30.5  30.6 ,  <font color="MidnightBlue">highest</font>: 107.8 108.1 108.7 112.8 120.9</span> <hr class="thinhr"> <span style="font-weight:bold">ALB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAe0lEQVQ4jb3VUQ4AEQwE0Kn7H9rSn9pEtEM7HyIIL5ICeRwAps9v0y7zObS10VGdIrclMZbyV63ERulYVzAlrrCK0MVctCgsi1TMtQr+Ag3c1wvWjOuwcpUPdlxzeAayaKcFGSaPbTuZCTK0nW4UCMZHpo3tVmU9enpEOnyCB5E+XdsVAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable888322 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable888322 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable888322 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable888322">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13015</td><td>1676</td><td>401</td><td>1</td><td>33.42</td><td>8.513</td><td>21.3</td><td>23.6</td><td>27.9</td><td>33.6</td><td>39.1</td><td>43.2</td><td>45.2</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 10.0 10.2 10.5 10.6 10.7 ,  <font color="MidnightBlue">highest</font>: 52.9 53.2 53.7 54.0 55.7</span> <hr class="thinhr"> <span style="font-weight:bold">AMY</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACUAAAANCAMAAAAZv1dqAAAACVBMVEUAAADMzMz////1iUV5AAAAH0lEQVQYlWNgYCQCMDAwEQEGr6qR4EcQwO4xRpg4AwAewgM2/m5ecQAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable100227 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable100227 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable100227 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable100227">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>10778</td><td>3913</td><td>488</td><td>1</td><td>90.83</td><td>100.5</td><td> 18</td><td> 23</td><td> 33</td><td> 49</td><td> 76</td><td>125</td><td>187</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     8     9    10    11    12 ,  <font color="MidnightBlue">highest</font>:  4984  5248 40372 43970 56146</span> <pre style="font-size:85%;"> Value          0   500  1000  1500  2000  2500  4000  4500  5000 40500 44000 56000
+ Frequency  10432   268    39    14    12     4     2     2     2     1     1     1
+ Proportion 0.968 0.025 0.004 0.001 0.001 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+ </pre>
+  For the frequency table, variable is rounded to the nearest 500 <hr class="thinhr"> <span style="font-weight:bold">PAMY</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABYAAAANCAMAAACae25RAAAACVBMVEUAAADMzMz////1iUV5AAAAGklEQVQYlWNgYMQGGBiYsAHaCg8el2BzCwMAGi8B4ah/57sAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable245633 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable245633 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable245633 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable245633">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>7577</td><td>7114</td><td>280</td><td>0.999</td><td>41.66</td><td>47.28</td><td> 7</td><td> 9</td><td>14</td><td>22</td><td>36</td><td>64</td><td>97</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     1     2     3     4     5 ,  <font color="MidnightBlue">highest</font>:  1673  2083  2116  3066 38369</span> <pre style="font-size:85%;"> Value          0   500  1000  1500  2000  3000 38500
+ Frequency   7495    65     7     6     2     1     1
+ Proportion 0.989 0.009 0.001 0.001 0.000 0.000 0.000
+ </pre>
+  For the frequency table, variable is rounded to the nearest 500 <hr class="thinhr"> <span style="font-weight:bold">LIP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAEAAAAANCAMAAAAucZheAAAACVBMVEUAAADMzMz////1iUV5AAAAKklEQVQokWNgYGCkCDAwMDBRBEYNABswGguDwQAkAApVSNjCWATiiIERACyhBYM6jKyHAAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable140949 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable140949 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable140949 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable140949">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>10992</td><td>3699</td><td>444</td><td>1</td><td>63.82</td><td>89.88</td><td>  6</td><td>  8</td><td> 14</td><td> 23</td><td> 40</td><td> 79</td><td>135</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     0     1     2     3     4 ,  <font color="MidnightBlue">highest</font>: 11469 15843 18560 22339 45991</span> <hr class="thinhr"> <span style="font-weight:bold">CHE</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAc0lEQVQ4jb3TUQrAIAwD0HT3P/TQakFo2bBp86GCqA8hkCiY0VnGQoem4HEDP7bhnyLGfyFgHcJu17epw5d1VeGOOy9IJiPrdsXuSZaSPhJcGtZ/kVksGtgolaVxNa6ly7mqWCkiKFX8EwlXMqsMkVXpMb07Bwe5a1dAeQAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable416746 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable416746 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable416746 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable416746">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>12244</td><td>2447</td><td>997</td><td>1</td><td>4.79</td><td>2.378</td><td>1.70</td><td>2.17</td><td>3.15</td><td>4.60</td><td>6.22</td><td>7.65</td><td>8.49</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.98  0.99  1.00  1.01  1.02 ,  <font color="MidnightBlue">highest</font>: 12.39 12.55 12.97 13.32 13.89</span> <hr class="thinhr"> <span style="font-weight:bold">AP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAH8AAAANCAMAAAC3iUHrAAAACVBMVEUAAADMzMz////1iUV5AAAAR0lEQVQ4jWNgBAIGBsaBAgxMQMAABEwDA0btH+H2Q9L/gOWAAff/YLF/gFwwiOwfEBcwQJM/GDCSD8FpGYyReSgpHYsIIyMAyJIK1pgJl1IAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable130234 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable130234 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable130234 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable130234">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13291</td><td>1400</td><td>672</td><td>1</td><td>118.8</td><td>91.51</td><td> 42</td><td> 49</td><td> 63</td><td> 84</td><td>123</td><td>206</td><td>302</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   11   14   15   16   17 ,  <font color="MidnightBlue">highest</font>: 1980 2132 2549 2596 2995</span> <hr class="thinhr"> <span style="font-weight:bold">LDH</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAYUlEQVQ4je2VQQrAMAgEx/7/0VWzlR7agzcPDsQYkbAIi5gDNg0uh4yjWF09VlePdCLzDKl5jRvY6uoRgmCesNI1TFgYEVHJN2pU9FcuVrRdIzu3vRauqlQpv3na/rzo5wZjhw0MlTTx5wAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable517449 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable517449 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable517449 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable517449">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>12977</td><td>1714</td><td>1137</td><td>1</td><td>331.2</td><td>240.9</td><td>136</td><td>152</td><td>187</td><td>239</td><td>332</td><td>508</td><td>724</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    39    46    54    55    56 ,  <font color="MidnightBlue">highest</font>: 10473 10784 10822 11246 13906</span> <hr class="thinhr"> <span style="font-weight:bold">CK</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAHYAAAANCAMAAABLnGohAAAACVBMVEUAAADMzMz////1iUV5AAAAQElEQVQ4jWNgZGBgpD9gYGJgYKI/GLV2GFs7mpJHraW+tQNgMSglwwAjGoMRyoCkPShGkMg5gAGNjySBKQ4UAABqTQpC9fFEkwAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable996765 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable996765 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable996765 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable996765">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>12611</td><td>2080</td><td>1506</td><td>1</td><td>385</td><td>615.4</td><td>  18</td><td>  25</td><td>  42</td><td>  80</td><td> 184</td><td> 577</td><td>1155</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     8     9    10    11    12 ,  <font color="MidnightBlue">highest</font>: 60799 63011 82180 83880 98801</span> <hr class="thinhr"> <span style="font-weight:bold">GLU</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAYklEQVQ4je2TSwrAIAwFJ73/oVs/bWIRtKu8RWchBkUGYTAHMBU4Hi6tMCXze33j5SVjJusVEqjkJTjg/4PWf/kOJTN1LyKpRo2pl4BZ6Y8VkxtWyu319nOrb3lR47iZ4b2cJ/QMq8QIwM4AAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable458522 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable458522 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable458522 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable458522">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>10499</td><td>4192</td><td>389</td><td>1</td><td>126.4</td><td>48.3</td><td> 78</td><td> 85</td><td> 97</td><td>113</td><td>138</td><td>177</td><td>216</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   19   22   23   26   28 ,  <font color="MidnightBlue">highest</font>:  843  848  890 1349 1403</span> <hr class="thinhr"> <span style="font-weight:bold">TRIG</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAF4AAAANCAMAAAAXFikFAAAACVBMVEUAAADMzMz////1iUV5AAAARElEQVQ4jWNgZGRgYKQZYGBiYgBiWoFR4wkZTzvzGUAph3ZJh9aup4fxNDOfPsbTynxIykED0HIIhhnhNLIIEcmGkREAyCUIGNCg8jUAAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable219251 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable219251 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable219251 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable219251">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>9630</td><td>5061</td><td>538</td><td>1</td><td>141.7</td><td>90.33</td><td> 54</td><td> 64</td><td> 83</td><td>115</td><td>165</td><td>241</td><td>307</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   14   15   16   20   22 ,  <font color="MidnightBlue">highest</font>: 1796 2247 2662 2918 5440</span> <hr class="thinhr"> <span style="font-weight:bold">CHOL</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lEQVQ4jc2TQQrAIAwEN/7/0Y1aBLep4sXNgAZyGgIDI+DwTgAKUb384/VtQi9k88JAfbI/L/XJ0npNERCqGG3qka2kF1t6CdXSe4VWOjNsrFRutTl8QmQsfi1he0efoydenLTo7wG9Hgvy83CMIQAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable797817 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable797817 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable797817 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable797817">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>9646</td><td>5045</td><td>339</td><td>1</td><td>150.8</td><td>59.23</td><td> 74</td><td> 89</td><td>113</td><td>145</td><td>182</td><td>219</td><td>243</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   25   26   27   28   29 ,  <font color="MidnightBlue">highest</font>:  646  662  676  710 1104</span> <hr class="thinhr"> <span style="font-weight:bold">BASOR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAHMAAAANCAMAAACttaFlAAAACVBMVEUAAADMzMz////1iUV5AAAAPklEQVQ4jWNgZGBgpDNgYGJgYKIzGLVzmNk5mm5H7RyKdgLTLTbACMGgVAakGZHSNgOcQEuNjCgSuHIDUBwA2JUKBUCC2pEAAAAASUVORK5CYII=" alt="image"></div> <pre style="font-size:85%;">        n  missing distinct     Info     Mean      Gmd      .05      .10      .25 
+    13959      732      419    0.322    0.145   0.2679   0.0000   0.0000   0.0000 
+      .50      .75      .90      .95 
+   0.0000   0.0000   0.5501   1.0526 
+ </pre>
+ <style>
+ .hmisctable761557 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable761557 td {
+ text-align: right;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable761557 th {
+ color: Black;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: bold;
+ }
+ </style>
+ <table class="hmisctable761557">
+ <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td> 0.0000000</td><td> 0.1358696</td><td> 0.1545595</td><td> 0.1652893</td><td> 0.1818182</td></tr>
+ <tr><td><font color="MidnightBlue">highest</font>:</td><td>11.1111111</td><td>15.2173913</td><td>16.6666667</td><td>18.4210526</td><td>23.6559140</td></tr>
+ </tbody></table>
+ <hr class="thinhr"> <span style="font-weight:bold">EOSR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAGEAAAANCAMAAACO7vCwAAAACVBMVEUAAADMzMz////1iUV5AAAARElEQVQ4je2SQQoAIAzDGv//aFEKQ/Da4cFCCzuFQYRENBrSiOYTHiG0uJR9ookQRXQRkpDlkoNbg4ddYetKPh3XTSSYF4MIVFDP+KgAAAAASUVORK5CYII=" alt="image"></div> <pre style="font-size:85%;">        n  missing distinct     Info     Mean      Gmd      .05      .10      .25 
+    13959      732      927    0.891    1.297    1.825   0.0000   0.0000   0.0000 
+      .50      .75      .90      .95 
+   0.5882   1.7857   3.4900   5.0000 
+ </pre>
+ <style>
+ .hmisctable976421 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable976421 td {
+ text-align: right;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable976421 th {
+ color: Black;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: bold;
+ }
+ </style>
+ <table class="hmisctable976421">
+ <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td> 0.0000000</td><td> 0.1834862</td><td> 0.2028398</td><td> 0.2178649</td><td> 0.2188184</td></tr>
+ <tr><td><font color="MidnightBlue">highest</font>:</td><td>39.1752577</td><td>46.6019417</td><td>46.9026549</td><td>50.0000000</td><td>73.4883721</td></tr>
+ </tbody></table>
+ <hr class="thinhr"> <span style="font-weight:bold">LYMR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lEQVQ4jdXTUQrAIAwD0NT7H9o5rBNXtV+mBhERwUchkC8okRhB0qAlBYjliiBrBNzg4tP0/5HFlmn/DBe1mphNizy1rYskc7ge2XkcHCzG4OBWnQXCruIu0q316X8tdR8fvDXUUwbBUQsZjNtF2AAAAABJRU5ErkJggg==" alt="image"></div> <style>
+ .hmisctable557281 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable557281 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable557281 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable557281">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13959</td><td>732</td><td>3121</td><td>1</td><td>14.61</td><td>11.87</td><td> 2.752</td><td> 4.000</td><td> 6.757</td><td>11.340</td><td>18.182</td><td>27.869</td><td>36.620</td></tr>
+ </tbody></table>
+ <style>
+ .hmisctable234189 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable234189 td {
+ text-align: right;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable234189 th {
+ color: Black;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: bold;
+ }
+ </style>
+ <table class="hmisctable234189">
+ <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td>  0.0000000</td><td>  0.3215434</td><td>  0.4484305</td><td>  0.4608295</td><td>  0.4636785</td></tr>
+ <tr><td><font color="MidnightBlue">highest</font>:</td><td> 97.2413793</td><td> 97.4193548</td><td> 98.0000000</td><td> 99.1847826</td><td>100.0000000</td></tr>
+ </tbody></table>
+ <hr class="thinhr"> <span style="font-weight:bold">MONOR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZUlEQVQ4jdWTQQrAIAwEJ/7/0U2tRkkRest2ZFHBwxBZbAPHNKAt6DQJ9L0ICnWCP3kpiEX/2Kls4tAJQaQGNhXQ83IN3qh6FZuRv1BEjdTEhD2x4ykud4d6Rpvn1petB1+66LkAcgcMIWflPQ8AAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable363398 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable363398 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable363398 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable363398">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13959</td><td>732</td><td>2334</td><td>1</td><td>8.793</td><td>5.4</td><td> 2.000</td><td> 3.390</td><td> 5.634</td><td> 8.000</td><td>10.870</td><td>14.141</td><td>17.021</td></tr>
+ </tbody></table>
+ <style>
+ .hmisctable968194 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable968194 td {
+ text-align: right;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable968194 th {
+ color: Black;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: bold;
+ }
+ </style>
+ <table class="hmisctable968194">
+ <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td>  0.0000000</td><td>  0.2747253</td><td>  0.3412969</td><td>  0.3448276</td><td>  0.4566210</td></tr>
+ <tr><td><font color="MidnightBlue">highest</font>:</td><td> 68.5446009</td><td> 69.2307692</td><td> 70.3703704</td><td> 72.7272727</td><td>100.0000000</td></tr>
+ </tbody></table>
+ <hr class="thinhr"> <span style="font-weight:bold">NEUR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcUlEQVQ4jcXUgQqAIAwE0NP//+gsI8TtRDRvR0iMKY9oIgUETVhL1gZ9SsXtk5ocF8JdHonCZC6uinK9f9E4ZpN2+njU8zinMp/spGueZGHI5AJRozrZ/64l0CkXuzKXZbjnpT5w3kjZNHzrbp4jyzxeD/MJrwib458AAAAASUVORK5CYII=" alt="image"></div> <style>
+ .hmisctable799728 {
+ border: none;
+ font-size: 74%;
+ }
+ .hmisctable799728 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable799728 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable799728">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13959</td><td>732</td><td>3850</td><td>1</td><td>75.15</td><td>15.6</td><td>47.42</td><td>57.88</td><td>69.23</td><td>78.33</td><td>85.32</td><td>90.13</td><td>92.63</td></tr>
+ </tbody></table>
+ <style>
+ .hmisctable398211 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable398211 td {
+ text-align: right;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable398211 th {
+ color: Black;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: bold;
+ }
+ </style>
+ <table class="hmisctable398211">
+ <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td>  0.000000</td><td>  1.484829</td><td>  1.935484</td><td>  1.960784</td><td>  2.413793</td></tr>
+ <tr><td><font color="MidnightBlue">highest</font>:</td><td> 99.122807</td><td> 99.166667</td><td> 99.476440</td><td> 99.484536</td><td>100.000000</td></tr>
+ </tbody></table>
+ <hr class="thinhr"> <span style="font-weight:bold">PDW</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAfklEQVQ4jc3V3QqAIAwF4LPe/6FrGV3o/optddCikPkljEB+AJ587Qs2PwBPILI2K+5ehwZz/uFa871LUrXIrB00VAdNbzJbheIG1T874Co8M6V0BFVKk+vGWVU2qeZD1a3LBC6lXqKyT5B7CvwH5DHuGaF5GC8IF2FQzmfaAVQ1CjiAt1m9AAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable795628 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable795628 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable795628 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable795628">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13589</td><td>1102</td><td>167</td><td>1</td><td>12.29</td><td>2.375</td><td> 9.3</td><td> 9.8</td><td>10.8</td><td>12.0</td><td>13.4</td><td>15.1</td><td>16.4</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  6.6  6.8  6.9  7.0  7.1 ,  <font color="MidnightBlue">highest</font>: 24.1 24.7 24.9 25.2 25.3</span> <hr class="thinhr"> <span style="font-weight:bold">RBC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcklEQVQ4jc3TUQrAMAgD0Lj7H7otlO7LGjWwZRT20/g2EFYIsM6bSkc04kkGTrI90RiNSm5Ldd1VX7kildRG93AqmYzeJd4l2U/y6zIqyT+jGrKq/7rasvB+xSSwXe92TE3b2h14jyJuu+3JZjhvexfnGZo2CX2KyxI1AAAAAElFTkSuQmCC" alt="image"></div> <style>
+ .hmisctable779251 {
+ border: none;
+ font-size: 85%;
+ }
+ .hmisctable779251 td {
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ }
+ .hmisctable779251 th {
+ color: MidnightBlue;
+ text-align: center;
+ padding: 0 1ex 0 1ex;
+ font-weight: normal;
+ }
+ </style>
+ <table class="hmisctable779251">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>14230</td><td>461</td><td>65</td><td>0.999</td><td>3.936</td><td>0.8772</td><td>2.7</td><td>2.9</td><td>3.4</td><td>3.9</td><td>4.5</td><td>4.9</td><td>5.2</td></tr>
+ </tbody></table>
+ <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 1.0 1.1 1.2 1.3 1.4 ,  <font color="MidnightBlue">highest</font>: 7.2 7.4 7.6 7.7 8.2</span> <hr class="thinhr">
+</div>
+</div>
+</section>
+<section id="full-descriptive-summaries" class="level3" data-number="D.1.2">
+<h3 data-number="D.1.2" class="anchored" data-anchor-id="full-descriptive-summaries"><span class="header-section-number">D.1.2</span> Full descriptive summaries</h3>
+<p>For U2, we present only a limited number of statistics are presented for brevity. However, a full set of descriptive summaries are available according to the specifications in the IDA plan as a data set. The summary statistics can be viewed and analysed in the following directory <code>data/results/U2-descriptive-stats.csv</code>.</p>
+<div class="cell" data-hash="Bact_univar_appendix_cache/html/full_desc_21967dbbbef2acee1954a17d114f7b70">
+
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Bact_missing_appendix.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Bact_multivar_appendix.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Univariate distribution checks {#sec-univar-appendix}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>This section reports a series of univariate summary checks of the bacteremia dataset.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni01a, message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyselect)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtExtras)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjlabelled)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1972</span>)  <span class="do">## for any simulation or numerical approx calculations </span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the first iteration of the IDA ready data sets</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ADSL <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADSL_01.rds"</span>))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>ADLB <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_01.rds"</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## U2: Descriptive summaries </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### U2: Remaining predictors {#sec-u2-remaining}</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>We present a visual summary. </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni04a, message=FALSE, warning=FALSE, echo=FALSE}</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 3</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 4</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"U2-cont-describe-plot.R"</span>))</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>rem_plts <span class="ot">&lt;-</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(REM_PRED_FL01 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PARAM) <span class="sc">|&gt;</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">describe_plot</span>(.x, <span class="at">num_bins =</span> <span class="dv">300</span>))</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> rem_plts) {</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>And a descriprive summary</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni07, results='asis', message =FALSE, warning =FALSE , echo=FALSE}</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>remaining_predictors <span class="ot">&lt;-</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  ADLB <span class="sc">|&gt;</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(REM_PRED_FL01 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, PARAMCD, AVAL) <span class="sc">|&gt;</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"PARAMCD"</span>, <span class="at">values_from =</span> <span class="st">"AVAL"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>USUBJID)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span>(<span class="fu">describe</span>(remaining_predictors, <span class="at">size =</span> <span class="st">"tiny"</span>))</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### Full descriptive summaries </span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>For U2, we present only a limited number of statistics are presented for brevity. However, a full set of descriptive summaries are available according to the specifications in the IDA plan as a data set. The summary statistics can be viewed and analysed in the following directory <span class="in">`data/results/U2-descriptive-stats.csv`</span>. </span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r full_desc, message = FALSE, warning = FALSE , echo = FALSE}</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"fun_describe_long_dataset.R"</span>))</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="co"># summary stats </span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>ARD <span class="ot">&lt;-</span> <span class="fu">describe_long_dataset</span>(ADLB)</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>ARD <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"STATISTIC"</span>, <span class="at">values_from =</span> <span class="st">"RESULT"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"results"</span>, <span class="st">"U2-descriptive-stats.csv"</span>))</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

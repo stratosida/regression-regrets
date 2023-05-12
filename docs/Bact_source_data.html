@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Regression without regrets - Appendix B — Source data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Bact_missing_appendix.html" rel="next">
+<link href="./Bact_suppl.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Appendix B — Source data</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Regression without regrets</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-data_dict" id="toc-sec-data_dict" class="nav-link active" data-scroll-target="#sec-data_dict"><span class="toc-section-number">B.1</span>  Data dictionary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-source-data" class="quarto-section-identifier d-none d-lg-block">Appendix B — Source data</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-hash="Bact_source_data_cache/html/appendix-source-data-set-up_bce9939935784e68613a21b38fae7a48">
+
+</div>
+<p>The <strong>source</strong> data available in this repository (<strong>DC 2019-0054</strong>) can be located in the <code>data-raw</code> folder. For persistance, the data set is also published on <a href="https://doi.org/10.5281/zenodo.7554815">Zenodo</a> with the following doi: https://doi.org/10.5281/zenodo.7554815.</p>
+<p>The following sections provide a short overview of the data dictionary which accompanies the source data, and a short description of the data.</p>
+<section id="sec-data_dict" class="level2" data-number="B.1">
+<h2 data-number="B.1" class="anchored" data-anchor-id="sec-data_dict"><span class="header-section-number">B.1</span> Data dictionary</h2>
+<p>The data dictionary provides an overview of the collected data. First, we read and display the data dictionary below providing an overview of the collected measurements.</p>
+<div class="cell" data-hash="Bact_source_data_cache/html/datadict_99b85fbc1666ad8e8a8597932e90fbe0">
+
+</div>
+<p>The <code>variable</code> name and <code>label</code> are displayed alongside the measurement <code>scale</code> and <code>units</code> as well as <code>remarks</code> and relevant study information <code>from_paper</code>.</p>
+<div class="cell" data-hash="Bact_source_data_cache/html/datadict_display_5161db6b9d713be5a0c2a16f53e92eab">
+<div class="cell-output-display">
+
+<div id="waqnzkmgzd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#waqnzkmgzd) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 3px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#waqnzkmgzd) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#waqnzkmgzd) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#waqnzkmgzd) .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#waqnzkmgzd) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#waqnzkmgzd) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#waqnzkmgzd) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#waqnzkmgzd) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#waqnzkmgzd) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#waqnzkmgzd) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #FFFFFF;
+  vertical-align: middle;
+}
+
+:where(#waqnzkmgzd) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#waqnzkmgzd) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#waqnzkmgzd) .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#waqnzkmgzd) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 0px;
+  border-right-color: #FFFFFF;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#waqnzkmgzd) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#waqnzkmgzd) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#waqnzkmgzd) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#waqnzkmgzd) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#waqnzkmgzd) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#waqnzkmgzd) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#waqnzkmgzd) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#waqnzkmgzd) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#waqnzkmgzd) .gt_sourcenote {
+  font-size: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#waqnzkmgzd) .gt_left {
+  text-align: left;
+}
+
+:where(#waqnzkmgzd) .gt_center {
+  text-align: center;
+}
+
+:where(#waqnzkmgzd) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#waqnzkmgzd) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#waqnzkmgzd) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#waqnzkmgzd) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#waqnzkmgzd) .gt_super {
+  font-size: 65%;
+}
+
+:where(#waqnzkmgzd) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#waqnzkmgzd) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#waqnzkmgzd) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#waqnzkmgzd) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#waqnzkmgzd) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#waqnzkmgzd) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#waqnzkmgzd) .gt_indent_5 {
+  text-indent: 25px;
+}
+
+tbody tr:last-child {
+  border-bottom: 2px solid #ffffff00;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="variable">variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="label">label</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="scale_of_measurement">scale_of_measurement</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="units">units</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="variable" class="gt_row gt_left">ID</td>
+<td headers="label" class="gt_row gt_left">Patient Identification</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">nominal</td>
+<td headers="units" class="gt_row gt_left">1-14691</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">SEX</td>
+<td headers="label" class="gt_row gt_left">Patient sex</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">nominal</td>
+<td headers="units" class="gt_row gt_left">1=male, 2=female</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">AGE</td>
+<td headers="label" class="gt_row gt_left">Patient Age</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">years</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">MCV</td>
+<td headers="label" class="gt_row gt_left">Mean corpuscular volume</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">pg</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">HGB</td>
+<td headers="label" class="gt_row gt_left">Haemoglobin</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">HCT</td>
+<td headers="label" class="gt_row gt_left">Haematocrit</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">PLT</td>
+<td headers="label" class="gt_row gt_left">Blood platelets</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">MCH</td>
+<td headers="label" class="gt_row gt_left">Mean corpuscular hemoglobin</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">fl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">MCHC</td>
+<td headers="label" class="gt_row gt_left">Mean corpuscular hemoglobin concentration</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">g/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">RDW</td>
+<td headers="label" class="gt_row gt_left">Red blood cell distribution width</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">MPV</td>
+<td headers="label" class="gt_row gt_left">Mean platelet volume</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">fl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">LYM</td>
+<td headers="label" class="gt_row gt_left">Lymphocytes</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">MONO</td>
+<td headers="label" class="gt_row gt_left">Monocytes</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">EOS</td>
+<td headers="label" class="gt_row gt_left">Eosinophils</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">BASO</td>
+<td headers="label" class="gt_row gt_left">Basophiles</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">NT</td>
+<td headers="label" class="gt_row gt_left">Normotest</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">APTT</td>
+<td headers="label" class="gt_row gt_left">Activated partial thromboplastin time</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">sec</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">FIB</td>
+<td headers="label" class="gt_row gt_left">Fibrinogen</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">SODIUM</td>
+<td headers="label" class="gt_row gt_left">Sodium</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mmol/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">POTASS</td>
+<td headers="label" class="gt_row gt_left">Potassium</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mmol/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">CA</td>
+<td headers="label" class="gt_row gt_left">Calcium</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mmol/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">PHOS</td>
+<td headers="label" class="gt_row gt_left">Phosphate</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mmol/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">MG</td>
+<td headers="label" class="gt_row gt_left">Magnesium</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mmol/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">CREA</td>
+<td headers="label" class="gt_row gt_left">Creatinine</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">BUN</td>
+<td headers="label" class="gt_row gt_left">Blood urea nitrogen</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">HS</td>
+<td headers="label" class="gt_row gt_left">Uric acid</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">GBIL</td>
+<td headers="label" class="gt_row gt_left">Bilirubin</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">TP</td>
+<td headers="label" class="gt_row gt_left">Total protein</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">ALB</td>
+<td headers="label" class="gt_row gt_left">Albumin</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">AMY</td>
+<td headers="label" class="gt_row gt_left">Amylase</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">U/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">PAMY</td>
+<td headers="label" class="gt_row gt_left">Pancreas amylase</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">U/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">LIP</td>
+<td headers="label" class="gt_row gt_left">Lipases</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">U/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">CHE</td>
+<td headers="label" class="gt_row gt_left">Cholinesterase</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">kU/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">AP</td>
+<td headers="label" class="gt_row gt_left">Alkaline phosphatase</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">U/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">ASAT</td>
+<td headers="label" class="gt_row gt_left">Aspartate transaminase</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">U/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">ALAT</td>
+<td headers="label" class="gt_row gt_left">Alanin transaminase</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">U/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">GGT</td>
+<td headers="label" class="gt_row gt_left">Gamma-glutamyl transpeptidase</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">LDH</td>
+<td headers="label" class="gt_row gt_left">Lactate dehydrogenase</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">U/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">CK</td>
+<td headers="label" class="gt_row gt_left">Creatinine kinases</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">U/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">GLU</td>
+<td headers="label" class="gt_row gt_left">Glucoses</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">TRIG</td>
+<td headers="label" class="gt_row gt_left">Triclyceride</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">CHOL</td>
+<td headers="label" class="gt_row gt_left">Cholesterol</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">CRP</td>
+<td headers="label" class="gt_row gt_left">C-reactive protein</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">mg/dl</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">BASOR</td>
+<td headers="label" class="gt_row gt_left">Basophile ratio</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">EOSR</td>
+<td headers="label" class="gt_row gt_left">Eosinophil ratio</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">LYMR</td>
+<td headers="label" class="gt_row gt_left">Lymphocyte ratio</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">% (mg/dl)</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">MONOR</td>
+<td headers="label" class="gt_row gt_left">Monocyte ratio</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">NEU</td>
+<td headers="label" class="gt_row gt_left">Neutrophiles</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">NEUR</td>
+<td headers="label" class="gt_row gt_left">Neutrophile ratio</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">PDW</td>
+<td headers="label" class="gt_row gt_left">Platelet distribution width</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">RBC</td>
+<td headers="label" class="gt_row gt_left">Red blood count</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">T/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">WBC</td>
+<td headers="label" class="gt_row gt_left">White blood count</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">continuous</td>
+<td headers="units" class="gt_row gt_left">G/L</td></tr>
+    <tr><td headers="variable" class="gt_row gt_left">BloodCulture</td>
+<td headers="label" class="gt_row gt_left">Blood culture result for bacteremia</td>
+<td headers="scale_of_measurement" class="gt_row gt_left">nominal</td>
+<td headers="units" class="gt_row gt_left">no, yes</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<p>We do not display all observations measured as it is too wide and long to fit reasonably in to the report. However, we refer you to the <a href="https://doi.org/10.5281/zenodo.7554815">Zenodo page</a> for an interactive overview of the source data.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Bact_suppl.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Bact_missing_appendix.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Source data {#sec-source-data}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r appendix-source-data-set-up, warning=FALSE, message=FALSE}</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Load libraries for this chapter</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtExtras)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>The **source** data available in this repository (**DC 2019-0054**) can be located in the <span class="in">`data-raw`</span> folder. For persistance, the data set is also published on <span class="co">[</span><span class="ot">Zenodo</span><span class="co">](https://doi.org/10.5281/zenodo.7554815)</span> with the following doi: https://doi.org/10.5281/zenodo.7554815. </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>The following sections provide a short overview of the data dictionary which accompanies the source data, and a short description of the data. </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data dictionary {#sec-data_dict}</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>The data dictionary provides an overview of the collected data. First, we read and display the data dictionary below providing an overview of the collected measurements. </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r datadict, warning=FALSE, message=FALSE, echo=FALSE}</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in the source data dictionary, </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="do">## clean column names to be consistent format </span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="do">## and arrange by variable order.  </span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>bact_dd <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"data-raw"</span>, <span class="st">"Bacteremia_public_S2_Data_Dictionary.csv"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(VariableNr) <span class="sc">|&gt;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>The <span class="in">`variable`</span> name and <span class="in">`label`</span> are displayed alongside the measurement <span class="in">`scale`</span> and <span class="in">`units`</span> as well as <span class="in">`remarks`</span> and relevant study information <span class="in">`from_paper`</span>. </span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r datadict_display}</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="do">## display the dictionary. </span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>bact_dd <span class="sc">|&gt;</span> </span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable_nr, <span class="sc">-</span>remark, <span class="sc">-</span>from_paper) <span class="sc">|&gt;</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>We do not display all observations measured as it is too wide and long to fit reasonably in to the report. However, we refer you to the <span class="co">[</span><span class="ot">Zenodo page</span><span class="co">](https://doi.org/10.5281/zenodo.7554815)</span> for an interactive overview of the source data. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
