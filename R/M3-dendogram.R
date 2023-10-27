@@ -35,11 +35,11 @@ m3_dendogram <- function(ADLB){
   dend <- set(dend, "labels_cex", 0.7)
   
   # And plot:
-  par(mar = c(3,3,3,7))
+  par(mar = c(3,3,3,20))
   
 
   plot(dend,
-       main = "Clustered variables by percentage observations discordantly missing [percentage missing]",
-       xlab="Percent discordantly missing",
+       main = "Variables clustered by concordance in missingness [percentage missing]",
+       xlab="Proportion of observations with discordant missingness",
        horiz =  TRUE,  nodePar = list(cex = .005))
 }

@@ -16,7 +16,7 @@ ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
 ```
 
-## M1: Prevalence of missing values for remaining predictors {#sec-M1-appendix}
+## M2: Variable missingness for remaining predictors {#sec-M1-appendix}
 
 ```{r m1-lab-predictors-rem, message = FALSE, warning = FALSE, echo = FALSE}
 

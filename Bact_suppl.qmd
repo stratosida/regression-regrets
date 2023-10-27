@@ -63,9 +63,28 @@ In the following examples we use the Bacteremia data with complete observations 
 
 The aim of the examples is to showcase how decisions derived from IDA influence the results of the fitted model.
 
-## Global Model
+### Global Model
 
 The global model will be fitted by the *mfp* function. If not indicated otherwise, we will use the fp-transformations of the key predictors determined in global model in all consecutive models. For all models we report McFaddens's R² and the AUC, i.e. the area under the ROC curve, and boxplots comparing "**BACTEREMIAN**" predictions with outcomes.
+
+To put the results of the global model into context, we will first review the histograms of the original and the transformed predictors:
+
+```{r}
+p_gl <- data_model_trans |>
+  select(all_of(key_predictors)) |>
+  pivot_longer(cols = everything()) |>
+  ggplot(aes(x = value, group = name)) + 
+  facet_wrap(~name, scales = 'free', strip.position = "bottom") +
+  geom_histogram(fill = 'firebrick2', color = NA, alpha = 0.5, bins = 200) +
+  theme_minimal(base_size = 10) +
+  theme(strip.placement = 'outside', 
+        axis.title = element_blank(), 
+        axis.text.y = element_blank())
+
+p_gl
+
+```
+
 
 ### Model Summary
 
@@ -98,7 +117,8 @@ Report the global model fit.
 
 tidy(fit_mfp_trans) |>
   gt_model_table(title = 'global model - including transformed variables') |>
-  gt_theme_538()
+  gt_theme_538() |>
+  fmt_number(columns=c("estimate", "std.error"), decimals=3)
 
 #Mc Fadden's R²
 #r_squared_mcfadden <- with(summary(fit_mfp_trans), 1 - deviance/null.deviance)
@@ -183,7 +203,7 @@ Note the different fp-transformation arising when the key predictors are not pse
 #| layout-ncol: 2
 
 p_model_orig <- logreg_summary_plot(fit_mfp_orig, "Original scale") 
-p_model_trans <- logreg_summary_plot(fit_mfp_trans, "Psuedo log transformed") 
+p_model_trans <- logreg_summary_plot(fit_mfp_trans, "Pseudo log transformed") 
 
 
 (p_model_orig + theme(axis.title.x = element_blank())) / 
@@ -217,19 +237,92 @@ for(predictor in key_predictors){
 }
 
 ```
+## Example 2: Interpretation of regression coefficient 'size'
 
-## Example 2: the support of a model determines what it can explain
+As a result of IDA, it turned out that the key predictor WBC_noNEU should be transformed for further analyses because of its extreme skewness. As a consequence, the original variable WBC_noNEU and the pseudo-logged variable  WBC_noNEU_T are now on two very different scales:
 
-Next we compare the global model to a model were for an important variable, in our case we chose age, the variable support is reduced to the central 50% of the data (i.e. data within the 25% and 75% quantiles). Again, in the reduced models we use the same fp-transformations as in the global model.
 
-```{r example2: prediction validity, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}
+```{r ex 2 plots, message = FALSE, warning = FALSE, fig.width=10, fig.height=4}
+
+#| fig-cap: "Distribution of key predictors including transformed variables"
+
+p_ex4_o <- data_model_orig |>
+  select(WBC_noNEU) |>
+  pivot_longer(cols = everything()) |>
+  ggplot(aes(x = value, group = name)) + 
+  facet_wrap(~name, scales = 'free', strip.position = "bottom") +
+  geom_histogram(fill = 'firebrick2', color = NA, alpha = 0.5, bins = 200) +
+  theme_minimal(base_size = 10) +
+  theme(strip.placement = 'outside', 
+        axis.title = element_blank(), 
+        axis.text.y = element_blank())
+
+p_ex4_o
+
+p_ex4_t <- data_model_trans |>
+  select(WBC_noNEU_T) |>
+  pivot_longer(cols = everything()) |>
+  ggplot(aes(x = value, group = name)) + 
+  facet_wrap(~name, scales = 'free', strip.position = "bottom") +
+  geom_histogram(fill = 'firebrick2', color = NA, alpha = 0.5, bins = 200) +
+  theme_minimal(base_size = 10) +
+  theme(strip.placement = 'outside', 
+        axis.title = element_blank(), 
+        axis.text.y = element_blank())
+
+p_ex4_t
+```
+
+To illustrate that the scale of the original variable determines the size of the regression coefficient, let us consider two logistic regression models with WBC_noNEU and t_WBC_noNEU as single covariate, respectively.
+
+```{r ex 2 estimates2, message = FALSE, warning = FALSE}
+
+fit_wbc_orig <- glm(BACTEREMIAN ~ WBC_noNEU,
+                    data = data_model_orig,
+                    family = binomial) 
+
+fit_wbc_trans <- glm(BACTEREMIAN ~ WBC_noNEU_T,
+                     data = data_model_trans,
+                     family = binomial) 
+
+bind_rows(
+  tidy(fit_wbc_orig),
+  tidy(fit_wbc_trans)
+  ) |>
+  filter(str_detect(term, 'WBC')) |>
+  select(term, estimate, std.error, statistic) |>
+  gt() |>
+  fmt_number(c(estimate, std.error, statistic), decimals = 3) |>
+  tab_header(title = "Comparing original and transformed scale") |>
+  gt_theme_538()
+
+
+#fit_wbc_orig$coefficients[2] |> round(2)
+
+```
+
+Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates `r fit_wbc_orig$coefficients[2] |> round(2)` and `r fit_wbc_trans$coefficients[2] |> round(2)` indicate the difference in log odds for the outcome when the 'term' variable differs by 1 unit, but cannot be compared directly. A $1$ unit difference is only a small step on the original scale, where WBC_noNEU covers values from `r range(data_model_orig$WBC_noNEU)[1]` up to `r range(data_model_orig$WBC_noNEU)[2]`. In comparison, WBC_noNEU_T lies between `r round(range(data_model_orig$WBC_noNEU_T)[1],2)` up to `r round(range(data_model_orig$WBC_noNEU_T)[2],2)`, so a difference of $1$ unit cover almost half the range of the variable.
+
+
+
+```{r ex 2 logreg plots, message = FALSE, warning = FALSE}
+logreg_summary_plot(fit_wbc_orig, "Simple model with WBC on original scale")
+logreg_summary_plot(fit_wbc_trans, "Simple model with WBC on transformed scale")
+```
+
+
+## Example 3: the support of a model determines what it can explain
+
+Next we compare the global model to a model were for an important variable, in our case we chose age, the variable support is reduced to the central 50% of the data (i.e. data within the 25% and 75% quantiles), and for comparison we also generate a scenario where we randomly sample 50% of the data. 
+
+```{r example3: prediction validity, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}
 
 m_pct <- .5
 
 sel_central <- (data_model_orig$AGE > quantile(data_model_orig$AGE, 0.5-m_pct/2)) & 
   (data_model_orig$AGE < quantile(data_model_orig$AGE, 0.5+m_pct/2)) #needed later
 
-
+set.seed(7123981) # fix seed for reproducibility
 sel_sample <- as.logical(round(runif(dim(data_model_orig)[1]))) # 50% random selection, needed later
 
 pred_complete <- predict(fit_mfp_trans, 
@@ -238,13 +331,13 @@ pred_complete <- predict(fit_mfp_trans,
 
 y_complete <- fit_mfp_trans$y
 
-pred_central <- predict(fit_mfp_trans, 
+pred_central <- predict(update(fit_mfp_trans, subset=sel_central), # refit and repredict model
                         newdata = data_model_trans[sel_central,],
                         type = 'response')
 
 y_central <- fit_mfp_trans$y[sel_central]
 
-pred_sample <- predict(fit_mfp_trans, 
+pred_sample <- predict(update(fit_mfp_trans, subset=sel_sample), # refit and repredict model
                        newdata = data_model_trans[sel_sample,],
                        type = 'response')
 
@@ -252,14 +345,15 @@ y_sample <- fit_mfp_trans$y[sel_sample]
 
 ```
 
+When evaluating the apparent predictive performance in terms of the AUC and the scaled Brier score, we see that the model fitted on the participants with age between the first and third quartiles performs worse than the global model and the model where 50% were randomly sampled.
 
-```{r example2: table scenarios, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}
+```{r example3: table scenarios, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}
 
 tribble(
   ~data, ~AUC, ~`scaled Brier score`,
   'complete', auc(y_complete, pred_complete) |> as.numeric(), cor(y_complete, pred_complete)^2,
-  'central 50%', auc(y_central, pred_central) |> as.numeric(), cor(y_central, pred_central)^2,
-  '50% sample', auc(y_sample, pred_sample) |> as.numeric(), cor(y_sample, pred_sample)^2,
+  'central 50% of age distribution', auc(y_central, pred_central) |> as.numeric(), cor(y_central, pred_central)^2,
+  'randomly sampled 50%', auc(y_sample, pred_sample) |> as.numeric(), cor(y_sample, pred_sample)^2,
 ) |>
   gt() %>%
   fmt_number(2, decimals = 3) |>
@@ -270,7 +364,7 @@ tribble(
 
 Plot the model predictions based on different missing data scenarios
 
-```{r example2: plot, message = FALSE, warning = FALSE, fig.width=6, fig.height=5}
+```{r example3: plot, message = FALSE, warning = FALSE, fig.width=6, fig.height=5}
 #| fig-cap: "Model predictions based on different missing data scenarios."
 
 p_ex2 <-
@@ -316,11 +410,11 @@ p_ex2
 ```
 
 
-## Example 3: the limits of mulitiple imputation
+## Example 4: the limits of mulitiple imputation
 
 To show the effect of multiple imputation if the number of missing values is high, we construct a dataset with 50% artificially generated missing values in one variable. First, recall the output of the complete model, relying on the Bacteremia data with complete cases regarding the key predictors.
 
-```{r ex3: table global model, message = FALSE, warning = FALSE}
+```{r ex4: table global model, message = FALSE, warning = FALSE}
 
 fit_mfp_trans |>
   tidy() |> 
@@ -333,13 +427,13 @@ Creatinine ('CREA') is significant at a level that might not survive substantial
 
 ```{r ex3: create missing crea, message = FALSE, warning = FALSE, fig.width = 10, fig.height=6, fig.width=12}
 
-# create 50% missings for t_KREA
+# create 50% missings for CREA_T
 
 data_model_trans_missings <- 
   data_model_trans |>
   mutate(
     CREA_T = ifelse(
-      runif(dim(data_model_orig)[1]) < .5,  #~50%/50% TURE/FALSE
+      runif(dim(data_model_orig)[1]) < .5,  #~50%/50% TRUE/FALSE
       CREA_T,
       NA
     )
@@ -378,11 +472,11 @@ fit_pooled <- pool(imp_fits)
 
 We now can compare the outputs of the complete model, the complete model with missing data (i.e. only half of the original complete data is used), and the imputed model.
 
-```{r ex3: imputation comparison, message = FALSE, warning = FALSE}
+```{r ex4: imputation comparison, message = FALSE, warning = FALSE}
 
 comparison_data <- 
   bind_rows(
-  tidy(fit_mfp_trans)  |> mutate(model = 'global model'),
+  tidy(fit_mfp_trans)  |> mutate(model = 'no missing data'),
   tidy(fit_mfp_missing) |> mutate(model = 'missing, complete cases'),
   summary(fit_pooled) |> select(-df) |> as_tibble() |> mutate(model = 'missing, imputed')
   ) |>
@@ -404,12 +498,12 @@ comparison_data |>
     decimals = 3
   ) |>
   fmt_scientific(6) |>
-  tab_header(title = "Comparison of the complete model, the complete model with missing data") |>
+  tab_header(title = "Comparison of the model with no missing data, with complete cases, and with imputed data") |>
   gt_theme_538()
   
 ```
 
-The z-statistic for creatinine drops from 2.98 to 1.49 when half the data is missing. Also in other variables the z-statistic is less extreme in the 'missing, complete case analysis' compared to the global model. The interesting observations is that MI recreates estimates and standard errors very close to the global model in most variables, but not in the one that was being imputed, namely creatinine. In variable selection, creatinine, which is highly significant in the 'true' model, is likely to be dropped, based on the imputed data.
+When half of the data is missing, the standard errors of the coefficients increase by a factor of approximately $\sqrt 2$.  Multiple imputation is able to  recreate standard errors very close to those of the model with no missing data in most variables, but not in the one that was being imputed, namely creatinine. Its relative importance in the model is higher in the complete cases model than in the imputed model.
 
 ```{r ex3: z statistics, message = FALSE, warning = FALSE}
 #pearson & spearman correalation of CREA and BUN
@@ -419,121 +513,11 @@ r_spearman <- cor(data_model_trans$CREA_T, data_model_trans$BUN, method = 'spear
 
 ```
 
-## Example 4: Interpretation of regression coefficient 'size'
-
-The variables WBC_noNEU and WBC_noNEU_T are on two very different scales:
-
-Plot
-
-```{r ex 4 plots, message = FALSE, warning = FALSE, fig.width=10, fig.height=4}
-
-#| fig-cap: "Distribution of key predictors including transformed variables"
-
-p_ex4 <- data_model_trans |>
-  select(key_predictors) |>
-  pivot_longer(cols = everything()) |>
-  ggplot(aes(x = value, group = name)) + 
-  facet_wrap(~name, scales = 'free', strip.position = "bottom") +
-  geom_histogram(fill = 'firebrick2', color = NA, alpha = 0.5, bins = 200) +
-  theme_minimal(base_size = 10) +
-  theme(strip.placement = 'outside', 
-        axis.title = element_blank(), 
-        axis.text.y = element_blank())
-
-p_ex4
-```
-
-Table the standardized regression coefficients. 
-
-```{r ex 4 table fit, message = FALSE, warning = FALSE, fig.width=4, fig.height=4}
-# standardized regression coefficients
-
-tidy(fit_mfp_trans) |>
-  select(term, estimate) |>
-  filter(term != '(Intercept)') |> 
-  gt() |> 
-  tab_header(title = "Global model - standardized regression estimates") |>
-  fmt_number(estimate, decimals = 3) |>
-  gt_theme_538()
-
-```
-Table standardized coefficients. 
-
-```{r ex 4 coeffs, message = FALSE, warning = FALSE, fig.width=4, fig.height=4}
-
-data_model_trans |>
-  summarise(
-    WBC_noNEU = sd(((WBC_noNEU_T + 0.1) ^ 0.5) * fit_mfp_trans$coefficients[2]),
-    NEU = sd((NEU + 0.1) * fit_mfp_trans$coefficients[3]),
-    AGE = sd((AGE / 100) * fit_mfp_trans$coefficients[4]),
-    CREA = sd((CREA_T) * fit_mfp_trans$coefficients[5]),
-    PLT = sd(((PLT + 1) / 100) * fit_mfp_trans$coefficients[6]),
-    BUN = sd((BUN) * fit_mfp_trans$coefficients[7])
-  ) |>
-  pivot_longer(cols = everything(),
-               names_to = 'variable',
-               values_to = 'standardized beta') %>%
-  gt() |>
-  fmt_number(2, decimals = 4) |>
-  tab_header(title = "Global model - standardized regression coefficients") |>
-  gt_theme_538()
-
-  
-```
-
-Let us recall the two estimates to the covariates `WBC_noNEU` and `WBC_noNEU_T`.
-
-```{r ex 4 estimates, message = FALSE, warning = FALSE}
-
-bind_rows(
-  tidy(fit_mfp_trans) |> select(term, estimate),
-  tidy(fit_mfp_orig) |> select(term, estimate)
-  ) |> 
-  filter(str_detect(term, 'WBC')) |>
-  gt() |>
-  fmt_number(2, decimals = 2) |> 
-  tab_header(title = "Comparing original scale and transformed") |>
-  gt_theme_538()
-
-```
-
-(Suggestion: show this with models without fp transform?)
-
-Because the fp-transformations further complicate the interpretation of the regression coefficients, let us consider two logisitc regression models with WBC_noNEU and t_WBC_noNEU as single covariate, respectively.
-
-```{r ex 4 estimates2, message = FALSE, warning = FALSE}
-
-fit_wbc_orig <- glm(BACTEREMIAN ~ WBC_noNEU,
-                    data = data_model_orig,
-                    family = binomial) 
-
-fit_wbc_trans <- glm(BACTEREMIAN ~ WBC_noNEU_T,
-                     data = data_model_trans,
-                     family = binomial) 
-
-bind_rows(
-  tidy(fit_wbc_orig),
-  tidy(fit_wbc_trans)
-  ) |>
-  filter(str_detect(term, 'WBC')) |>
-  select(term, estimate) |>
-  gt() |>
-  fmt_number(estimate, decimals = 2) |>
-  tab_header(title = "Comparing original scale and transformed") |>
-  gt_theme_538()
 
 
-#fit_wbc_orig$coefficients[2] |> round(2)
+## Example 5: Plot of functional form should focus on areas with high density
 
-```
-
-The estimates `r fit_wbc_orig$coefficients[2] |> round(2)` and `r fit_wbc_trans$coefficients[2] |> round(2)` the change in log odds for the outcome when the 'term' variable changes by 1 unit, but cannot be compared directly. A $1$ unit change is only a small step on the original scale, where WBC_noNEU covers values from `r range(data_model_orig$WBC_noNEU)[1]` up to `r range(data_model_orig$WBC_noNEU)[2]`. In comparison, WBC_noNEU_T lies between `r round(range(data_model_orig$WBC_noNEU_T)[1],2)` up to `r round(range(data_model_orig$WBC_noNEU_T)[2],2)`, so change of $1$ unit cover almost half the range of the variable.
-
-
-
-## Example 5: Plot of functional form should be resticted to areas with high density
-
-The functional forms have wide confidence intervals when the data is sparse. In presentations of the effects, plots of the functional forms can be limited to areas with high density. In this analysis, PLT was very sparse above \~800 \[UNITS\], which is reflected in a large confidence interval for high PLT values. In the effect plot PLT values could be limited to values \<800 \[UNITS\].
+The functional forms have wide confidence intervals when the data is sparse. In presentations of the effects, plots of the functional forms should focus on areas with high density. In this analysis, PLT was very sparse above \~800 \[UNITS\], which is reflected in a large confidence interval for high PLT values. In the effect plot PLT values could be limited to values \<800 \[UNITS\].
 
 ```{r ex5: fit , message = FALSE, warning = FALSE, fig.width=8, fig.height=4}
 #| fig-cap: "Model predictions"
