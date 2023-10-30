@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -120,7 +91,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -132,11 +104,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Bact_analysis_data_IDA.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -144,100 +121,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Regression without regrets</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a>
+  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></a>
+  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></a>
+  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></a>
+  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Supplementary Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></a>
+  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Source data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></a>
+  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -245,22 +238,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#analysis-ready-dataset" id="toc-analysis-ready-dataset" class="nav-link active" data-scroll-target="#analysis-ready-dataset"><span class="toc-section-number">3.1</span>  Analysis ready dataset</a>
+  <li><a href="#analysis-ready-dataset" id="toc-analysis-ready-dataset" class="nav-link active" data-scroll-target="#analysis-ready-dataset"><span class="header-section-number">3.1</span> Analysis ready dataset</a>
   <ul class="collapse">
-  <li><a href="#data-set-transformations" id="toc-data-set-transformations" class="nav-link" data-scroll-target="#data-set-transformations"><span class="toc-section-number">3.1.1</span>  Data set transformations</a></li>
-  <li><a href="#add-lab-variable-meta-data" id="toc-add-lab-variable-meta-data" class="nav-link" data-scroll-target="#add-lab-variable-meta-data"><span class="toc-section-number">3.1.2</span>  Add lab variable meta-data</a></li>
-  <li><a href="#reorder-variables" id="toc-reorder-variables" class="nav-link" data-scroll-target="#reorder-variables"><span class="toc-section-number">3.1.3</span>  Reorder variables</a></li>
-  <li><a href="#add-informative-variable-meta-data" id="toc-add-informative-variable-meta-data" class="nav-link" data-scroll-target="#add-informative-variable-meta-data"><span class="toc-section-number">3.1.4</span>  Add informative variable meta-data</a></li>
-  <li><a href="#visual-check-outcome-is-correct" id="toc-visual-check-outcome-is-correct" class="nav-link" data-scroll-target="#visual-check-outcome-is-correct"><span class="toc-section-number">3.1.5</span>  Visual check outcome is correct</a></li>
-  <li><a href="#dervive-indicator-flags" id="toc-dervive-indicator-flags" class="nav-link" data-scroll-target="#dervive-indicator-flags"><span class="toc-section-number">3.1.6</span>  Dervive indicator flags</a></li>
-  <li><a href="#data-dervivations" id="toc-data-dervivations" class="nav-link" data-scroll-target="#data-dervivations"><span class="toc-section-number">3.1.7</span>  Data dervivations</a></li>
-  <li><a href="#save-analysis-ready-data-for-ida" id="toc-save-analysis-ready-data-for-ida" class="nav-link" data-scroll-target="#save-analysis-ready-data-for-ida"><span class="toc-section-number">3.1.8</span>  Save analysis ready data for IDA</a></li>
+  <li><a href="#data-set-transformations" id="toc-data-set-transformations" class="nav-link" data-scroll-target="#data-set-transformations"><span class="header-section-number">3.1.1</span> Data set transformations</a></li>
+  <li><a href="#add-lab-variable-meta-data" id="toc-add-lab-variable-meta-data" class="nav-link" data-scroll-target="#add-lab-variable-meta-data"><span class="header-section-number">3.1.2</span> Add lab variable meta-data</a></li>
+  <li><a href="#reorder-variables" id="toc-reorder-variables" class="nav-link" data-scroll-target="#reorder-variables"><span class="header-section-number">3.1.3</span> Reorder variables</a></li>
+  <li><a href="#add-informative-variable-meta-data" id="toc-add-informative-variable-meta-data" class="nav-link" data-scroll-target="#add-informative-variable-meta-data"><span class="header-section-number">3.1.4</span> Add informative variable meta-data</a></li>
+  <li><a href="#visual-check-outcome-is-correct" id="toc-visual-check-outcome-is-correct" class="nav-link" data-scroll-target="#visual-check-outcome-is-correct"><span class="header-section-number">3.1.5</span> Visual check outcome is correct</a></li>
+  <li><a href="#dervive-indicator-flags" id="toc-dervive-indicator-flags" class="nav-link" data-scroll-target="#dervive-indicator-flags"><span class="header-section-number">3.1.6</span> Dervive indicator flags</a></li>
+  <li><a href="#data-dervivations" id="toc-data-dervivations" class="nav-link" data-scroll-target="#data-dervivations"><span class="header-section-number">3.1.7</span> Data dervivations</a></li>
+  <li><a href="#save-analysis-ready-data-for-ida" id="toc-save-analysis-ready-data-for-ida" class="nav-link" data-scroll-target="#save-analysis-ready-data-for-ida"><span class="header-section-number">3.1.8</span> Save analysis ready data for IDA</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -270,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="ARD" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="ARD" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -285,9 +279,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/ard01_a2552a325a308477b2e00ef72ca8a3ef">
-
-</div>
 <p>Based on the IDA plan, this section prepares the source data to be analysis ready: read, clean, tidy and transform. This section focuses on the steps prior to IDA (data screening) and the required additions to the <strong>source data</strong> in order to prepare the data. The aim is to produce an analysis ready data set for the research objective.</p>
 <section id="analysis-ready-dataset" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="analysis-ready-dataset"><span class="header-section-number">3.1</span> Analysis ready dataset</h2>
@@ -301,16 +292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Important meta-data is added to the data set from the data dictionary. At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.</p>
 <p>First the source data set and corresponding data dictionary are loaded. The variable names are normalized.</p>
 <p>A new variable is created called <code>PARAMCD</code> which stores the abbreviated variable name as a reference. This provides a link between the dictionary and source data.</p>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/read_source_dict_496f11634d71cb33db283ab4f00e7bad">
-
-</div>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/read_source_779683f8d6a2d222eaec899865bfc439">
-
-</div>
 <p>The source data is then transform in to a <em>long</em> format to store the lab specific measurements called <code>ADLB</code>. A long format enables efficient data processing and also allows new transformed variables to be added during the course of IDA. Structural and demographic variables will be stored in a <em>wide</em> format in a separate data set named <code>ADSL</code>.</p>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/contents_abact_02428963c5892c4a6460075440c7a4d7">
-
-</div>
 </section>
 <section id="add-lab-variable-meta-data" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="add-lab-variable-meta-data"><span class="header-section-number">3.1.2</span> Add lab variable meta-data</h3>
@@ -322,23 +304,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Categories for sex</li>
 <li>rename outcome to be more informative</li>
 </ul>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/transform_ac50df8f7ea178abbb39c2b14578289b">
-
-</div>
 </section>
 <section id="reorder-variables" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="reorder-variables"><span class="header-section-number">3.1.3</span> Reorder variables</h3>
 <p>Select and re-order the variables as per the data set specification.</p>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/reorder_b098cf98aade4d4c89f406bb7c615517">
-
-</div>
 </section>
 <section id="add-informative-variable-meta-data" class="level3" data-number="3.1.4">
 <h3 data-number="3.1.4" class="anchored" data-anchor-id="add-informative-variable-meta-data"><span class="header-section-number">3.1.4</span> Add informative variable meta-data</h3>
 <p>Add variable metadata as label attributes.</p>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/meta_data_57cc95c69824a78c875d2e84c8e52d74">
-
-</div>
 </section>
 <section id="visual-check-outcome-is-correct" class="level3" data-number="3.1.5">
 <h3 data-number="3.1.5" class="anchored" data-anchor-id="visual-check-outcome-is-correct"><span class="header-section-number">3.1.5</span> Visual check outcome is correct</h3>
@@ -346,15 +319,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/outcome_check_333f4cda33f50ac500a197c5a93f6bff">
 <div class="cell-output-display">
 
-<div id="jumjaaduzn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="edznockuwc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-html {
-  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+#edznockuwc table {
+  font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-:where(#jumjaaduzn) .gt_table {
+#edznockuwc thead, #edznockuwc tbody, #edznockuwc tfoot, #edznockuwc tr, #edznockuwc td, #edznockuwc th {
+  border-style: none;
+}
+
+#edznockuwc p {
+  margin: 0;
+  padding: 0;
+}
+
+#edznockuwc .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -377,24 +362,12 @@ html {
   border-left-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#jumjaaduzn) .gt_caption {
+#edznockuwc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-:where(#jumjaaduzn) .gt_title {
+#edznockuwc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -406,25 +379,37 @@ html {
   border-bottom-width: 0;
 }
 
-:where(#jumjaaduzn) .gt_subtitle {
+#edznockuwc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-:where(#jumjaaduzn) .gt_bottom_border {
+#edznockuwc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#edznockuwc .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_col_headings {
+#edznockuwc .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -439,7 +424,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_col_heading {
+#edznockuwc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -459,7 +444,7 @@ html {
   overflow-x: hidden;
 }
 
-:where(#jumjaaduzn) .gt_column_spanner_outer {
+#edznockuwc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -471,15 +456,15 @@ html {
   padding-right: 4px;
 }
 
-:where(#jumjaaduzn) .gt_column_spanner_outer:first-child {
+#edznockuwc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#jumjaaduzn) .gt_column_spanner_outer:last-child {
+#edznockuwc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#jumjaaduzn) .gt_column_spanner {
+#edznockuwc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -491,7 +476,11 @@ html {
   width: 100%;
 }
 
-:where(#jumjaaduzn) .gt_group_heading {
+#edznockuwc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#edznockuwc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -517,7 +506,7 @@ html {
   text-align: left;
 }
 
-:where(#jumjaaduzn) .gt_empty_group_heading {
+#edznockuwc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -532,15 +521,15 @@ html {
   vertical-align: middle;
 }
 
-:where(#jumjaaduzn) .gt_from_md > :first-child {
+#edznockuwc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#jumjaaduzn) .gt_from_md > :last-child {
+#edznockuwc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#jumjaaduzn) .gt_row {
+#edznockuwc .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -559,7 +548,7 @@ html {
   overflow-x: hidden;
 }
 
-:where(#jumjaaduzn) .gt_stub {
+#edznockuwc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -572,7 +561,7 @@ html {
   padding-right: 5px;
 }
 
-:where(#jumjaaduzn) .gt_stub_row_group {
+#edznockuwc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -586,11 +575,15 @@ html {
   vertical-align: top;
 }
 
-:where(#jumjaaduzn) .gt_row_group_first td {
+#edznockuwc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#jumjaaduzn) .gt_summary_row {
+#edznockuwc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#edznockuwc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -600,16 +593,16 @@ html {
   padding-right: 5px;
 }
 
-:where(#jumjaaduzn) .gt_first_summary_row {
+#edznockuwc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_first_summary_row.thick {
+#edznockuwc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#jumjaaduzn) .gt_last_summary_row {
+#edznockuwc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -619,7 +612,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_grand_summary_row {
+#edznockuwc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -629,7 +622,7 @@ html {
   padding-right: 5px;
 }
 
-:where(#jumjaaduzn) .gt_first_grand_summary_row {
+#edznockuwc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -639,11 +632,21 @@ html {
   border-top-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_striped {
+#edznockuwc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#edznockuwc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#jumjaaduzn) .gt_table_body {
+#edznockuwc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -652,7 +655,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_footnotes {
+#edznockuwc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -666,16 +669,16 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_footnote {
+#edznockuwc .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-:where(#jumjaaduzn) .gt_sourcenotes {
+#edznockuwc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -689,7 +692,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#jumjaaduzn) .gt_sourcenote {
+#edznockuwc .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -697,64 +700,63 @@ html {
   padding-right: 5px;
 }
 
-:where(#jumjaaduzn) .gt_left {
+#edznockuwc .gt_left {
   text-align: left;
 }
 
-:where(#jumjaaduzn) .gt_center {
+#edznockuwc .gt_center {
   text-align: center;
 }
 
-:where(#jumjaaduzn) .gt_right {
+#edznockuwc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#jumjaaduzn) .gt_font_normal {
+#edznockuwc .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#jumjaaduzn) .gt_font_bold {
+#edznockuwc .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#jumjaaduzn) .gt_font_italic {
+#edznockuwc .gt_font_italic {
   font-style: italic;
 }
 
-:where(#jumjaaduzn) .gt_super {
+#edznockuwc .gt_super {
   font-size: 65%;
 }
 
-:where(#jumjaaduzn) .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
+#edznockuwc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
-:where(#jumjaaduzn) .gt_asterisk {
+#edznockuwc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#jumjaaduzn) .gt_indent_1 {
+#edznockuwc .gt_indent_1 {
   text-indent: 5px;
 }
 
-:where(#jumjaaduzn) .gt_indent_2 {
+#edznockuwc .gt_indent_2 {
   text-indent: 10px;
 }
 
-:where(#jumjaaduzn) .gt_indent_3 {
+#edznockuwc .gt_indent_3 {
   text-indent: 15px;
 }
 
-:where(#jumjaaduzn) .gt_indent_4 {
+#edznockuwc .gt_indent_4 {
   text-indent: 20px;
 }
 
-:where(#jumjaaduzn) .gt_indent_5 {
+#edznockuwc .gt_indent_5 {
   text-indent: 25px;
 }
 
@@ -762,10 +764,10 @@ tbody tr:last-child {
   border-bottom: 2px solid #ffffff00;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="BloodCulture">BloodCulture</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="n">n</th>
     </tr>
@@ -786,15 +788,27 @@ tbody tr:last-child {
 <div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/outcome_check2_70d9891d3e01133f76fd9ec621f1086e">
 <div class="cell-output-display">
 
-<div id="uvoveghyme" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="qisbjfgkep" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-html {
-  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+#qisbjfgkep table {
+  font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-:where(#uvoveghyme) .gt_table {
+#qisbjfgkep thead, #qisbjfgkep tbody, #qisbjfgkep tfoot, #qisbjfgkep tr, #qisbjfgkep td, #qisbjfgkep th {
+  border-style: none;
+}
+
+#qisbjfgkep p {
+  margin: 0;
+  padding: 0;
+}
+
+#qisbjfgkep .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -817,24 +831,12 @@ html {
   border-left-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#uvoveghyme) .gt_caption {
+#qisbjfgkep .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-:where(#uvoveghyme) .gt_title {
+#qisbjfgkep .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -846,25 +848,37 @@ html {
   border-bottom-width: 0;
 }
 
-:where(#uvoveghyme) .gt_subtitle {
+#qisbjfgkep .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-:where(#uvoveghyme) .gt_bottom_border {
+#qisbjfgkep .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qisbjfgkep .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_col_headings {
+#qisbjfgkep .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -879,7 +893,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_col_heading {
+#qisbjfgkep .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -899,7 +913,7 @@ html {
   overflow-x: hidden;
 }
 
-:where(#uvoveghyme) .gt_column_spanner_outer {
+#qisbjfgkep .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -911,15 +925,15 @@ html {
   padding-right: 4px;
 }
 
-:where(#uvoveghyme) .gt_column_spanner_outer:first-child {
+#qisbjfgkep .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#uvoveghyme) .gt_column_spanner_outer:last-child {
+#qisbjfgkep .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#uvoveghyme) .gt_column_spanner {
+#qisbjfgkep .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -931,7 +945,11 @@ html {
   width: 100%;
 }
 
-:where(#uvoveghyme) .gt_group_heading {
+#qisbjfgkep .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#qisbjfgkep .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -957,7 +975,7 @@ html {
   text-align: left;
 }
 
-:where(#uvoveghyme) .gt_empty_group_heading {
+#qisbjfgkep .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -972,15 +990,15 @@ html {
   vertical-align: middle;
 }
 
-:where(#uvoveghyme) .gt_from_md > :first-child {
+#qisbjfgkep .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#uvoveghyme) .gt_from_md > :last-child {
+#qisbjfgkep .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#uvoveghyme) .gt_row {
+#qisbjfgkep .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -999,7 +1017,7 @@ html {
   overflow-x: hidden;
 }
 
-:where(#uvoveghyme) .gt_stub {
+#qisbjfgkep .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -1012,7 +1030,7 @@ html {
   padding-right: 5px;
 }
 
-:where(#uvoveghyme) .gt_stub_row_group {
+#qisbjfgkep .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1026,11 +1044,15 @@ html {
   vertical-align: top;
 }
 
-:where(#uvoveghyme) .gt_row_group_first td {
+#qisbjfgkep .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#uvoveghyme) .gt_summary_row {
+#qisbjfgkep .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#qisbjfgkep .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1040,16 +1062,16 @@ html {
   padding-right: 5px;
 }
 
-:where(#uvoveghyme) .gt_first_summary_row {
+#qisbjfgkep .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_first_summary_row.thick {
+#qisbjfgkep .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#uvoveghyme) .gt_last_summary_row {
+#qisbjfgkep .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1059,7 +1081,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_grand_summary_row {
+#qisbjfgkep .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1069,7 +1091,7 @@ html {
   padding-right: 5px;
 }
 
-:where(#uvoveghyme) .gt_first_grand_summary_row {
+#qisbjfgkep .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1079,11 +1101,21 @@ html {
   border-top-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_striped {
+#qisbjfgkep .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qisbjfgkep .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#uvoveghyme) .gt_table_body {
+#qisbjfgkep .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1092,7 +1124,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_footnotes {
+#qisbjfgkep .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1106,16 +1138,16 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_footnote {
+#qisbjfgkep .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-:where(#uvoveghyme) .gt_sourcenotes {
+#qisbjfgkep .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1129,7 +1161,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#uvoveghyme) .gt_sourcenote {
+#qisbjfgkep .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1137,64 +1169,63 @@ html {
   padding-right: 5px;
 }
 
-:where(#uvoveghyme) .gt_left {
+#qisbjfgkep .gt_left {
   text-align: left;
 }
 
-:where(#uvoveghyme) .gt_center {
+#qisbjfgkep .gt_center {
   text-align: center;
 }
 
-:where(#uvoveghyme) .gt_right {
+#qisbjfgkep .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#uvoveghyme) .gt_font_normal {
+#qisbjfgkep .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#uvoveghyme) .gt_font_bold {
+#qisbjfgkep .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#uvoveghyme) .gt_font_italic {
+#qisbjfgkep .gt_font_italic {
   font-style: italic;
 }
 
-:where(#uvoveghyme) .gt_super {
+#qisbjfgkep .gt_super {
   font-size: 65%;
 }
 
-:where(#uvoveghyme) .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
+#qisbjfgkep .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
-:where(#uvoveghyme) .gt_asterisk {
+#qisbjfgkep .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#uvoveghyme) .gt_indent_1 {
+#qisbjfgkep .gt_indent_1 {
   text-indent: 5px;
 }
 
-:where(#uvoveghyme) .gt_indent_2 {
+#qisbjfgkep .gt_indent_2 {
   text-indent: 10px;
 }
 
-:where(#uvoveghyme) .gt_indent_3 {
+#qisbjfgkep .gt_indent_3 {
   text-indent: 15px;
 }
 
-:where(#uvoveghyme) .gt_indent_4 {
+#qisbjfgkep .gt_indent_4 {
   text-indent: 20px;
 }
 
-:where(#uvoveghyme) .gt_indent_5 {
+#qisbjfgkep .gt_indent_5 {
   text-indent: 25px;
 }
 
@@ -1202,11 +1233,11 @@ tbody tr:last-child {
   border-bottom: 2px solid #ffffff00;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="BACTEREMIA">BACTEREMIA</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Blood culture result for bacteremia (Character coding)">Blood culture result for bacteremia (Character coding)</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="n">n</th>
     </tr>
   </thead>
@@ -1230,13 +1261,7 @@ tbody tr:last-child {
 <li><p>age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors</p></li>
 <li><p>Predictors of medium importance are potassium (POTASS), and some acute-phase related parameters such as fibrinogen (FIB), C-reactive protein (CRP), aspartate transaminase (ASAT), alanine transaminase (ALAT), and gamma-glutamyl transpeptidase (GGT).</p></li>
 </ul>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/set_flags_fe5742a784cdfd6f8f0f7b6d2a65cba4">
-
-</div>
 <p>Next step, add metadata flags to indicate relationship between blood cell parameters. See <a href="Bact_IDA_plan.html#sec-IDA_data_derivations"><span>Section&nbsp;2.2</span></a>.</p>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/wbc_relationship_e2246aba18e7f0ef3b253d069b84bc0f">
-
-</div>
 </section>
 <section id="data-dervivations" class="level3" data-number="3.1.7">
 <h3 data-number="3.1.7" class="anchored" data-anchor-id="data-dervivations"><span class="header-section-number">3.1.7</span> Data dervivations</h3>
@@ -1246,21 +1271,12 @@ tbody tr:last-child {
 <li>(50, 65],</li>
 <li>(65, 101].</li>
 </ul>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/age_groups_6d2ae63a84bac0c210614defccf0d9fe">
-
-</div>
 </section>
 <section id="save-analysis-ready-data-for-ida" class="level3" data-number="3.1.8">
 <h3 data-number="3.1.8" class="anchored" data-anchor-id="save-analysis-ready-data-for-ida"><span class="header-section-number">3.1.8</span> Save analysis ready data for IDA</h3>
 <p>Save the analysis data sets in to two linked data sets following a structure similar to the CDISC ADaM data standard. Individual patient measurements are stored in a data set called ADSL. The lab specific data sets are stored in ADLB (a long format data set).</p>
 <p>Saving ADSL into an intermediate location <code>DATA/IDA/ADSL_01.rds</code> prior to IDA.</p>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/save_adsl_3247e99959885ab32d80fd174cd44a85">
-
-</div>
 <p>Saving ADLB into an intermediate location <code>DATA/IDA/ADLB_01.rds</code> prior to IDA.</p>
-<div class="cell" data-hash="Bact_analysis_data_IDA_cache/html/save_adlb_f7de71a65e0799456e48b36262af4804">
-
-</div>
 <p>Note: At this stage of IDA, both ADSL and ADLB are <em>intermediate</em> files that will be used for further IDA. Findings in IDA may require updates to either data set.</p>
 
 
@@ -1297,9 +1313,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1415,6 +1445,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

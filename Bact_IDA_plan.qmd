@@ -15,23 +15,27 @@ This document exemplifies the pre-specified plan for initial data analysis (IDA 
 
 ## Prerequisites for the IDA plan
 
-### Analysis strategy
+### PRE1: Research aims
 
-We assume that the aims of the study are to fit a diagnostic prediction model and to describe the functional form of each predictor. These aims are addressed by fitting a logistic regression  model with bacteremia status as the dependent variable. 
+We assume that the aims of the study are to fit a diagnostic prediction model for bacteremia based on 51 potential predictors and to describe the functional form of each predictor. 
 
-Based on domain expertise, the predictors are grouped by their assumed importance to predict bacteremia. Variables with known strong associations with bacteremia are age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors. Predictors of medium importance are potassium (POTASS), and some acute-phase related parameters such as fibrinogen (FIB), C-reactive protein (CRP), aspartate transaminase (ASAT), alanine transaminase (ALAT), and gamma-glutamyl transpeptidase (GGT). All other predictors are of minor importance. 
+
+### PRE2: Analysis strategy
+
+
+The aims are addressed by fitting a logistic regression  model with bacteremia status as the dependent variable.  Based on domain expertise, the predictors are grouped by their assumed importance to predict bacteremia. Variables with known strong associations with bacteremia are age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors. Predictors of medium importance are potassium (POTASS), and some acute-phase related parameters such as fibrinogen (FIB), C-reactive protein (CRP), aspartate transaminase (ASAT), alanine transaminase (ALAT), and gamma-glutamyl transpeptidase (GGT). All other predictors are of minor importance. 
 
 Continuous predictors should be modelled by allowing for flexible functional forms, where for all key predictors four degrees of freedom will be spent, and for predictors of medium and minor importance, three or two degrees of freedom should be foreseen at maximum, respectively. The decision on whether to use only key predictors, or to consider predictors also from the predictor sets of medium or minor importance depends on results of data screening, but will be made before uncovering the association of predictors with the outcome variable. 
 
 An adequate strategy to cope with missing values will also be chosen after screening the data. Candidate strategies are omission of predictors with abundant missing values, complete case analysis, single value imputation or multiple imputation with chained equations. 
 
-### Analysis Ready Data dictionary
+### PRE3: Analysis Ready Data dictionary
 
 The **source** data dictionary of the bacteremia data set consists of columns for variable names, variable labels, scale of measurement (continuous or categorical), units, plausibility limits, and remarks. See [@sec-source-data]. 
 
 An additional [**analysis ready** data dictionary](https://docs.google.com/spreadsheets/d/1Ft5eyenvDnMBoLvJmcBaklfrYcwyW-rkt-ivIkaphdA/edit#gid=1128598743) will be created to capture additional derivation, transformations and metadata relevant to the research question. 
 
-### Domain expertise
+### PRE4: Domain expertise
 
 The demographic variables age and sex are are chosen as the structural variables in this analysis for illustration purposes, since they are commonly considered important for describing a cohort in health studies. Key predictors and predictors of medium importance are as defined above. Laboratory analyses always bear the risk of machine failures, and hence missing values are a frequent challenge. This may differ between laboratory variables, but no a priori estimate about the expected proportion of missing values can be assumed. As most predictors measure concentrations of chemical compounds or cell counts, skewed distributions are expected. Some predictors describe related types of cells or chemical compounds, and hence some correlation between them is to be expected. For example, leukocytes consist of five different types of blood cells (BASO, EOS, NEU, LYM and MONO), and the sum of the concentration of these types approximately (but not exactly) gives the leukocyte count, which is recorded in the variable WBC. Moreover, these variables are given as absolute counts and as percentages of the sum of the five variables, which creates some correlation. Some laboratory variables differ by sex and age, but the special selection of patients for this study (suspicion of bacteremia) may distort or alter the expected correlations with sex and age.
 
@@ -58,11 +62,15 @@ An additional metadata flag **PARCAT01** will de derived to indicate the blood c
 
 The following sections detail the IDA planned analyses. 
 
-### M1: Prevalence of missing values
+### M1: Participant missingness
 
-Numbers and proportions of missing values will be reported for each predictor separately (M1). Type of missingness has not been recorded.
+As the data was obtained from the registry of the laboratory, and only performed laboratory analyses were included, participant missingness cannot be evaluated.
 
-### M2: Complete cases
+### M2: Variable missingness
+
+Numbers and proportions of missing values will be reported for each predictor separately. Type of missingness has not been recorded.
+
+### M3: Complete cases
 
 The number of available complete cases (outcome and predictors) will be reported when considering:
 
@@ -72,7 +80,7 @@ The number of available complete cases (outcome and predictors) will be reported
 4.	outcome, key predictors and predictors of medium importance (BACTEREMIA, AGE, WBC, BUN, CREA, PLT, NEU, POTASS, FIB, CRP, ASAT, ALAT, GGT)
 5.	outcome and all predictors.
 
-### M3: Patterns of missing values
+### M4: Patterns of missing values
 
 Patterns of missing values will be investigated by:
 

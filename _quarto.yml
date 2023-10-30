@@ -22,12 +22,12 @@ book:
   - Bact_analysis_data_final.qmd
   - references.qmd 
   appendices:
+  - Pseudo_log_explainer.qmd
   - Bact_suppl.qmd 
   - Bact_source_data.qmd 
   - Bact_missing_appendix.qmd
   - Bact_univar_appendix.qmd
   - Bact_multivar_appendix.qmd
-  - Pseudo_log_explainer.qmd
 
 bibliography: references.bib
 
