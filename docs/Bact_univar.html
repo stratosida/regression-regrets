@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -120,7 +91,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -132,11 +104,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Bact_univar.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -144,100 +121,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Regression without regrets</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a>
+  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></a>
+  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></a>
+  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></a>
+  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Supplementary Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></a>
+  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Source data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></a>
+  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -245,19 +238,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#u1-categorical-variables" id="toc-u1-categorical-variables" class="nav-link active" data-scroll-target="#u1-categorical-variables"><span class="toc-section-number">5.1</span>  U1: Categorical variables</a></li>
-  <li><a href="#continuous-variables" id="toc-continuous-variables" class="nav-link" data-scroll-target="#continuous-variables"><span class="toc-section-number">5.2</span>  Continuous variables</a>
+  <li><a href="#u1-categorical-variables" id="toc-u1-categorical-variables" class="nav-link active" data-scroll-target="#u1-categorical-variables"><span class="header-section-number">5.1</span> U1: Categorical variables</a></li>
+  <li><a href="#continuous-variables" id="toc-continuous-variables" class="nav-link" data-scroll-target="#continuous-variables"><span class="header-section-number">5.2</span> Continuous variables</a>
   <ul class="collapse">
-  <li><a href="#u2-univariate-distributions-of-continuous-variables" id="toc-u2-univariate-distributions-of-continuous-variables" class="nav-link" data-scroll-target="#u2-univariate-distributions-of-continuous-variables"><span class="toc-section-number">5.2.1</span>  U2: Univariate distributions of continuous variables</a></li>
-  <li><a href="#numerical-summaries" id="toc-numerical-summaries" class="nav-link" data-scroll-target="#numerical-summaries"><span class="toc-section-number">5.2.2</span>  Numerical summaries</a></li>
-  <li><a href="#suggested-transformations" id="toc-suggested-transformations" class="nav-link" data-scroll-target="#suggested-transformations"><span class="toc-section-number">5.2.3</span>  Suggested transformations</a></li>
-  <li><a href="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" id="toc-comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="nav-link" data-scroll-target="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="toc-section-number">5.2.4</span>  Comparison of univariate distributions with and without pseudo-log transformation</a></li>
+  <li><a href="#u2-univariate-distributions-of-continuous-variables" id="toc-u2-univariate-distributions-of-continuous-variables" class="nav-link" data-scroll-target="#u2-univariate-distributions-of-continuous-variables"><span class="header-section-number">5.2.1</span> U2: Univariate distributions of continuous variables</a></li>
+  <li><a href="#numerical-summaries" id="toc-numerical-summaries" class="nav-link" data-scroll-target="#numerical-summaries"><span class="header-section-number">5.2.2</span> Numerical summaries</a></li>
+  <li><a href="#suggested-transformations" id="toc-suggested-transformations" class="nav-link" data-scroll-target="#suggested-transformations"><span class="header-section-number">5.2.3</span> Suggested transformations</a></li>
+  <li><a href="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" id="toc-comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="nav-link" data-scroll-target="#comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="header-section-number">5.2.4</span> Comparison of univariate distributions with and without pseudo-log transformation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -267,7 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -283,9 +277,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>This section reports a series of univariate summary checks of the bacteremia dataset.</p>
-<div class="cell" data-hash="Bact_univar_cache/html/uni01_bb27bf7772b7c734413f779aa32adee4">
-
-</div>
 <section id="u1-categorical-variables" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="u1-categorical-variables"><span class="header-section-number">5.1</span> U1: Categorical variables</h2>
 <p>Age group, sex and bacteremia status are described by frequencies and proportions in each category.</p>
@@ -294,13 +285,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="tjyqcgojog" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-html {
-  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+#tjyqcgojog table {
+  font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#tjyqcgojog thead, #tjyqcgojog tbody, #tjyqcgojog tfoot, #tjyqcgojog tr, #tjyqcgojog td, #tjyqcgojog th {
+  border-style: none;
+}
+
+#tjyqcgojog p {
+  margin: 0;
+  padding: 0;
 }
 
 #tjyqcgojog .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -321,18 +324,6 @@ html {
   border-left-style: none;
   border-left-width: 2px;
   border-left-color: #D3D3D3;
-}
-
-#tjyqcgojog .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
 }
 
 #tjyqcgojog .gt_caption {
@@ -356,12 +347,24 @@ html {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
+}
+
+#tjyqcgojog .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
 }
 
 #tjyqcgojog .gt_bottom_border {
@@ -435,6 +438,10 @@ html {
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
+}
+
+#tjyqcgojog .gt_spanner_row {
+  border-bottom-style: hidden;
 }
 
 #tjyqcgojog .gt_group_heading {
@@ -536,6 +543,10 @@ html {
   border-top-width: 2px;
 }
 
+#tjyqcgojog .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
 #tjyqcgojog .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
@@ -585,6 +596,16 @@ html {
   border-top-color: #D3D3D3;
 }
 
+#tjyqcgojog .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
 #tjyqcgojog .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
@@ -615,8 +636,8 @@ html {
 #tjyqcgojog .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -673,10 +694,9 @@ html {
 }
 
 #tjyqcgojog .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
 #tjyqcgojog .gt_asterisk {
@@ -708,16 +728,16 @@ tbody tr:last-child {
   border-bottom: 2px solid #ffffff00;
 }
 </style>
-<table class="gt_table" style="table-layout: fixed;; width: 0px">
+<table class="gt_table" style="table-layout: fixed;; width: 0px" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <colgroup>
     <col style="width:75px;">
     <col style="width:75px;">
     <col style="width:125px;">
     <col style="width:125px;">
   </colgroup>
-  
-  <thead class="gt_col_headings">
-    <tr>
+  <thead>
+    
+    <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Category">Category</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Count">Count</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="%">%</th>
@@ -731,37 +751,37 @@ tbody tr:last-child {
     <tr class="gt_row_group_first"><td headers="Age group  value" class="gt_row gt_left">(50, 65]</td>
 <td headers="Age group  freq" class="gt_row gt_right">4250</td>
 <td headers="Age group  perc" class="gt_row gt_right">28.9</td>
-<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="30.94" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="30.94" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr><td headers="Age group  value" class="gt_row gt_left">(65, 101]</td>
 <td headers="Age group  freq" class="gt_row gt_right">5076</td>
 <td headers="Age group  perc" class="gt_row gt_right">34.6</td>
-<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="36.96" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="36.96" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr><td headers="Age group  value" class="gt_row gt_left">[16, 50]</td>
 <td headers="Age group  freq" class="gt_row gt_right">5365</td>
 <td headers="Age group  perc" class="gt_row gt_right">36.5</td>
-<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="39.06" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Age group  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="39.06" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr class="gt_group_heading_row">
       <th colspan="4" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;" scope="colgroup" id="Sex">Sex</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="Sex  value" class="gt_row gt_left">female</td>
 <td headers="Sex  freq" class="gt_row gt_right">6155</td>
 <td headers="Sex  perc" class="gt_row gt_right">41.9</td>
-<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="44.81" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="44.81" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr><td headers="Sex  value" class="gt_row gt_left">male</td>
 <td headers="Sex  freq" class="gt_row gt_right">8536</td>
 <td headers="Sex  perc" class="gt_row gt_right">58.1</td>
-<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="62.15" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Sex  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="62.15" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr class="gt_group_heading_row">
       <th colspan="4" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black;" scope="colgroup" id="Presence of bacteremia">Presence of bacteremia</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="Presence of bacteremia  value" class="gt_row gt_left">no</td>
 <td headers="Presence of bacteremia  freq" class="gt_row gt_right">13511</td>
 <td headers="Presence of bacteremia  perc" class="gt_row gt_right">92.0</td>
-<td headers="Presence of bacteremia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="98.37" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Presence of bacteremia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="98.37" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
     <tr><td headers="Presence of bacteremia  value" class="gt_row gt_left">yes</td>
 <td headers="Presence of bacteremia  freq" class="gt_row gt_right">1180</td>
 <td headers="Presence of bacteremia  perc" class="gt_row gt_right">8.0</td>
-<td headers="Presence of bacteremia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="8.59" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
+<td headers="Presence of bacteremia  prop" class="gt_row gt_left"><!--?xml version='1.0' encoding='UTF-8' ?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="113.39pt" height="14.17pt" viewbox="0 0 113.39 14.17"><defs>  <style type="text/css">    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs>  <clippath id="cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==">    <rect x="0.00" y="0.00" width="113.39" height="14.17"></rect>  </clippath></defs><g clip-path="url(#cpMC4wMHwxMTMuMzl8MC4wMHwxNC4xNw==)"><rect x="5.02" y="1.77" width="8.59" height="10.63" style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ADD8E6;"></rect><line x1="5.02" y1="14.17" x2="5.02" y2="0.0000000000000018" style="stroke-width: 2.13; stroke-linecap: butt;"></line></g></svg></td></tr>
   </tbody>
   
   
@@ -775,7 +795,7 @@ tbody tr:last-child {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Bact_univar_files/figure-html/u1-catplot2-1.png" class="img-fluid figure-img" width="1728"></p>
-<p></p><figcaption class="figure-caption">Summary of categorical variables including outcome</figcaption><p></p>
+<figcaption class="figure-caption">Summary of categorical variables including outcome</figcaption>
 </figure>
 </div>
 </div>
@@ -792,7 +812,7 @@ tbody tr:last-child {
 <section id="u2-key-predictors" class="level4" data-number="5.2.1.2">
 <h4 data-number="5.2.1.2" class="anchored" data-anchor-id="u2-key-predictors"><span class="header-section-number">5.2.1.2</span> U2: Key predictors</h4>
 <p>Distribution of key predictors. Lines indicate the 5-number summary including reported numerical values (where possible).</p>
-<p>The remaining predictors are reported in the appendix <a href="Bact_univar_appendix.html#sec-u2-remaining"><span>Section&nbsp;D.1.1</span></a>.</p>
+<p>The remaining predictors are reported in the appendix <a href="Bact_univar_appendix.html#sec-u2-remaining"><span>Section&nbsp;E.1.1</span></a>.</p>
 <div class="cell quarto-layout-panel" data-hash="Bact_univar_cache/html/uni02_236cc5e2eb976c5ee9e204297e410128">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
@@ -853,23 +873,8 @@ tbody tr:last-child {
 <div class="cell" data-hash="Bact_univar_cache/html/sumtools_763e1e69dee229ea5e2a7f520311a28f">
 <div class="cell-output-display">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
-<script type="text/javascript">
-<!--
-    function expand_collapse(id) {
-       var e = document.getElementById(id);
-       var f = document.getElementById(id+"_earrows");
-       if(e.style.display == 'none'){
-          e.style.display = 'block';
-          f.innerHTML = '&#9650';
-       }
-       else {
-          e.style.display = 'none';
-          f.innerHTML = '&#9660';
-       }
-    }
-//-->
-</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 <style>
 .earrows {color:silver;font-size:11px;}
 
@@ -896,8 +901,13 @@ left: 0.1em;
 bottom: -1ex;
 }
 </style>
- <font color="MidnightBlue"><div align="center"><span style="font-weight:bold">key_predictors <br><br> 6  Variables   14691  Observations</span></div></font> <hr class="thinhr"> <span style="font-weight:bold">PLT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAb0lEQVQ4jc3VSxKAIAwD0NT7H1oRyoTyW6YRBHZvdDLAOEAZGYKHA5SRIdFVI8KwZDikdIGiAzmGtplg1L7BpWtiw3RgjPJr9f84qdQwbFlaGk4sIe3qEuEQi7hOvTl5+mL4HzNfWp/oPXXt1sVvvvKdC/MeZXfKAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<title>key_predictors Descriptives</title>
+<font color="MidnightBlue"><div align="center"><span style="font-weight:bold">key_predictors <br><br> 6  Variables   14691  Observations</span></div></font>
+<hr class="thinhr">
+<span style="font-weight:bold">PLT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable412771 {
  border: none;
  font-size: 85%;
@@ -913,12 +923,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAb0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable412771">
+ <table data-quarto-disable-processing="true" class="hmisctable412771">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14649</td><td>42</td><td>718</td><td>1</td><td>220</td><td>130.1</td><td> 50</td><td> 81</td><td>140</td><td>204</td><td>277</td><td>369</td><td>445</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    0    1    2    3    4 ,  <font color="MidnightBlue">highest</font>: 1068 1211 1321 1639 2092</span> <hr class="thinhr"> <span style="font-weight:bold">CREA</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAWUlEQVQ4je2TMQoAIAwDE///aG3sIAqCWwqeQ6mKHoWAAqAXaAKD5sT3euN7vZE5DC+rSM4pSctqYBW8nMxqePm4RQjB1Usd93LuXK5pUU9nZX6TzT36cdoBj3gMym+2tjYAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    0    1    2    3    4 ,  <font color="MidnightBlue">highest</font>: 1068 1211 1321 1639 2092</span>
+<hr class="thinhr">
+<span style="font-weight:bold">CREA</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable606017 {
  border: none;
  font-size: 74%;
@@ -934,12 +948,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAWUlE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable606017">
+ <table data-quarto-disable-processing="true" class="hmisctable606017">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14532</td><td>159</td><td>674</td><td>1</td><td>1.329</td><td>0.8518</td><td>0.620</td><td>0.690</td><td>0.810</td><td>1.000</td><td>1.350</td><td>2.160</td><td>3.144</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.26  0.27  0.28  0.29  0.30 ,  <font color="MidnightBlue">highest</font>: 15.24 15.40 15.67 16.64 20.75</span> <hr class="thinhr"> <span style="font-weight:bold">BUN</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZElEQVQ4jdXTwQrAIAwD0NT//+jhaiZ0U7wlCz1IT49iEAx6wiVozO1qLvmJywZWXS4yMgAzF///jLSHzPteHidLA2rEqqVLTlu7tDbsWEJhb98BCzFn//xalW0WbsxT/1yMV1y21QwKyo8xNQAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.26  0.27  0.28  0.29  0.3   ,  <font color="MidnightBlue">highest</font>: 15.24 15.4  15.67 16.64 20.75</span>
+<hr class="thinhr">
+<span style="font-weight:bold">BUN</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAACXoAMABAAAAAEAAAANAAAAABXzt1gAAANZSURBVFgJ7VlLKD1RHP7mut7vZwh5hSSslEdSFAsLK5EFG2vdjYWshBVZKEqJFSllYSELpTySlUIsKBuJBUrer7/vVzOde801qf9G90xNc87vec433/3NOecaFxcXn3C47u7u0NfXh8XFRTQ3N2NiYgLBwcEOXlod6AgYn1+XEwhdXV2Ym5vD6+urmNbU1GBjY8PJTesDHAGX0/zX1tawsrKCj48Py3R7exu7u7tWXzc0AnYI/EguEmp+fh5XV1devpS3trZiZmYG7+/vXjrd0QiYCPz4WWSFqq6uFtugoCAvIrlcLqlmS0tLaGlpMePpp0bAQuDHynVwcGAZ+msMDQ3h4eHBn1rLAxgBY29vz3ZBz8V7RUUFzPW+WalMrAzDsHSJiYno7e1FY2OjqdZPjQDcZWVltjCsrq5a5KEByaReKrlub28xPT0tn02Px4OwsDDVVLcDFAG/a67S0lLs7+9bsPhbc9FA1RUVFaGyslLOxfLz8y1/3Qg8BNx2Ux4cHMTJyYmdylF2fHyM09NTbG5uIiEhAYWFheA5WV1d3bfq5xhMG/xpBGwrV0dHBxYWFrx2h2p14ozVNZivzrfPzySPL1JTU5Gbm4ucnBzwc3x2doaenh5ERkbKAW16evqfBlMP3huBb+QaHh5Gf3+/kEc9w/IlzG/IpfrSj5sEc6MQExMjubhuS05OltFFRUUhKysLJSUloDwlJQXZ2dlwu93yt1NeXh54Hx0dIS0tTUj6/PyM8vJyIfD6+joKCgrEPjMzU87pGJs2zB8dHW2h8PT0pNeIFhr/t2Go/y02NDTg8PBQMqjkoUAlCPuqXm3b2aq+6kbAN46drxpbjUM5+29vbxZRWSFfXl6kSpKIzMUfCKtmRESEVEfuguPj4xEeHo6bmxshHCsq7Uh4ki0uLk4Id39/L/FiY2PFNjQ0VOTM8/j4KDrKGJ/jYM6QkBBOQ3Kxz9uMzTHTlySnP/PQzxxjbW0tLi8vUVVVhZ2dHXAXvrW1JfNgHPNqb2+XZcv19TXOz8/lnPHrPUpRMG2Yo7OzU8YxOzuLgYEBNDU1ob6+HmNjY0hKSkJxcTEmJycxNTUl79P0VZ/j4+My5u7ubhGPjIwgIyMDbW1tqhn4g15eXsbo6Kgl/wclVqMzJEYt1gAAAABJRU5ErkJggg==" alt="image"></div>
+<style>
  .hmisctable121876 {
  border: none;
  font-size: 85%;
@@ -955,12 +973,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable121876">
+ <table data-quarto-disable-processing="true" class="hmisctable121876">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14519</td><td>172</td><td>947</td><td>1</td><td>22.66</td><td>16.92</td><td> 7.1</td><td> 8.6</td><td>11.6</td><td>16.6</td><td>26.9</td><td>44.8</td><td>60.8</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   2.5   2.7   2.8   2.9   3.0 ,  <font color="MidnightBlue">highest</font>: 160.6 171.3 171.9 176.0 184.8</span> <hr class="thinhr"> <span style="font-weight:bold">NEU</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lEQVQ4jc2VSw7AIAgFx97/0A19JUVru+WNnwCriRFlJKDlAUcCWh5Ur8BFbfXC18tCLRXAzCvv/0RrK8rn1nvTfF6+Xnq4dnR7/eHqRc9by9qKG+LbvMaz1bgWRkzFJZ077TOpxRPORQvfG+yn6gAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 2.5   2.7   2.8   2.9   3     ,  <font color="MidnightBlue">highest</font>: 160.6 171.3 171.9 176   184.8</span>
+<hr class="thinhr">
+<span style="font-weight:bold">NEU</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable589478 {
  border: none;
  font-size: 74%;
@@ -976,12 +998,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable589478">
+ <table data-quarto-disable-processing="true" class="hmisctable589478">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13963</td><td>728</td><td>374</td><td>1</td><td>8.367</td><td>5.776</td><td> 1.60</td><td> 2.70</td><td> 4.60</td><td> 7.30</td><td>10.80</td><td>15.08</td><td>18.40</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.0  0.1  0.2  0.3  0.4 ,  <font color="MidnightBlue">highest</font>: 54.0 56.4 63.7 71.6 83.8</span> <hr class="thinhr"> <span style="font-weight:bold">WBC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAIIAAAANCAMAAABSO0bCAAAACVBMVEUAAADMzMz////1iUV5AAAAVklEQVQ4je2TSwoAIAhEx+5/6PwRSdB2XDiRVG4e0oNoACEGSwOvrDRBwCA0QHAhqErkFJhjGIQbgciAJGAihBBPQhNb4hf7uVLM8d45Rwm/6vPfBt0b3GoLNRPwTDwAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0    0.1  0.2  0.3  0.4  ,  <font color="MidnightBlue">highest</font>: 54   56.4 63.7 71.6 83.8</span>
+<hr class="thinhr">
+<span style="font-weight:bold">WBC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable892281 {
  border: none;
  font-size: 74%;
@@ -997,12 +1023,16 @@ iVBORw0KGgoAAAANSUhEUgAAAIIAAAANCAMAAABSO0bCAAAACVBMVEUAAADMzMz////1iUV5AAAAVklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable892281">
+ <table data-quarto-disable-processing="true" class="hmisctable892281">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14229</td><td>462</td><td>2710</td><td>1</td><td>11.23</td><td>7.602</td><td> 2.66</td><td> 4.26</td><td> 6.63</td><td> 9.60</td><td>13.53</td><td>18.22</td><td>22.27</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   0.00   0.01   0.02   0.03   0.04 ,  <font color="MidnightBlue">highest</font>: 365.30 383.74 387.73 433.83 604.47</span> <hr class="thinhr"> <span style="font-weight:bold">AGE</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeUlEQVQ4jcXTSw4AERAE0Gr3P/REhzDM+PSHWohVe0iB7IMczYxgGSCgimaSpemF0tFUrnxuz1HLpK4hpZWlxcNVTeXtjkvyevPOgHsldXyEVoraXCDdqby9X9b/0VMhd51VzWi4hhrLLrt+cdw1y7YJEgtalughegBpCgbX7iPW9QAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0      0.01   0.02   0.03   0.04   ,  <font color="MidnightBlue">highest</font>: 365.3  383.74 387.73 433.83 604.47</span>
+<hr class="thinhr">
+<span style="font-weight:bold">AGE</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable888322 {
  border: none;
  font-size: 85%;
@@ -1018,11 +1048,13 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeUlE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable888322">
+ <table data-quarto-disable-processing="true" class="hmisctable888322">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14691</td><td>0</td><td>85</td><td>1</td><td>56.17</td><td>20.78</td><td>24</td><td>29</td><td>43</td><td>58</td><td>70</td><td>79</td><td>84</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  16  17  18  19  20 ,  <font color="MidnightBlue">highest</font>:  96  97  98  99 101</span> <hr class="thinhr">
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  16  17  18  19  20 ,  <font color="MidnightBlue">highest</font>:  96  97  98  99 101</span>
+<hr class="thinhr">
 </div>
 </div>
 </section>
@@ -1031,23 +1063,8 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeUlE
 <div class="cell" data-hash="Bact_univar_cache/html/uni06_c296f49b8bc71499abc1438b90ae4d6b">
 <div class="cell-output-display">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
-<script type="text/javascript">
-<!--
-    function expand_collapse(id) {
-       var e = document.getElementById(id);
-       var f = document.getElementById(id+"_earrows");
-       if(e.style.display == 'none'){
-          e.style.display = 'block';
-          f.innerHTML = '&#9650';
-       }
-       else {
-          e.style.display = 'none';
-          f.innerHTML = '&#9660';
-       }
-    }
-//-->
-</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 <style>
 .earrows {color:silver;font-size:11px;}
 
@@ -1074,8 +1091,13 @@ left: 0.1em;
 bottom: -1ex;
 }
 </style>
- <font color="MidnightBlue"><div align="center"><span style="font-weight:bold">medium_predictors <br><br> 6  Variables   14691  Observations</span></div></font> <hr class="thinhr"> <span style="font-weight:bold">FIB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdUlEQVQ4jdXT4QrAIAgE4HPv/9BDV1vBzEndxi6k/CMfgZAwgFW5zuIG2zCAlqZ92pub0OWETRtOd1UV94krUlF1/tSnLJLLXcJEXtzHlIvwaXcDsyaG7y+uGdNKWzNkBam6ppG6SzjOukjfXKdr+rZe5hHZAUlUCS1CNfA/AAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<title>medium_predictors Descriptives</title>
+<font color="MidnightBlue"><div align="center"><span style="font-weight:bold">medium_predictors <br><br> 6  Variables   14691  Observations</span></div></font>
+<hr class="thinhr">
+<span style="font-weight:bold">FIB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAACXoAMABAAAAAEAAAANAAAAABXzt1gAAATeSURBVFgJ7VlJKL5dFD+veZ4lQ6YyZNqwoEQssCHZ2NuIJIWlUkqUIUkWwgaRIqKEkFJYGDdS5nlM5vl+93fqeeP9+h7f//Pn7fu/Tj090zn33HPu795zzr2ag4MDQXqi09NTcnJyIiMjI1pcXKTMzEwaGxujtrY2qq2tJR8fH5qenqaXlxfm6e/vp6CgIPL09KTExEQqKyujlJQU2tnZofb2dsrOzqa9vT0KCwuj4+NjEkKQm5ubnqz7UYsB0As9Pz8LKysrUVFRIRwcHER+fj5ALiSohKOjIz/b2tqK8vJyIQEkEhISmC84OFgkJyfzf/AHBgYKe3t7fk9LSxN2dnaipqZGgC8pKYltGx4eFtvb23qx05CV6g1c9/f3DIiCggItUAAWgAJ3XGZmZsLGxoYBY21tLczNzbX/FB7du7GxsQAvrri4ONHa2srPxcXForOzU8jVTsgV05DH/Nts1wu4UlNThYeHBwPF39//HwEDcGF1A1Bw/7fgsrCwYJnQ0FAhw6IwMTERERERWj0A2e3trWhpaRF1dXXf5mxDU2QiZ/630NbWFt3c3FBTUxNNTk7S1dUV611fX/8y/Zubm/T6+sq519LSklaPDJHU19dHWVlZ/C0kJIRkaKaoqCgtz8/D5z2gwWz6fDPqLYyPj1NRUREPsgyHtLGxQY+PjzzwapJy5SK56pBGo2FZJPYPDw9qIiTDIpmamvIdjAAXdEH2LXl5edHu7i5/ggwKC5nf0eHhIRUWFpKlpeVb9p/n/+ABzcLCwpeBC0BobGyk7u5ukgk8AwVYxkBjwD/CtQKSt+B6enpSNROVJ+Qggwvggm5dcOk2AiDL0EtoPyYmhqqqqnRZft5/0QNfsnLJ7Q2qrq4mrFIAlzLguIMUcGHg1egrVy5dvQCkAsqAgACeCLISJVkU8DPA1tXVRb6+vrS/v08yb6PS0lLdZn7e33oAYfF3kQwzIj4+Xsiwok2epS5OqGWY4SQbyTkSbgm0dzzg070+m9BDF/SigtRtW/ddAktbPEAOxYNc+d7JRUZG8jeZq/H3jIwMdp3clxPNzc2/y41/TDufWrnW1tY4Ee7p6SF3d3eSzuawIgfuHSFvwqrwf1m50HmE0o9CN+ySaQXl5uYy/9TU1Du7Df3ll6tFAGpoaIjkFgInvnKa0crKijbpNiSHIqxHR0ez7eHh4aqmg1eZXAojAAwCSP9E+ptVcAJypZOTE3J1deWjmOvra5qdneWthJmZGbq7uyO5ucmVG/6BADJDJBQAAAfuc3NzND8/TzjWuri4oNXVVf4+MTHBvvL29ia5v8fbMKhGsTWDqtXPz49XdhcXF87n4HschSG/Q/6KHC89PZ3k3hxfONJC8YHcFXcULiBdAGNMMJb6qnw1b88Wc3JyaGRkhDuEjsvjF+1+FDqPmQdHonSHQeg8Zt9HFZyyPaDMXLQNGThDjZDQv9WlFAJqMtChhGClWoQuyKoRZKAL8rBL6aPapFH8AZ8otiGU4lIj8Csy6KNil5o/ZA6oLTjQV8jB9/ARqnKA7OzsjJydneny8pLbBwgBVJzRom3IoZ2joyMGHMBaUlLCRRdAKI/gqL6+ngYGBqijo4OWl5e1VXNeXh7FxsbS4OAgnZ+fU2VlJZ/hKnaOjo5Sb28vNTQ0KJ/oLw0u6vdc4lfQAAAAAElFTkSuQmCC" alt="image"></div>
+<style>
  .hmisctable100227 {
  border: none;
  font-size: 85%;
@@ -1091,12 +1113,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdUlE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable100227">
+ <table data-quarto-disable-processing="true" class="hmisctable100227">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>12124</td><td>2567</td><td>1084</td><td>1</td><td>547.4</td><td>231</td><td>247</td><td>301</td><td>397</td><td>529</td><td>674</td><td>816</td><td>892</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   55   60   66   67   69 ,  <font color="MidnightBlue">highest</font>: 1506 1508 1529 1537 1593</span> <hr class="thinhr"> <span style="font-weight:bold">POTASS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAADcAAAANCAMAAAA65Aa/AAAACVBMVEUAAADMzMz////1iUV5AAAAO0lEQVQokWNgZGRkYGAkGTAwMTExgAgSwQDoY6CrPlBwkhGgEPtIt3Do6GMgTx84OKEAFE4gRDB4GRgBpaoEm4UN9kgAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   55   60   66   67   69 ,  <font color="MidnightBlue">highest</font>: 1506 1508 1529 1537 1593</span>
+<hr class="thinhr">
+<span style="font-weight:bold">POTASS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable245633 {
  border: none;
  font-size: 85%;
@@ -1112,20 +1138,16 @@ iVBORw0KGgoAAAANSUhEUgAAADcAAAANCAMAAAA65Aa/AAAACVBMVEUAAADMzMz////1iUV5AAAAO0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable245633">
+ <table data-quarto-disable-processing="true" class="hmisctable245633">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>12683</td><td>2008</td><td>408</td><td>1</td><td>4.003</td><td>0.6004</td><td>3.20</td><td>3.39</td><td>3.66</td><td>3.95</td><td>4.29</td><td>4.67</td><td>4.92</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  1.92  2.07  2.11  2.12  2.21 ,  <font color="MidnightBlue">highest</font>:  8.57 11.34 13.55 14.60 36.62</span> <pre style="font-size:85%;"> Value        2.0   2.5   3.0   3.5   4.0   4.5   5.0   5.5   6.0   6.5   7.0   7.5
- Frequency      6    91   650  3385  5088  2455   692   201    73    26     7     2
- Proportion 0.000 0.007 0.051 0.267 0.401 0.194 0.055 0.016 0.006 0.002 0.001 0.000
-                                               
- Value        8.0   8.5  11.5  13.5  14.5  36.5
- Frequency      2     1     1     1     1     1
- Proportion 0.000 0.000 0.000 0.000 0.000 0.000
- </pre>
-  For the frequency table, variable is rounded to the nearest 0.5 <hr class="thinhr"> <span style="font-weight:bold">ASAT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAUUlEQVQ4je2TOw4AIAjFivc/tKiRz8jGQCNRgeEtRQSkH6yFVjsmV43JVYPxsUTrXA2DTa4a10cjvnPnKPKOfbRuCxOav2NW+e3SB/3Jk7CwAYVuDSQpvkmaAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 1.92  2.07  2.11  2.12  2.21  ,  <font color="MidnightBlue">highest</font>: 8.57  11.34 13.55 14.6  36.62</span>
+<hr class="thinhr">
+<span style="font-weight:bold">ASAT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable140949 {
  border: none;
  font-size: 85%;
@@ -1141,12 +1163,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAUUlE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable140949">
+ <table data-quarto-disable-processing="true" class="hmisctable140949">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13537</td><td>1154</td><td>650</td><td>1</td><td>86.9</td><td>115.6</td><td> 15</td><td> 17</td><td> 22</td><td> 31</td><td> 56</td><td>121</td><td>218</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     3     5     6     7     8 ,  <font color="MidnightBlue">highest</font>: 10845 11928 12079 12380 13991</span> <hr class="thinhr"> <span style="font-weight:bold">ALAT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAGcAAAANCAMAAACD8ID3AAAACVBMVEUAAADMzMz////1iUV5AAAAPElEQVQ4jWNgZGBgpANgYGJgYKIDGLVnkNszmt5G7YHaQw+LQOkNBaNxIImFEZwqQWJoyRNrYsUQAwoAAOjvCPHpfMT7AAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     3     5     6     7     8 ,  <font color="MidnightBlue">highest</font>: 10845 11928 12079 12380 13991</span>
+<hr class="thinhr">
+<span style="font-weight:bold">ALAT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable416746 {
  border: none;
  font-size: 85%;
@@ -1162,12 +1188,16 @@ iVBORw0KGgoAAAANSUhEUgAAAGcAAAANCAMAAACD8ID3AAAACVBMVEUAAADMzMz////1iUV5AAAAPElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable416746">
+ <table data-quarto-disable-processing="true" class="hmisctable416746">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13704</td><td>987</td><td>578</td><td>1</td><td>67.66</td><td>90.07</td><td>  9</td><td> 11</td><td> 16</td><td> 26</td><td> 48</td><td>101</td><td>175</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     0     1     2     3     4 ,  <font color="MidnightBlue">highest</font>:  7109  9136  9314 12329 15059</span> <hr class="thinhr"> <span style="font-weight:bold">GGT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAWElEQVQ4je2TOQoAIBADE///aPdQQVHQLoWD8WwGIaABUA0UAzFL8b3egFt9r2vgbdTso+Z/pZecmLqXmtjwEjNrfQyY2S5ty8M7ffTEufdqbtl6se+ipQIV2Az96NLBUwAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     0     1     2     3     4 ,  <font color="MidnightBlue">highest</font>:  7109  9136  9314 12329 15059</span>
+<hr class="thinhr">
+<span style="font-weight:bold">GGT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable130234 {
  border: none;
  font-size: 74%;
@@ -1183,12 +1213,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAWElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable130234">
+ <table data-quarto-disable-processing="true" class="hmisctable130234">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13429</td><td>1262</td><td>858</td><td>1</td><td>115.1</td><td>141.3</td><td> 13.0</td><td> 16.0</td><td> 25.0</td><td> 49.0</td><td>117.0</td><td>262.2</td><td>429.0</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    3    5    6    7    8 ,  <font color="MidnightBlue">highest</font>: 2932 3303 3782 3919 5171</span> <hr class="thinhr"> <span style="font-weight:bold">CRP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAaElEQVQ4je2T0QrAIAhFr/7/R5fLVVsRbrD0YUcs9OkgXFAGoGiAGRmOhnqFM/u9nlG9ilkYP0gab3hnUejuNeB6r4WXp57By8XO7LVZ8Y3Xafel4SyPNuhoKf1aTRbUjSVw2tcU1jcBTcULVJrKiXAAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    3    5    6    7    8 ,  <font color="MidnightBlue">highest</font>: 2932 3303 3782 3919 5171</span>
+<hr class="thinhr">
+<span style="font-weight:bold">CRP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable517449 {
  border: none;
  font-size: 74%;
@@ -1204,11 +1238,13 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAaElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable517449">
+ <table data-quarto-disable-processing="true" class="hmisctable517449">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14536</td><td>155</td><td>3328</td><td>1</td><td>10.92</td><td>10.39</td><td> 0.29</td><td> 0.77</td><td> 2.87</td><td> 8.57</td><td>16.45</td><td>24.49</td><td>29.61</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.00  0.01  0.02  0.03  0.04 ,  <font color="MidnightBlue">highest</font>: 58.40 61.81 63.96 73.04 76.32</span> <hr class="thinhr">
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0     0.01  0.02  0.03  0.04  ,  <font color="MidnightBlue">highest</font>: 58.4  61.81 63.96 73.04 76.32</span>
+<hr class="thinhr">
 </div>
 </div>
 </section>
@@ -1216,22 +1252,31 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAaElE
 <section id="suggested-transformations" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="suggested-transformations"><span class="header-section-number">5.2.3</span> Suggested transformations</h3>
 <p>Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function <code>ida_trans</code> for this purpose, which optimises the parameter <code>sigma</code> of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.</p>
-<div class="cell" data-hash="Bact_univar_cache/html/uni08_1a262063bc043e08614d5a934261ede0">
-
-</div>
 <p>Display the proposed variable transformations and the new parameter codes.</p>
 <div class="cell" data-hash="Bact_univar_cache/html/unnamed-chunk-1_746a24cf02cef278b52b7099b7a7eddc">
 <div class="cell-output-display">
 
 <div id="zsunsrtmqi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-html {
-  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+#zsunsrtmqi table {
+  font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-:where(#zsunsrtmqi) .gt_table {
+#zsunsrtmqi thead, #zsunsrtmqi tbody, #zsunsrtmqi tfoot, #zsunsrtmqi tr, #zsunsrtmqi td, #zsunsrtmqi th {
+  border-style: none;
+}
+
+#zsunsrtmqi p {
+  margin: 0;
+  padding: 0;
+}
+
+#zsunsrtmqi .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -1254,24 +1299,12 @@ html {
   border-left-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#zsunsrtmqi) .gt_caption {
+#zsunsrtmqi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-:where(#zsunsrtmqi) .gt_title {
+#zsunsrtmqi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1283,25 +1316,37 @@ html {
   border-bottom-width: 0;
 }
 
-:where(#zsunsrtmqi) .gt_subtitle {
+#zsunsrtmqi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-:where(#zsunsrtmqi) .gt_bottom_border {
+#zsunsrtmqi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zsunsrtmqi .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_col_headings {
+#zsunsrtmqi .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1316,7 +1361,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_col_heading {
+#zsunsrtmqi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -1336,7 +1381,7 @@ html {
   overflow-x: hidden;
 }
 
-:where(#zsunsrtmqi) .gt_column_spanner_outer {
+#zsunsrtmqi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -1348,15 +1393,15 @@ html {
   padding-right: 4px;
 }
 
-:where(#zsunsrtmqi) .gt_column_spanner_outer:first-child {
+#zsunsrtmqi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#zsunsrtmqi) .gt_column_spanner_outer:last-child {
+#zsunsrtmqi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#zsunsrtmqi) .gt_column_spanner {
+#zsunsrtmqi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -1368,7 +1413,11 @@ html {
   width: 100%;
 }
 
-:where(#zsunsrtmqi) .gt_group_heading {
+#zsunsrtmqi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zsunsrtmqi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1394,7 +1443,7 @@ html {
   text-align: left;
 }
 
-:where(#zsunsrtmqi) .gt_empty_group_heading {
+#zsunsrtmqi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1409,15 +1458,15 @@ html {
   vertical-align: middle;
 }
 
-:where(#zsunsrtmqi) .gt_from_md > :first-child {
+#zsunsrtmqi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#zsunsrtmqi) .gt_from_md > :last-child {
+#zsunsrtmqi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#zsunsrtmqi) .gt_row {
+#zsunsrtmqi .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -1436,7 +1485,7 @@ html {
   overflow-x: hidden;
 }
 
-:where(#zsunsrtmqi) .gt_stub {
+#zsunsrtmqi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -1449,7 +1498,7 @@ html {
   padding-right: 5px;
 }
 
-:where(#zsunsrtmqi) .gt_stub_row_group {
+#zsunsrtmqi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1463,11 +1512,15 @@ html {
   vertical-align: top;
 }
 
-:where(#zsunsrtmqi) .gt_row_group_first td {
+#zsunsrtmqi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#zsunsrtmqi) .gt_summary_row {
+#zsunsrtmqi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zsunsrtmqi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1477,16 +1530,16 @@ html {
   padding-right: 5px;
 }
 
-:where(#zsunsrtmqi) .gt_first_summary_row {
+#zsunsrtmqi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_first_summary_row.thick {
+#zsunsrtmqi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#zsunsrtmqi) .gt_last_summary_row {
+#zsunsrtmqi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1496,7 +1549,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_grand_summary_row {
+#zsunsrtmqi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1506,7 +1559,7 @@ html {
   padding-right: 5px;
 }
 
-:where(#zsunsrtmqi) .gt_first_grand_summary_row {
+#zsunsrtmqi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1516,11 +1569,21 @@ html {
   border-top-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_striped {
+#zsunsrtmqi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zsunsrtmqi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#zsunsrtmqi) .gt_table_body {
+#zsunsrtmqi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1529,7 +1592,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_footnotes {
+#zsunsrtmqi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1543,16 +1606,16 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_footnote {
+#zsunsrtmqi .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-:where(#zsunsrtmqi) .gt_sourcenotes {
+#zsunsrtmqi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1566,7 +1629,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#zsunsrtmqi) .gt_sourcenote {
+#zsunsrtmqi .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1574,64 +1637,63 @@ html {
   padding-right: 5px;
 }
 
-:where(#zsunsrtmqi) .gt_left {
+#zsunsrtmqi .gt_left {
   text-align: left;
 }
 
-:where(#zsunsrtmqi) .gt_center {
+#zsunsrtmqi .gt_center {
   text-align: center;
 }
 
-:where(#zsunsrtmqi) .gt_right {
+#zsunsrtmqi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#zsunsrtmqi) .gt_font_normal {
+#zsunsrtmqi .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#zsunsrtmqi) .gt_font_bold {
+#zsunsrtmqi .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#zsunsrtmqi) .gt_font_italic {
+#zsunsrtmqi .gt_font_italic {
   font-style: italic;
 }
 
-:where(#zsunsrtmqi) .gt_super {
+#zsunsrtmqi .gt_super {
   font-size: 65%;
 }
 
-:where(#zsunsrtmqi) .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
+#zsunsrtmqi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
-:where(#zsunsrtmqi) .gt_asterisk {
+#zsunsrtmqi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#zsunsrtmqi) .gt_indent_1 {
+#zsunsrtmqi .gt_indent_1 {
   text-indent: 5px;
 }
 
-:where(#zsunsrtmqi) .gt_indent_2 {
+#zsunsrtmqi .gt_indent_2 {
   text-indent: 10px;
 }
 
-:where(#zsunsrtmqi) .gt_indent_3 {
+#zsunsrtmqi .gt_indent_3 {
   text-indent: 15px;
 }
 
-:where(#zsunsrtmqi) .gt_indent_4 {
+#zsunsrtmqi .gt_indent_4 {
   text-indent: 20px;
 }
 
-:where(#zsunsrtmqi) .gt_indent_5 {
+#zsunsrtmqi .gt_indent_5 {
   text-indent: 25px;
 }
 
@@ -1639,10 +1701,10 @@ tbody tr:last-child {
   border-bottom: 2px solid #ffffff00;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="PARAMCD">PARAMCD</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="n">n</th>
     </tr>
@@ -1687,9 +1749,6 @@ tbody tr:last-child {
 </div>
 <p>Register transformed variables in the data set. The updated data set with suggested log transformed data sets is saved at <code>data/IDA/ADLB_02.rds</code>.</p>
 <p>The IDA analysis plan and specifications are updated with the proposed variable transformations. A new flag is derived to indicate the categorization of predictors now including transformations.</p>
-<div class="cell" data-hash="Bact_univar_cache/html/savedata_40350860dd6a3af93f1ead4e0a040909">
-
-</div>
 </section>
 <section id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="level3" data-number="5.2.4">
 <h3 data-number="5.2.4" class="anchored" data-anchor-id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="header-section-number">5.2.4</span> Comparison of univariate distributions with and without pseudo-log transformation</h3>
@@ -1792,9 +1851,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1910,6 +1983,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

@@ -16,10 +16,13 @@ ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
 ```
 
-THis seciton reports the IDA analyses for missing data. The Section headers (i.e. M1) correspond to the IDA analysis plan in @sec-IDA_plan.
+THis seciton reports the IDA analyses for missing data. The Section headers (i.e. M2) correspond to the IDA analysis plan in @sec-IDA_plan.
 
+## M1: Participant missingness
 
-## M1: Prevalence of missing values
+As the data was obtained from the registry of the laboratory, and only performed laboratory analyses were included, participant missingness cannot be evaluated.
+
+## M2: Variable missingness
 
 Number and percentage of missingness for each predictor, sorted by descending missingness proportion. 
 
@@ -66,7 +69,7 @@ table_pred_missing_by_type(data = ABLB, flag = "MED_PRED_FL01", tab_title = "Sum
 
 
 
-## M2: Complete cases
+## M3: Complete cases
 
 Number of available complete cases (outcome and predictors):
 
@@ -93,7 +96,7 @@ m2_ard |>
 ```
 
 
-## ME1: Patterns of missing values
+## M4: Patterns of missing values
 
 ### Complete cases by strata defined by structural variables
 
@@ -130,9 +133,9 @@ The dendrogram depicts the results of a cluster analysis using the complete link
 
 The numbers in brackets are the percentages of missing observations for each predictor.
 
-```{r m3-dendogram, message =FALSE, warning =FALSE , echo=FALSE, fig.height=14, fig.width=13}
+```{r m3-dendogram, message =FALSE, warning =FALSE , echo=FALSE, fig.height=13, fig.width=13}
 
-#fig.cap="Clustered variables by percentage observations discordantly missing [by variable percentage missing]"
+#fig.cap="Clustered variables by percentage observations concordantly missing [by variable percentage missing]"
 
 source(here("R", "M3-dendogram.R"))
 m3_dendogram(ADLB)
