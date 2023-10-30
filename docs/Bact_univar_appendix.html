@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression without regrets - Appendix D — Univariate distribution checks</title>
+<title>Regression without regrets - Appendix E — Univariate distribution checks</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -120,7 +91,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -132,11 +104,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Appendix D — Univariate distribution checks</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Pseudo_log_explainer.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Bact_univar_appendix.html"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -144,100 +121,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Regression without regrets</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a>
+  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></a>
+  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></a>
+  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></a>
+  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Supplementary Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></a>
+  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Source data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></a>
+  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -245,16 +238,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#u2-descriptive-summaries" id="toc-u2-descriptive-summaries" class="nav-link active" data-scroll-target="#u2-descriptive-summaries"><span class="toc-section-number">D.1</span>  U2: Descriptive summaries</a>
+  <li><a href="#u2-descriptive-summaries" id="toc-u2-descriptive-summaries" class="nav-link active" data-scroll-target="#u2-descriptive-summaries"><span class="header-section-number">E.1</span> U2: Descriptive summaries</a>
   <ul class="collapse">
-  <li><a href="#sec-u2-remaining" id="toc-sec-u2-remaining" class="nav-link" data-scroll-target="#sec-u2-remaining"><span class="toc-section-number">D.1.1</span>  U2: Remaining predictors</a></li>
-  <li><a href="#full-descriptive-summaries" id="toc-full-descriptive-summaries" class="nav-link" data-scroll-target="#full-descriptive-summaries"><span class="toc-section-number">D.1.2</span>  Full descriptive summaries</a></li>
+  <li><a href="#sec-u2-remaining" id="toc-sec-u2-remaining" class="nav-link" data-scroll-target="#sec-u2-remaining"><span class="header-section-number">E.1.1</span> U2: Remaining predictors</a></li>
+  <li><a href="#full-descriptive-summaries" id="toc-full-descriptive-summaries" class="nav-link" data-scroll-target="#full-descriptive-summaries"><span class="header-section-number">E.1.2</span> Full descriptive summaries</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -264,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-univar-appendix" class="quarto-section-identifier d-none d-lg-block">Appendix D — Univariate distribution checks</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-univar-appendix" class="quarto-section-identifier">Appendix E — Univariate distribution checks</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -280,13 +274,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>This section reports a series of univariate summary checks of the bacteremia dataset.</p>
-<div class="cell" data-hash="Bact_univar_appendix_cache/html/uni01a_6eb7a1b1040a516e10f8ea417636b099">
-
-</div>
-<section id="u2-descriptive-summaries" class="level2" data-number="D.1">
-<h2 data-number="D.1" class="anchored" data-anchor-id="u2-descriptive-summaries"><span class="header-section-number">D.1</span> U2: Descriptive summaries</h2>
-<section id="sec-u2-remaining" class="level3" data-number="D.1.1">
-<h3 data-number="D.1.1" class="anchored" data-anchor-id="sec-u2-remaining"><span class="header-section-number">D.1.1</span> U2: Remaining predictors</h3>
+<section id="u2-descriptive-summaries" class="level2" data-number="E.1">
+<h2 data-number="E.1" class="anchored" data-anchor-id="u2-descriptive-summaries"><span class="header-section-number">E.1</span> U2: Descriptive summaries</h2>
+<section id="sec-u2-remaining" class="level3" data-number="E.1.1">
+<h3 data-number="E.1.1" class="anchored" data-anchor-id="sec-u2-remaining"><span class="header-section-number">E.1.1</span> U2: Remaining predictors</h3>
 <p>We present a visual summary.</p>
 <div class="cell quarto-layout-panel" data-hash="Bact_univar_appendix_cache/html/uni04a_dab12ce527f4d6876694185c53ffb77d">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -434,23 +425,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell" data-hash="Bact_univar_appendix_cache/html/uni07_4849b840b430257944a24305f7484793">
 <div class="cell-output-display">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
-<script type="text/javascript">
-<!--
-    function expand_collapse(id) {
-       var e = document.getElementById(id);
-       var f = document.getElementById(id+"_earrows");
-       if(e.style.display == 'none'){
-          e.style.display = 'block';
-          f.innerHTML = '&#9650';
-       }
-       else {
-          e.style.display = 'none';
-          f.innerHTML = '&#9660';
-       }
-    }
-//-->
-</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 <style>
 .earrows {color:silver;font-size:11px;}
 
@@ -477,8 +453,13 @@ left: 0.1em;
 bottom: -1ex;
 }
 </style>
- <font color="MidnightBlue"><div align="center"><span style="font-weight:bold">remaining_predictors <br><br> 38  Variables   14691  Observations</span></div></font> <hr class="thinhr"> <span style="font-weight:bold">MCV</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcElEQVQ4jdWTUQrAIAxDn7v/ocesiB8dTpPBFqnoh+mjEopBEGUUh0EQZZTuxigDUXPVHf7BZWLTXMjk4dJSk+kDeczn5RjZvkXKZPvKd7h0ts3nMyjUaC4/fUDkGNuVnl6UYd0cVzWxq62p7WNrlxOhtwtH44vcgwAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<title>remaining_predictors Descriptives</title>
+<font color="MidnightBlue"><div align="center"><span style="font-weight:bold">remaining_predictors <br><br> 38  Variables   14691  Observations</span></div></font>
+<hr class="thinhr">
+<span style="font-weight:bold">MCV</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable402756 {
  border: none;
  font-size: 85%;
@@ -494,12 +475,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable402756">
+ <table data-quarto-disable-processing="true" class="hmisctable402756">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14649</td><td>42</td><td>506</td><td>1</td><td>88.35</td><td>6.992</td><td>78.2</td><td>81.1</td><td>84.7</td><td>88.3</td><td>92.0</td><td>95.9</td><td>99.0</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  51.0  52.6  54.9  56.3  57.5 ,  <font color="MidnightBlue">highest</font>: 121.0 121.8 124.6 127.9 128.7</span> <hr class="thinhr"> <span style="font-weight:bold">HGB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeklEQVQ4jcXVjQqAIAwE4LP3f+jYlQoh4W5TD8MKfz6EIYoY1PD9eRKDSwiG4X9lueEWea7uO+H6NzVblLfIFT437+x5VszmqyKnitlQjwpLPLMNLgnnmBBQrXOFUAJuYmwKyYvj9cZmN5w1+2CP1ufmuzo3rGX4EsoNO8II7dvgDOcAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 51    52.6  54.9  56.3  57.5  ,  <font color="MidnightBlue">highest</font>: 121   121.8 124.6 127.9 128.7</span>
+<hr class="thinhr">
+<span style="font-weight:bold">HGB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable226929 {
  border: none;
  font-size: 85%;
@@ -515,12 +500,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable226929">
+ <table data-quarto-disable-processing="true" class="hmisctable226929">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14650</td><td>41</td><td>157</td><td>1</td><td>11.57</td><td>2.558</td><td> 8.2</td><td> 8.8</td><td> 9.9</td><td>11.4</td><td>13.2</td><td>14.6</td><td>15.4</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  3.0  3.1  3.5  3.9  4.1 ,  <font color="MidnightBlue">highest</font>: 19.5 20.5 20.7 20.8 21.0</span> <hr class="thinhr"> <span style="font-weight:bold">HCT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcklEQVQ4jc3TUQrAIAwD0Or9Dy1miAjq2kTB/NT91Icjlk7EkDaObMxibBp1a77kkmmqa8kSbZprr1Jkiutfxcv49vhUbD35h/aHWn+fRcnY3/+kK6hicHEXh4rSal2mlUGRsGxsnruHm6Q+2+34+k6YBR+yCdg4QZ3BAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 3    3.1  3.5  3.9  4.1  ,  <font color="MidnightBlue">highest</font>: 19.5 20.5 20.7 20.8 21  </span>
+<hr class="thinhr">
+<span style="font-weight:bold">HCT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable211603 {
  border: none;
  font-size: 85%;
@@ -536,12 +525,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable211603">
+ <table data-quarto-disable-processing="true" class="hmisctable211603">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14649</td><td>42</td><td>404</td><td>1</td><td>34.48</td><td>7.316</td><td>24.6</td><td>26.4</td><td>29.8</td><td>34.3</td><td>39.1</td><td>42.9</td><td>44.8</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.0  0.1  0.2  9.7  9.8 ,  <font color="MidnightBlue">highest</font>: 61.4 61.9 63.2 65.3 66.6</span> <hr class="thinhr"> <span style="font-weight:bold">MCH</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdElEQVQ4jeWTUQqAMAxDo/c/9Kqb0tZNcMmHaECXr8ejECx0YOEpGbqSwR57WFDC0oC3e2nNSBjwNy9qNGdaVa2R2WM7kruX8mZf8woy3kukNkO5yEQvidkjxkgmewnctgnZmuovlE51yxtVV25RR+1u0b4CzcYLwaC5pgUAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0    0.1  0.2  9.7  9.8  ,  <font color="MidnightBlue">highest</font>: 61.4 61.9 63.2 65.3 66.6</span>
+<hr class="thinhr">
+<span style="font-weight:bold">MCH</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable142889 {
  border: none;
  font-size: 85%;
@@ -557,12 +550,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable142889">
+ <table data-quarto-disable-processing="true" class="hmisctable142889">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14649</td><td>42</td><td>232</td><td>1</td><td>29.58</td><td>2.693</td><td>25.3</td><td>26.7</td><td>28.4</td><td>29.7</td><td>31.0</td><td>32.4</td><td>33.4</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 14.9 15.6 15.9 16.0 16.5 ,  <font color="MidnightBlue">highest</font>: 42.0 42.3 42.4 42.5 47.4</span> <hr class="thinhr"> <span style="font-weight:bold">MCHC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcUlEQVQ4jd2T0QoAERRE5/r/j17cJQkrM7Vloni446QOTBO8EdUZgiSo0fQFOZeITNKCPoJKPdTdXLQ4w/zu4xiL/zGuYEbFkxHjKyga7Hz6C4tDOxndIWLRkjluD8pyy/LKupVLe9pP12DtKzMX434A7S8LO8VcvNwAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 14.9 15.6 15.9 16   16.5 ,  <font color="MidnightBlue">highest</font>: 42   42.3 42.4 42.5 47.4</span>
+<hr class="thinhr">
+<span style="font-weight:bold">MCHC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable136606 {
  border: none;
  font-size: 85%;
@@ -578,12 +575,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcUlE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable136606">
+ <table data-quarto-disable-processing="true" class="hmisctable136606">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14649</td><td>42</td><td>124</td><td>0.999</td><td>33.47</td><td>1.546</td><td>31.1</td><td>31.7</td><td>32.6</td><td>33.5</td><td>34.4</td><td>35.2</td><td>35.6</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 23.7 24.4 24.8 25.1 26.1 ,  <font color="MidnightBlue">highest</font>: 38.3 38.4 38.9 39.3 43.5</span> <hr class="thinhr"> <span style="font-weight:bold">RDW</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdElEQVQ4jc3TgQqAMAgE0Fv//9G1JErPjTbo1oEEDvIhiJIEluxJFWwc3EleNeHJcFlAMgV38AcZjY2sKluAe+NasTU6uoZLfZ1hEU2Veml+Vp+llA26ZLYJl4Tnfj/C+lhYz8xqEnWmcCWt0LbJ1/d5i0ftuIIK0HvoXwYAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 23.7 24.4 24.8 25.1 26.1 ,  <font color="MidnightBlue">highest</font>: 38.3 38.4 38.9 39.3 43.5</span>
+<hr class="thinhr">
+<span style="font-weight:bold">RDW</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable747262 {
  border: none;
  font-size: 85%;
@@ -599,12 +600,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable747262">
+ <table data-quarto-disable-processing="true" class="hmisctable747262">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14635</td><td>56</td><td>173</td><td>1</td><td>15</td><td>2.385</td><td>12.4</td><td>12.7</td><td>13.4</td><td>14.5</td><td>16.0</td><td>18.0</td><td>19.5</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 10.6 11.1 11.2 11.3 11.4 ,  <font color="MidnightBlue">highest</font>: 28.6 28.9 29.1 29.7 31.8</span> <hr class="thinhr"> <span style="font-weight:bold">MPV</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdUlEQVQ4jc3T3QrAIAgFYNv7P/SKGdhF5fFndaKLBurHQCqWUIupUj3hQUJjvg9QB/Ukj0sAT7pmqgyZuuEKlWC71gUsoC6/7SNgivtx2x64KsS2qbeq3LJFtcfk5s3KglBmYVufvkJU167wyYhoz0PEgx39vmZECVh6tdxsAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 10.6 11.1 11.2 11.3 11.4 ,  <font color="MidnightBlue">highest</font>: 28.6 28.9 29.1 29.7 31.8</span>
+<hr class="thinhr">
+<span style="font-weight:bold">MPV</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable559561 {
  border: none;
  font-size: 85%;
@@ -620,12 +625,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdUlE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable559561">
+ <table data-quarto-disable-processing="true" class="hmisctable559561">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13989</td><td>702</td><td>71</td><td>0.999</td><td>10.38</td><td>1.132</td><td> 8.9</td><td> 9.2</td><td> 9.7</td><td>10.3</td><td>11.0</td><td>11.7</td><td>12.2</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  7.3  7.7  7.8  7.9  8.0 ,  <font color="MidnightBlue">highest</font>: 14.2 14.3 14.6 14.8 15.0</span> <hr class="thinhr"> <span style="font-weight:bold">LYM</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAADQAAAANCAMAAADR0728AAAACVBMVEUAAADMzMz////1iUV5AAAAJ0lEQVQokWNgYGAkGTAwMDCRDIapptHQo0QTCDBCICNGUGIJXQZGAAh1BHO9ZpTEAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 7.3  7.7  7.8  7.9  8    ,  <font color="MidnightBlue">highest</font>: 14.2 14.3 14.6 14.8 15  </span>
+<hr class="thinhr">
+<span style="font-weight:bold">LYM</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAACXoAMABAAAAAEAAAANAAAAABXzt1gAAAEzSURBVFgJ7ZkhyoVAFIXvPF9yB3bBaBCDySgIJoNZowvQZDUIRoPrcAOCK7C4BQ02F/D+p/yC4MCo7cGZMpdz7gHn46LIsHEcP/S/FEXZqq+2S9hB4DEB9vmuPc0Y28qDtFvYQeA2gdftBAIgcJEAhusiKLTdJ4Dhus8MiYsEMFwXQaHtPoF33/enFE87NUEAAQEB/C0KAMF+TgCfxefskBQQ4A7XsiyCGGwQEBPgDtcwDOIkOkBAQIA7XHVdC2KwQUBMgPHuFo8xSZIoCALquo50XSdVVWl9s9m2TfM8U5Ikx/atzvOcNE0j3/dPXpZlZFkWua5L6zVTHMcURRGZpnnqXYWqqkiWZQrDkOv/kjhNE6VpSmVZUlEU5DjOxtUwDPI875eOcnrWtm2paZrtbLv5BwosUYUe0XRgAAAAAElFTkSuQmCC" alt="image"></div>
+<style>
  .hmisctable514624 {
  border: none;
  font-size: 85%;
@@ -641,20 +650,16 @@ iVBORw0KGgoAAAANSUhEUgAAADQAAAANCAMAAADR0728AAAACVBMVEUAAADMzMz////1iUV5AAAAJ0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable514624">
+ <table data-quarto-disable-processing="true" class="hmisctable514624">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14429</td><td>262</td><td>114</td><td>0.998</td><td>1.366</td><td>1.162</td><td>0.2</td><td>0.4</td><td>0.7</td><td>1.0</td><td>1.6</td><td>2.1</td><td>2.6</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   0.0   0.1   0.2   0.3   0.4 ,  <font color="MidnightBlue">highest</font>: 149.9 357.5 366.8 375.1 578.1</span> <pre style="font-size:85%;"> Value          0     5    10    15    20    30    35    40    45    75   100   115
- Frequency  13675   703    27     7     4     2     1     1     1     1     1     1
- Proportion 0.948 0.049 0.002 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
-                                         
- Value        150   360   365   375   580
- Frequency      1     1     1     1     1
- Proportion 0.000 0.000 0.000 0.000 0.000
- </pre>
-  For the frequency table, variable is rounded to the nearest 5 <hr class="thinhr"> <span style="font-weight:bold">MONO</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZElEQVQ4jc3TQQrAIAxE0R/vf+g2SQVt6/7PQkQMPAJDVLgTpjAq6RqmtAZsMLULt8sEqxZOl6iS275EC0sK+GBsLA/s7bLAPi6JjKWN5wT1L7q9T2PqmC/0cWrXMrde/wfy9QKVEwyUdyZZMgAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0     0.1   0.2   0.3   0.4   ,  <font color="MidnightBlue">highest</font>: 149.9 357.5 366.8 375.1 578.1</span>
+<hr class="thinhr">
+<span style="font-weight:bold">MONO</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable301298 {
  border: none;
  font-size: 85%;
@@ -670,12 +675,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable301298">
+ <table data-quarto-disable-processing="true" class="hmisctable301298">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14445</td><td>246</td><td>67</td><td>0.996</td><td>0.8527</td><td>0.5965</td><td>0.1</td><td>0.3</td><td>0.5</td><td>0.8</td><td>1.1</td><td>1.5</td><td>1.8</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.0  0.1  0.2  0.3  0.4 ,  <font color="MidnightBlue">highest</font>: 13.9 14.6 16.2 17.3 20.4</span> <hr class="thinhr"> <span style="font-weight:bold">EOS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAG0AAAANCAMAAACU0hA+AAAACVBMVEUAAADMzMz////1iUV5AAAAQklEQVQ4jWNgZGBgpBtgYGJgYKIbGLWNmrbRzzoGYJqkX6Kks9/obxvdrBvWtoHSJBoAFZ3AdIqUVvGlWgacHEyFAKxGCXLIBO+sAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0    0.1  0.2  0.3  0.4  ,  <font color="MidnightBlue">highest</font>: 13.9 14.6 16.2 17.3 20.4</span>
+<hr class="thinhr">
+<span style="font-weight:bold">EOS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAFIAAAANCAYAAAA69Dm5AAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAABSoAMABAAAAAEAAAANAAAAAAaX9cgAAAEdSURBVFgJ7Zc7ioRAFEWvXzoTjIzdgLkdmfQCFCNxFUaCu3AZoomRia7BJZgoaKKJYKJDFYw0SjNNTVo3kPe7JRwoqCcMw3CEYYhxHFFVFbjYCMiGYeDxeEBRFJCYi42AyGbjrisBDvJKhDHnIBnBXW0c5JUIYy63bYtlWbCuK0jMxUZAtiwLmqZRkCTmYiPArzYbt5vrBNl1HfI8vw3wwncETpDzPKNpmu9cfOpG4ARJOtM0oe/72xAv/E1A+N2167rGvu/UYZomRFGEJEl0dVRVFdu20R5ZJ4l830eWZRAEgeae56EoChzHgTiOYds2rb9/oiiC67p4Pp/v5X/F5F+v1wuO43w8pyxL+iJJkuTjDEsjTVPouo4gCPADvbZQLIL0PigAAAAASUVORK5CYII=" alt="image"></div>
+<style>
  .hmisctable663904 {
  border: none;
  font-size: 85%;
@@ -691,12 +700,16 @@ iVBORw0KGgoAAAANSUhEUgAAAG0AAAANCAMAAACU0hA+AAAACVBMVEUAAADMzMz////1iUV5AAAAQklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable663904">
+ <table data-quarto-disable-processing="true" class="hmisctable663904">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14556</td><td>135</td><td>36</td><td>0.867</td><td>0.1148</td><td>0.1585</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.1</td><td>0.1</td><td>0.3</td><td>0.4</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.0  0.1  0.2  0.3  0.4 ,  <font color="MidnightBlue">highest</font>:  3.8  5.3  9.6 11.5 15.8</span> <hr class="thinhr"> <span style="font-weight:bold">BASO</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAADcAAAANCAMAAAA65Aa/AAAACVBMVEUAAADMzMz////1iUV5AAAAJklEQVQokWNgYGAkBzAwMDCRA0aAvtHwxK6PLI0MqAASVoRDkxEAwHkEtC6j9aoAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0    0.1  0.2  0.3  0.4  ,  <font color="MidnightBlue">highest</font>: 3.8  5.3  9.6  11.5 15.8</span>
+<hr class="thinhr">
+<span style="font-weight:bold">BASO</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAADcAAAANCAYAAAANOvaNAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAAA3oAMABAAAAAEAAAANAAAAAIHcTkoAAADFSURBVEgN7ZYxCoQwEEX/LgFJZSpJozbBwsNJQA+SwlN5AKtUWqQNYpFulwTcwirdkuxOF/IH5s0fhnkopV5SSizLgrqukVMQxljgqaoKnPOc2PDMiuYG84e7NSSZZ9bOkW3bghPrusJam4wrMYWSpmmCru97tG0bk5OMJuux/A04rXUy4xZb6Me5eZ5jc5LRkWtDXrdlURTwS2bfd1BKUZYljDEQQuA8TxzHEW5Q3wz/78M5h2EYME0Tuq77KvxVyziOeANIxjR+6Kkm8gAAAABJRU5ErkJggg==" alt="image"></div>
+<style>
  .hmisctable366949 {
  border: none;
  font-size: 85%;
@@ -712,20 +725,25 @@ iVBORw0KGgoAAAANSUhEUgAAADcAAAANCAMAAAA65Aa/AAAACVBMVEUAAADMzMz////1iUV5AAAAJklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable366949">
+ <table data-quarto-disable-processing="true" class="hmisctable366949">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14545</td><td>146</td><td>18</td><td>0.337</td><td>0.01725</td><td>0.03111</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.1</td><td>0.1</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.0 0.1 0.2 0.3 0.4 ,  <font color="MidnightBlue">highest</font>: 1.3 1.4 1.5 2.2 6.5</span> <pre style="font-size:85%;"> Value        0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0   1.1
+
+<pre style="font-size:85%;"> Value      0.000 0.065 0.195 0.260 0.390 0.455 0.585 0.650 0.780 0.845 0.975 1.040
  Frequency  12671  1636   109    59    31    14     6     7     1     2     1     2
  Proportion 0.871 0.112 0.007 0.004 0.002 0.001 0.000 0.000 0.000 0.000 0.000 0.000
                                                
- Value        1.2   1.3   1.4   1.5   2.2   6.5
+ Value      1.170 1.300 1.365 1.495 2.145 6.500
  Frequency      1     1     1     1     1     1
- Proportion 0.000 0.000 0.000 0.000 0.000 0.000
- </pre>
- <hr class="thinhr"> <span style="font-weight:bold">NT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAg0lEQVQ4jc2U2wqAMAxDM///o7UMUbt2621gJDD30B4iEa1IQDc/R8cdBQJkZ0buYvoxVwYvxTXL6sUVYYtzscULLi9bvDVX4e7eKZau9/ZRCWSRlyc3P5e6mGTisrD5uIbFBsXY1lzy1JjsvxF2P/0S5ZrESBXB8+Dj8bVWfF93I6YTnuAJy58nGcwAAAAASUVORK5CYII=" alt="image"></div> <style>
+ Proportion 0.000 0.000 0.000 0.000 0.000 0.000 </pre>
+
+
+For the frequency table, variable is rounded to the nearest 0.065
+<hr class="thinhr">
+<span style="font-weight:bold">NT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable387385 {
  border: none;
  font-size: 85%;
@@ -741,12 +759,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAg0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable387385">
+ <table data-quarto-disable-processing="true" class="hmisctable387385">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>12224</td><td>2467</td><td>149</td><td>1</td><td>83.22</td><td>30.56</td><td> 35</td><td> 48</td><td> 67</td><td> 83</td><td>101</td><td>118</td><td>128</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   4   5   6   7   8 ,  <font color="MidnightBlue">highest</font>: 148 149 150 151 152</span> <hr class="thinhr"> <span style="font-weight:bold">APTT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAbklEQVQ4je2TQQ7AIAgEl/7/0Y0ULautPS6HDlERLxOThTGAlQAHg3kggjXgiFSIJ68KZqSA3+sLit/wUqUwqZAkyvxYEgCjc3KZ1M7orJLXYqUV23oJ7Vr00OodixrN/tKvtr7d0whd7Ne4H75OK0cMQxHtiFsAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   4   5   6   7   8 ,  <font color="MidnightBlue">highest</font>: 148 149 150 151 152</span>
+<hr class="thinhr">
+<span style="font-weight:bold">APTT</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable852918 {
  border: none;
  font-size: 85%;
@@ -762,12 +784,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAbklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable852918">
+ <table data-quarto-disable-processing="true" class="hmisctable852918">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>12142</td><td>2549</td><td>631</td><td>1</td><td>40.06</td><td>9.533</td><td>30.1</td><td>31.4</td><td>34.1</td><td>37.7</td><td>42.7</td><td>49.9</td><td>56.6</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  21.4  21.6  23.4  23.5  23.6 ,  <font color="MidnightBlue">highest</font>: 160.7 163.0 168.7 171.6 176.1</span> <hr class="thinhr"> <span style="font-weight:bold">SODIUM</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeklEQVQ4je2TUQqAMAxDE+9/aLc66uqGig0IYvYTBsteCwFlQpEubJEITZq0GiiKgZhMkVNgfq77CYhcGrR8g6yGOxc1pcwO50vq9qXY2De5Akywr3EFnJErS/bo+cgw40qh1fJYgWDHDc5M172DiXfXSfTybr83AnIFjHcLui7Xzt8AAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 21.4  21.6  23.4  23.5  23.6  ,  <font color="MidnightBlue">highest</font>: 160.7 163   168.7 171.6 176.1</span>
+<hr class="thinhr">
+<span style="font-weight:bold">SODIUM</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable974274 {
  border: none;
  font-size: 85%;
@@ -783,12 +809,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAeklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable974274">
+ <table data-quarto-disable-processing="true" class="hmisctable974274">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13409</td><td>1282</td><td>58</td><td>0.994</td><td>137.2</td><td>5.034</td><td>129</td><td>132</td><td>135</td><td>137</td><td>140</td><td>142</td><td>144</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 106 108 109 110 112 ,  <font color="MidnightBlue">highest</font>: 161 165 166 168 170</span> <hr class="thinhr"> <span style="font-weight:bold">CA</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdklEQVQ4jc3T0QrAIAgF0Gv//9FjkmUjRrfl0F6SMA+RkI2Axk7leovCBlBQg64luvAVKV3KSeeqHCBc9tEVJmOmyijiXQnmsT3RH+9Fq3K5BgoQLjvhiqAtXDmDxLvuv68DMCyfPAZwlr5U2+3WoyXSTy11mwvxHQuvQvNUbgAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 106 108 109 110 112 ,  <font color="MidnightBlue">highest</font>: 161 165 166 168 170</span>
+<hr class="thinhr">
+<span style="font-weight:bold">CA</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable723231 {
  border: none;
  font-size: 85%;
@@ -804,12 +834,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAdklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable723231">
+ <table data-quarto-disable-processing="true" class="hmisctable723231">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13415</td><td>1276</td><td>185</td><td>1</td><td>2.214</td><td>0.2213</td><td>1.89</td><td>1.96</td><td>2.09</td><td>2.22</td><td>2.35</td><td>2.45</td><td>2.51</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 1.03 1.15 1.18 1.20 1.23 ,  <font color="MidnightBlue">highest</font>: 3.84 3.88 3.96 4.18 4.40</span> <hr class="thinhr"> <span style="font-weight:bold">PHOS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAa0lEQVQ4jc2TSQoAIQwEO/7/0YML0SzmOG0RhPTFQmlIAOhDBs2BiY//xglA4ehsEbvhFbG7F1fsWS9TAguri0PldAzQnuv8x6hFFNObMyuiGEornhlqKZoeYg3vyD6lCEafdGa6trR6WfABbasLwR0lD8AAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 1.03 1.15 1.18 1.2  1.23 ,  <font color="MidnightBlue">highest</font>: 3.84 3.88 3.96 4.18 4.4 </span>
+<hr class="thinhr">
+<span style="font-weight:bold">PHOS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable412771 {
  border: none;
  font-size: 85%;
@@ -825,12 +859,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAa0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable412771">
+ <table data-quarto-disable-processing="true" class="hmisctable412771">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13449</td><td>1242</td><td>306</td><td>1</td><td>1.048</td><td>0.3993</td><td>0.55</td><td>0.64</td><td>0.81</td><td>0.99</td><td>1.20</td><td>1.47</td><td>1.74</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.30 0.31 0.32 0.33 0.34 ,  <font color="MidnightBlue">highest</font>: 4.36 4.43 4.53 5.48 6.22</span> <hr class="thinhr"> <span style="font-weight:bold">MG</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAfElEQVQ4jc2TgQqAIAxEb/3/R9dWStq0K5n4Ch2k2yM4CA+UD+dHwEaDBH/lP+wQFIQqnfPYc5PFyAlY0qu2muFFhePJCnl0tMJ/2Wt7XypcbMAr1Kzbu+cUrNZuTEgFymmwcDyaObH32rwQtihv1W0kVTbKPll9W/KW6x1Hygtarmv88wAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.3  0.31 0.32 0.33 0.34 ,  <font color="MidnightBlue">highest</font>: 4.36 4.43 4.53 5.48 6.22</span>
+<hr class="thinhr">
+<span style="font-weight:bold">MG</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable606017 {
  border: none;
  font-size: 74%;
@@ -846,12 +884,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAfElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable606017">
+ <table data-quarto-disable-processing="true" class="hmisctable606017">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>12822</td><td>1869</td><td>146</td><td>0.999</td><td>0.8136</td><td>0.1609</td><td>0.59</td><td>0.64</td><td>0.72</td><td>0.81</td><td>0.89</td><td>0.98</td><td>1.06</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.20 0.21 0.22 0.26 0.28 ,  <font color="MidnightBlue">highest</font>: 1.83 1.88 1.96 2.07 2.22</span> <hr class="thinhr"> <span style="font-weight:bold">HS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAd0lEQVQ4je3V0QqAIAyF4X+9/0Nnm4TiEinauuigKLv6UKaIF3DLgWHzgl8OzABQ0u+6Sg8onoOErpbvuIxDLqxvvNKHVSO0yexHu8DxvHKOrXN5niQcDWpuiqVRWWuoOByVdSsvvnNoFz6JrE859/YF6xheBK3symYLHOFQ42YAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.2  0.21 0.22 0.26 0.28 ,  <font color="MidnightBlue">highest</font>: 1.83 1.88 1.96 2.07 2.22</span>
+<hr class="thinhr">
+<span style="font-weight:bold">HS</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable121876 {
  border: none;
  font-size: 85%;
@@ -867,12 +909,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAd0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable121876">
+ <table data-quarto-disable-processing="true" class="hmisctable121876">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>11630</td><td>3061</td><td>169</td><td>1</td><td>5.413</td><td>2.625</td><td> 2.2</td><td> 2.7</td><td> 3.7</td><td> 5.0</td><td> 6.6</td><td> 8.5</td><td>10.0</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  1.3  1.4  1.5  1.6  1.7 ,  <font color="MidnightBlue">highest</font>: 19.8 20.2 22.2 22.3 22.7</span> <hr class="thinhr"> <span style="font-weight:bold">GBIL</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAXklEQVQ4je2TUQrAIAxDk93/0HZpq+BgbH/5MGItbZWHEDAE0E24QlC00uH6J3MuOzA5EX6GtP0vhcP1Vc3lBja5zMhuI6LEtZ/pa1Mpwa5Qz2rlWdW8wu7XwOZE1QZdRA0CQR2HNAAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 1.3  1.4  1.5  1.6  1.7  ,  <font color="MidnightBlue">highest</font>: 19.8 20.2 22.2 22.3 22.7</span>
+<hr class="thinhr">
+<span style="font-weight:bold">GBIL</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable589478 {
  border: none;
  font-size: 85%;
@@ -888,12 +934,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAXklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable589478">
+ <table data-quarto-disable-processing="true" class="hmisctable589478">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13250</td><td>1441</td><td>885</td><td>1</td><td>1.406</td><td>1.477</td><td>0.33</td><td>0.39</td><td>0.53</td><td>0.77</td><td>1.23</td><td>2.34</td><td>3.96</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.11  0.12  0.13  0.14  0.15 ,  <font color="MidnightBlue">highest</font>: 42.82 43.83 45.10 51.72 51.77</span> <hr class="thinhr"> <span style="font-weight:bold">TP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAh0lEQVQ4jcWV2w7AIAhD6/7/oxfsJNuyecFGGyL6IJ6gCNK8ADOtcIQEmNGBCwRD/RwQhkIhcu3j8szgS8qUDUSqEO3jur2kljRcffWW2jiuNfU4AKRMWT1E172t5opCSdD+9k8QSdDem8FvXKU4l7393OHY5lBGja7e6T5P2VETjeX7KGJbnJG6CWzjhVAaAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.11  0.12  0.13  0.14  0.15  ,  <font color="MidnightBlue">highest</font>: 42.82 43.83 45.1  51.72 51.77</span>
+<hr class="thinhr">
+<span style="font-weight:bold">TP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable892281 {
  border: none;
  font-size: 74%;
@@ -909,12 +959,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAh0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable892281">
+ <table data-quarto-disable-processing="true" class="hmisctable892281">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13108</td><td>1583</td><td>649</td><td>1</td><td>64.9</td><td>12.97</td><td>45.20</td><td>49.47</td><td>56.90</td><td>65.70</td><td>73.30</td><td>78.80</td><td>82.00</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  29.9  30.0  30.3  30.5  30.6 ,  <font color="MidnightBlue">highest</font>: 107.8 108.1 108.7 112.8 120.9</span> <hr class="thinhr"> <span style="font-weight:bold">ALB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAe0lEQVQ4jb3VUQ4AEQwE0Kn7H9rSn9pEtEM7HyIIL5ICeRwAps9v0y7zObS10VGdIrclMZbyV63ERulYVzAlrrCK0MVctCgsi1TMtQr+Ag3c1wvWjOuwcpUPdlxzeAayaKcFGSaPbTuZCTK0nW4UCMZHpo3tVmU9enpEOnyCB5E+XdsVAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 29.9  30    30.3  30.5  30.6  ,  <font color="MidnightBlue">highest</font>: 107.8 108.1 108.7 112.8 120.9</span>
+<hr class="thinhr">
+<span style="font-weight:bold">ALB</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable888322 {
  border: none;
  font-size: 85%;
@@ -930,12 +984,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAe0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable888322">
+ <table data-quarto-disable-processing="true" class="hmisctable888322">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13015</td><td>1676</td><td>401</td><td>1</td><td>33.42</td><td>8.513</td><td>21.3</td><td>23.6</td><td>27.9</td><td>33.6</td><td>39.1</td><td>43.2</td><td>45.2</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 10.0 10.2 10.5 10.6 10.7 ,  <font color="MidnightBlue">highest</font>: 52.9 53.2 53.7 54.0 55.7</span> <hr class="thinhr"> <span style="font-weight:bold">AMY</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACUAAAANCAMAAAAZv1dqAAAACVBMVEUAAADMzMz////1iUV5AAAAH0lEQVQYlWNgYCQCMDAwEQEGr6qR4EcQwO4xRpg4AwAewgM2/m5ecQAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 10   10.2 10.5 10.6 10.7 ,  <font color="MidnightBlue">highest</font>: 52.9 53.2 53.7 54   55.7</span>
+<hr class="thinhr">
+<span style="font-weight:bold">AMY</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAACXoAMABAAAAAEAAAANAAAAABXzt1gAAAEDSURBVFgJ7ZmxCYNAGIXfBUtLGxsnsHEB13AGZ3AEtXQMK8HaFewEB9ARrEwixBDuop5n0r0f5Lj/f0/h44HKiWEY7niV67qwbRt9368triRgTEDcn7W6hRBYrnme1xZXEjAmcJOdH1mTR9yTwCkCSrhOuSkmgR0CDNcOHI6uEWC4rvGje4eA1batMv7WU0RskMABAeVvcdHzo/6AGsdaBPha1MJEkQkBhsuEGj1aBBguLUwUmRBguEyo0aNFwBrHUREuR0ByOY6DoigQhiHqukYcxwiCANM0wfd9ZFkmW7j/IYE0TeF5HqIo2rxrWZboug5Jkmxq/jVomgZVVSHP8/cjHlSiOhsvs/61AAAAAElFTkSuQmCC" alt="image"></div>
+<style>
  .hmisctable100227 {
  border: none;
  font-size: 85%;
@@ -951,16 +1009,16 @@ iVBORw0KGgoAAAANSUhEUgAAACUAAAANCAMAAAAZv1dqAAAACVBMVEUAAADMzMz////1iUV5AAAAH0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable100227">
+ <table data-quarto-disable-processing="true" class="hmisctable100227">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>10778</td><td>3913</td><td>488</td><td>1</td><td>90.83</td><td>100.5</td><td> 18</td><td> 23</td><td> 33</td><td> 49</td><td> 76</td><td>125</td><td>187</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     8     9    10    11    12 ,  <font color="MidnightBlue">highest</font>:  4984  5248 40372 43970 56146</span> <pre style="font-size:85%;"> Value          0   500  1000  1500  2000  2500  4000  4500  5000 40500 44000 56000
- Frequency  10432   268    39    14    12     4     2     2     2     1     1     1
- Proportion 0.968 0.025 0.004 0.001 0.001 0.000 0.000 0.000 0.000 0.000 0.000 0.000
- </pre>
-  For the frequency table, variable is rounded to the nearest 500 <hr class="thinhr"> <span style="font-weight:bold">PAMY</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAABYAAAANCAMAAACae25RAAAACVBMVEUAAADMzMz////1iUV5AAAAGklEQVQYlWNgYMQGGBiYsAHaCg8el2BzCwMAGi8B4ah/57sAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     8     9    10    11    12 ,  <font color="MidnightBlue">highest</font>:  4984  5248 40372 43970 56146</span>
+<hr class="thinhr">
+<span style="font-weight:bold">PAMY</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAACXoAMABAAAAAEAAAANAAAAABXzt1gAAADmSURBVFgJ7dkxCoQwEAXQn2ApWOdEKbyXtXgPC08QvIBg5w30ApbqrrBZFpMgJHb70wT/ZFI8BkQU8zwf+CylFIqiwDRNNuJOgWgBcbyX7RZCQEqJbdtsxJ0C0QLy2rnv+zXiMwWiBJzhirqFTRTwCHC4PCiMnhHgcD3jyFs8Atk4jk7sy5xDDChwI+B8LZ7nfz4gb9pZpkBYgK/FsA0riQIcrkRAtocFOFxhG1YSBThciYBsDwtky7I41fM3kF15nmNdV2itMQwDqqpCWZbo+x5t26JpGnuU+x8LGGPQdR3quv4qvACQbjQYFAAUQQAAAABJRU5ErkJggg==" alt="image"></div>
+<style>
  .hmisctable245633 {
  border: none;
  font-size: 85%;
@@ -976,16 +1034,16 @@ iVBORw0KGgoAAAANSUhEUgAAABYAAAANCAMAAACae25RAAAACVBMVEUAAADMzMz////1iUV5AAAAGklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable245633">
+ <table data-quarto-disable-processing="true" class="hmisctable245633">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>7577</td><td>7114</td><td>280</td><td>0.999</td><td>41.66</td><td>47.28</td><td> 7</td><td> 9</td><td>14</td><td>22</td><td>36</td><td>64</td><td>97</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     1     2     3     4     5 ,  <font color="MidnightBlue">highest</font>:  1673  2083  2116  3066 38369</span> <pre style="font-size:85%;"> Value          0   500  1000  1500  2000  3000 38500
- Frequency   7495    65     7     6     2     1     1
- Proportion 0.989 0.009 0.001 0.001 0.000 0.000 0.000
- </pre>
-  For the frequency table, variable is rounded to the nearest 500 <hr class="thinhr"> <span style="font-weight:bold">LIP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAEAAAAANCAMAAAAucZheAAAACVBMVEUAAADMzMz////1iUV5AAAAKklEQVQokWNgYGCkCDAwMDBRBEYNABswGguDwQAkAApVSNjCWATiiIERACyhBYM6jKyHAAAAAElFTkSuQmCC" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     1     2     3     4     5 ,  <font color="MidnightBlue">highest</font>:  1673  2083  2116  3066 38369</span>
+<hr class="thinhr">
+<span style="font-weight:bold">LIP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable140949 {
  border: none;
  font-size: 85%;
@@ -1001,12 +1059,16 @@ iVBORw0KGgoAAAANSUhEUgAAAEAAAAANCAMAAAAucZheAAAACVBMVEUAAADMzMz////1iUV5AAAAKklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable140949">
+ <table data-quarto-disable-processing="true" class="hmisctable140949">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>10992</td><td>3699</td><td>444</td><td>1</td><td>63.82</td><td>89.88</td><td>  6</td><td>  8</td><td> 14</td><td> 23</td><td> 40</td><td> 79</td><td>135</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     0     1     2     3     4 ,  <font color="MidnightBlue">highest</font>: 11469 15843 18560 22339 45991</span> <hr class="thinhr"> <span style="font-weight:bold">CHE</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAc0lEQVQ4jb3TUQrAIAwD0HT3P/TQakFo2bBp86GCqA8hkCiY0VnGQoem4HEDP7bhnyLGfyFgHcJu17epw5d1VeGOOy9IJiPrdsXuSZaSPhJcGtZ/kVksGtgolaVxNa6ly7mqWCkiKFX8EwlXMqsMkVXpMb07Bwe5a1dAeQAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     0     1     2     3     4 ,  <font color="MidnightBlue">highest</font>: 11469 15843 18560 22339 45991</span>
+<hr class="thinhr">
+<span style="font-weight:bold">CHE</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable416746 {
  border: none;
  font-size: 85%;
@@ -1022,12 +1084,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAc0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable416746">
+ <table data-quarto-disable-processing="true" class="hmisctable416746">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>12244</td><td>2447</td><td>997</td><td>1</td><td>4.79</td><td>2.378</td><td>1.70</td><td>2.17</td><td>3.15</td><td>4.60</td><td>6.22</td><td>7.65</td><td>8.49</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  0.98  0.99  1.00  1.01  1.02 ,  <font color="MidnightBlue">highest</font>: 12.39 12.55 12.97 13.32 13.89</span> <hr class="thinhr"> <span style="font-weight:bold">AP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAH8AAAANCAMAAAC3iUHrAAAACVBMVEUAAADMzMz////1iUV5AAAAR0lEQVQ4jWNgBAIGBsaBAgxMQMAABEwDA0btH+H2Q9L/gOWAAff/YLF/gFwwiOwfEBcwQJM/GDCSD8FpGYyReSgpHYsIIyMAyJIK1pgJl1IAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0.98  0.99  1     1.01  1.02  ,  <font color="MidnightBlue">highest</font>: 12.39 12.55 12.97 13.32 13.89</span>
+<hr class="thinhr">
+<span style="font-weight:bold">AP</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAACXoAMABAAAAAEAAAANAAAAABXzt1gAAAI3SURBVFgJ7ZnNq/FBFMe/3m4WyhYlWwuxU5KSrGxIKUnKSlGsSCyUYucfsLWytiTsZEFZkliJJRbkrfvcM/Xcfi/3Xrqrp545qzlnzhkzn878ZsxRbLfbd0gkFothMBigWCwil8tJernKCbxGQG0wGGSe6/Wa2VarFb7qlwVwAyfwBQHF+4dI7VqtFpfLBRqNBtfrVdrNdU7gJQJKqdfpdGKJRfbb7Ybj8Sh14Ton8BIBWXLRXUsof49IoY23OYFXCMiSi75cQvH7/UKVtzmBlwmoZ7OZyHk8Hov0/X4PqY/IgSucwDcE1A6HQ9RVqVRE+v1+h0KhgN1uF9m5wgk8IyA7FheLhSwmFArJbNzACTwjIEuu3W4ni6FLfbvdltm5gRP4iYAsub5714pGo6jX65/PFD8Nyvs4ASIgekT9KAXBZDI9JfP29gav1wu32w2PxwO1Wg2XywWVSsXuZ08H4A7/BQGFsLZotVpxOBz+qYXr9Xr2kEsJTI+6VDV4PB4soekrq1QqYTQaQRtDp9PhfD6Dig5UZSA/iqFYSvxwOIxut4tIJML8KHY+nzN/2hybzQbVahU+nw/JZBJ018zn8wgEAuwfc6lUQjweZ7/TarXYRioUChiNRrBYLGwutVoNZrOZMaRnnWAwCKfTCbKTLJdLJBIJZLNZ0GnQbDYxmUwwnU7R6/VA6xUKzT+dTrMar81mE3b9qk1zymQyKJfL6Pf7bO2pVOpXYwmDhsMhOp0OGo3Gp/kPGFTNPaUlmCAAAAAASUVORK5CYII=" alt="image"></div>
+<style>
  .hmisctable130234 {
  border: none;
  font-size: 85%;
@@ -1043,12 +1109,16 @@ iVBORw0KGgoAAAANSUhEUgAAAH8AAAANCAMAAAC3iUHrAAAACVBMVEUAAADMzMz////1iUV5AAAAR0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable130234">
+ <table data-quarto-disable-processing="true" class="hmisctable130234">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>13291</td><td>1400</td><td>672</td><td>1</td><td>118.8</td><td>91.51</td><td> 42</td><td> 49</td><td> 63</td><td> 84</td><td>123</td><td>206</td><td>302</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   11   14   15   16   17 ,  <font color="MidnightBlue">highest</font>: 1980 2132 2549 2596 2995</span> <hr class="thinhr"> <span style="font-weight:bold">LDH</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAYUlEQVQ4je2VQQrAMAgEx/7/0VWzlR7agzcPDsQYkbAIi5gDNg0uh4yjWF09VlePdCLzDKl5jRvY6uoRgmCesNI1TFgYEVHJN2pU9FcuVrRdIzu3vRauqlQpv3na/rzo5wZjhw0MlTTx5wAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   11   14   15   16   17 ,  <font color="MidnightBlue">highest</font>: 1980 2132 2549 2596 2995</span>
+<hr class="thinhr">
+<span style="font-weight:bold">LDH</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable517449 {
  border: none;
  font-size: 85%;
@@ -1064,12 +1134,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAYUlE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable517449">
+ <table data-quarto-disable-processing="true" class="hmisctable517449">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>12977</td><td>1714</td><td>1137</td><td>1</td><td>331.2</td><td>240.9</td><td>136</td><td>152</td><td>187</td><td>239</td><td>332</td><td>508</td><td>724</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    39    46    54    55    56 ,  <font color="MidnightBlue">highest</font>: 10473 10784 10822 11246 13906</span> <hr class="thinhr"> <span style="font-weight:bold">CK</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAHYAAAANCAMAAABLnGohAAAACVBMVEUAAADMzMz////1iUV5AAAAQElEQVQ4jWNgZGBgpD9gYGJgYKI/GLV2GFs7mpJHraW+tQNgMSglwwAjGoMRyoCkPShGkMg5gAGNjySBKQ4UAABqTQpC9fFEkwAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:    39    46    54    55    56 ,  <font color="MidnightBlue">highest</font>: 10473 10784 10822 11246 13906</span>
+<hr class="thinhr">
+<span style="font-weight:bold">CK</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable996765 {
  border: none;
  font-size: 85%;
@@ -1085,12 +1159,16 @@ iVBORw0KGgoAAAANSUhEUgAAAHYAAAANCAMAAABLnGohAAAACVBMVEUAAADMzMz////1iUV5AAAAQElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable996765">
+ <table data-quarto-disable-processing="true" class="hmisctable996765">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>12611</td><td>2080</td><td>1506</td><td>1</td><td>385</td><td>615.4</td><td>  18</td><td>  25</td><td>  42</td><td>  80</td><td> 184</td><td> 577</td><td>1155</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     8     9    10    11    12 ,  <font color="MidnightBlue">highest</font>: 60799 63011 82180 83880 98801</span> <hr class="thinhr"> <span style="font-weight:bold">GLU</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAYklEQVQ4je2TSwrAIAwFJ73/oVs/bWIRtKu8RWchBkUGYTAHMBU4Hi6tMCXze33j5SVjJusVEqjkJTjg/4PWf/kOJTN1LyKpRo2pl4BZ6Y8VkxtWyu319nOrb3lR47iZ4b2cJ/QMq8QIwM4AAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:     8     9    10    11    12 ,  <font color="MidnightBlue">highest</font>: 60799 63011 82180 83880 98801</span>
+<hr class="thinhr">
+<span style="font-weight:bold">GLU</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable458522 {
  border: none;
  font-size: 85%;
@@ -1106,12 +1184,16 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAYklE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable458522">
+ <table data-quarto-disable-processing="true" class="hmisctable458522">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>10499</td><td>4192</td><td>389</td><td>1</td><td>126.4</td><td>48.3</td><td> 78</td><td> 85</td><td> 97</td><td>113</td><td>138</td><td>177</td><td>216</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   19   22   23   26   28 ,  <font color="MidnightBlue">highest</font>:  843  848  890 1349 1403</span> <hr class="thinhr"> <span style="font-weight:bold">TRIG</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAF4AAAANCAMAAAAXFikFAAAACVBMVEUAAADMzMz////1iUV5AAAARElEQVQ4jWNgZGRgYKQZYGBiYgBiWoFR4wkZTzvzGUAph3ZJh9aup4fxNDOfPsbTynxIykED0HIIhhnhNLIIEcmGkREAyCUIGNCg8jUAAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   19   22   23   26   28 ,  <font color="MidnightBlue">highest</font>:  843  848  890 1349 1403</span>
+<hr class="thinhr">
+<span style="font-weight:bold">TRIG</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable219251 {
  border: none;
  font-size: 85%;
@@ -1127,12 +1209,16 @@ iVBORw0KGgoAAAANSUhEUgAAAF4AAAANCAMAAAAXFikFAAAACVBMVEUAAADMzMz////1iUV5AAAARElE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable219251">
+ <table data-quarto-disable-processing="true" class="hmisctable219251">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>9630</td><td>5061</td><td>538</td><td>1</td><td>141.7</td><td>90.33</td><td> 54</td><td> 64</td><td> 83</td><td>115</td><td>165</td><td>241</td><td>307</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   14   15   16   20   22 ,  <font color="MidnightBlue">highest</font>: 1796 2247 2662 2918 5440</span> <hr class="thinhr"> <span style="font-weight:bold">CHOL</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lEQVQ4jc2TQQrAIAwEN/7/0Y1aBLep4sXNgAZyGgIDI+DwTgAKUb384/VtQi9k88JAfbI/L/XJ0npNERCqGG3qka2kF1t6CdXSe4VWOjNsrFRutTl8QmQsfi1he0efoydenLTo7wG9Hgvy83CMIQAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   14   15   16   20   22 ,  <font color="MidnightBlue">highest</font>: 1796 2247 2662 2918 5440</span>
+<hr class="thinhr">
+<span style="font-weight:bold">CHOL</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable797817 {
  border: none;
  font-size: 85%;
@@ -1148,64 +1234,84 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable797817">
+ <table data-quarto-disable-processing="true" class="hmisctable797817">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>9646</td><td>5045</td><td>339</td><td>1</td><td>150.8</td><td>59.23</td><td> 74</td><td> 89</td><td>113</td><td>145</td><td>182</td><td>219</td><td>243</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   25   26   27   28   29 ,  <font color="MidnightBlue">highest</font>:  646  662  676  710 1104</span> <hr class="thinhr"> <span style="font-weight:bold">BASOR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAHMAAAANCAMAAACttaFlAAAACVBMVEUAAADMzMz////1iUV5AAAAPklEQVQ4jWNgZGBgpDNgYGJgYKIzGLVzmNk5mm5H7RyKdgLTLTbACMGgVAakGZHSNgOcQEuNjCgSuHIDUBwA2JUKBUCC2pEAAAAASUVORK5CYII=" alt="image"></div> <pre style="font-size:85%;">        n  missing distinct     Info     Mean      Gmd      .05      .10      .25 
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:   25   26   27   28   29 ,  <font color="MidnightBlue">highest</font>:  646  662  676  710 1104</span>
+<hr class="thinhr">
+<span style="font-weight:bold">BASOR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<pre style="font-size:85%;">        n  missing distinct     Info     Mean      Gmd      .05      .10      .25 
     13959      732      419    0.322    0.145   0.2679   0.0000   0.0000   0.0000 
       .50      .75      .90      .95 
-   0.0000   0.0000   0.5501   1.0526 
- </pre>
- <style>
+   0.0000   0.0000   0.5501   1.0526  </pre>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0        0.13587  0.15456  0.165289 0.181818 ,  <font color="MidnightBlue">highest</font>: 11.1111  15.2174  16.6667  18.4211  23.6559 </span>
+<hr class="thinhr">
+<span style="font-weight:bold">EOSR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<pre style="font-size:85%;">        n  missing distinct     Info     Mean      Gmd      .05      .10      .25 
+    13959      732      927    0.891    1.297    1.825   0.0000   0.0000   0.0000 
+      .50      .75      .90      .95 
+   0.5882   1.7857   3.4900   5.0000  </pre>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0        0.183486 0.20284  0.217865 0.218818 ,  <font color="MidnightBlue">highest</font>: 39.1753  46.6019  46.9027  50       73.4884 </span>
+<hr class="thinhr">
+<span style="font-weight:bold">LYMR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable761557 {
  border: none;
- font-size: 85%;
+ font-size: 74%;
  }
  .hmisctable761557 td {
- text-align: right;
+ text-align: center;
  padding: 0 1ex 0 1ex;
  }
  .hmisctable761557 th {
- color: Black;
+ color: MidnightBlue;
  text-align: center;
  padding: 0 1ex 0 1ex;
- font-weight: bold;
+ font-weight: normal;
  }
  </style>
- <table class="hmisctable761557">
- <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td> 0.0000000</td><td> 0.1358696</td><td> 0.1545595</td><td> 0.1652893</td><td> 0.1818182</td></tr>
- <tr><td><font color="MidnightBlue">highest</font>:</td><td>11.1111111</td><td>15.2173913</td><td>16.6666667</td><td>18.4210526</td><td>23.6559140</td></tr>
+ <table data-quarto-disable-processing="true" class="hmisctable761557">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13959</td><td>732</td><td>3121</td><td>1</td><td>14.61</td><td>11.87</td><td> 2.752</td><td> 4.000</td><td> 6.757</td><td>11.340</td><td>18.182</td><td>27.869</td><td>36.620</td></tr>
  </tbody></table>
- <hr class="thinhr"> <span style="font-weight:bold">EOSR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAGEAAAANCAMAAACO7vCwAAAACVBMVEUAAADMzMz////1iUV5AAAARElEQVQ4je2SQQoAIAzDGv//aFEKQ/Da4cFCCzuFQYRENBrSiOYTHiG0uJR9ookQRXQRkpDlkoNbg4ddYetKPh3XTSSYF4MIVFDP+KgAAAAASUVORK5CYII=" alt="image"></div> <pre style="font-size:85%;">        n  missing distinct     Info     Mean      Gmd      .05      .10      .25 
-    13959      732      927    0.891    1.297    1.825   0.0000   0.0000   0.0000 
-      .50      .75      .90      .95 
-   0.5882   1.7857   3.4900   5.0000 
- </pre>
- <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0        0.321543 0.44843  0.460829 0.463679 ,  <font color="MidnightBlue">highest</font>: 97.2414  97.4194  98       99.1848  100     </span>
+<hr class="thinhr">
+<span style="font-weight:bold">MONOR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAACXoAMABAAAAAEAAAANAAAAABXzt1gAAAMQSURBVFgJ7Vm9SytBEP9Fo8RCEUllxEAaowaRgKAQxI80SUAQ8Q8QtLA0jWgTVETRQi1EwSJVUEEUIaSKQgTRVoKBICIW4hcEjB+FRO9lBu7I5cXnGV/xfNmDu9uZ2dnd+TE7u7Oru76+lvCFZ3h4GHt7e3h6eoIkSbi6ukJRUdEXWhBVCwUBXdpBNDvXyMgI1tbW8PLywo5FIDU2NmJrawtWq7VQMBN2akRAc8iZn5/H4uIinp+fVU2fnp4iEAjg6OhIxReEQEBz5GpqakI0GmXEdDqdErmIUVdXh7e3N5ydnQlEBQIKAp9Grvf3dywvL+Pu7k5Ryi7E43Hc399jc3MzWyToAkbg08h1fHyMtrY2FUTZkYuEMo82+11dXar6gihMBPQnJyeK5aOjo/B4PGhvb1d4KysrSlku5MoBZN7s7Cx2d3fhdDpRW1srq4h/ISJA2aL8lJaWSmNjYzIpTU9PS8XFxZRNqt50lFLRJM/mpRMApR1RKEwEPtxzhUIh+Hw+3qjnM+m2t7dxcHCAm5ubfNSFzn+AQE7nIsfq7+9HKpXK20Q6muju7sb4+HjebQjFn43Ab85FWeHg4CAflH7XNDqe8Pv9qKys5Cj28PDw3SaF/g9CQJUtpvdcKC8vRyKR+KMJcmaYWUkLj+rYbDZYLBa4XC7U19djdXUVExMT3G9FRQUMBoNynbS/v8+ZallZWWZXOcvJZBKPj48wmUw55X+DSX3QGMWjDQFd5t1iTU1N3nssLc5FQ8qsR3eSdI6m1+t5CSa6pKSEebKTG41GpJMK5pHjUfSrqqpi62jZpglBfMpMz8/PuUz3nqRDcofDgYuLC9jtdr4T7ezsBC371JfZbOb/wMAAgsEgDg8PuX8az+vrK1paWrC0tMR9xWIxzoDD4TAaGhr4TO/y8hKtra2Ymppiu+bm5tDc3Mz1ya6hoSHQXezGxgZPkr6+PpbRZ3JykicUjaW3txfV1dWIRCJYWFjgaL++vg63243b21vMzMywntfrRU9PDzo6Opj+lz6Ey87ODp+JyuP6BRD+VwyJddQfAAAAAElFTkSuQmCC" alt="image"></div>
+<style>
  .hmisctable976421 {
  border: none;
- font-size: 85%;
+ font-size: 74%;
  }
  .hmisctable976421 td {
- text-align: right;
+ text-align: center;
  padding: 0 1ex 0 1ex;
  }
  .hmisctable976421 th {
- color: Black;
+ color: MidnightBlue;
  text-align: center;
  padding: 0 1ex 0 1ex;
- font-weight: bold;
+ font-weight: normal;
  }
  </style>
- <table class="hmisctable976421">
- <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td> 0.0000000</td><td> 0.1834862</td><td> 0.2028398</td><td> 0.2178649</td><td> 0.2188184</td></tr>
- <tr><td><font color="MidnightBlue">highest</font>:</td><td>39.1752577</td><td>46.6019417</td><td>46.9026549</td><td>50.0000000</td><td>73.4883721</td></tr>
+ <table data-quarto-disable-processing="true" class="hmisctable976421">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13959</td><td>732</td><td>2334</td><td>1</td><td>8.793</td><td>5.4</td><td> 2.000</td><td> 3.390</td><td> 5.634</td><td> 8.000</td><td>10.870</td><td>14.141</td><td>17.021</td></tr>
  </tbody></table>
- <hr class="thinhr"> <span style="font-weight:bold">LYMR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lEQVQ4jdXTUQrAIAwD0NT7H9o5rBNXtV+mBhERwUchkC8okRhB0qAlBYjliiBrBNzg4tP0/5HFlmn/DBe1mphNizy1rYskc7ge2XkcHCzG4OBWnQXCruIu0q316X8tdR8fvDXUUwbBUQsZjNtF2AAAAABJRU5ErkJggg==" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0        0.274725 0.341297 0.344828 0.456621 ,  <font color="MidnightBlue">highest</font>: 68.5446  69.2308  70.3704  72.7273  100     </span>
+<hr class="thinhr">
+<span style="font-weight:bold">NEUR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable557281 {
  border: none;
  font-size: 74%;
@@ -1221,35 +1327,44 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZ0lE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable557281">
+ <table data-quarto-disable-processing="true" class="hmisctable557281">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
- <tr><td>13959</td><td>732</td><td>3121</td><td>1</td><td>14.61</td><td>11.87</td><td> 2.752</td><td> 4.000</td><td> 6.757</td><td>11.340</td><td>18.182</td><td>27.869</td><td>36.620</td></tr>
+ <tr><td>13959</td><td>732</td><td>3850</td><td>1</td><td>75.15</td><td>15.6</td><td>47.42</td><td>57.88</td><td>69.23</td><td>78.33</td><td>85.32</td><td>90.13</td><td>92.63</td></tr>
  </tbody></table>
- <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0       1.48483 1.93548 1.96078 2.41379 ,  <font color="MidnightBlue">highest</font>: 99.1228 99.1667 99.4764 99.4845 100    </span>
+<hr class="thinhr">
+<span style="font-weight:bold">PDW</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAACXoAMABAAAAAEAAAANAAAAABXzt1gAAAQOSURBVFgJ7VlLKHVRFP6u91uKvIoUAyQDlJSUmEuJlIEiUhiYGTCgTGRgYGDAwMRAKWViYCKFkRJRkijkVd5v99/f+jun1e3ip/tfd3B23XvW3mvttfZe5ztrP5br+PjYjQApHR0dCA4ORn9/PxITE7G7u4vy8nIEBQWhsrISY2NjiI2NDZDROsP4ygMutylfCfmLX1FRgdXVVTw9PWFqakqA1tjYKOZDQ0Px9vaGlJQUrK+vCwCrqqpweXmJlpYWzM3N4fT0VGh/jdex84UHCK7fLOPj4+7u7m732tqaOz8/n0CXX3JysttEKbtuopdN19bWCm3AJc+mpiabd3Z29pvTcWwrD0DRfie5JOfl5QkwCB6Xy2WDhCDTgNK0JRcZGSnycXFxdr+2tja/z8Mx6N0DQV8ENp+yz8/PMT09jff3d1m+UlNTcXBwIDbYZob4LXsPDw8if3NzY/ebnJxEdnY2TDTDxsYGdnZ28Pz8bPMdwo8e8I4537caALhLS0slwvT29tqRRkckM227nbTmadqKXJa8rmu5qKgo0TEwMOCenZ31/aQcjZ96wGU2x98LFz8E/vb2NhoaGqR3SEgIXl9fhTbA+DBiaZ4BjUQ8b+Y/krPaeRigverqatTV1aGkpMSbGqfNxx7wy2nx9vYWXV1d4JLFwusGnvxYPgON5mnaAo0oMH+6ruU0bcnyaQ4O6OnpwfX1NSYmJrC8vIyYmBgt4tA+8MB/A9fj4yOysrLkRW5tbeHk5MSOUL8NLvqN0ezl5UVcODo6iv39fbS3tyMnJ8cHbnVU0AP/BVwjIyPo6+vD3d2d7WUdXQIBXDqqWeOpqanB1dUV6uvrsbi4iPj4eBQVFYF3bc7lrf0q/5nwCbh4altZWZFlhl8/lxu2md2ePZBABpcGGsfJYo2dwOPlbnNzs8yRS+jg4CCSkpKQnp4uP35E0dHR9lwd4q8HfgQuOn5vbw/z8/MCJD4JLnPvJKCiag0mz7oVKdiuXyzrumiepj/TreU0rfWS1jxNe+rWPD1uHkrIY0QjuBISEmQvyeyCOaWisLAQR0dHyM3NhTklC/h4FUMQmns5yTQQoExzcf9JXdz3cbk2F8HIyMgA96qUtwDvOYdAr7t0brGzs1P2SDMzM/Ll0mmcdEFBAS4uLiTXRwBx8vf39yKjna9pz5ekHfETOd1H6yKtbWk53e7ZR8tp2rOPrn8mp/VrOU+acrzTY9H7PvrVuuvjkzxG/4iICISHh0vdio70Pfe0bKcMT8KUYyQ12QssLS0hLS1NDiq0w/zswsKCgJ7Ap3724dzCwsLkcMM02ubmJoaGhtgFw8PD8rGYzAmKi4vFPg9lLLTZ2tqKsrIyHB4egjlhpuAyMzNhMi4iw78/zWZ+f/s8OlIAAAAASUVORK5CYII=" alt="image"></div>
+<style>
  .hmisctable234189 {
  border: none;
  font-size: 85%;
  }
  .hmisctable234189 td {
- text-align: right;
+ text-align: center;
  padding: 0 1ex 0 1ex;
  }
  .hmisctable234189 th {
- color: Black;
+ color: MidnightBlue;
  text-align: center;
  padding: 0 1ex 0 1ex;
- font-weight: bold;
+ font-weight: normal;
  }
  </style>
- <table class="hmisctable234189">
- <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td>  0.0000000</td><td>  0.3215434</td><td>  0.4484305</td><td>  0.4608295</td><td>  0.4636785</td></tr>
- <tr><td><font color="MidnightBlue">highest</font>:</td><td> 97.2413793</td><td> 97.4193548</td><td> 98.0000000</td><td> 99.1847826</td><td>100.0000000</td></tr>
+ <table data-quarto-disable-processing="true" class="hmisctable234189">
+ <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
+ <tr><td>13589</td><td>1102</td><td>167</td><td>1</td><td>12.29</td><td>2.375</td><td> 9.3</td><td> 9.8</td><td>10.8</td><td>12.0</td><td>13.4</td><td>15.1</td><td>16.4</td></tr>
  </tbody></table>
- <hr class="thinhr"> <span style="font-weight:bold">MONOR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZUlEQVQ4jdWTQQrAIAwEJ/7/0U2tRkkRest2ZFHBwxBZbAPHNKAt6DQJ9L0ICnWCP3kpiEX/2Kls4tAJQaQGNhXQ83IN3qh6FZuRv1BEjdTEhD2x4ykud4d6Rpvn1petB1+66LkAcgcMIWflPQ8AAAAASUVORK5CYII=" alt="image"></div> <style>
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 6.6  6.8  6.9  7    7.1  ,  <font color="MidnightBlue">highest</font>: 24.1 24.7 24.9 25.2 25.3</span>
+<hr class="thinhr">
+<span style="font-weight:bold">RBC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
+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" alt="image"></div>
+<style>
  .hmisctable363398 {
  border: none;
- font-size: 74%;
+ font-size: 85%;
  }
  .hmisctable363398 td {
  text-align: center;
@@ -1262,123 +1377,19 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAZUlE
  font-weight: normal;
  }
  </style>
- <table class="hmisctable363398">
- <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
- <tr><td>13959</td><td>732</td><td>2334</td><td>1</td><td>8.793</td><td>5.4</td><td> 2.000</td><td> 3.390</td><td> 5.634</td><td> 8.000</td><td>10.870</td><td>14.141</td><td>17.021</td></tr>
- </tbody></table>
- <style>
- .hmisctable968194 {
- border: none;
- font-size: 85%;
- }
- .hmisctable968194 td {
- text-align: right;
- padding: 0 1ex 0 1ex;
- }
- .hmisctable968194 th {
- color: Black;
- text-align: center;
- padding: 0 1ex 0 1ex;
- font-weight: bold;
- }
- </style>
- <table class="hmisctable968194">
- <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td>  0.0000000</td><td>  0.2747253</td><td>  0.3412969</td><td>  0.3448276</td><td>  0.4566210</td></tr>
- <tr><td><font color="MidnightBlue">highest</font>:</td><td> 68.5446009</td><td> 69.2307692</td><td> 70.3703704</td><td> 72.7272727</td><td>100.0000000</td></tr>
- </tbody></table>
- <hr class="thinhr"> <span style="font-weight:bold">NEUR</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcUlEQVQ4jcXUgQqAIAwE0NP//+gsI8TtRDRvR0iMKY9oIgUETVhL1gZ9SsXtk5ocF8JdHonCZC6uinK9f9E4ZpN2+njU8zinMp/spGueZGHI5AJRozrZ/64l0CkXuzKXZbjnpT5w3kjZNHzrbp4jyzxeD/MJrwib458AAAAASUVORK5CYII=" alt="image"></div> <style>
- .hmisctable799728 {
- border: none;
- font-size: 74%;
- }
- .hmisctable799728 td {
- text-align: center;
- padding: 0 1ex 0 1ex;
- }
- .hmisctable799728 th {
- color: MidnightBlue;
- text-align: center;
- padding: 0 1ex 0 1ex;
- font-weight: normal;
- }
- </style>
- <table class="hmisctable799728">
- <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
- <tr><td>13959</td><td>732</td><td>3850</td><td>1</td><td>75.15</td><td>15.6</td><td>47.42</td><td>57.88</td><td>69.23</td><td>78.33</td><td>85.32</td><td>90.13</td><td>92.63</td></tr>
- </tbody></table>
- <style>
- .hmisctable398211 {
- border: none;
- font-size: 85%;
- }
- .hmisctable398211 td {
- text-align: right;
- padding: 0 1ex 0 1ex;
- }
- .hmisctable398211 th {
- color: Black;
- text-align: center;
- padding: 0 1ex 0 1ex;
- font-weight: bold;
- }
- </style>
- <table class="hmisctable398211">
- <tbody><tr><td><font color="MidnightBlue">lowest</font>&nbsp;:</td><td>  0.000000</td><td>  1.484829</td><td>  1.935484</td><td>  1.960784</td><td>  2.413793</td></tr>
- <tr><td><font color="MidnightBlue">highest</font>:</td><td> 99.122807</td><td> 99.166667</td><td> 99.476440</td><td> 99.484536</td><td>100.000000</td></tr>
- </tbody></table>
- <hr class="thinhr"> <span style="font-weight:bold">PDW</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAfklEQVQ4jc3V3QqAIAwF4LPe/6FrGV3o/optddCikPkljEB+AJ587Qs2PwBPILI2K+5ehwZz/uFa871LUrXIrB00VAdNbzJbheIG1T874Co8M6V0BFVKk+vGWVU2qeZD1a3LBC6lXqKyT5B7CvwH5DHuGaF5GC8IF2FQzmfaAVQ1CjiAt1m9AAAAAElFTkSuQmCC" alt="image"></div> <style>
- .hmisctable795628 {
- border: none;
- font-size: 85%;
- }
- .hmisctable795628 td {
- text-align: center;
- padding: 0 1ex 0 1ex;
- }
- .hmisctable795628 th {
- color: MidnightBlue;
- text-align: center;
- padding: 0 1ex 0 1ex;
- font-weight: normal;
- }
- </style>
- <table class="hmisctable795628">
- <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
- <tr><td>13589</td><td>1102</td><td>167</td><td>1</td><td>12.29</td><td>2.375</td><td> 9.3</td><td> 9.8</td><td>10.8</td><td>12.0</td><td>13.4</td><td>15.1</td><td>16.4</td></tr>
- </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  6.6  6.8  6.9  7.0  7.1 ,  <font color="MidnightBlue">highest</font>: 24.1 24.7 24.9 25.2 25.3</span> <hr class="thinhr"> <span style="font-weight:bold">RBC</span>: Parameter analysis value (Numeric)<div style="float: right; text-align: right;"><img src="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAMAAACTvAxuAAAACVBMVEUAAADMzMz////1iUV5AAAAcklEQVQ4jc3TUQrAMAgD0Lj7H7otlO7LGjWwZRT20/g2EFYIsM6bSkc04kkGTrI90RiNSm5Ldd1VX7kildRG93AqmYzeJd4l2U/y6zIqyT+jGrKq/7rasvB+xSSwXe92TE3b2h14jyJuu+3JZjhvexfnGZo2CX2KyxI1AAAAAElFTkSuQmCC" alt="image"></div> <style>
- .hmisctable779251 {
- border: none;
- font-size: 85%;
- }
- .hmisctable779251 td {
- text-align: center;
- padding: 0 1ex 0 1ex;
- }
- .hmisctable779251 th {
- color: MidnightBlue;
- text-align: center;
- padding: 0 1ex 0 1ex;
- font-weight: normal;
- }
- </style>
- <table class="hmisctable779251">
+ <table data-quarto-disable-processing="true" class="hmisctable363398">
  <tbody><tr><th>n</th><th>missing</th><th>distinct</th><th>Info</th><th>Mean</th><th>Gmd</th><th>.05</th><th>.10</th><th>.25</th><th>.50</th><th>.75</th><th>.90</th><th>.95</th></tr>
  <tr><td>14230</td><td>461</td><td>65</td><td>0.999</td><td>3.936</td><td>0.8772</td><td>2.7</td><td>2.9</td><td>3.4</td><td>3.9</td><td>4.5</td><td>4.9</td><td>5.2</td></tr>
  </tbody></table>
- <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 1.0 1.1 1.2 1.3 1.4 ,  <font color="MidnightBlue">highest</font>: 7.2 7.4 7.6 7.7 8.2</span> <hr class="thinhr">
+
+<span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 1   1.1 1.2 1.3 1.4 ,  <font color="MidnightBlue">highest</font>: 7.2 7.4 7.6 7.7 8.2</span>
+<hr class="thinhr">
 </div>
 </div>
 </section>
-<section id="full-descriptive-summaries" class="level3" data-number="D.1.2">
-<h3 data-number="D.1.2" class="anchored" data-anchor-id="full-descriptive-summaries"><span class="header-section-number">D.1.2</span> Full descriptive summaries</h3>
+<section id="full-descriptive-summaries" class="level3" data-number="E.1.2">
+<h3 data-number="E.1.2" class="anchored" data-anchor-id="full-descriptive-summaries"><span class="header-section-number">E.1.2</span> Full descriptive summaries</h3>
 <p>For U2, we present only a limited number of statistics are presented for brevity. However, a full set of descriptive summaries are available according to the specifications in the IDA plan as a data set. The summary statistics can be viewed and analysed in the following directory <code>data/results/U2-descriptive-stats.csv</code>.</p>
-<div class="cell" data-hash="Bact_univar_appendix_cache/html/full_desc_21967dbbbef2acee1954a17d114f7b70">
-
-</div>
 
 
 <!-- -->
@@ -1414,9 +1425,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1532,6 +1557,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1574,12 +1685,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./Bact_missing_appendix.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Bact_multivar_appendix.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

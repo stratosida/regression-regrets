@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression without regrets - Appendix E — Multivariate analyses</title>
+<title>Regression without regrets - Appendix F — Multivariate analyses</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -93,7 +64,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Pseudo_log_explainer.html" rel="next">
 <link href="./Bact_univar_appendix.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -120,7 +90,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -132,11 +103,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Appendix E — Multivariate analyses</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Pseudo_log_explainer.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Bact_multivar_appendix.html"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -144,100 +120,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Regression without regrets</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></a>
+  <a href="./Bact_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bacteremia study</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></a>
+  <a href="./Bact_IDA_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">IDA plan</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></a>
+  <a href="./Bact_analysis_data_IDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analysis ready data for IDA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></a>
+  <a href="./Bact_missing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_univar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  <a href="./Bact_multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></a>
+  <a href="./Bact_analysis_data_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Final Analysis ready data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Supplementary Example</span></a>
+  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Source data</span></a>
+  <a href="./Bact_suppl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Supplementary Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></a>
+  <a href="./Bact_source_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Source data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></a>
+  <a href="./Bact_missing_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Results of IDA: Missing values Appendix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></a>
+  <a href="./Bact_univar_appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Pseudo_log_explainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></a>
+  <a href="./Bact_multivar_appendix.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Multivariate analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -245,16 +237,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-V1-appendix" id="toc-sec-V1-appendix" class="nav-link active" data-scroll-target="#sec-V1-appendix"><span class="toc-section-number">E.1</span>  V1: Association with structural variables</a></li>
-  <li><a href="#sec-VE3-appendix" id="toc-sec-VE3-appendix" class="nav-link" data-scroll-target="#sec-VE3-appendix"><span class="toc-section-number">E.2</span>  VE3: Redundancy</a>
+  <li><a href="#sec-V1-appendix" id="toc-sec-V1-appendix" class="nav-link active" data-scroll-target="#sec-V1-appendix"><span class="header-section-number">F.1</span> V1: Association with structural variables</a></li>
+  <li><a href="#sec-VE3-appendix" id="toc-sec-VE3-appendix" class="nav-link" data-scroll-target="#sec-VE3-appendix"><span class="header-section-number">F.2</span> VE3: Redundancy</a>
   <ul class="collapse">
-  <li><a href="#linear-model" id="toc-linear-model" class="nav-link" data-scroll-target="#linear-model"><span class="toc-section-number">E.2.1</span>  Linear model</a></li>
+  <li><a href="#linear-model" id="toc-linear-model" class="nav-link" data-scroll-target="#linear-model"><span class="header-section-number">F.2.1</span> Linear model</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -264,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-multivar-appendix" class="quarto-section-identifier d-none d-lg-block">Appendix E — Multivariate analyses</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-multivar-appendix" class="quarto-section-identifier">Appendix F — Multivariate analyses</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -280,11 +273,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>First load the required packages and data. Note:, from the univariate analyses the analysis data set for the lab parameters has been updated to include transformed variables. Therefore, we load the second iteration of the data <code>data/IDA/ADLB_02.rds</code>.</p>
-<div class="cell" data-hash="Bact_multivar_appendix_cache/html/unnamed-chunk-1_81a24cdcb7a9ff2ec4364654b43deadb">
-
-</div>
-<section id="sec-V1-appendix" class="level2" data-number="E.1">
-<h2 data-number="E.1" class="anchored" data-anchor-id="sec-V1-appendix"><span class="header-section-number">E.1</span> V1: Association with structural variables</h2>
+<section id="sec-V1-appendix" class="level2" data-number="F.1">
+<h2 data-number="F.1" class="anchored" data-anchor-id="sec-V1-appendix"><span class="header-section-number">F.1</span> V1: Association with structural variables</h2>
 <div class="cell quarto-layout-panel" data-hash="Bact_multivar_appendix_cache/html/mvi01a_aec971fde812276aeafe1a35c4209b1a">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
@@ -425,27 +415,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="sec-VE3-appendix" class="level2" data-number="E.2">
-<h2 data-number="E.2" class="anchored" data-anchor-id="sec-VE3-appendix"><span class="header-section-number">E.2</span> VE3: Redundancy</h2>
-<section id="linear-model" class="level3" data-number="E.2.1">
-<h3 data-number="E.2.1" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">E.2.1</span> Linear model</h3>
+<section id="sec-VE3-appendix" class="level2" data-number="F.2">
+<h2 data-number="F.2" class="anchored" data-anchor-id="sec-VE3-appendix"><span class="header-section-number">F.2</span> VE3: Redundancy</h2>
+<section id="linear-model" class="level3" data-number="F.2.1">
+<h3 data-number="F.2.1" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">F.2.1</span> Linear model</h3>
 <p>VIF for the all predictor model.</p>
-<div class="cell" data-hash="Bact_multivar_appendix_cache/html/vif_app_1676a408c1477b81975c584d59bc6908">
-
-</div>
 <p>The available sample size is 3979 (0.42 %).</p>
 <div class="cell" data-hash="Bact_multivar_appendix_cache/html/vif_app02_5c2cf938efbb97c8c3a98d0329c8102b">
 <div class="cell-output-display">
 
-<div id="stkkxiwvev" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="xhbpfeztlc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-html {
-  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+#xhbpfeztlc table {
+  font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-:where(#stkkxiwvev) .gt_table {
+#xhbpfeztlc thead, #xhbpfeztlc tbody, #xhbpfeztlc tfoot, #xhbpfeztlc tr, #xhbpfeztlc td, #xhbpfeztlc th {
+  border-style: none;
+}
+
+#xhbpfeztlc p {
+  margin: 0;
+  padding: 0;
+}
+
+#xhbpfeztlc .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -468,24 +467,12 @@ html {
   border-left-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#stkkxiwvev) .gt_caption {
+#xhbpfeztlc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-:where(#stkkxiwvev) .gt_title {
+#xhbpfeztlc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -497,25 +484,37 @@ html {
   border-bottom-width: 0;
 }
 
-:where(#stkkxiwvev) .gt_subtitle {
+#xhbpfeztlc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-:where(#stkkxiwvev) .gt_bottom_border {
+#xhbpfeztlc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xhbpfeztlc .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_col_headings {
+#xhbpfeztlc .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -530,7 +529,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_col_heading {
+#xhbpfeztlc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -550,7 +549,7 @@ html {
   overflow-x: hidden;
 }
 
-:where(#stkkxiwvev) .gt_column_spanner_outer {
+#xhbpfeztlc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -562,15 +561,15 @@ html {
   padding-right: 4px;
 }
 
-:where(#stkkxiwvev) .gt_column_spanner_outer:first-child {
+#xhbpfeztlc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#stkkxiwvev) .gt_column_spanner_outer:last-child {
+#xhbpfeztlc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#stkkxiwvev) .gt_column_spanner {
+#xhbpfeztlc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -582,7 +581,11 @@ html {
   width: 100%;
 }
 
-:where(#stkkxiwvev) .gt_group_heading {
+#xhbpfeztlc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xhbpfeztlc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -608,7 +611,7 @@ html {
   text-align: left;
 }
 
-:where(#stkkxiwvev) .gt_empty_group_heading {
+#xhbpfeztlc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -623,15 +626,15 @@ html {
   vertical-align: middle;
 }
 
-:where(#stkkxiwvev) .gt_from_md > :first-child {
+#xhbpfeztlc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#stkkxiwvev) .gt_from_md > :last-child {
+#xhbpfeztlc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#stkkxiwvev) .gt_row {
+#xhbpfeztlc .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -650,7 +653,7 @@ html {
   overflow-x: hidden;
 }
 
-:where(#stkkxiwvev) .gt_stub {
+#xhbpfeztlc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -663,7 +666,7 @@ html {
   padding-right: 5px;
 }
 
-:where(#stkkxiwvev) .gt_stub_row_group {
+#xhbpfeztlc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -677,11 +680,15 @@ html {
   vertical-align: top;
 }
 
-:where(#stkkxiwvev) .gt_row_group_first td {
+#xhbpfeztlc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#stkkxiwvev) .gt_summary_row {
+#xhbpfeztlc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xhbpfeztlc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -691,16 +698,16 @@ html {
   padding-right: 5px;
 }
 
-:where(#stkkxiwvev) .gt_first_summary_row {
+#xhbpfeztlc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_first_summary_row.thick {
+#xhbpfeztlc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#stkkxiwvev) .gt_last_summary_row {
+#xhbpfeztlc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -710,7 +717,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_grand_summary_row {
+#xhbpfeztlc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -720,7 +727,7 @@ html {
   padding-right: 5px;
 }
 
-:where(#stkkxiwvev) .gt_first_grand_summary_row {
+#xhbpfeztlc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -730,11 +737,21 @@ html {
   border-top-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_striped {
+#xhbpfeztlc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xhbpfeztlc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#stkkxiwvev) .gt_table_body {
+#xhbpfeztlc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -743,7 +760,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_footnotes {
+#xhbpfeztlc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -757,16 +774,16 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_footnote {
+#xhbpfeztlc .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-:where(#stkkxiwvev) .gt_sourcenotes {
+#xhbpfeztlc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -780,7 +797,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-:where(#stkkxiwvev) .gt_sourcenote {
+#xhbpfeztlc .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -788,64 +805,63 @@ html {
   padding-right: 5px;
 }
 
-:where(#stkkxiwvev) .gt_left {
+#xhbpfeztlc .gt_left {
   text-align: left;
 }
 
-:where(#stkkxiwvev) .gt_center {
+#xhbpfeztlc .gt_center {
   text-align: center;
 }
 
-:where(#stkkxiwvev) .gt_right {
+#xhbpfeztlc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#stkkxiwvev) .gt_font_normal {
+#xhbpfeztlc .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#stkkxiwvev) .gt_font_bold {
+#xhbpfeztlc .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#stkkxiwvev) .gt_font_italic {
+#xhbpfeztlc .gt_font_italic {
   font-style: italic;
 }
 
-:where(#stkkxiwvev) .gt_super {
+#xhbpfeztlc .gt_super {
   font-size: 65%;
 }
 
-:where(#stkkxiwvev) .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
+#xhbpfeztlc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
-:where(#stkkxiwvev) .gt_asterisk {
+#xhbpfeztlc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#stkkxiwvev) .gt_indent_1 {
+#xhbpfeztlc .gt_indent_1 {
   text-indent: 5px;
 }
 
-:where(#stkkxiwvev) .gt_indent_2 {
+#xhbpfeztlc .gt_indent_2 {
   text-indent: 10px;
 }
 
-:where(#stkkxiwvev) .gt_indent_3 {
+#xhbpfeztlc .gt_indent_3 {
   text-indent: 15px;
 }
 
-:where(#stkkxiwvev) .gt_indent_4 {
+#xhbpfeztlc .gt_indent_4 {
   text-indent: 20px;
 }
 
-:where(#stkkxiwvev) .gt_indent_5 {
+#xhbpfeztlc .gt_indent_5 {
   text-indent: 25px;
 }
 
@@ -853,10 +869,10 @@ tbody tr:last-child {
   border-bottom: 2px solid #ffffff00;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Parameter code">Parameter code</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Variance inflation factor">Variance inflation factor</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;" scope="col" id="Multiple R-squared">Multiple R-squared</th>
@@ -1055,9 +1071,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1173,6 +1203,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1215,13 +1331,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./Bact_univar_appendix.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Univariate distribution checks</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Pseudo_log_explainer.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Pseudo-log transformations</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">#  Multivariate analyses {#sec-multivar-appendix}</span></span>
