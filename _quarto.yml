@@ -32,17 +32,17 @@ book:
 bibliography: references.bib
 
 format:
-#   html:
-#      theme: yeti  #cosmo
-#      css: styles.css
-#      toc: true
-#      code-fold: true
-#      code-tools: true
-#      code-summary: "Show the code"
-   docx:
-     toc: true
-     toc-depth: 2
-     number-sections: true
-     highlight-style: github
-     crossref:
-       chapters: true
+   html:
+      theme: yeti  #cosmo
+      css: styles.css
+      toc: true
+      code-fold: true
+      code-tools: true
+      code-summary: "Show the code"
+#   docx:
+#     toc: true
+#     toc-depth: 2
+#     number-sections: true
+#     highlight-style: github
+#     crossref:
+#       chapters: true
