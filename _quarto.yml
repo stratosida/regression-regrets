@@ -3,14 +3,28 @@ project:
   output-dir: docs
 
 execute:
-  cache: true   ## see https://quarto.org/docs/projects/code-execution.html
+  cache: false   ## see https://quarto.org/docs/projects/code-execution.html
   freeze: false 
   echo: false
 
 book:
   title: "Regression without regrets"
-  author: "M. Baillie, G. Heinze & M. Huebner"
+  author:
+    - Mark Baillie
+    - Georg Heinze 
+    - Marianne Huebner
   date: today  ## day report is complied 
+  
+#  description: The focus of this report is to provide examples on conducting initial data analysis in a reproducible manner in the context of intended regression analyses.
+  keyword: initial data analysis, ida, stratos, regression
+  url: https://stratosida.github.io/regression-regrets/
+  sidebar: 
+    search: true
+  repo-url: https://github.com/stratosida/regression-regrets
+  repo-branch: main
+  repo-actions: [edit, issue, source]
+  sharing: [twitter, linkedin]
+  
   chapters:
   - index.qmd  
   - Bact_intro.qmd 
@@ -39,10 +53,10 @@ format:
       code-fold: true
       code-tools: true
       code-summary: "Show the code"
-#   docx:
-#     toc: true
-#     toc-depth: 2
-#     number-sections: true
-#     highlight-style: github
-#     crossref:
-#       chapters: true
+   docx:
+     toc: true
+     toc-depth: 2
+     number-sections: true
+     highlight-style: github
+     crossref:
+       chapters: true

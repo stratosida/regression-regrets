@@ -125,6 +125,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Regression without regrets</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/stratosida/regression-regrets" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -248,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#final-dervivations-and-transformations" id="toc-final-dervivations-and-transformations" class="nav-link active" data-scroll-target="#final-dervivations-and-transformations"><span class="header-section-number">7.1</span> Final dervivations and transformations</a></li>
   <li><a href="#save-final-analysis-ready-data-sets" id="toc-save-final-analysis-ready-data-sets" class="nav-link" data-scroll-target="#save-final-analysis-ready-data-sets"><span class="header-section-number">7.2</span> Save final analysis ready data sets</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/stratosida/regression-regrets/edit/main/Bact_analysis_data_final.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stratosida/regression-regrets/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/stratosida/regression-regrets/blob/main/Bact_analysis_data_final.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -277,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>WBC_NEU: WBC - NEU</li>
 </ul>
 <p>The new derivation will also be checked as a candidate for pseudo-log transformation.</p>
-<div class="cell" data-hash="Bact_analysis_data_final_cache/html/final-ders_c2c1a1ec994bf78a3e4bc24bb3edbcd2">
+<div class="cell">
 <div class="cell-output-display">
 <p><img src="Bact_analysis_data_final_files/figure-html/final-ders-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -285,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A visual check confirms that a psuedo-log transformation is appropriate for the newly derived variable.</p>
 <p>The new derivation and transformation is added to the analysis ready data, setting the correct indicator flags to enable final analyses and modelling.</p>
 <p>Visual check of indicator flag and new derviation added to the analysis data set.</p>
-<div class="cell" data-hash="Bact_analysis_data_final_cache/html/check_flags_46ca7528878f5c71d66abb97e041b1f1">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "c(\"PLT\", \"CREA\", \"BUN\", \"NEU\", \"AGE\", \"WBC_noNEU\")"</code></pre>
 </div>

@@ -127,6 +127,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Regression without regrets</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/stratosida/regression-regrets" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -259,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-4-the-limits-of-mulitiple-imputation" id="toc-example-4-the-limits-of-mulitiple-imputation" class="nav-link" data-scroll-target="#example-4-the-limits-of-mulitiple-imputation"><span class="header-section-number">B.5</span> Example 4: the limits of mulitiple imputation</a></li>
   <li><a href="#example-5-plot-of-functional-form-should-focus-on-areas-with-high-density" id="toc-example-5-plot-of-functional-form-should-focus-on-areas-with-high-density" class="nav-link" data-scroll-target="#example-5-plot-of-functional-form-should-focus-on-areas-with-high-density"><span class="header-section-number">B.6</span> Example 5: Plot of functional form should focus on areas with high density</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/stratosida/regression-regrets/edit/main/Bact_suppl.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stratosida/regression-regrets/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/stratosida/regression-regrets/blob/main/Bact_suppl.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -290,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="B.1.1" class="anchored" data-anchor-id="global-model"><span class="header-section-number">B.1.1</span> Global Model</h3>
 <p>The global model will be fitted by the <em>mfp</em> function. If not indicated otherwise, we will use the fp-transformations of the key predictors determined in global model in all consecutive models. For all models we report McFaddens’s R² and the AUC, i.e.&nbsp;the area under the ROC curve, and boxplots comparing “<strong>BACTEREMIAN</strong>” predictions with outcomes.</p>
 <p>To put the results of the global model into context, we will first review the histograms of the original and the transformed predictors:</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/unnamed-chunk-1_e287a3e7dcb330db7c2c7198c5a0f94d">
+<div class="cell">
 <div class="cell-output-display">
 <p><img src="Bact_suppl_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -300,7 +320,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="B.1.2" class="anchored" data-anchor-id="model-summary"><span class="header-section-number">B.1.2</span> Model Summary</h3>
 <p>The global model is specified as <code>print(global_formula, quote = TRUE)</code>. The model is fit to the complete cases data on the <strong>transformed</strong> scale stored in the data set <code>data_model_trans</code>.</p>
 <p>Report the global model fit.</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/report global model_70785169aa7da137733b654125e31810">
+<div class="cell">
 <div class="cell-output-display">
 
 <div id="tjyqcgojog" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -769,40 +789,40 @@ tbody tr:last-child {
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="term" class="gt_row gt_left">(Intercept)</td>
-<td headers="estimate" class="gt_row gt_right">−2.710</td>
+<td headers="estimate" class="gt_row gt_right">−2.689</td>
 <td headers="std.error" class="gt_row gt_right">0.588</td>
-<td headers="statistic" class="gt_row gt_right">−4.61</td>
-<td headers="p.value" class="gt_row gt_right">4.03 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−4.57</td>
+<td headers="p.value" class="gt_row gt_right">4.78 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((WBC_noNEU_T + 0.1)^0.5)</td>
-<td headers="estimate" class="gt_row gt_right">−5.275</td>
-<td headers="std.error" class="gt_row gt_right">0.258</td>
-<td headers="statistic" class="gt_row gt_right">−20.47</td>
-<td headers="p.value" class="gt_row gt_right">3.67 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.192</td>
+<td headers="std.error" class="gt_row gt_right">0.253</td>
+<td headers="statistic" class="gt_row gt_right">−20.53</td>
+<td headers="p.value" class="gt_row gt_right">1.25 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((NEU + 0.1)/10)^0.5)</td>
-<td headers="estimate" class="gt_row gt_right">1.523</td>
+<td headers="estimate" class="gt_row gt_right">1.526</td>
 <td headers="std.error" class="gt_row gt_right">0.117</td>
-<td headers="statistic" class="gt_row gt_right">13.07</td>
-<td headers="p.value" class="gt_row gt_right">5.12 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">13.10</td>
+<td headers="p.value" class="gt_row gt_right">3.46 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((AGE/100)^1)</td>
-<td headers="estimate" class="gt_row gt_right">1.686</td>
+<td headers="estimate" class="gt_row gt_right">1.690</td>
 <td headers="std.error" class="gt_row gt_right">0.199</td>
-<td headers="statistic" class="gt_row gt_right">8.47</td>
-<td headers="p.value" class="gt_row gt_right">2.38 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">8.49</td>
+<td headers="p.value" class="gt_row gt_right">2.05 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(CREA_T^1)</td>
-<td headers="estimate" class="gt_row gt_right">0.711</td>
+<td headers="estimate" class="gt_row gt_right">0.713</td>
 <td headers="std.error" class="gt_row gt_right">0.198</td>
-<td headers="statistic" class="gt_row gt_right">3.59</td>
-<td headers="p.value" class="gt_row gt_right">3.33 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">3.60</td>
+<td headers="p.value" class="gt_row gt_right">3.19 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((PLT + 1)/100)^1)</td>
 <td headers="estimate" class="gt_row gt_right">−0.082</td>
 <td headers="std.error" class="gt_row gt_right">0.032</td>
-<td headers="statistic" class="gt_row gt_right">−2.56</td>
-<td headers="p.value" class="gt_row gt_right">1.04 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−2.57</td>
+<td headers="p.value" class="gt_row gt_right">1.03 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((BUN/10)^1)</td>
 <td headers="estimate" class="gt_row gt_right">0.010</td>
 <td headers="std.error" class="gt_row gt_right">0.024</td>
-<td headers="statistic" class="gt_row gt_right">0.44</td>
-<td headers="p.value" class="gt_row gt_right">6.59 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">0.43</td>
+<td headers="p.value" class="gt_row gt_right">6.68 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
   </tbody>
   
   
@@ -811,7 +831,7 @@ tbody tr:last-child {
 </div>
 </div>
 <p>Plot predictions by outcome and report the model AUC.</p>
-<div class="cell quarto-layout-panel" data-hash="Bact_suppl_cache/html/global model auc_e115e020579c61b3cb22a3764aa1d35f">
+<div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -827,7 +847,7 @@ tbody tr:last-child {
 <section id="functional-forms-of-global-model" class="level3" data-number="B.1.3">
 <h3 data-number="B.1.3" class="anchored" data-anchor-id="functional-forms-of-global-model"><span class="header-section-number">B.1.3</span> Functional forms of global model</h3>
 <p>We now take a look at the functional forms of the covariates in the global model, which are determined by the fp algorithm. Besides scaling factors, only for <code>WBC_noNEU_T</code> the fp algorithm chose a non-linear transformation (note the ‘^0.5’ in the term column). This means all other covariates enter the model in a linear fashion. In the following effect plots, each variable is adjusted to the median of the other variables in the model.</p>
-<div id="fig-charts" class="cell quarto-layout-panel" data-hash="Bact_suppl_cache/html/fig-charts_fcab303fa68f756302c88d57c2144aaa">
+<div id="fig-charts" class="cell quarto-layout-panel">
 <figure class="figure">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
@@ -891,7 +911,7 @@ tbody tr:last-child {
 <section id="example-1-to-transform-or-not-to-transform" class="level2" data-number="B.2">
 <h2 data-number="B.2" class="anchored" data-anchor-id="example-1-to-transform-or-not-to-transform"><span class="header-section-number">B.2</span> Example 1: to transform or not to transform</h2>
 <p>Only for one out of the six key predictors did the fp algorithm chose a non-linear transformation. But out of those six variables, four were pseudo-log transformed before entering the model. In the first example we want to compare the global model to a model using the key predictors on their original scale.</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/ex1- print fit - global model orignal_c461f855fe324839666e1ca695b22265">
+<div class="cell">
 <div class="cell-output-display">
 
 <div id="xpzqmfyzul" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1397,7 +1417,7 @@ tbody tr:last-child {
 </div>
 </div>
 <p>Note the different fp-transformation arising when the key predictors are not pseudo-log transformed. On the original scale, three covariates instead of one now enter the model via a non-linear fp-transformation. This suggests that a transformation prior to the regression model ‘outsources’ the need for transformations within the model. Now let us compare the model performances.</p>
-<div class="cell quarto-layout-panel" data-hash="Bact_suppl_cache/html/ex1- plot side by side_da18aa3eba946bd9f74fbc8fd78aeb1f">
+<div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1411,7 +1431,7 @@ tbody tr:last-child {
 </div>
 <p>With regards to McFadden’s R² and the AUC, the differences between the two approaches is marginal.</p>
 <p>Next we will compare the differences of the functional forms in the two models for those covariates where a pseudo-log transformation was suggested in IDA. We will look at the log odds for bacteremia by each covariate on the original and the transformed scale, and compare the global model using the original and the pseudo-log transformed covariates. Each variable is adjusted for the median of all other variables used.</p>
-<div class="cell quarto-layout-panel" data-hash="Bact_suppl_cache/html/trafo of variables_1cab4639fedc2bed8531714607967893">
+<div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="Bact_suppl_files/figure-html/trafo of variables-1.png" class="img-fluid" width="576"></p>
@@ -1432,7 +1452,7 @@ tbody tr:last-child {
 <section id="example-2-interpretation-of-regression-coefficient-size" class="level2" data-number="B.3">
 <h2 data-number="B.3" class="anchored" data-anchor-id="example-2-interpretation-of-regression-coefficient-size"><span class="header-section-number">B.3</span> Example 2: Interpretation of regression coefficient ‘size’</h2>
 <p>As a result of IDA, it turned out that the key predictor WBC_noNEU should be transformed for further analyses because of its extreme skewness. As a consequence, the original variable WBC_noNEU and the pseudo-logged variable WBC_noNEU_T are now on two very different scales:</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/ex 2 plots_ed100960104ffbc1cc1aa97e2d2b2c89">
+<div class="cell">
 <div class="cell-output-display">
 <p><img src="Bact_suppl_files/figure-html/ex 2 plots-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1441,7 +1461,7 @@ tbody tr:last-child {
 </div>
 </div>
 <p>To illustrate that the scale of the original variable determines the size of the regression coefficient, let us consider two logistic regression models with WBC_noNEU and t_WBC_noNEU as single covariate, respectively.</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/ex 2 estimates2_64e2a11a9d59615b6a49eeeefca8971e">
+<div class="cell">
 <div class="cell-output-display">
 
 <div id="nlslmuitvt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1908,9 +1928,9 @@ tbody tr:last-child {
 <td headers="std.error" class="gt_row gt_right">0.035</td>
 <td headers="statistic" class="gt_row gt_right">−15.731</td></tr>
     <tr><td headers="term" class="gt_row gt_left">WBC_noNEU_T</td>
-<td headers="estimate" class="gt_row gt_right">−2.951</td>
-<td headers="std.error" class="gt_row gt_right">0.156</td>
-<td headers="statistic" class="gt_row gt_right">−18.892</td></tr>
+<td headers="estimate" class="gt_row gt_right">−2.851</td>
+<td headers="std.error" class="gt_row gt_right">0.150</td>
+<td headers="statistic" class="gt_row gt_right">−18.985</td></tr>
   </tbody>
   
   
@@ -1918,8 +1938,8 @@ tbody tr:last-child {
 </div>
 </div>
 </div>
-<p>Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates -0.56 and -2.95 indicate the difference in log odds for the outcome when the ‘term’ variable differs by 1 unit, but cannot be compared directly. A <span class="math inline">\(1\)</span> unit difference is only a small step on the original scale, where WBC_noNEU covers values from -0.15 up to 152.74. In comparison, WBC_noNEU_T lies between -0.06 up to 2.43, so a difference of <span class="math inline">\(1\)</span> unit cover almost half the range of the variable.</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/ex 2 logreg plots_4b203d3aeab91b413de37aece4637327">
+<p>Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates -0.56 and -2.85 indicate the difference in log odds for the outcome when the ‘term’ variable differs by 1 unit, but cannot be compared directly. A <span class="math inline">\(1\)</span> unit difference is only a small step on the original scale, where WBC_noNEU covers values from -0.15 up to 152.74. In comparison, WBC_noNEU_T lies between -0.06 up to 2.47, so a difference of <span class="math inline">\(1\)</span> unit cover almost half the range of the variable.</p>
+<div class="cell">
 <div class="cell-output-display">
 <p><img src="Bact_suppl_files/figure-html/ex 2 logreg plots-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1932,7 +1952,7 @@ tbody tr:last-child {
 <h2 data-number="B.4" class="anchored" data-anchor-id="example-3-the-support-of-a-model-determines-what-it-can-explain"><span class="header-section-number">B.4</span> Example 3: the support of a model determines what it can explain</h2>
 <p>Next we compare the global model to a model were for an important variable, in our case we chose age, the variable support is reduced to the central 50% of the data (i.e.&nbsp;data within the 25% and 75% quantiles), and for comparison we also generate a scenario where we randomly sample 50% of the data.</p>
 <p>When evaluating the apparent predictive performance in terms of the AUC and the scaled Brier score, we see that the model fitted on the participants with age between the first and third quartiles performs worse than the global model and the model where 50% were randomly sampled.</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/example3- table scenarios_6b141108b1e8528f22187152bd98cc4a">
+<div class="cell">
 <div class="cell-output-display">
 
 <div id="rwpasklegk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -2407,7 +2427,7 @@ tbody tr:last-child {
 </div>
 </div>
 <p>Plot the model predictions based on different missing data scenarios</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/example3- plot_ff6d669e5a4f3b88a6412450355fa609">
+<div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2421,7 +2441,7 @@ tbody tr:last-child {
 <section id="example-4-the-limits-of-mulitiple-imputation" class="level2" data-number="B.5">
 <h2 data-number="B.5" class="anchored" data-anchor-id="example-4-the-limits-of-mulitiple-imputation"><span class="header-section-number">B.5</span> Example 4: the limits of mulitiple imputation</h2>
 <p>To show the effect of multiple imputation if the number of missing values is high, we construct a dataset with 50% artificially generated missing values in one variable. First, recall the output of the complete model, relying on the Bacteremia data with complete cases regarding the key predictors.</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/ex4- table global model_bf1f03e7000f3a8b0662acff55926e4a">
+<div class="cell">
 <div class="cell-output-display">
 
 <div id="lpyilwujuq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -2890,40 +2910,40 @@ tbody tr:last-child {
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="term" class="gt_row gt_left">(Intercept)</td>
-<td headers="estimate" class="gt_row gt_right">−2.71</td>
+<td headers="estimate" class="gt_row gt_right">−2.69</td>
 <td headers="std.error" class="gt_row gt_right">0.59</td>
-<td headers="statistic" class="gt_row gt_right">−4.61</td>
-<td headers="p.value" class="gt_row gt_right">4.03 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−4.57</td>
+<td headers="p.value" class="gt_row gt_right">4.78 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((WBC_noNEU_T + 0.1)^0.5)</td>
-<td headers="estimate" class="gt_row gt_right">−5.27</td>
-<td headers="std.error" class="gt_row gt_right">0.26</td>
-<td headers="statistic" class="gt_row gt_right">−20.47</td>
-<td headers="p.value" class="gt_row gt_right">3.67 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.19</td>
+<td headers="std.error" class="gt_row gt_right">0.25</td>
+<td headers="statistic" class="gt_row gt_right">−20.53</td>
+<td headers="p.value" class="gt_row gt_right">1.25 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((NEU + 0.1)/10)^0.5)</td>
-<td headers="estimate" class="gt_row gt_right">1.52</td>
+<td headers="estimate" class="gt_row gt_right">1.53</td>
 <td headers="std.error" class="gt_row gt_right">0.12</td>
-<td headers="statistic" class="gt_row gt_right">13.07</td>
-<td headers="p.value" class="gt_row gt_right">5.12 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">13.10</td>
+<td headers="p.value" class="gt_row gt_right">3.46 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((AGE/100)^1)</td>
 <td headers="estimate" class="gt_row gt_right">1.69</td>
 <td headers="std.error" class="gt_row gt_right">0.20</td>
-<td headers="statistic" class="gt_row gt_right">8.47</td>
-<td headers="p.value" class="gt_row gt_right">2.38 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">8.49</td>
+<td headers="p.value" class="gt_row gt_right">2.05 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(CREA_T^1)</td>
 <td headers="estimate" class="gt_row gt_right">0.71</td>
 <td headers="std.error" class="gt_row gt_right">0.20</td>
-<td headers="statistic" class="gt_row gt_right">3.59</td>
-<td headers="p.value" class="gt_row gt_right">3.33 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">3.60</td>
+<td headers="p.value" class="gt_row gt_right">3.19 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((PLT + 1)/100)^1)</td>
 <td headers="estimate" class="gt_row gt_right">−0.08</td>
 <td headers="std.error" class="gt_row gt_right">0.03</td>
-<td headers="statistic" class="gt_row gt_right">−2.56</td>
-<td headers="p.value" class="gt_row gt_right">1.04 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−2.57</td>
+<td headers="p.value" class="gt_row gt_right">1.03 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((BUN/10)^1)</td>
 <td headers="estimate" class="gt_row gt_right">0.01</td>
 <td headers="std.error" class="gt_row gt_right">0.02</td>
-<td headers="statistic" class="gt_row gt_right">0.44</td>
-<td headers="p.value" class="gt_row gt_right">6.59 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">0.43</td>
+<td headers="p.value" class="gt_row gt_right">6.68 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
   </tbody>
   
   
@@ -2935,7 +2955,7 @@ tbody tr:last-child {
 <p>Next we fit a ‘complete case’ model in the case of missing creatinine data, using the fp-transformations from the global model.</p>
 <p>Now we impute the missing creatinine data using MICE with 50 imputations, fit the model using the fp-transformations from the global model and pool the results.</p>
 <p>We now can compare the outputs of the complete model, the complete model with missing data (i.e.&nbsp;only half of the original complete data is used), and the imputed model.</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/ex4- imputation comparison_3e2eb9389e925ea17ea5dea54a2f9977">
+<div class="cell">
 <div class="cell-output-display">
 
 <div id="svhziddzev" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -3401,40 +3421,40 @@ tbody tr:last-child {
   <tbody class="gt_table_body">
     <tr><td headers="term" class="gt_row gt_left">(Intercept)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">−2.639</td>
+<td headers="estimate" class="gt_row gt_right">−2.611</td>
 <td headers="std.error" class="gt_row gt_right">0.842</td>
-<td headers="statistic" class="gt_row gt_right">−3.136</td>
-<td headers="p.value" class="gt_row gt_right">1.72 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−3.101</td>
+<td headers="p.value" class="gt_row gt_right">1.93 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">−2.875</td>
-<td headers="std.error" class="gt_row gt_right">0.722</td>
-<td headers="statistic" class="gt_row gt_right">−3.985</td>
-<td headers="p.value" class="gt_row gt_right">8.04 × 10<sup style="font-size: 65%;">−5</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−2.780</td>
+<td headers="std.error" class="gt_row gt_right">0.785</td>
+<td headers="statistic" class="gt_row gt_right">−3.540</td>
+<td headers="p.value" class="gt_row gt_right">4.82 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">−2.710</td>
+<td headers="estimate" class="gt_row gt_right">−2.689</td>
 <td headers="std.error" class="gt_row gt_right">0.588</td>
-<td headers="statistic" class="gt_row gt_right">−4.610</td>
-<td headers="p.value" class="gt_row gt_right">4.03 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−4.574</td>
+<td headers="p.value" class="gt_row gt_right">4.78 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((NEU + 0.1)/10)^0.5)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">1.521</td>
-<td headers="std.error" class="gt_row gt_right">0.168</td>
-<td headers="statistic" class="gt_row gt_right">9.028</td>
-<td headers="p.value" class="gt_row gt_right">1.75 × 10<sup style="font-size: 65%;">−19</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">1.526</td>
+<td headers="std.error" class="gt_row gt_right">0.169</td>
+<td headers="statistic" class="gt_row gt_right">9.056</td>
+<td headers="p.value" class="gt_row gt_right">1.35 × 10<sup style="font-size: 65%;">−19</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">1.525</td>
+<td headers="estimate" class="gt_row gt_right">1.529</td>
 <td headers="std.error" class="gt_row gt_right">0.117</td>
-<td headers="statistic" class="gt_row gt_right">13.069</td>
-<td headers="p.value" class="gt_row gt_right">8.46 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">13.102</td>
+<td headers="p.value" class="gt_row gt_right">5.53 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">1.523</td>
+<td headers="estimate" class="gt_row gt_right">1.526</td>
 <td headers="std.error" class="gt_row gt_right">0.117</td>
-<td headers="statistic" class="gt_row gt_right">13.066</td>
-<td headers="p.value" class="gt_row gt_right">5.12 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">13.096</td>
+<td headers="p.value" class="gt_row gt_right">3.46 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((PLT + 1)/100)^1)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
 <td headers="estimate" class="gt_row gt_right">−0.101</td>
@@ -3443,88 +3463,88 @@ tbody tr:last-child {
 <td headers="p.value" class="gt_row gt_right">2.61 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">−0.076</td>
+<td headers="estimate" class="gt_row gt_right">−0.077</td>
 <td headers="std.error" class="gt_row gt_right">0.032</td>
-<td headers="statistic" class="gt_row gt_right">−2.393</td>
-<td headers="p.value" class="gt_row gt_right">1.67 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−2.409</td>
+<td headers="p.value" class="gt_row gt_right">1.60 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
 <td headers="estimate" class="gt_row gt_right">−0.082</td>
 <td headers="std.error" class="gt_row gt_right">0.032</td>
-<td headers="statistic" class="gt_row gt_right">−2.563</td>
-<td headers="p.value" class="gt_row gt_right">1.04 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−2.567</td>
+<td headers="p.value" class="gt_row gt_right">1.03 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((AGE/100)^1)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">1.758</td>
+<td headers="estimate" class="gt_row gt_right">1.761</td>
 <td headers="std.error" class="gt_row gt_right">0.283</td>
-<td headers="statistic" class="gt_row gt_right">6.207</td>
-<td headers="p.value" class="gt_row gt_right">5.41 × 10<sup style="font-size: 65%;">−10</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">6.217</td>
+<td headers="p.value" class="gt_row gt_right">5.05 × 10<sup style="font-size: 65%;">−10</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">1.649</td>
-<td headers="std.error" class="gt_row gt_right">0.199</td>
-<td headers="statistic" class="gt_row gt_right">8.269</td>
-<td headers="p.value" class="gt_row gt_right">1.47 × 10<sup style="font-size: 65%;">−16</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">1.654</td>
+<td headers="std.error" class="gt_row gt_right">0.200</td>
+<td headers="statistic" class="gt_row gt_right">8.287</td>
+<td headers="p.value" class="gt_row gt_right">1.27 × 10<sup style="font-size: 65%;">−16</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">1.686</td>
+<td headers="estimate" class="gt_row gt_right">1.690</td>
 <td headers="std.error" class="gt_row gt_right">0.199</td>
-<td headers="statistic" class="gt_row gt_right">8.474</td>
-<td headers="p.value" class="gt_row gt_right">2.38 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">8.491</td>
+<td headers="p.value" class="gt_row gt_right">2.05 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((BUN/10)^1)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
 <td headers="estimate" class="gt_row gt_right">0.001</td>
 <td headers="std.error" class="gt_row gt_right">0.033</td>
-<td headers="statistic" class="gt_row gt_right">0.040</td>
-<td headers="p.value" class="gt_row gt_right">9.68 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">0.030</td>
+<td headers="p.value" class="gt_row gt_right">9.76 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">0.006</td>
-<td headers="std.error" class="gt_row gt_right">0.027</td>
-<td headers="statistic" class="gt_row gt_right">0.231</td>
-<td headers="p.value" class="gt_row gt_right">8.17 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">0.008</td>
+<td headers="std.error" class="gt_row gt_right">0.028</td>
+<td headers="statistic" class="gt_row gt_right">0.283</td>
+<td headers="p.value" class="gt_row gt_right">7.78 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
 <td headers="estimate" class="gt_row gt_right">0.010</td>
 <td headers="std.error" class="gt_row gt_right">0.024</td>
-<td headers="statistic" class="gt_row gt_right">0.442</td>
-<td headers="p.value" class="gt_row gt_right">6.59 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">0.429</td>
+<td headers="p.value" class="gt_row gt_right">6.68 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((WBC_noNEU_T + 0.1)^0.5)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">−5.456</td>
-<td headers="std.error" class="gt_row gt_right">0.372</td>
-<td headers="statistic" class="gt_row gt_right">−14.677</td>
-<td headers="p.value" class="gt_row gt_right">9.03 × 10<sup style="font-size: 65%;">−49</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.375</td>
+<td headers="std.error" class="gt_row gt_right">0.365</td>
+<td headers="statistic" class="gt_row gt_right">−14.716</td>
+<td headers="p.value" class="gt_row gt_right">5.13 × 10<sup style="font-size: 65%;">−49</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">−5.288</td>
-<td headers="std.error" class="gt_row gt_right">0.258</td>
-<td headers="statistic" class="gt_row gt_right">−20.496</td>
-<td headers="p.value" class="gt_row gt_right">5.50 × 10<sup style="font-size: 65%;">−92</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.204</td>
+<td headers="std.error" class="gt_row gt_right">0.253</td>
+<td headers="statistic" class="gt_row gt_right">−20.553</td>
+<td headers="p.value" class="gt_row gt_right">1.76 × 10<sup style="font-size: 65%;">−92</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">−5.275</td>
-<td headers="std.error" class="gt_row gt_right">0.258</td>
-<td headers="statistic" class="gt_row gt_right">−20.474</td>
-<td headers="p.value" class="gt_row gt_right">3.67 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.192</td>
+<td headers="std.error" class="gt_row gt_right">0.253</td>
+<td headers="statistic" class="gt_row gt_right">−20.526</td>
+<td headers="p.value" class="gt_row gt_right">1.25 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(CREA_T^1)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">0.746</td>
+<td headers="estimate" class="gt_row gt_right">0.747</td>
 <td headers="std.error" class="gt_row gt_right">0.284</td>
-<td headers="statistic" class="gt_row gt_right">2.623</td>
-<td headers="p.value" class="gt_row gt_right">8.72 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">2.626</td>
+<td headers="p.value" class="gt_row gt_right">8.63 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">0.776</td>
-<td headers="std.error" class="gt_row gt_right">0.251</td>
-<td headers="statistic" class="gt_row gt_right">3.095</td>
-<td headers="p.value" class="gt_row gt_right">2.13 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">0.751</td>
+<td headers="std.error" class="gt_row gt_right">0.274</td>
+<td headers="statistic" class="gt_row gt_right">2.738</td>
+<td headers="p.value" class="gt_row gt_right">6.72 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">0.711</td>
+<td headers="estimate" class="gt_row gt_right">0.713</td>
 <td headers="std.error" class="gt_row gt_right">0.198</td>
-<td headers="statistic" class="gt_row gt_right">3.588</td>
-<td headers="p.value" class="gt_row gt_right">3.33 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">3.599</td>
+<td headers="p.value" class="gt_row gt_right">3.19 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
   </tbody>
   
   
@@ -3537,7 +3557,7 @@ tbody tr:last-child {
 <section id="example-5-plot-of-functional-form-should-focus-on-areas-with-high-density" class="level2" data-number="B.6">
 <h2 data-number="B.6" class="anchored" data-anchor-id="example-5-plot-of-functional-form-should-focus-on-areas-with-high-density"><span class="header-section-number">B.6</span> Example 5: Plot of functional form should focus on areas with high density</h2>
 <p>The functional forms have wide confidence intervals when the data is sparse. In presentations of the effects, plots of the functional forms should focus on areas with high density. In this analysis, PLT was very sparse above ~800 [UNITS], which is reflected in a large confidence interval for high PLT values. In the effect plot PLT values could be limited to values &lt;800 [UNITS].</p>
-<div class="cell" data-hash="Bact_suppl_cache/html/ex5- fit _c426a651512abbcd5cbf0ffd592428d7">
+<div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -3547,7 +3567,7 @@ tbody tr:last-child {
 </div>
 </div>
 </div>
-<div class="cell" data-hash="Bact_suppl_cache/html/ex5- plot fit _bd5033071878b5da490bc70c593afa6c">
+<div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -3557,7 +3577,7 @@ tbody tr:last-child {
 </div>
 </div>
 </div>
-<div class="cell" data-hash="Bact_suppl_cache/html/example 5 plots_a548eb6ed086409062b9e094884845a2">
+<div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

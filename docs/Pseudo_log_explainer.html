@@ -146,6 +146,26 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Regression without regrets</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/stratosida/regression-regrets" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -276,7 +296,7 @@ div.csl-indent {
   <li><a href="#normal-deviates" id="toc-normal-deviates" class="nav-link" data-scroll-target="#normal-deviates"><span class="header-section-number">A.3.4</span> Normal deviates</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/stratosida/regression-regrets/edit/main/Pseudo_log_explainer.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stratosida/regression-regrets/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/stratosida/regression-regrets/blob/main/Pseudo_log_explainer.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -309,7 +329,7 @@ div.csl-indent {
 <p>Of course, this comes at the cost of deviation from the logarithmic transformation in terms of interpretability.</p>
 <p>The parameter <span class="math inline">\(\sigma\)</span> may be used to adapt the transformation to a specific range of an empirical distribution.</p>
 <p>We define the pseudo-logarithmic transformation in R as:</p>
-<div class="cell" data-hash="Pseudo_log_explainer_cache/html/pl02_24de457f943ffd396247612f866765c9">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pseudo_log <span class="ot">&lt;-</span></span>
@@ -325,7 +345,7 @@ div.csl-indent {
 <section id="impact-of-choice-of-sigma" class="level2" data-number="A.2">
 <h2 data-number="A.2" class="anchored" data-anchor-id="impact-of-choice-of-sigma"><span class="header-section-number">A.2</span> Impact of choice of <span class="math inline">\(\sigma\)</span></h2>
 <p>Next, we investigate how the parameter <span class="math inline">\(\sigma\)</span> impacts the result of the transformation. We assume that <span class="math inline">\(x\)</span> follows a log-normal distribution, and we will show results of <span class="math inline">\(f(x)\)</span> with different choices of <span class="math inline">\(\sigma\)</span>. We center and scale <span class="math inline">\(f(x)\)</span> before plotting.</p>
-<div class="cell" data-hash="Pseudo_log_explainer_cache/html/pl03_6b52a4092fcefb407662d07ae458c00d">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.001</span>, <span class="fl">0.999</span>, <span class="fl">0.001</span>)</span>
@@ -337,7 +357,7 @@ div.csl-indent {
 <p><img src="Pseudo_log_explainer_files/figure-html/pl03-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Pseudo_log_explainer_cache/html/pl03b_3de17c413db8ae45136c44f3a61131eb">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span></span>
@@ -370,7 +390,7 @@ div.csl-indent {
 </div>
 </div>
 <p>In the next code chunk, we multiply by 10 and repeat the exercise. We learn that the transformations become more similar and the choice of <span class="math inline">\(\sigma\)</span> less relevant.</p>
-<div class="cell" data-hash="Pseudo_log_explainer_cache/html/pl04_d8c858eec8e813c092c0f552123242c7">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x <span class="sc">*</span> <span class="dv">10</span></span>
@@ -412,7 +432,7 @@ div.csl-indent {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">pseudo_log</span>(z, <span class="at">sigma =</span> <span class="fl">0.5</span>))</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">pseudo_log</span>(z, <span class="at">sigma =</span> <span class="fl">0.05</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell quarto-layout-panel" data-hash="Pseudo_log_explainer_cache/html/pl05_24d8f4ca9719e9214ba363e470959269">
+<div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <p><img src="Pseudo_log_explainer_files/figure-html/pl05-1.png" class="img-fluid" width="672"></p>
@@ -471,7 +491,7 @@ div.csl-indent {
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">pseudo_log</span>(x, optsigma))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell quarto-layout-panel" data-hash="Pseudo_log_explainer_cache/html/pl06_121276a046f4da6445dc35bbdd380c88">
+<div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="Pseudo_log_explainer_files/figure-html/pl06-1.png" class="img-fluid" width="672"></p>
@@ -482,7 +502,7 @@ div.csl-indent {
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<pre><code>[1] 0.125</code></pre>
+<pre><code>[1] 0.25</code></pre>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="Pseudo_log_explainer_files/figure-html/pl06-2.png" class="img-fluid" width="672"></p>
@@ -499,7 +519,7 @@ div.csl-indent {
 <section id="deviates-from-exponential-distribution" class="level3" data-number="A.3.2">
 <h3 data-number="A.3.2" class="anchored" data-anchor-id="deviates-from-exponential-distribution"><span class="header-section-number">A.3.2</span> Deviates from exponential distribution</h3>
 <p>Also with an exponential distribution, the pseudo-logarithm may achieve a better agreement with a normal:</p>
-<div class="cell" data-hash="Pseudo_log_explainer_cache/html/pl07_bee770ff03cbb1b209f371f706838466">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">exp</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>) <span class="sc">+</span> <span class="dv">3</span>))</span>
@@ -561,7 +581,7 @@ div.csl-indent {
 <section id="deviates-from-mixture-distribution" class="level3" data-number="A.3.3">
 <h3 data-number="A.3.3" class="anchored" data-anchor-id="deviates-from-mixture-distribution"><span class="header-section-number">A.3.3</span> Deviates from mixture distribution</h3>
 <p>Now we mix a normal, lognormal and exponential distribution:</p>
-<div class="cell" data-hash="Pseudo_log_explainer_cache/html/pl08_fdc160b2a02208a426d022a116ae1285">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>))</span>
@@ -632,7 +652,7 @@ div.csl-indent {
 <section id="normal-deviates" class="level3" data-number="A.3.4">
 <h3 data-number="A.3.4" class="anchored" data-anchor-id="normal-deviates"><span class="header-section-number">A.3.4</span> Normal deviates</h3>
 <p>With simulated normal deviates, the pseudo-logarithm cannot improve the already perfect normality.</p>
-<div class="cell" data-hash="Pseudo_log_explainer_cache/html/pl09_7592445e034e0aaeed10af04d685b4b1">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>))</span>
@@ -663,7 +683,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>(optsigma <span class="ot">&lt;-</span> sigmas[ncorx <span class="sc">==</span> <span class="fu">max</span>(ncorx)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>[1] 1024</code></pre>
 </div>
 <details>
 <summary>Code</summary>

@@ -1,29 +1,8 @@
 # Initial data analysis in the context of regression modeling
 
-## Links - temp
 
-https://docs.google.com/spreadsheets/d/1Ft5eyenvDnMBoLvJmcBaklfrYcwyW-rkt-ivIkaphdA/edit#gid=780697000
-
-## Start
-
-<!-- badges: start -->
-[![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-maturing-green.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-<a alt = "Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public." href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" height = 20 /></a>
-<!-- badges: end -->
-
-This is a *work in progress*. We'll update this `README` and the repo status when ready! 
-
-#### -- Project Updates: 
-
-#### Abbreviations
-SAP - statistical analysis plan </br>
-IDA - initial data analysis </br>
-IDAP - initial data analysis plan 
-
-
-# Repository for IDA for regression modeling 
-The focus of this document/website is to provide examples on conducting initial data analysis in a reproducible manner in the context of intended regression analyses.
-
+## Repository for IDA for regression modeling 
+The focus of this report is to provide examples on conducting initial data analysis in a reproducible manner in the context of intended regression analyses.
 
 ## Project Description
 
@@ -48,20 +27,20 @@ For our objective, we assume that meta data exist and data cleaning has already 
 3. Recommendations for reporting of IDA for regression analyses (step 6 of IDA framework)
 4. Manuscript with scope of regression model, generic IDA strategy, examples with IDA discoveries and consequences
  
-## Installation instructions
-
-
 
 ## Structure  
 
 
-* main - General files
-
+* main - General report files
 * data-raw - Repository for original data sets and their data dictionaries 
-
 * data - Repository for analysis data sets
-
 * R - R functions for data visualization and transformations used in the R markdown files
+* docs - report in website
+* report - report in MS word format 
+
+## Data set specifications and tracker
+
+https://docs.google.com/spreadsheets/d/1Ft5eyenvDnMBoLvJmcBaklfrYcwyW-rkt-ivIkaphdA/edit?usp=sharing
 
 
 ## References
@@ -73,6 +52,13 @@ For our objective, we assume that meta data exist and data cleaning has already 
 
 ### Bacteremia data set
 [3] Ratzinger F, Dedeyan M, Rammerstorfer M, Perkmann T, Burgmann H, et al. (2014) A Risk Prediction Model for Screening Bacteremic Patients: A Cross Sectional Study. PLoS ONE 9(9): e106765. doi:10.1371/journal.pone.0106765
+
+
+## Abbreviations
+SAP - statistical analysis plan </br>
+IDA - initial data analysis </br>
+IDAP - initial data analysis plan 
+
 
 ## Funding
 
@@ -95,5 +81,3 @@ Email: georg.heinze@meduniwien.ac.at
 Marianne Huebner </br>
 Department of Statistics and Probability, Michigan State University, East Lansing, MI, USA</br>
 Email: huebner@msu.edu
-
-

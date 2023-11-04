@@ -125,6 +125,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Regression without regrets</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/stratosida/regression-regrets" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -247,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-M1-appendix" id="toc-sec-M1-appendix" class="nav-link active" data-scroll-target="#sec-M1-appendix"><span class="header-section-number">D.1</span> M2: Variable missingness for remaining predictors</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/stratosida/regression-regrets/edit/main/Bact_missing_appendix.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stratosida/regression-regrets/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/stratosida/regression-regrets/blob/main/Bact_missing_appendix.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -271,27 +291,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="sec-M1-appendix" class="level2" data-number="D.1">
 <h2 data-number="D.1" class="anchored" data-anchor-id="sec-M1-appendix"><span class="header-section-number">D.1</span> M2: Variable missingness for remaining predictors</h2>
-<div class="cell" data-hash="Bact_missing_appendix_cache/html/m1-lab-predictors-rem_2dea2a0ae1a3d23aeaf18c5b4804bf96">
+<div class="cell">
 <div class="cell-output-display">
 
-<div id="arktmuqzoq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rfeiqvnncc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#arktmuqzoq table {
+#rfeiqvnncc table {
   font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#arktmuqzoq thead, #arktmuqzoq tbody, #arktmuqzoq tfoot, #arktmuqzoq tr, #arktmuqzoq td, #arktmuqzoq th {
+#rfeiqvnncc thead, #rfeiqvnncc tbody, #rfeiqvnncc tfoot, #rfeiqvnncc tr, #rfeiqvnncc td, #rfeiqvnncc th {
   border-style: none;
 }
 
-#arktmuqzoq p {
+#rfeiqvnncc p {
   margin: 0;
   padding: 0;
 }
 
-#arktmuqzoq .gt_table {
+#rfeiqvnncc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -317,12 +337,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_caption {
+#rfeiqvnncc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#arktmuqzoq .gt_title {
+#rfeiqvnncc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -334,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#arktmuqzoq .gt_subtitle {
+#rfeiqvnncc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -346,7 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#arktmuqzoq .gt_heading {
+#rfeiqvnncc .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -358,13 +378,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_bottom_border {
+#rfeiqvnncc .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_col_headings {
+#rfeiqvnncc .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -379,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_col_heading {
+#rfeiqvnncc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -399,7 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#arktmuqzoq .gt_column_spanner_outer {
+#rfeiqvnncc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -411,15 +431,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#arktmuqzoq .gt_column_spanner_outer:first-child {
+#rfeiqvnncc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#arktmuqzoq .gt_column_spanner_outer:last-child {
+#rfeiqvnncc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#arktmuqzoq .gt_column_spanner {
+#rfeiqvnncc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -431,11 +451,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#arktmuqzoq .gt_spanner_row {
+#rfeiqvnncc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#arktmuqzoq .gt_group_heading {
+#rfeiqvnncc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -461,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#arktmuqzoq .gt_empty_group_heading {
+#rfeiqvnncc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -476,15 +496,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#arktmuqzoq .gt_from_md > :first-child {
+#rfeiqvnncc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#arktmuqzoq .gt_from_md > :last-child {
+#rfeiqvnncc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#arktmuqzoq .gt_row {
+#rfeiqvnncc .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -503,7 +523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#arktmuqzoq .gt_stub {
+#rfeiqvnncc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -516,7 +536,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#arktmuqzoq .gt_stub_row_group {
+#rfeiqvnncc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -530,15 +550,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#arktmuqzoq .gt_row_group_first td {
+#rfeiqvnncc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#arktmuqzoq .gt_row_group_first th {
+#rfeiqvnncc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#arktmuqzoq .gt_summary_row {
+#rfeiqvnncc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -548,16 +568,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#arktmuqzoq .gt_first_summary_row {
+#rfeiqvnncc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_first_summary_row.thick {
+#rfeiqvnncc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#arktmuqzoq .gt_last_summary_row {
+#rfeiqvnncc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -567,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_grand_summary_row {
+#rfeiqvnncc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -577,7 +597,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#arktmuqzoq .gt_first_grand_summary_row {
+#rfeiqvnncc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -587,7 +607,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_last_grand_summary_row_top {
+#rfeiqvnncc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -597,11 +617,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_striped {
+#rfeiqvnncc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#arktmuqzoq .gt_table_body {
+#rfeiqvnncc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -610,7 +630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_footnotes {
+#rfeiqvnncc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -624,7 +644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_footnote {
+#rfeiqvnncc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -633,7 +653,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#arktmuqzoq .gt_sourcenotes {
+#rfeiqvnncc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -647,7 +667,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#arktmuqzoq .gt_sourcenote {
+#rfeiqvnncc .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -655,63 +675,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#arktmuqzoq .gt_left {
+#rfeiqvnncc .gt_left {
   text-align: left;
 }
 
-#arktmuqzoq .gt_center {
+#rfeiqvnncc .gt_center {
   text-align: center;
 }
 
-#arktmuqzoq .gt_right {
+#rfeiqvnncc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#arktmuqzoq .gt_font_normal {
+#rfeiqvnncc .gt_font_normal {
   font-weight: normal;
 }
 
-#arktmuqzoq .gt_font_bold {
+#rfeiqvnncc .gt_font_bold {
   font-weight: bold;
 }
 
-#arktmuqzoq .gt_font_italic {
+#rfeiqvnncc .gt_font_italic {
   font-style: italic;
 }
 
-#arktmuqzoq .gt_super {
+#rfeiqvnncc .gt_super {
   font-size: 65%;
 }
 
-#arktmuqzoq .gt_footnote_marks {
+#rfeiqvnncc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#arktmuqzoq .gt_asterisk {
+#rfeiqvnncc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#arktmuqzoq .gt_indent_1 {
+#rfeiqvnncc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#arktmuqzoq .gt_indent_2 {
+#rfeiqvnncc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#arktmuqzoq .gt_indent_3 {
+#rfeiqvnncc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#arktmuqzoq .gt_indent_4 {
+#rfeiqvnncc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#arktmuqzoq .gt_indent_5 {
+#rfeiqvnncc .gt_indent_5 {
   text-indent: 25px;
 }
 
