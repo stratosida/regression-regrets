@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="u1-categorical-variables" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="u1-categorical-variables"><span class="header-section-number">5.1</span> U1: Categorical variables</h2>
 <p>Age group, sex and bacteremia status are described by frequencies and proportions in each category.</p>
-<div class="cell" data-hash="Bact_univar_cache/html/U1-catplot_4d1cf6fa0e4afe0c6276b9a64b25a647">
+<div class="cell">
 <div class="cell-output-display">
 
 <div id="tjyqcgojog" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -781,7 +781,7 @@ tbody tr:last-child {
 </div>
 </div>
 <p>Also plot the categories as simple bar charts.</p>
-<div class="cell" data-layout-align="center" data-hash="Bact_univar_cache/html/u1-catplot2_b263a06dc5fe950ec13e7f48421cba3c">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -804,7 +804,7 @@ tbody tr:last-child {
 <h4 data-number="5.2.1.2" class="anchored" data-anchor-id="u2-key-predictors"><span class="header-section-number">5.2.1.2</span> U2: Key predictors</h4>
 <p>Distribution of key predictors. Lines indicate the 5-number summary including reported numerical values (where possible).</p>
 <p>The remaining predictors are reported in the appendix <a href="Bact_univar_appendix.html#sec-u2-remaining"><span>Section&nbsp;E.1.1</span></a>.</p>
-<div class="cell quarto-layout-panel" data-hash="Bact_univar_cache/html/uni02_236cc5e2eb976c5ee9e204297e410128">
+<div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <p><img src="Bact_univar_files/figure-html/uni02-1.png" class="img-fluid" width="384"></p>
@@ -831,7 +831,7 @@ tbody tr:last-child {
 </section>
 <section id="u2-predictors-of-medium-importance" class="level4" data-number="5.2.1.3">
 <h4 data-number="5.2.1.3" class="anchored" data-anchor-id="u2-predictors-of-medium-importance"><span class="header-section-number">5.2.1.3</span> U2: Predictors of medium importance</h4>
-<div class="cell quarto-layout-panel" data-hash="Bact_univar_cache/html/uni03_6ff653e13eafdffc3ceaba7ab71fc03d">
+<div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <p><img src="Bact_univar_files/figure-html/uni03-1.png" class="img-fluid" width="384"></p>
@@ -861,7 +861,6 @@ tbody tr:last-child {
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="numerical-summaries"><span class="header-section-number">5.2.2</span> Numerical summaries</h3>
 <section id="key-predictors" class="level4" data-number="5.2.2.1">
 <h4 data-number="5.2.2.1" class="anchored" data-anchor-id="key-predictors"><span class="header-section-number">5.2.2.1</span> Key predictors</h4>
-<div class="cell" data-hash="Bact_univar_cache/html/sumtools_763e1e69dee229ea5e2a7f520311a28f">
 <div class="cell-output-display">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -1047,11 +1046,9 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJp
 <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;:  16  17  18  19  20 ,  <font color="MidnightBlue">highest</font>:  96  97  98  99 101</span>
 <hr class="thinhr">
 </div>
-</div>
 </section>
 <section id="predictors-of-medium-importance" class="level4" data-number="5.2.2.2">
 <h4 data-number="5.2.2.2" class="anchored" data-anchor-id="predictors-of-medium-importance"><span class="header-section-number">5.2.2.2</span> Predictors of medium importance</h4>
-<div class="cell" data-hash="Bact_univar_cache/html/uni06_c296f49b8bc71499abc1438b90ae4d6b">
 <div class="cell-output-display">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -1237,14 +1234,13 @@ iVBORw0KGgoAAAANSUhEUgAAAJcAAAANCAYAAACkYvxcAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJp
 <span style="font-size: 85%;"><font color="MidnightBlue">lowest</font>&nbsp;: 0     0.01  0.02  0.03  0.04  ,  <font color="MidnightBlue">highest</font>: 58.4  61.81 63.96 73.04 76.32</span>
 <hr class="thinhr">
 </div>
-</div>
 </section>
 </section>
 <section id="suggested-transformations" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="suggested-transformations"><span class="header-section-number">5.2.3</span> Suggested transformations</h3>
 <p>Next we investigate whether a pseudolog transformation of continuous variables may substantially symmetrize the univariate distributions of the continuous variables, and may hence be useful for multivariate summaries. We employ a function <code>ida_trans</code> for this purpose, which optimises the parameter <code>sigma</code> of the pseudo-logarithm for that purpose. The optimization targets the best possible linear correlation of the transformed values with normal deviates. If no better transformation can be found, or if the improvement in correlation is less than 0.2 correlation units, no transformation is suggested.</p>
 <p>Display the proposed variable transformations and the new parameter codes.</p>
-<div class="cell" data-hash="Bact_univar_cache/html/unnamed-chunk-1_746a24cf02cef278b52b7099b7a7eddc">
+<div class="cell">
 <div class="cell-output-display">
 
 <div id="zsunsrtmqi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1744,7 +1740,7 @@ tbody tr:last-child {
 <section id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation" class="level3" data-number="5.2.4">
 <h3 data-number="5.2.4" class="anchored" data-anchor-id="comparison-of-univariate-distributions-with-and-without-pseudo-log-transformation"><span class="header-section-number">5.2.4</span> Comparison of univariate distributions with and without pseudo-log transformation</h3>
 <p>The comparison is only shown for variables where a transformation is suggested. Note, all observed values, and the distribution min, max and interquartile range as reference lines, are displayed.</p>
-<div class="cell quarto-layout-panel" data-hash="Bact_univar_cache/html/uni-plots_e7d942d9725ab20f781fcf64b27e82ad">
+<div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="Bact_univar_files/figure-html/uni-plots-1.png" class="img-fluid" width="672"></p>

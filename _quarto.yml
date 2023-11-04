@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 execute:
-  cache: true   ## see https://quarto.org/docs/projects/code-execution.html
+  cache: false   ## see https://quarto.org/docs/projects/code-execution.html
   freeze: false 
   echo: false
 
@@ -39,10 +39,10 @@ format:
       code-fold: true
       code-tools: true
       code-summary: "Show the code"
-#   docx:
-#     toc: true
-#     toc-depth: 2
-#     number-sections: true
-#     highlight-style: github
-#     crossref:
-#       chapters: true
+   docx:
+     toc: true
+     toc-depth: 2
+     number-sections: true
+     highlight-style: github
+     crossref:
+       chapters: true
