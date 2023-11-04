@@ -301,7 +301,12 @@ bind_rows(
 
 ```
 
+<<<<<<< HEAD
 Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates `r fit_wbc_orig$coefficients[2] |> round(2)` and `r fit_wbc_trans$coefficients[2] |> round(2)` indicate the difference in log odds for the outcome when the 'term' variable differs by 1 unit, but cannot be compared directly. A $1$ unit difference is only a small step on the original scale, where WBC_noNEU covers values from `r range(data_model_orig$WBC_noNEU)[1]` up to `r range(data_model_orig$WBC_noNEU)[2]`. In comparison, WBC_noNEU_T lies between `r round(range(data_model_trans$WBC_noNEU_T)[1],2)` up to `r round(range(data_model_trans$WBC_noNEU_T)[2],2)`, so a difference of $1$ unit cover almost half the range of the variable.
+=======
+Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates `r fit_wbc_orig$coefficients[2] |> round(2)` and `r fit_wbc_trans$coefficients[2] |> round(2)` indicate the difference in log odds for the outcome when the 'term' variable differs by 1 unit, but cannot be compared directly. A $1$ unit difference is only a small step on the original scale, where WBC_noNEU covers values from `r range(data_model_orig$WBC_noNEU)[1]` up to `r range(data_model_orig$WBC_noNEU)[2]`. In comparison, WBC_noNEU_T lies between `r round(range(data_model_orig$WBC_noNEU_T)[1],2)` up to `r round(range(data_model_orig$WBC_noNEU_T)[2],2)`, so a difference of $1$ unit cover almost half the range of the variable.
+
+>>>>>>> gh-pages
 
 
 ```{r ex 2 logreg plots, message = FALSE, warning = FALSE}

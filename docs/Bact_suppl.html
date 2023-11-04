@@ -769,30 +769,30 @@ tbody tr:last-child {
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="term" class="gt_row gt_left">(Intercept)</td>
-<td headers="estimate" class="gt_row gt_right">−2.724</td>
+<td headers="estimate" class="gt_row gt_right">−2.719</td>
 <td headers="std.error" class="gt_row gt_right">0.588</td>
-<td headers="statistic" class="gt_row gt_right">−4.63</td>
-<td headers="p.value" class="gt_row gt_right">3.60 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−4.62</td>
+<td headers="p.value" class="gt_row gt_right">3.75 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((WBC_noNEU_T + 0.1)^0.5)</td>
-<td headers="estimate" class="gt_row gt_right">−5.350</td>
-<td headers="std.error" class="gt_row gt_right">0.262</td>
-<td headers="statistic" class="gt_row gt_right">−20.42</td>
-<td headers="p.value" class="gt_row gt_right">1.06 × 10<sup style="font-size: 65%;">−92</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.321</td>
+<td headers="std.error" class="gt_row gt_right">0.260</td>
+<td headers="statistic" class="gt_row gt_right">−20.44</td>
+<td headers="p.value" class="gt_row gt_right">6.95 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((NEU + 0.1)/10)^0.5)</td>
-<td headers="estimate" class="gt_row gt_right">1.519</td>
+<td headers="estimate" class="gt_row gt_right">1.521</td>
 <td headers="std.error" class="gt_row gt_right">0.117</td>
-<td headers="statistic" class="gt_row gt_right">13.04</td>
-<td headers="p.value" class="gt_row gt_right">7.37 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">13.05</td>
+<td headers="p.value" class="gt_row gt_right">6.39 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((AGE/100)^1)</td>
-<td headers="estimate" class="gt_row gt_right">1.683</td>
+<td headers="estimate" class="gt_row gt_right">1.684</td>
 <td headers="std.error" class="gt_row gt_right">0.199</td>
 <td headers="statistic" class="gt_row gt_right">8.46</td>
-<td headers="p.value" class="gt_row gt_right">2.69 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
+<td headers="p.value" class="gt_row gt_right">2.57 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(CREA_T^1)</td>
 <td headers="estimate" class="gt_row gt_right">0.709</td>
 <td headers="std.error" class="gt_row gt_right">0.198</td>
 <td headers="statistic" class="gt_row gt_right">3.58</td>
-<td headers="p.value" class="gt_row gt_right">3.45 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
+<td headers="p.value" class="gt_row gt_right">3.40 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((PLT + 1)/100)^1)</td>
 <td headers="estimate" class="gt_row gt_right">−0.082</td>
 <td headers="std.error" class="gt_row gt_right">0.032</td>
@@ -802,7 +802,7 @@ tbody tr:last-child {
 <td headers="estimate" class="gt_row gt_right">0.011</td>
 <td headers="std.error" class="gt_row gt_right">0.024</td>
 <td headers="statistic" class="gt_row gt_right">0.45</td>
-<td headers="p.value" class="gt_row gt_right">6.50 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="p.value" class="gt_row gt_right">6.53 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
   </tbody>
   
   
@@ -1908,9 +1908,9 @@ tbody tr:last-child {
 <td headers="std.error" class="gt_row gt_right">0.035</td>
 <td headers="statistic" class="gt_row gt_right">−15.731</td></tr>
     <tr><td headers="term" class="gt_row gt_left">WBC_noNEU_T</td>
-<td headers="estimate" class="gt_row gt_right">−3.041</td>
-<td headers="std.error" class="gt_row gt_right">0.162</td>
-<td headers="statistic" class="gt_row gt_right">−18.808</td></tr>
+<td headers="estimate" class="gt_row gt_right">−3.005</td>
+<td headers="std.error" class="gt_row gt_right">0.160</td>
+<td headers="statistic" class="gt_row gt_right">−18.841</td></tr>
   </tbody>
   
   
@@ -1918,7 +1918,22 @@ tbody tr:last-child {
 </div>
 </div>
 </div>
-<p>Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates -0.56 and -3.04 indicate the difference in log odds for the outcome when the ‘term’ variable differs by 1 unit, but cannot be compared directly. A <span class="math inline">\(1\)</span> unit difference is only a small step on the original scale, where WBC_noNEU covers values from -0.15 up to 152.74. In comparison, WBC_noNEU_T lies between -0.05 up to 2.4, so a difference of <span class="math inline">\(1\)</span> unit cover almost half the range of the variable.</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates -0.56 and -3.01 indicate the difference in log odds for the outcome when the ‘term’ variable differs by 1 unit, but cannot be compared directly. A <span class="math inline">\(1\)</span> unit difference is only a small step on the original scale, where WBC_noNEU covers values from -0.15 up to 152.74. In comparison, WBC_noNEU_T lies between -0.06 up to 2.41, so a difference of <span class="math inline">\(1\)</span> unit cover almost half the range of the variable. ======= Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates -0.56 and -3.01 indicate the difference in log odds for the outcome when the ‘term’ variable differs by 1 unit, but cannot be compared directly. A <span class="math inline">\(1\)</span> unit difference is only a small step on the original scale, where WBC_noNEU covers values from -0.15 up to 152.74. In comparison, WBC_noNEU_T lies between up to -, so a difference of <span class="math inline">\(1\)</span> unit cover almost half the range of the variable.</p>
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<p>gh-pages</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <div class="cell" data-hash="Bact_suppl_cache/html/ex 2 logreg plots_4b203d3aeab91b413de37aece4637327">
 <div class="cell-output-display">
 <p><img src="Bact_suppl_files/figure-html/ex 2 logreg plots-1.png" class="img-fluid" width="672"></p>
@@ -2892,28 +2907,28 @@ tbody tr:last-child {
     <tr><td headers="term" class="gt_row gt_left">(Intercept)</td>
 <td headers="estimate" class="gt_row gt_right">−2.72</td>
 <td headers="std.error" class="gt_row gt_right">0.59</td>
-<td headers="statistic" class="gt_row gt_right">−4.63</td>
-<td headers="p.value" class="gt_row gt_right">3.60 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−4.62</td>
+<td headers="p.value" class="gt_row gt_right">3.75 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((WBC_noNEU_T + 0.1)^0.5)</td>
-<td headers="estimate" class="gt_row gt_right">−5.35</td>
+<td headers="estimate" class="gt_row gt_right">−5.32</td>
 <td headers="std.error" class="gt_row gt_right">0.26</td>
-<td headers="statistic" class="gt_row gt_right">−20.42</td>
-<td headers="p.value" class="gt_row gt_right">1.06 × 10<sup style="font-size: 65%;">−92</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−20.44</td>
+<td headers="p.value" class="gt_row gt_right">6.95 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((NEU + 0.1)/10)^0.5)</td>
 <td headers="estimate" class="gt_row gt_right">1.52</td>
 <td headers="std.error" class="gt_row gt_right">0.12</td>
-<td headers="statistic" class="gt_row gt_right">13.04</td>
-<td headers="p.value" class="gt_row gt_right">7.37 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">13.05</td>
+<td headers="p.value" class="gt_row gt_right">6.39 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((AGE/100)^1)</td>
 <td headers="estimate" class="gt_row gt_right">1.68</td>
 <td headers="std.error" class="gt_row gt_right">0.20</td>
 <td headers="statistic" class="gt_row gt_right">8.46</td>
-<td headers="p.value" class="gt_row gt_right">2.69 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
+<td headers="p.value" class="gt_row gt_right">2.57 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(CREA_T^1)</td>
 <td headers="estimate" class="gt_row gt_right">0.71</td>
 <td headers="std.error" class="gt_row gt_right">0.20</td>
 <td headers="statistic" class="gt_row gt_right">3.58</td>
-<td headers="p.value" class="gt_row gt_right">3.45 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
+<td headers="p.value" class="gt_row gt_right">3.40 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((PLT + 1)/100)^1)</td>
 <td headers="estimate" class="gt_row gt_right">−0.08</td>
 <td headers="std.error" class="gt_row gt_right">0.03</td>
@@ -2923,7 +2938,7 @@ tbody tr:last-child {
 <td headers="estimate" class="gt_row gt_right">0.01</td>
 <td headers="std.error" class="gt_row gt_right">0.02</td>
 <td headers="statistic" class="gt_row gt_right">0.45</td>
-<td headers="p.value" class="gt_row gt_right">6.50 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="p.value" class="gt_row gt_right">6.53 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
   </tbody>
   
   
@@ -3401,52 +3416,52 @@ tbody tr:last-child {
   <tbody class="gt_table_body">
     <tr><td headers="term" class="gt_row gt_left">(Intercept)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">−2.658</td>
-<td headers="std.error" class="gt_row gt_right">0.841</td>
-<td headers="statistic" class="gt_row gt_right">−3.159</td>
-<td headers="p.value" class="gt_row gt_right">1.58 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−2.651</td>
+<td headers="std.error" class="gt_row gt_right">0.842</td>
+<td headers="statistic" class="gt_row gt_right">−3.151</td>
+<td headers="p.value" class="gt_row gt_right">1.63 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
 <td headers="estimate" class="gt_row gt_right">−2.850</td>
-<td headers="std.error" class="gt_row gt_right">0.724</td>
-<td headers="statistic" class="gt_row gt_right">−3.936</td>
-<td headers="p.value" class="gt_row gt_right">9.87 × 10<sup style="font-size: 65%;">−5</sup></td></tr>
+<td headers="std.error" class="gt_row gt_right">0.695</td>
+<td headers="statistic" class="gt_row gt_right">−4.104</td>
+<td headers="p.value" class="gt_row gt_right">4.69 × 10<sup style="font-size: 65%;">−5</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">−2.724</td>
+<td headers="estimate" class="gt_row gt_right">−2.719</td>
 <td headers="std.error" class="gt_row gt_right">0.588</td>
-<td headers="statistic" class="gt_row gt_right">−4.633</td>
-<td headers="p.value" class="gt_row gt_right">3.60 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−4.625</td>
+<td headers="p.value" class="gt_row gt_right">3.75 × 10<sup style="font-size: 65%;">−6</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((NEU + 0.1)/10)^0.5)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">1.517</td>
+<td headers="estimate" class="gt_row gt_right">1.519</td>
 <td headers="std.error" class="gt_row gt_right">0.168</td>
-<td headers="statistic" class="gt_row gt_right">9.003</td>
-<td headers="p.value" class="gt_row gt_right">2.20 × 10<sup style="font-size: 65%;">−19</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">9.013</td>
+<td headers="p.value" class="gt_row gt_right">2.01 × 10<sup style="font-size: 65%;">−19</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">1.522</td>
+<td headers="estimate" class="gt_row gt_right">1.524</td>
 <td headers="std.error" class="gt_row gt_right">0.117</td>
-<td headers="statistic" class="gt_row gt_right">13.046</td>
-<td headers="p.value" class="gt_row gt_right">1.14 × 10<sup style="font-size: 65%;">−38</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">13.063</td>
+<td headers="p.value" class="gt_row gt_right">9.14 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">1.519</td>
+<td headers="estimate" class="gt_row gt_right">1.521</td>
 <td headers="std.error" class="gt_row gt_right">0.117</td>
-<td headers="statistic" class="gt_row gt_right">13.039</td>
-<td headers="p.value" class="gt_row gt_right">7.37 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">13.050</td>
+<td headers="p.value" class="gt_row gt_right">6.39 × 10<sup style="font-size: 65%;">−39</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(((PLT + 1)/100)^1)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
 <td headers="estimate" class="gt_row gt_right">−0.101</td>
 <td headers="std.error" class="gt_row gt_right">0.045</td>
-<td headers="statistic" class="gt_row gt_right">−2.227</td>
-<td headers="p.value" class="gt_row gt_right">2.59 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−2.226</td>
+<td headers="p.value" class="gt_row gt_right">2.60 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">−0.077</td>
+<td headers="estimate" class="gt_row gt_right">−0.076</td>
 <td headers="std.error" class="gt_row gt_right">0.032</td>
-<td headers="statistic" class="gt_row gt_right">−2.403</td>
-<td headers="p.value" class="gt_row gt_right">1.63 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">−2.396</td>
+<td headers="p.value" class="gt_row gt_right">1.66 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
 <td headers="estimate" class="gt_row gt_right">−0.082</td>
@@ -3455,76 +3470,76 @@ tbody tr:last-child {
 <td headers="p.value" class="gt_row gt_right">1.04 × 10<sup style="font-size: 65%;">−2</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((AGE/100)^1)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">1.755</td>
+<td headers="estimate" class="gt_row gt_right">1.756</td>
 <td headers="std.error" class="gt_row gt_right">0.283</td>
-<td headers="statistic" class="gt_row gt_right">6.198</td>
-<td headers="p.value" class="gt_row gt_right">5.71 × 10<sup style="font-size: 65%;">−10</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">6.201</td>
+<td headers="p.value" class="gt_row gt_right">5.60 × 10<sup style="font-size: 65%;">−10</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">1.646</td>
+<td headers="estimate" class="gt_row gt_right">1.648</td>
 <td headers="std.error" class="gt_row gt_right">0.199</td>
-<td headers="statistic" class="gt_row gt_right">8.258</td>
-<td headers="p.value" class="gt_row gt_right">1.62 × 10<sup style="font-size: 65%;">−16</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">8.268</td>
+<td headers="p.value" class="gt_row gt_right">1.49 × 10<sup style="font-size: 65%;">−16</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">1.683</td>
+<td headers="estimate" class="gt_row gt_right">1.684</td>
 <td headers="std.error" class="gt_row gt_right">0.199</td>
-<td headers="statistic" class="gt_row gt_right">8.459</td>
-<td headers="p.value" class="gt_row gt_right">2.69 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">8.465</td>
+<td headers="p.value" class="gt_row gt_right">2.57 × 10<sup style="font-size: 65%;">−17</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((BUN/10)^1)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
 <td headers="estimate" class="gt_row gt_right">0.002</td>
 <td headers="std.error" class="gt_row gt_right">0.033</td>
-<td headers="statistic" class="gt_row gt_right">0.049</td>
-<td headers="p.value" class="gt_row gt_right">9.61 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">0.046</td>
+<td headers="p.value" class="gt_row gt_right">9.64 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">0.008</td>
-<td headers="std.error" class="gt_row gt_right">0.027</td>
-<td headers="statistic" class="gt_row gt_right">0.287</td>
-<td headers="p.value" class="gt_row gt_right">7.75 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">0.007</td>
+<td headers="std.error" class="gt_row gt_right">0.026</td>
+<td headers="statistic" class="gt_row gt_right">0.284</td>
+<td headers="p.value" class="gt_row gt_right">7.77 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
 <td headers="estimate" class="gt_row gt_right">0.011</td>
 <td headers="std.error" class="gt_row gt_right">0.024</td>
-<td headers="statistic" class="gt_row gt_right">0.454</td>
-<td headers="p.value" class="gt_row gt_right">6.50 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">0.449</td>
+<td headers="p.value" class="gt_row gt_right">6.53 × 10<sup style="font-size: 65%;">−1</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I((WBC_noNEU_T + 0.1)^0.5)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
-<td headers="estimate" class="gt_row gt_right">−5.530</td>
-<td headers="std.error" class="gt_row gt_right">0.378</td>
-<td headers="statistic" class="gt_row gt_right">−14.639</td>
-<td headers="p.value" class="gt_row gt_right">1.57 × 10<sup style="font-size: 65%;">−48</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.501</td>
+<td headers="std.error" class="gt_row gt_right">0.375</td>
+<td headers="statistic" class="gt_row gt_right">−14.654</td>
+<td headers="p.value" class="gt_row gt_right">1.26 × 10<sup style="font-size: 65%;">−48</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">−5.361</td>
-<td headers="std.error" class="gt_row gt_right">0.262</td>
-<td headers="statistic" class="gt_row gt_right">−20.447</td>
-<td headers="p.value" class="gt_row gt_right">1.47 × 10<sup style="font-size: 65%;">−91</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.334</td>
+<td headers="std.error" class="gt_row gt_right">0.261</td>
+<td headers="statistic" class="gt_row gt_right">−20.471</td>
+<td headers="p.value" class="gt_row gt_right">9.00 × 10<sup style="font-size: 65%;">−92</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
-<td headers="estimate" class="gt_row gt_right">−5.350</td>
-<td headers="std.error" class="gt_row gt_right">0.262</td>
-<td headers="statistic" class="gt_row gt_right">−20.422</td>
-<td headers="p.value" class="gt_row gt_right">1.06 × 10<sup style="font-size: 65%;">−92</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">−5.321</td>
+<td headers="std.error" class="gt_row gt_right">0.260</td>
+<td headers="statistic" class="gt_row gt_right">−20.443</td>
+<td headers="p.value" class="gt_row gt_right">6.95 × 10<sup style="font-size: 65%;">−93</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left">I(CREA_T^1)</td>
 <td headers="model" class="gt_row gt_left">missing, complete cases</td>
 <td headers="estimate" class="gt_row gt_right">0.745</td>
 <td headers="std.error" class="gt_row gt_right">0.284</td>
-<td headers="statistic" class="gt_row gt_right">2.620</td>
-<td headers="p.value" class="gt_row gt_right">8.80 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">2.621</td>
+<td headers="p.value" class="gt_row gt_right">8.77 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">missing, imputed</td>
-<td headers="estimate" class="gt_row gt_right">0.759</td>
-<td headers="std.error" class="gt_row gt_right">0.251</td>
-<td headers="statistic" class="gt_row gt_right">3.022</td>
-<td headers="p.value" class="gt_row gt_right">2.71 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
+<td headers="estimate" class="gt_row gt_right">0.762</td>
+<td headers="std.error" class="gt_row gt_right">0.240</td>
+<td headers="statistic" class="gt_row gt_right">3.172</td>
+<td headers="p.value" class="gt_row gt_right">1.62 × 10<sup style="font-size: 65%;">−3</sup></td></tr>
     <tr><td headers="term" class="gt_row gt_left"></td>
 <td headers="model" class="gt_row gt_left">no missing data</td>
 <td headers="estimate" class="gt_row gt_right">0.709</td>
 <td headers="std.error" class="gt_row gt_right">0.198</td>
-<td headers="statistic" class="gt_row gt_right">3.579</td>
-<td headers="p.value" class="gt_row gt_right">3.45 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
+<td headers="statistic" class="gt_row gt_right">3.583</td>
+<td headers="p.value" class="gt_row gt_right">3.40 × 10<sup style="font-size: 65%;">−4</sup></td></tr>
   </tbody>
   
   
@@ -4173,308 +4188,313 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates <span class="in">`r fit_wbc_orig$coefficients[2] |&gt; round(2)`</span> and <span class="in">`r fit_wbc_trans$coefficients[2] |&gt; round(2)`</span> indicate the difference in log odds for the outcome when the 'term' variable differs by 1 unit, but cannot be compared directly. A $1$ unit difference is only a small step on the original scale, where WBC_noNEU covers values from <span class="in">`r range(data_model_orig$WBC_noNEU)[1]`</span> up to <span class="in">`r range(data_model_orig$WBC_noNEU)[2]`</span>. In comparison, WBC_noNEU_T lies between <span class="in">`r round(range(data_model_trans$WBC_noNEU_T)[1],2)`</span> up to <span class="in">`r round(range(data_model_trans$WBC_noNEU_T)[2],2)`</span>, so a difference of $1$ unit cover almost half the range of the variable.</span>
-<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex 2 logreg plots, message = FALSE, warning = FALSE}</span></span>
-<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_summary_plot</span>(fit_wbc_orig, <span class="st">"Simple model with WBC on original scale"</span>)</span>
-<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_summary_plot</span>(fit_wbc_trans, <span class="st">"Simple model with WBC on transformed scale"</span>)</span>
-<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a>Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates <span class="in">`r fit_wbc_orig$coefficients[2] |&gt; round(2)`</span> and <span class="in">`r fit_wbc_trans$coefficients[2] |&gt; round(2)`</span> indicate the difference in log odds for the outcome when the 'term' variable differs by 1 unit, but cannot be compared directly. A $1$ unit difference is only a small step on the original scale, where WBC_noNEU covers values from <span class="in">`r range(data_model_orig$WBC_noNEU)[1]`</span> up to <span class="in">`r range(data_model_orig$WBC_noNEU)[2]`</span>. In comparison, WBC_noNEU_T lies between <span class="in">`r round(range(data_model_trans$WBC_noNEU_T)[1],2)`</span> up to <span class="in">`r round(range(data_model_trans$WBC_noNEU_T)[2],2)`</span>, so a difference of $1$ unit cover almost half the range of the variable.</span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="fu">=======</span></span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>Even if the model with transformed WBC has a slightly better prediction performance as revealed by the summary plots below, this is not the reason for the difference. The estimates <span class="in">`r fit_wbc_orig$coefficients[2] |&gt; round(2)`</span> and <span class="in">`r fit_wbc_trans$coefficients[2] |&gt; round(2)`</span> indicate the difference in log odds for the outcome when the 'term' variable differs by 1 unit, but cannot be compared directly. A $1$ unit difference is only a small step on the original scale, where WBC_noNEU covers values from <span class="in">`r range(data_model_orig$WBC_noNEU)[1]`</span> up to <span class="in">`r range(data_model_orig$WBC_noNEU)[2]`</span>. In comparison, WBC_noNEU_T lies between <span class="in">`r round(range(data_model_orig$WBC_noNEU_T)[1],2)`</span> up to <span class="in">`r round(range(data_model_orig$WBC_noNEU_T)[2],2)`</span>, so a difference of $1$ unit cover almost half the range of the variable.</span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;&gt;&gt;&gt;&gt;&gt; gh-pages</span></span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example 3: the support of a model determines what it can explain</span></span>
-<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>Next we compare the global model to a model were for an important variable, in our case we chose age, the variable support is reduced to the central 50% of the data (i.e. data within the 25% and 75% quantiles), and for comparison we also generate a scenario where we randomly sample 50% of the data. </span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex 2 logreg plots, message = FALSE, warning = FALSE}</span></span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_summary_plot</span>(fit_wbc_orig, <span class="st">"Simple model with WBC on original scale"</span>)</span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_summary_plot</span>(fit_wbc_trans, <span class="st">"Simple model with WBC on transformed scale"</span>)</span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{r example3: prediction validity, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}</span></span>
-<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>m_pct <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
-<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>sel_central <span class="ot">&lt;-</span> (data_model_orig<span class="sc">$</span>AGE <span class="sc">&gt;</span> <span class="fu">quantile</span>(data_model_orig<span class="sc">$</span>AGE, <span class="fl">0.5</span><span class="sc">-</span>m_pct<span class="sc">/</span><span class="dv">2</span>)) <span class="sc">&amp;</span> </span>
-<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>  (data_model_orig<span class="sc">$</span>AGE <span class="sc">&lt;</span> <span class="fu">quantile</span>(data_model_orig<span class="sc">$</span>AGE, <span class="fl">0.5</span><span class="sc">+</span>m_pct<span class="sc">/</span><span class="dv">2</span>)) <span class="co">#needed later</span></span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example 3: the support of a model determines what it can explain</span></span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>Next we compare the global model to a model were for an important variable, in our case we chose age, the variable support is reduced to the central 50% of the data (i.e. data within the 25% and 75% quantiles), and for comparison we also generate a scenario where we randomly sample 50% of the data. </span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r example3: prediction validity, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}</span></span>
 <span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7123981</span>) <span class="co"># fix seed for reproducibility</span></span>
-<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a>sel_sample <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(<span class="fu">round</span>(<span class="fu">runif</span>(<span class="fu">dim</span>(data_model_orig)[<span class="dv">1</span>]))) <span class="co"># 50% random selection, needed later</span></span>
-<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>pred_complete <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_mfp_trans, </span>
-<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> data_model_trans,</span>
-<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>                         <span class="at">type =</span> <span class="st">'response'</span>)</span>
-<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a>y_complete <span class="ot">&lt;-</span> fit_mfp_trans<span class="sc">$</span>y</span>
-<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a>pred_central <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">update</span>(fit_mfp_trans, <span class="at">subset=</span>sel_central), <span class="co"># refit and repredict model</span></span>
-<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>                        <span class="at">newdata =</span> data_model_trans[sel_central,],</span>
-<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a>                        <span class="at">type =</span> <span class="st">'response'</span>)</span>
-<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a>y_central <span class="ot">&lt;-</span> fit_mfp_trans<span class="sc">$</span>y[sel_central]</span>
-<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a>pred_sample <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">update</span>(fit_mfp_trans, <span class="at">subset=</span>sel_sample), <span class="co"># refit and repredict model</span></span>
-<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a>                       <span class="at">newdata =</span> data_model_trans[sel_sample,],</span>
-<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a>                       <span class="at">type =</span> <span class="st">'response'</span>)</span>
-<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a>y_sample <span class="ot">&lt;-</span> fit_mfp_trans<span class="sc">$</span>y[sel_sample]</span>
-<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a>When evaluating the apparent predictive performance in terms of the AUC and the scaled Brier score, we see that the model fitted on the participants with age between the first and third quartiles performs worse than the global model and the model where 50% were randomly sampled.</span>
-<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{r example3: table scenarios, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}</span></span>
-<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>data, <span class="sc">~</span>AUC, <span class="sc">~</span><span class="st">`</span><span class="at">scaled Brier score</span><span class="st">`</span>,</span>
-<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a>  <span class="st">'complete'</span>, <span class="fu">auc</span>(y_complete, pred_complete) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>(), <span class="fu">cor</span>(y_complete, pred_complete)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a>  <span class="st">'central 50% of age distribution'</span>, <span class="fu">auc</span>(y_central, pred_central) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>(), <span class="fu">cor</span>(y_central, pred_central)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a>  <span class="st">'randomly sampled 50%'</span>, <span class="fu">auc</span>(y_sample, pred_sample) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>(), <span class="fu">cor</span>(y_sample, pred_sample)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="dv">2</span>, <span class="at">decimals =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="dv">3</span>, <span class="at">decimals =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
-<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a>Plot the model predictions based on different missing data scenarios</span>
-<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{r example3: plot, message = FALSE, warning = FALSE, fig.width=6, fig.height=5}</span></span>
-<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Model predictions based on different missing data scenarios."</span></span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>m_pct <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>sel_central <span class="ot">&lt;-</span> (data_model_orig<span class="sc">$</span>AGE <span class="sc">&gt;</span> <span class="fu">quantile</span>(data_model_orig<span class="sc">$</span>AGE, <span class="fl">0.5</span><span class="sc">-</span>m_pct<span class="sc">/</span><span class="dv">2</span>)) <span class="sc">&amp;</span> </span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>  (data_model_orig<span class="sc">$</span>AGE <span class="sc">&lt;</span> <span class="fu">quantile</span>(data_model_orig<span class="sc">$</span>AGE, <span class="fl">0.5</span><span class="sc">+</span>m_pct<span class="sc">/</span><span class="dv">2</span>)) <span class="co">#needed later</span></span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7123981</span>) <span class="co"># fix seed for reproducibility</span></span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>sel_sample <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(<span class="fu">round</span>(<span class="fu">runif</span>(<span class="fu">dim</span>(data_model_orig)[<span class="dv">1</span>]))) <span class="co"># 50% random selection, needed later</span></span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>pred_complete <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_mfp_trans, </span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> data_model_trans,</span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>                         <span class="at">type =</span> <span class="st">'response'</span>)</span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a>y_complete <span class="ot">&lt;-</span> fit_mfp_trans<span class="sc">$</span>y</span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a>pred_central <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">update</span>(fit_mfp_trans, <span class="at">subset=</span>sel_central), <span class="co"># refit and repredict model</span></span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a>                        <span class="at">newdata =</span> data_model_trans[sel_central,],</span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a>                        <span class="at">type =</span> <span class="st">'response'</span>)</span>
+<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a>y_central <span class="ot">&lt;-</span> fit_mfp_trans<span class="sc">$</span>y[sel_central]</span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a>pred_sample <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">update</span>(fit_mfp_trans, <span class="at">subset=</span>sel_sample), <span class="co"># refit and repredict model</span></span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a>                       <span class="at">newdata =</span> data_model_trans[sel_sample,],</span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a>                       <span class="at">type =</span> <span class="st">'response'</span>)</span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a>y_sample <span class="ot">&lt;-</span> fit_mfp_trans<span class="sc">$</span>y[sel_sample]</span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a>When evaluating the apparent predictive performance in terms of the AUC and the scaled Brier score, we see that the model fitted on the participants with age between the first and third quartiles performs worse than the global model and the model where 50% were randomly sampled.</span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a><span class="in">```{r example3: table scenarios, message = FALSE, warning = FALSE, fig.width=6, fig.height=4}</span></span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>data, <span class="sc">~</span>AUC, <span class="sc">~</span><span class="st">`</span><span class="at">scaled Brier score</span><span class="st">`</span>,</span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a>  <span class="st">'complete'</span>, <span class="fu">auc</span>(y_complete, pred_complete) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>(), <span class="fu">cor</span>(y_complete, pred_complete)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a>  <span class="st">'central 50% of age distribution'</span>, <span class="fu">auc</span>(y_central, pred_central) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>(), <span class="fu">cor</span>(y_central, pred_central)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a>  <span class="st">'randomly sampled 50%'</span>, <span class="fu">auc</span>(y_sample, pred_sample) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>(), <span class="fu">cor</span>(y_sample, pred_sample)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="dv">2</span>, <span class="at">decimals =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="dv">3</span>, <span class="at">decimals =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>p_ex2 <span class="ot">&lt;-</span></span>
-<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(</span>
-<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
-<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a>      <span class="at">BC =</span> y_complete,</span>
-<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a>      <span class="at">prediction =</span> pred_complete,</span>
-<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'complete data'</span></span>
-<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>Plot the model predictions based on different missing data scenarios</span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a><span class="in">```{r example3: plot, message = FALSE, warning = FALSE, fig.width=6, fig.height=5}</span></span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Model predictions based on different missing data scenarios."</span></span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a>p_ex2 <span class="ot">&lt;-</span></span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(</span>
 <span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
-<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a>      <span class="at">BC =</span> y_central,</span>
-<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a>      <span class="at">prediction =</span> pred_central,</span>
-<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'within IQR (age)'</span></span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a>      <span class="at">BC =</span> y_complete,</span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a>      <span class="at">prediction =</span> pred_complete,</span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'complete data'</span></span>
 <span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a>    ),</span>
 <span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
-<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a>      <span class="at">BC =</span> y_sample,</span>
-<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a>      <span class="at">prediction =</span> pred_sample,</span>
-<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'random 50% subsample'</span></span>
-<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">factor</span>(</span>
-<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a>    model,</span>
-<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'complete data'</span>, <span class="st">'within IQR (age)'</span>, <span class="st">'random 50% subsample'</span>)</span>
-<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="fu">if_else</span>(BC <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> outcome, <span class="at">y =</span> prediction, <span class="at">group =</span> outcome)) <span class="sc">+</span></span>
-<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> model, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">strip.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
-<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Presence of bacteremia'</span>,</span>
-<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'prediction'</span>) <span class="sc">+</span></span>
-<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">hjust =</span> <span class="dv">0</span>)</span>
-<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a>p_ex2</span>
-<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a>      <span class="at">BC =</span> y_central,</span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a>      <span class="at">prediction =</span> pred_central,</span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'within IQR (age)'</span></span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a>      <span class="at">BC =</span> y_sample,</span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a>      <span class="at">prediction =</span> pred_sample,</span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'random 50% subsample'</span></span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">factor</span>(</span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>    model,</span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'complete data'</span>, <span class="st">'within IQR (age)'</span>, <span class="st">'random 50% subsample'</span>)</span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="fu">if_else</span>(BC <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> outcome, <span class="at">y =</span> prediction, <span class="at">group =</span> outcome)) <span class="sc">+</span></span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> model, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">strip.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Presence of bacteremia'</span>,</span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'prediction'</span>) <span class="sc">+</span></span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">hjust =</span> <span class="dv">0</span>)</span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example 4: the limits of mulitiple imputation</span></span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a>p_ex2</span>
 <span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a>To show the effect of multiple imputation if the number of missing values is high, we construct a dataset with 50% artificially generated missing values in one variable. First, recall the output of the complete model, relying on the Bacteremia data with complete cases regarding the key predictors.</span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex4: table global model, message = FALSE, warning = FALSE}</span></span>
-<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a>fit_mfp_trans <span class="sc">|&gt;</span></span>
-<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_model_table</span>(<span class="st">'global model'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example 4: the limits of mulitiple imputation</span></span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a>To show the effect of multiple imputation if the number of missing values is high, we construct a dataset with 50% artificially generated missing values in one variable. First, recall the output of the complete model, relying on the Bacteremia data with complete cases regarding the key predictors.</span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex4: table global model, message = FALSE, warning = FALSE}</span></span>
 <span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a>Creatinine ('CREA') is significant at a level that might not survive substantial missingness. We thus create a dataset were we artificially introduce 50% missing creatinine values, missing completely at random.</span>
-<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3: create missing crea, message = FALSE, warning = FALSE, fig.width = 10, fig.height=6, fig.width=12}</span></span>
-<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a><span class="co"># create 50% missings for CREA_T</span></span>
-<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a>data_model_trans_missings <span class="ot">&lt;-</span> </span>
-<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a>  data_model_trans <span class="sc">|&gt;</span></span>
-<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a>    <span class="at">CREA_T =</span> <span class="fu">ifelse</span>(</span>
-<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a>      <span class="fu">runif</span>(<span class="fu">dim</span>(data_model_orig)[<span class="dv">1</span>]) <span class="sc">&lt;</span> .<span class="dv">5</span>,  <span class="co">#~50%/50% TRUE/FALSE</span></span>
-<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a>      CREA_T,</span>
-<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a>      <span class="cn">NA</span></span>
-<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a>Next we fit a 'complete case' model in the case of missing creatinine data, using the fp-transformations from the global model.</span>
-<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3: fit model, message = FALSE, warning = FALSE}</span></span>
-<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a>fit_mfp_missing <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">as.formula</span>(global_formula_fp), <span class="co">#use same fp-trafos as in global model</span></span>
-<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> data_model_trans_missings,</span>
-<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a>                       <span class="at">family =</span> binomial)</span>
-<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a>Now we impute the missing creatinine data using MICE with 50 imputations, fit the model using the fp-transformations from the global model and pool the results.</span>
-<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3: multiple imputation, message = FALSE, warning = FALSE, echo=FALSE, results='hide'}</span></span>
-<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a><span class="co"># impute</span></span>
-<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a>imp_data <span class="ot">&lt;-</span> <span class="fu">mice</span>(data_model_trans_missings <span class="sc">|&gt;</span></span>
-<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">select</span>(BACTEREMIAN, key_predictors), </span>
-<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a>                 <span class="at">m=</span><span class="dv">50</span>, <span class="at">maxit =</span> <span class="dv">50</span>, <span class="at">method=</span><span class="st">'pmm'</span>, <span class="at">seed =</span> <span class="dv">1</span>)</span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a>fit_mfp_trans <span class="sc">|&gt;</span></span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_model_table</span>(<span class="st">'global model'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a>Creatinine ('CREA') is significant at a level that might not survive substantial missingness. We thus create a dataset were we artificially introduce 50% missing creatinine values, missing completely at random.</span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3: create missing crea, message = FALSE, warning = FALSE, fig.width = 10, fig.height=6, fig.width=12}</span></span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a><span class="co"># create 50% missings for CREA_T</span></span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a>data_model_trans_missings <span class="ot">&lt;-</span> </span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a>  data_model_trans <span class="sc">|&gt;</span></span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a>    <span class="at">CREA_T =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a>      <span class="fu">runif</span>(<span class="fu">dim</span>(data_model_orig)[<span class="dv">1</span>]) <span class="sc">&lt;</span> .<span class="dv">5</span>,  <span class="co">#~50%/50% TRUE/FALSE</span></span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a>      CREA_T,</span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a>      <span class="cn">NA</span></span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a>Next we fit a 'complete case' model in the case of missing creatinine data, using the fp-transformations from the global model.</span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3: fit model, message = FALSE, warning = FALSE}</span></span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a>fit_mfp_missing <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">as.formula</span>(global_formula_fp), <span class="co">#use same fp-trafos as in global model</span></span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> data_model_trans_missings,</span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a>                       <span class="at">family =</span> binomial)</span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a>Now we impute the missing creatinine data using MICE with 50 imputations, fit the model using the fp-transformations from the global model and pool the results.</span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3: multiple imputation, message = FALSE, warning = FALSE, echo=FALSE, results='hide'}</span></span>
 <span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a><span class="co"># fit imputed data</span></span>
-<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a>imp_fits <span class="ot">&lt;-</span> <span class="fu">with</span>(imp_data,</span>
-<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">glm</span>(<span class="fu">as.formula</span>(global_formula_fp), <span class="co">#use same fp-trafos as in global model</span></span>
-<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> binomial)</span>
-<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a><span class="co"># pooled results</span></span>
-<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a>fit_pooled <span class="ot">&lt;-</span> <span class="fu">pool</span>(imp_fits)</span>
-<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a><span class="co"># impute</span></span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a>imp_data <span class="ot">&lt;-</span> <span class="fu">mice</span>(data_model_trans_missings <span class="sc">|&gt;</span></span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">select</span>(BACTEREMIAN, key_predictors), </span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a>                 <span class="at">m=</span><span class="dv">50</span>, <span class="at">maxit =</span> <span class="dv">50</span>, <span class="at">method=</span><span class="st">'pmm'</span>, <span class="at">seed =</span> <span class="dv">1</span>)</span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a><span class="co"># fit imputed data</span></span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a>imp_fits <span class="ot">&lt;-</span> <span class="fu">with</span>(imp_data,</span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">glm</span>(<span class="fu">as.formula</span>(global_formula_fp), <span class="co">#use same fp-trafos as in global model</span></span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> binomial)</span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a>We now can compare the outputs of the complete model, the complete model with missing data (i.e. only half of the original complete data is used), and the imputed model.</span>
-<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex4: imputation comparison, message = FALSE, warning = FALSE}</span></span>
-<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a>comparison_data <span class="ot">&lt;-</span> </span>
-<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
-<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_mfp_trans)  <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">'no missing data'</span>),</span>
-<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_mfp_missing) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">'missing, complete cases'</span>),</span>
-<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(fit_pooled) <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>df) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">'missing, imputed'</span>)</span>
-<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(term, model) <span class="sc">|&gt;</span></span>
-<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(term, model) <span class="sc">|&gt;</span></span>
-<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(term) <span class="sc">|&gt;</span></span>
-<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">term_old =</span> term) <span class="sc">|&gt;</span></span>
-<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>    <span class="at">term =</span> <span class="fu">c</span>(<span class="fu">unique</span>(term_old), <span class="fu">rep</span>(<span class="st">''</span>, <span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>))</span>
-<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span> () <span class="sc">|&gt;</span></span>
-<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>term_old)</span>
-<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a><span class="do">## table comparisons</span></span>
-<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a>comparison_data <span class="sc">|&gt;</span></span>
-<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
-<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>,</span>
-<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">3</span></span>
-<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_scientific</span>(<span class="dv">6</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Comparison of the model with no missing data, with complete cases, and with imputed data"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
-<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a>When half of the data is missing, the standard errors of the coefficients increase by a factor of approximately $\sqrt 2$.  Multiple imputation is able to  recreate standard errors very close to those of the model with no missing data in most variables, but not in the one that was being imputed, namely creatinine. Its relative importance in the model is higher in the complete cases model than in the imputed model.</span>
-<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3: z statistics, message = FALSE, warning = FALSE}</span></span>
-<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a><span class="co">#pearson &amp; spearman correalation of CREA and BUN</span></span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a><span class="co"># pooled results</span></span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a>fit_pooled <span class="ot">&lt;-</span> <span class="fu">pool</span>(imp_fits)</span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a>We now can compare the outputs of the complete model, the complete model with missing data (i.e. only half of the original complete data is used), and the imputed model.</span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex4: imputation comparison, message = FALSE, warning = FALSE}</span></span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a>comparison_data <span class="ot">&lt;-</span> </span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_mfp_trans)  <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">'no missing data'</span>),</span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_mfp_missing) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">'missing, complete cases'</span>),</span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(fit_pooled) <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>df) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">'missing, imputed'</span>)</span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(term, model) <span class="sc">|&gt;</span></span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(term, model) <span class="sc">|&gt;</span></span>
+<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(term) <span class="sc">|&gt;</span></span>
+<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">term_old =</span> term) <span class="sc">|&gt;</span></span>
+<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a>    <span class="at">term =</span> <span class="fu">c</span>(<span class="fu">unique</span>(term_old), <span class="fu">rep</span>(<span class="st">''</span>, <span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span> () <span class="sc">|&gt;</span></span>
+<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>term_old)</span>
+<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a><span class="do">## table comparisons</span></span>
+<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a>comparison_data <span class="sc">|&gt;</span></span>
+<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">3</span></span>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_scientific</span>(<span class="dv">6</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Comparison of the model with no missing data, with complete cases, and with imputed data"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
+<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-511"><a href="#cb1-511" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a>r_pearson  <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_model_trans<span class="sc">$</span>CREA_T, data_model_trans<span class="sc">$</span>BUN, <span class="at">method =</span> <span class="st">'pearson'</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a>r_spearman <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_model_trans<span class="sc">$</span>CREA_T, data_model_trans<span class="sc">$</span>BUN, <span class="at">method =</span> <span class="st">'spearman'</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a>When half of the data is missing, the standard errors of the coefficients increase by a factor of approximately $\sqrt 2$.  Multiple imputation is able to  recreate standard errors very close to those of the model with no missing data in most variables, but not in the one that was being imputed, namely creatinine. Its relative importance in the model is higher in the complete cases model than in the imputed model.</span>
+<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3: z statistics, message = FALSE, warning = FALSE}</span></span>
+<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a><span class="co">#pearson &amp; spearman correalation of CREA and BUN</span></span>
 <span id="cb1-516"><a href="#cb1-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example 5: Plot of functional form should focus on areas with high density</span></span>
-<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a>The functional forms have wide confidence intervals when the data is sparse. In presentations of the effects, plots of the functional forms should focus on areas with high density. In this analysis, PLT was very sparse above \~800 <span class="sc">\[</span>UNITS<span class="sc">\]</span>, which is reflected in a large confidence interval for high PLT values. In the effect plot PLT values could be limited to values <span class="sc">\&lt;</span>800 <span class="sc">\[</span>UNITS<span class="sc">\]</span>.</span>
+<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a>r_pearson  <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_model_trans<span class="sc">$</span>CREA_T, data_model_trans<span class="sc">$</span>BUN, <span class="at">method =</span> <span class="st">'pearson'</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a>r_spearman <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_model_trans<span class="sc">$</span>CREA_T, data_model_trans<span class="sc">$</span>BUN, <span class="at">method =</span> <span class="st">'spearman'</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-522"><a href="#cb1-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex5: fit , message = FALSE, warning = FALSE, fig.width=8, fig.height=4}</span></span>
-<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Model predictions"</span></span>
+<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example 5: Plot of functional form should focus on areas with high density</span></span>
 <span id="cb1-525"><a href="#cb1-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a>model_df_medians <span class="ot">&lt;-</span> <span class="fu">calc_medians</span>(data_model_trans)</span>
+<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a>The functional forms have wide confidence intervals when the data is sparse. In presentations of the effects, plots of the functional forms should focus on areas with high density. In this analysis, PLT was very sparse above \~800 <span class="sc">\[</span>UNITS<span class="sc">\]</span>, which is reflected in a large confidence interval for high PLT values. In the effect plot PLT values could be limited to values <span class="sc">\&lt;</span>800 <span class="sc">\[</span>UNITS<span class="sc">\]</span>.</span>
 <span id="cb1-527"><a href="#cb1-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a>fit_linear_complete <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">as.formula</span>(<span class="fu">paste0</span>(<span class="st">'BACTEREMIAN ~ '</span>, <span class="fu">paste</span>(key_predictors, <span class="at">collapse =</span> <span class="st">'+'</span>))),</span>
-<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> data_model_trans,</span>
-<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a>                           <span class="at">family =</span> <span class="st">'binomial'</span>) </span>
-<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex5: fit , message = FALSE, warning = FALSE, fig.width=8, fig.height=4}</span></span>
+<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Model predictions"</span></span>
+<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a>model_df_medians <span class="ot">&lt;-</span> <span class="fu">calc_medians</span>(data_model_trans)</span>
 <span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(</span>
-<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a>  model_df_medians[,<span class="fu">names</span>(model_df_medians) <span class="sc">!=</span> <span class="st">'WBC_noNEU_T'</span>],</span>
-<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a>  <span class="at">WBC_noNEU_T =</span> data_model_trans[,<span class="st">'WBC_noNEU_T'</span>]</span>
-<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
-<span id="cb1-539"><a href="#cb1-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-540"><a href="#cb1-540" aria-hidden="true" tabindex="-1"></a>pred_linear <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_linear_complete,</span>
-<span id="cb1-541"><a href="#cb1-541" aria-hidden="true" tabindex="-1"></a>                       <span class="at">newdata =</span> new_data,  <span class="co"># is needed so predict finds the variables</span></span>
-<span id="cb1-542"><a href="#cb1-542" aria-hidden="true" tabindex="-1"></a>                      <span class="at">type =</span> <span class="st">'link'</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-543"><a href="#cb1-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-544"><a href="#cb1-544" aria-hidden="true" tabindex="-1"></a>pred_complete <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_mfp_trans, </span>
-<span id="cb1-545"><a href="#cb1-545" aria-hidden="true" tabindex="-1"></a>                      <span class="at">newdata =</span> new_data,  <span class="co"># is needed so predict finds the variables</span></span>
-<span id="cb1-546"><a href="#cb1-546" aria-hidden="true" tabindex="-1"></a>                      <span class="at">type =</span> <span class="st">'link'</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-547"><a href="#cb1-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-548"><a href="#cb1-548" aria-hidden="true" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> </span>
-<span id="cb1-549"><a href="#cb1-549" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(</span>
-<span id="cb1-550"><a href="#cb1-550" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cbind</span>(</span>
-<span id="cb1-551"><a href="#cb1-551" aria-hidden="true" tabindex="-1"></a>      new_data,</span>
-<span id="cb1-552"><a href="#cb1-552" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat =</span> pred_linear<span class="sc">$</span>fit,</span>
-<span id="cb1-553"><a href="#cb1-553" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat.lwr =</span> pred_linear<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>pred_linear<span class="sc">$</span>se.fit,</span>
-<span id="cb1-554"><a href="#cb1-554" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat.upr =</span> pred_linear<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>pred_linear<span class="sc">$</span>se.fit,</span>
-<span id="cb1-555"><a href="#cb1-555" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'linear'</span></span>
-<span id="cb1-556"><a href="#cb1-556" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-557"><a href="#cb1-557" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cbind</span>(</span>
-<span id="cb1-558"><a href="#cb1-558" aria-hidden="true" tabindex="-1"></a>      new_data,</span>
-<span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat =</span> pred_complete<span class="sc">$</span>fit,</span>
-<span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat.lwr =</span> pred_complete<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>pred_complete<span class="sc">$</span>se.fit,</span>
-<span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat.upr =</span> pred_complete<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>pred_complete<span class="sc">$</span>se.fit,</span>
-<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'mfp'</span></span>
-<span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-564"><a href="#cb1-564" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb1-565"><a href="#cb1-565" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() </span>
-<span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a>p_ex5 <span class="ot">&lt;-</span> plot_df <span class="sc">%&gt;%</span> </span>
-<span id="cb1-568"><a href="#cb1-568" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> WBC_noNEU_T, <span class="at">y =</span> yhat, <span class="at">ymin =</span> yhat.lwr, <span class="at">ymax =</span> yhat.upr, <span class="at">color =</span> model, <span class="at">group =</span> model)) <span class="sc">+</span></span>
-<span id="cb1-569"><a href="#cb1-569" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb1-570"><a href="#cb1-570" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb1-571"><a href="#cb1-571" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rug</span>(</span>
-<span id="cb1-572"><a href="#cb1-572" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> fit_mfp_trans<span class="sc">$</span>X <span class="sc">%&gt;%</span> as.data.frame, </span>
-<span id="cb1-573"><a href="#cb1-573" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> WBC_noNEU_T), </span>
-<span id="cb1-574"><a href="#cb1-574" aria-hidden="true" tabindex="-1"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb1-575"><a href="#cb1-575" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb1-576"><a href="#cb1-576" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">'log odds'</span></span>
-<span id="cb1-577"><a href="#cb1-577" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb1-578"><a href="#cb1-578" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb1-579"><a href="#cb1-579" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_ptol</span>()</span>
-<span id="cb1-580"><a href="#cb1-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-581"><a href="#cb1-581" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-582"><a href="#cb1-582" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_summary_plot</span>(fit_linear_complete, <span class="st">'linear model'</span>)</span>
-<span id="cb1-583"><a href="#cb1-583" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-584"><a href="#cb1-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a>fit_linear_complete <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">as.formula</span>(<span class="fu">paste0</span>(<span class="st">'BACTEREMIAN ~ '</span>, <span class="fu">paste</span>(key_predictors, <span class="at">collapse =</span> <span class="st">'+'</span>))),</span>
+<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> data_model_trans,</span>
+<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a>                           <span class="at">family =</span> <span class="st">'binomial'</span>) </span>
+<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(</span>
+<span id="cb1-539"><a href="#cb1-539" aria-hidden="true" tabindex="-1"></a>  model_df_medians[,<span class="fu">names</span>(model_df_medians) <span class="sc">!=</span> <span class="st">'WBC_noNEU_T'</span>],</span>
+<span id="cb1-540"><a href="#cb1-540" aria-hidden="true" tabindex="-1"></a>  <span class="at">WBC_noNEU_T =</span> data_model_trans[,<span class="st">'WBC_noNEU_T'</span>]</span>
+<span id="cb1-541"><a href="#cb1-541" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-542"><a href="#cb1-542" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-543"><a href="#cb1-543" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb1-544"><a href="#cb1-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-545"><a href="#cb1-545" aria-hidden="true" tabindex="-1"></a>pred_linear <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_linear_complete,</span>
+<span id="cb1-546"><a href="#cb1-546" aria-hidden="true" tabindex="-1"></a>                       <span class="at">newdata =</span> new_data,  <span class="co"># is needed so predict finds the variables</span></span>
+<span id="cb1-547"><a href="#cb1-547" aria-hidden="true" tabindex="-1"></a>                      <span class="at">type =</span> <span class="st">'link'</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-548"><a href="#cb1-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-549"><a href="#cb1-549" aria-hidden="true" tabindex="-1"></a>pred_complete <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_mfp_trans, </span>
+<span id="cb1-550"><a href="#cb1-550" aria-hidden="true" tabindex="-1"></a>                      <span class="at">newdata =</span> new_data,  <span class="co"># is needed so predict finds the variables</span></span>
+<span id="cb1-551"><a href="#cb1-551" aria-hidden="true" tabindex="-1"></a>                      <span class="at">type =</span> <span class="st">'link'</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-552"><a href="#cb1-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-553"><a href="#cb1-553" aria-hidden="true" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> </span>
+<span id="cb1-554"><a href="#cb1-554" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(</span>
+<span id="cb1-555"><a href="#cb1-555" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cbind</span>(</span>
+<span id="cb1-556"><a href="#cb1-556" aria-hidden="true" tabindex="-1"></a>      new_data,</span>
+<span id="cb1-557"><a href="#cb1-557" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat =</span> pred_linear<span class="sc">$</span>fit,</span>
+<span id="cb1-558"><a href="#cb1-558" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat.lwr =</span> pred_linear<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>pred_linear<span class="sc">$</span>se.fit,</span>
+<span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat.upr =</span> pred_linear<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>pred_linear<span class="sc">$</span>se.fit,</span>
+<span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'linear'</span></span>
+<span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cbind</span>(</span>
+<span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a>      new_data,</span>
+<span id="cb1-564"><a href="#cb1-564" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat =</span> pred_complete<span class="sc">$</span>fit,</span>
+<span id="cb1-565"><a href="#cb1-565" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat.lwr =</span> pred_complete<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>pred_complete<span class="sc">$</span>se.fit,</span>
+<span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a>      <span class="at">yhat.upr =</span> pred_complete<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>pred_complete<span class="sc">$</span>se.fit,</span>
+<span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">'mfp'</span></span>
+<span id="cb1-568"><a href="#cb1-568" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb1-569"><a href="#cb1-569" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-570"><a href="#cb1-570" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() </span>
+<span id="cb1-571"><a href="#cb1-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-572"><a href="#cb1-572" aria-hidden="true" tabindex="-1"></a>p_ex5 <span class="ot">&lt;-</span> plot_df <span class="sc">%&gt;%</span> </span>
+<span id="cb1-573"><a href="#cb1-573" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> WBC_noNEU_T, <span class="at">y =</span> yhat, <span class="at">ymin =</span> yhat.lwr, <span class="at">ymax =</span> yhat.upr, <span class="at">color =</span> model, <span class="at">group =</span> model)) <span class="sc">+</span></span>
+<span id="cb1-574"><a href="#cb1-574" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb1-575"><a href="#cb1-575" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-576"><a href="#cb1-576" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rug</span>(</span>
+<span id="cb1-577"><a href="#cb1-577" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> fit_mfp_trans<span class="sc">$</span>X <span class="sc">%&gt;%</span> as.data.frame, </span>
+<span id="cb1-578"><a href="#cb1-578" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> WBC_noNEU_T), </span>
+<span id="cb1-579"><a href="#cb1-579" aria-hidden="true" tabindex="-1"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb1-580"><a href="#cb1-580" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-581"><a href="#cb1-581" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">'log odds'</span></span>
+<span id="cb1-582"><a href="#cb1-582" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-583"><a href="#cb1-583" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb1-584"><a href="#cb1-584" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_ptol</span>()</span>
 <span id="cb1-585"><a href="#cb1-585" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-586"><a href="#cb1-586" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex5: plot fit , message = FALSE, warning = FALSE, fig.width=8, fig.height=4}</span></span>
-<span id="cb1-587"><a href="#cb1-587" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "WBC_noNEU comparison"</span></span>
-<span id="cb1-588"><a href="#cb1-588" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-589"><a href="#cb1-589" aria-hidden="true" tabindex="-1"></a>p_ex5  <span class="sc">+</span> (p_ex5 <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">quantile</span>(data_model_trans<span class="sc">$</span>WBC_noNEU_T, <span class="fu">c</span>(.<span class="dv">05</span>,.<span class="dv">95</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.5</span>, <span class="sc">-</span><span class="fl">0.5</span>))) <span class="sc">+</span></span>
-<span id="cb1-590"><a href="#cb1-590" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">'collect'</span>)</span>
-<span id="cb1-591"><a href="#cb1-591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-592"><a href="#cb1-592" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-586"><a href="#cb1-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-587"><a href="#cb1-587" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_summary_plot</span>(fit_linear_complete, <span class="st">'linear model'</span>)</span>
+<span id="cb1-588"><a href="#cb1-588" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-589"><a href="#cb1-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-590"><a href="#cb1-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-591"><a href="#cb1-591" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex5: plot fit , message = FALSE, warning = FALSE, fig.width=8, fig.height=4}</span></span>
+<span id="cb1-592"><a href="#cb1-592" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "WBC_noNEU comparison"</span></span>
 <span id="cb1-593"><a href="#cb1-593" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-594"><a href="#cb1-594" aria-hidden="true" tabindex="-1"></a><span class="in">```{r example 5 plots, message = FALSE, warning = FALSE, fig.width=8, fig.height=4}</span></span>
-<span id="cb1-595"><a href="#cb1-595" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "PLT comparison"</span></span>
+<span id="cb1-594"><a href="#cb1-594" aria-hidden="true" tabindex="-1"></a>p_ex5  <span class="sc">+</span> (p_ex5 <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">quantile</span>(data_model_trans<span class="sc">$</span>WBC_noNEU_T, <span class="fu">c</span>(.<span class="dv">05</span>,.<span class="dv">95</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.5</span>, <span class="sc">-</span><span class="fl">0.5</span>))) <span class="sc">+</span></span>
+<span id="cb1-595"><a href="#cb1-595" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">'collect'</span>)</span>
 <span id="cb1-596"><a href="#cb1-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-597"><a href="#cb1-597" aria-hidden="true" tabindex="-1"></a><span class="co">#p_effect_PLT + p_effect_PLT + coord_cartesian(xlim = c(0,800)) # not working because of ggplot bug</span></span>
+<span id="cb1-597"><a href="#cb1-597" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-598"><a href="#cb1-598" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-599"><a href="#cb1-599" aria-hidden="true" tabindex="-1"></a><span class="co">#workaround because of ggplot bug</span></span>
-<span id="cb1-600"><a href="#cb1-600" aria-hidden="true" tabindex="-1"></a>p_effect_PLT <span class="sc">+</span> <span class="fu">geom_ribbon</span>(<span class="at">fill =</span> <span class="fu">gray</span>(.<span class="dv">9</span>)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb1-601"><a href="#cb1-601" aria-hidden="true" tabindex="-1"></a>  p_effect_PLT <span class="sc">+</span> </span>
-<span id="cb1-602"><a href="#cb1-602" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">800</span>)) <span class="sc">+</span> </span>
-<span id="cb1-603"><a href="#cb1-603" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="at">fill =</span> <span class="fu">gray</span>(.<span class="dv">9</span>)) <span class="sc">+</span> </span>
-<span id="cb1-604"><a href="#cb1-604" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb1-605"><a href="#cb1-605" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb1-606"><a href="#cb1-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-607"><a href="#cb1-607" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-599"><a href="#cb1-599" aria-hidden="true" tabindex="-1"></a><span class="in">```{r example 5 plots, message = FALSE, warning = FALSE, fig.width=8, fig.height=4}</span></span>
+<span id="cb1-600"><a href="#cb1-600" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "PLT comparison"</span></span>
+<span id="cb1-601"><a href="#cb1-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-602"><a href="#cb1-602" aria-hidden="true" tabindex="-1"></a><span class="co">#p_effect_PLT + p_effect_PLT + coord_cartesian(xlim = c(0,800)) # not working because of ggplot bug</span></span>
+<span id="cb1-603"><a href="#cb1-603" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-604"><a href="#cb1-604" aria-hidden="true" tabindex="-1"></a><span class="co">#workaround because of ggplot bug</span></span>
+<span id="cb1-605"><a href="#cb1-605" aria-hidden="true" tabindex="-1"></a>p_effect_PLT <span class="sc">+</span> <span class="fu">geom_ribbon</span>(<span class="at">fill =</span> <span class="fu">gray</span>(.<span class="dv">9</span>)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb1-606"><a href="#cb1-606" aria-hidden="true" tabindex="-1"></a>  p_effect_PLT <span class="sc">+</span> </span>
+<span id="cb1-607"><a href="#cb1-607" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">800</span>)) <span class="sc">+</span> </span>
+<span id="cb1-608"><a href="#cb1-608" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="at">fill =</span> <span class="fu">gray</span>(.<span class="dv">9</span>)) <span class="sc">+</span> </span>
+<span id="cb1-609"><a href="#cb1-609" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb1-610"><a href="#cb1-610" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb1-611"><a href="#cb1-611" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-612"><a href="#cb1-612" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
