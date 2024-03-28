@@ -30,7 +30,7 @@ The format of the analysis ready data set follows that of the analysis ready [CD
 
 ### Data set transformations
 
-Important meta-data is added to the data set from the data dictionary. At the stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
+Important meta-data is added to the data set from the data dictionary. At this stage we could select the variables of interest to take in to the IDA phase by dropping variables we do not check in IDA.
 
 First the source data set and corresponding data dictionary are loaded. The variable names are normalized. 
 
@@ -49,7 +49,7 @@ bact_dd <- read_csv(here("data-raw", "Bacteremia_public_S2_Data_Dictionary.csv")
 bact_data <- read_csv(here("data-raw", "Bacteremia_public_S2.csv")) 
 ```
 
-The source data is then transform in to a *long* format to store the lab specific measurements called `ADLB`. A long format enables efficient data processing and also allows new transformed variables to be added during the course of IDA. Structural and demographic variables will be stored in a *wide* format in a separate data set named `ADSL`. 
+The source data is then transformed into a *long* format to store the lab specific measurements called `ADLB`. A long format enables efficient data processing and also allows new transformed variables to be added during the course of IDA. Structural and demographic variables will be stored in a *wide* format in a separate data set named `ADSL`. 
 
 ```{r contents_abact, warning=FALSE, message=FALSE, echo=FALSE} 
 
@@ -163,9 +163,9 @@ bact_data03 |>
 
 ```
 
-### Dervive indicator flags 
+### Derive indicator flags 
 
-The next step is to dervive indicator flags for predictors as per the IDA plan (see @sec-IDA_data_derivations):
+The next step is to derive indicator flags for predictors as per the IDA plan (see @sec-IDA_data_derivations):
 
 * age (AGE), leukocytes (WBC), blood urea neutrogen (BUN), creatinine (CREA), thrombocytes (PLT), and neutrophiles (NEU) and these predictors will be included in the model as key predictors
 
@@ -209,7 +209,7 @@ attr(bact_data05$PARCAT01, "label") <- "Leukocytes parameter categories"
 
 ```
 
-### Data dervivations 
+### Data derivations 
 
 Now, derive age groups. For the purpose of stratifying IDA results by age, age will be categorized into the following three groups (@sec-IDA_data_derivations):  
 

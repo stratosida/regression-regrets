@@ -23,7 +23,7 @@ ADLB <- readRDS(here::here("data", "IDA", "ADLB_02.rds"))
 
 ```
 
-## Final dervivations and transformations
+## Final derivations and transformations
 
 From the IDA exercise a decision was made to derive a new variable based on `White Blood Count` in the absence of Neutrophiles: 
 
@@ -56,7 +56,7 @@ wbc_no_neu_trans_02 <- wbc_no_neu_trans_01$dat
 compare_dist_plot(wbc_no_neu_trans_02)
 
 ```
-A visual check confirms that a psuedo-log transformation is appropriate for the newly derived variable. 
+A visual check confirms that a pseudo-log transformation is appropriate for the newly derived variable. 
 
 The new derivation and transformation is added to the analysis ready data, setting the correct indicator flags to enable final analyses and modelling. 
 
@@ -86,7 +86,7 @@ attr(ADLB_03$KEY_PRED_FL04, "label") <- "Key Predictor Flag - including transfor
 ```
 
 
-Visual check of indicator flag and new derviation added to the analysis data set. 
+Visual check of indicator flag and new derivation added to the analysis data set. 
 
 ```{r check_flags, warning=FALSE, message=FALSE, echo=FALSE}
 vars <- ADLB_03 |> 

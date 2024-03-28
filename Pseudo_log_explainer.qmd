@@ -123,7 +123,7 @@ Any test statistic for testing normality could be chosen to find a suitable valu
 We simulate from a shifted log normal distribution and evaluate the value of $\sigma$ that optimizes agreement with a normal distribution:
 
 ```{r pl06, message=FALSE, warning=FALSE, echo=TRUE, fig.height=3}
-#| layout-ncol: 2 
+# #| layout-ncol: 2    #Remark. did not render nicely in docx (GH)
 
 x <- sort(exp(rnorm(1000) + 3))
 

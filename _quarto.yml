@@ -8,7 +8,7 @@ execute:
   echo: false
 
 book:
-  title: "Regression without regrets"
+  title: "Regression without regrets - worked example"
   author:
     - Mark Baillie
     - Georg Heinze 
