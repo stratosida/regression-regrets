@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression without regrets - 7&nbsp; Final Analysis ready data</title>
+<title>Regression without regrets - worked example - 7&nbsp; Final Analysis ready data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -124,7 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Regression without regrets</a> 
+      <a href="./">Regression without regrets - worked example</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/stratosida/regression-regrets" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
@@ -265,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#final-dervivations-and-transformations" id="toc-final-dervivations-and-transformations" class="nav-link active" data-scroll-target="#final-dervivations-and-transformations"><span class="header-section-number">7.1</span> Final dervivations and transformations</a></li>
+  <li><a href="#final-derivations-and-transformations" id="toc-final-derivations-and-transformations" class="nav-link active" data-scroll-target="#final-derivations-and-transformations"><span class="header-section-number">7.1</span> Final derivations and transformations</a></li>
   <li><a href="#save-final-analysis-ready-data-sets" id="toc-save-final-analysis-ready-data-sets" class="nav-link" data-scroll-target="#save-final-analysis-ready-data-sets"><span class="header-section-number">7.2</span> Save final analysis ready data sets</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/stratosida/regression-regrets/edit/main/Bact_analysis_data_final.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stratosida/regression-regrets/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/stratosida/regression-regrets/blob/main/Bact_analysis_data_final.qmd" class="toc-action">View source</a></p></div></div></nav>
@@ -290,8 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="final-dervivations-and-transformations" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="final-dervivations-and-transformations"><span class="header-section-number">7.1</span> Final dervivations and transformations</h2>
+<section id="final-derivations-and-transformations" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="final-derivations-and-transformations"><span class="header-section-number">7.1</span> Final derivations and transformations</h2>
 <p>From the IDA exercise a decision was made to derive a new variable based on <code>White Blood Count</code> in the absence of Neutrophiles:</p>
 <ul>
 <li>WBC_NEU: WBC - NEU</li>
@@ -302,9 +302,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="Bact_analysis_data_final_files/figure-html/final-ders-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>A visual check confirms that a psuedo-log transformation is appropriate for the newly derived variable.</p>
+<p>A visual check confirms that a pseudo-log transformation is appropriate for the newly derived variable.</p>
 <p>The new derivation and transformation is added to the analysis ready data, setting the correct indicator flags to enable final analyses and modelling.</p>
-<p>Visual check of indicator flag and new derviation added to the analysis data set.</p>
+<p>Visual check of indicator flag and new derivation added to the analysis data set.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "c(\"PLT\", \"CREA\", \"BUN\", \"NEU\", \"AGE\", \"WBC_noNEU\")"</code></pre>
@@ -642,7 +642,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final dervivations and transformations</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final derivations and transformations</span></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>From the IDA exercise a decision was made to derive a new variable based on <span class="in">`White Blood Count`</span> in the absence of Neutrophiles: </span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
@@ -675,7 +675,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_dist_plot</span>(wbc_no_neu_trans_02)</span>
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>A visual check confirms that a psuedo-log transformation is appropriate for the newly derived variable. </span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>A visual check confirms that a pseudo-log transformation is appropriate for the newly derived variable. </span>
 <span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>The new derivation and transformation is added to the analysis ready data, setting the correct indicator flags to enable final analyses and modelling. </span>
 <span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
@@ -705,7 +705,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>Visual check of indicator flag and new derviation added to the analysis data set. </span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>Visual check of indicator flag and new derivation added to the analysis data set. </span>
 <span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r check_flags, warning=FALSE, message=FALSE, echo=FALSE}</span></span>
 <span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> ADLB_03 <span class="sc">|&gt;</span> </span>

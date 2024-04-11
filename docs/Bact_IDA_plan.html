@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression without regrets - 2&nbsp; IDA plan</title>
+<title>Regression without regrets - worked example - 2&nbsp; IDA plan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Regression without regrets</a> 
+      <a href="./">Regression without regrets - worked example</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/stratosida/regression-regrets" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
@@ -365,8 +365,8 @@ div.csl-indent {
 <li><strong>MED_PRED_FL01</strong> will indicate the medium importance predictors: POTASS, FIB, CRP, ASAT, ALAT, GGT</li>
 <li><strong>REM_PRED_FL01</strong> will indicator all remaining predictors not defined as key or medium importance.</li>
 </ul>
-<p>Note that depending on the consequences of IDA, additional flags may be defined and derived to track the changes to the original analysis plan. For example, an addition to the key predictors can be handled by creating a new flag <strong>KEY_PRED_FL02</strong>, with an increment the index to indicate that a change has occurred. This provides traceability to the consumer of the analysis data.</p>
-<p>An additional metadata flag <strong>PARCAT01</strong> will de derived to indicate the blood cell variables which form the Leukocytes predictor (<strong>WBC</strong>): BASO, EOS, NEU, LYM and MONO.</p>
+<p>Note that depending on the consequences of IDA, additional flags may be defined and derived to track the changes to the original analysis plan. For example, an addition to the key predictors can be handled by creating a new flag <strong>KEY_PRED_FL02</strong>, with an increment of the index to indicate that a change has occurred. This provides traceability to the consumer of the analysis data.</p>
+<p>An additional metadata flag <strong>PARCAT01</strong> will be derived to indicate the blood cell variables which form the Leukocytes predictor (<strong>WBC</strong>): BASO, EOS, NEU, LYM and MONO.</p>
 </section>
 <section id="ida-planned-analyses" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="ida-planned-analyses"><span class="header-section-number">2.3</span> IDA planned analyses</h2>
@@ -791,9 +791,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**MED_PRED_FL01** will indicate the medium importance predictors: POTASS, FIB, CRP, ASAT, ALAT, GGT</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">*   </span>**REM_PRED_FL01** will indicator all remaining predictors not defined as key or medium importance. </span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Note that depending on the consequences of IDA, additional flags may be defined and derived to track the changes to the original analysis plan. For example, an addition to the key predictors can be handled by creating a new flag **KEY_PRED_FL02**, with an increment the index to indicate that a change has occurred. This provides traceability to the consumer of the analysis data.   </span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Note that depending on the consequences of IDA, additional flags may be defined and derived to track the changes to the original analysis plan. For example, an addition to the key predictors can be handled by creating a new flag **KEY_PRED_FL02**, with an increment of the index to indicate that a change has occurred. This provides traceability to the consumer of the analysis data.   </span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>An additional metadata flag **PARCAT01** will de derived to indicate the blood cell variables which form the Leukocytes predictor (**WBC**):  BASO, EOS, NEU, LYM and MONO.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>An additional metadata flag **PARCAT01** will be derived to indicate the blood cell variables which form the Leukocytes predictor (**WBC**):  BASO, EOS, NEU, LYM and MONO.</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## IDA planned analyses</span></span>
