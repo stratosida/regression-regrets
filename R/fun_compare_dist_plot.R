@@ -33,7 +33,7 @@ compare_dist_plot <- function(dat, n_bars = 200, bin_width = NULL, sigma = NULL)
     scale_x_continuous(
       breaks = fivenum(dat$AVAL, na.rm = TRUE),
       labels = round(fivenum(dat$AVAL02, na.rm = TRUE), 0),
-      guide = guide_axis(check.overlap = TRUE)
+      guide = guide_axis(check.overlap = FALSE) # gh with TRUE: missing 1.quartile label of alkaline phosphartase 
     ) +
     
     ## long running on local machine
@@ -49,6 +49,7 @@ compare_dist_plot <- function(dat, n_bars = 200, bin_width = NULL, sigma = NULL)
     theme_minimal(base_size = 12) +
     theme(
       axis.text.y = element_blank(),
+      axis.text.x = element_text(size = 8),
       axis.title = element_blank(),
       panel.grid.major.x = element_line(color = "grey", linewidth = 0.85),
       panel.grid.minor.x = element_blank(),
@@ -64,7 +65,7 @@ compare_dist_plot <- function(dat, n_bars = 200, bin_width = NULL, sigma = NULL)
     scale_x_continuous(
       breaks = fivenum(dat$AVAL02),
       labels = round(fivenum(dat$AVAL02), 0),
-      guide = guide_axis(check.overlap = TRUE)
+      guide = guide_axis(check.overlap = TRUE)   
     ) +
     
     ## long running on local machine
@@ -81,6 +82,7 @@ compare_dist_plot <- function(dat, n_bars = 200, bin_width = NULL, sigma = NULL)
     theme(
       axis.text.y = element_blank(),
       axis.title = element_blank(),
+      axis.text.x = element_text(size = 8),
       panel.grid.major.x = element_line(color = "grey", linewidth = 0.85),
       panel.grid.minor.x = element_blank(),
       panel.grid.major.y = element_blank(),

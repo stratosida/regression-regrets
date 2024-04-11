@@ -19,7 +19,7 @@ source(here("R", "M3-complete-cases-sets.R"))
 source(here("R", "M3-dendogram.R"))
 
 
-tiff(filename = "fig2.tiff", units="mm", width=170, height=225, compression = 'lzw', res=300)
+tiff(filename = "fig2.tiff", units="px", width=2007, height=2657, compression = 'lzw', res=300)
 
 m3_dendogram(ADLB)
 

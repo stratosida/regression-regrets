@@ -29,7 +29,7 @@ fig3_plot <- a / b / c / d +
   plot_annotation(
     caption = 'Displayed on the original [left] vs. pseudo-log transformed scale [right]') 
 
-tiff(filename = "fig3.tiff", units="mm", width=170, height=225, compression = 'lzw', res=300)
+tiff(filename = "fig3.tiff", units="px", width=2007, height=2657, compression = 'lzw', res=300)
 
 fig3_plot
 
