@@ -1,12 +1,18 @@
+#' Generate a dendogram of variables clustered by missingness. 
+#'
+#' @param ADLB - Lab parameter data set
+#'
+#' @return plot object 
+#' @export
+#'
+#' @examples
 m3_dendogram <- function(ADLB){
 
-  require(dendextend)
-  
   ## select predictors and identify the missing values and set to 1
   data_missing <- 
     ADLB |>
-    select(SUBJID, PARAM, AVAL) |>
-    pivot_wider(names_from = PARAM, values_from = AVAL, values_fill = NA) |>
+    select(SUBJID, PARAMCD, AVAL) |>
+    pivot_wider(names_from = PARAMCD, values_from = AVAL, values_fill = NA) |>
     select(-SUBJID) |>
     is.na()*1
   
@@ -35,11 +41,13 @@ m3_dendogram <- function(ADLB){
   dend <- set(dend, "labels_cex", 0.7)
   
   # And plot:
-  par(mar = c(3,3,3,20))
+  par(mar = c(3,3,3,6))
   
 
   plot(dend,
-       main = "Variables clustered by concordance in missingness [percentage missing]",
-       xlab="Proportion of observations with discordant missingness",
-       horiz =  TRUE,  nodePar = list(cex = .005))
+       main = "Clustered variables by percentage observations\ndiscordantly missing [percentage missing]",
+       xlab="Percent discordantly missing",
+       horiz =  TRUE,  nodePar = list(cex = .004))
+  
+
 }
