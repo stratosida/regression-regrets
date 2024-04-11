@@ -175,7 +175,7 @@ corr_difference <- corrd |> as_cordf()
 ```
 
 
-Plot the difference matrix. 
+Plot the matrix of differences between Spearman and Pearson pairwise correlation coefficients. 
 
 ```{r plotcorr_diff, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 16, fig.height=16}
 
@@ -193,7 +193,7 @@ corr_difference |> rearrange(method = "HC") |>
 
 ```
 
-Plot the matrix but suppress differences less then 0.1. 
+Plot the matrix of differences between Spearman and Pearson pairwise correlation coefficients but suppress differences less then 0.1 in absolute value. 
 
 ```{r plotcorr02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 16, fig.height=16}
 
@@ -238,7 +238,7 @@ corr_difference_conditional |>
 ```
 
 
-Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units will be depicted in scatterplots. First report the table of predictor parirs where `r` is greater than 0.1. 
+Predictor pairs for which Spearman and Pearson correlation coefficients differ by more than 0.1 correlation units in absolute value will be depicted in scatterplots. First report the table of predictor pairs where the difference (column `r`) is greater than 0.1. 
 
 ```{r pred_corr, message=FALSE, warning=FALSE, echo=FALSE}
 
@@ -328,7 +328,7 @@ ve2_varclust(corr_spearman)
 ```
 
 
-This can also be displayed as a network plot
+This can also be displayed as a network plot:
 
 ```{r varclust02, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 12, fig.height=8}
 #options(ggrepel.max.overlaps = 100)

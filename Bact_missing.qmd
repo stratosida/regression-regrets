@@ -16,7 +16,7 @@ ADSL <- readRDS(here::here("data", "IDA", "ADSL_01.rds"))
 ADLB <- readRDS(here::here("data", "IDA", "ADLB_01.rds"))
 ```
 
-THis seciton reports the IDA analyses for missing data. The Section headers (i.e. M2) correspond to the IDA analysis plan in @sec-IDA_plan.
+This section reports the IDA analyses for missing data. The Section headers (i.e. M2) correspond to the IDA analysis plan in @sec-IDA_plan.
 
 ## M1: Participant missingness
 
