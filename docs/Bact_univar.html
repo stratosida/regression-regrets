@@ -2305,70 +2305,68 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(ADLB, new_vars) </span>
 <span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">copy_labels</span>(ADLB_02, ADLB)  </span>
 <span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a><span class="co">#ADLB_02 |&gt; group_by(PARAM, PARAMCD) |&gt; tally() |&gt; gt()</span></span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>new_vars <span class="sc">|&gt;</span> <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span> </span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>new_vars <span class="sc">|&gt;</span> <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span> </span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_theme_538</span>()</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>Register transformed variables in the data set. The updated data set with suggested log transformed data sets is saved at <span class="in">`data/IDA/ADLB_02.rds`</span>.</span>
 <span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>Register transformed variables in the data set. The updated data set with suggested log transformed data sets is saved at <span class="in">`data/IDA/ADLB_02.rds`</span>.</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>The IDA analysis plan and specifications are updated with the proposed variable transformations. A new flag is derived to indicate the categorization of predictors now including transformations. </span>
 <span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>The IDA analysis plan and specifications are updated with the proposed variable transformations. A new flag is derived to indicate the categorization of predictors now including transformations. </span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="in">```{r savedata, message=FALSE, warning=FALSE, echo=FALSE}</span></span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span></span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>  ADLB_02 <span class="sc">|&gt;</span></span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>    <span class="at">KEY_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"AGE"</span>, <span class="st">"WBC_T"</span>, <span class="st">"BUN"</span>, <span class="st">"CREA_T"</span>, <span class="st">"PLT"</span>, <span class="st">"NEU"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>    <span class="at">MED_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"POTASS"</span>, <span class="st">"FIB"</span>, <span class="st">"CRP"</span>, <span class="st">"ASAT_T"</span>, <span class="st">"ALAT_T"</span>, <span class="st">"GGT_T"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>    <span class="at">REM_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"MCV"</span>, <span class="st">"HGB"</span>, <span class="st">"HCT"</span>, <span class="st">"MCH"</span>, <span class="st">"MCHC"</span>, <span class="st">"RDW"</span>, <span class="st">"MPV"</span>, <span class="st">"LYM_T"</span>, <span class="st">"MONO"</span>, <span class="st">"EOS_T"</span>, <span class="st">"BASO"</span>, <span class="st">"NT"</span>, <span class="st">"APTT"</span>, <span class="st">"SODIUM"</span>, <span class="st">"CA"</span>, <span class="st">"PHOS"</span>, <span class="st">"MG"</span>, <span class="st">"HS"</span>, <span class="st">"GBIL_T"</span>, <span class="st">"TP"</span>, <span class="st">"ALB"</span>, <span class="st">"AMY_T"</span>, <span class="st">"PAMY_T"</span>, <span class="st">"LIP_T"</span>, <span class="st">"CHE"</span>, <span class="st">"AP_T"</span>, <span class="st">"LDH_T"</span>, <span class="st">"CK_T"</span>, <span class="st">"GLU"</span>, <span class="st">"TRIG"</span>, <span class="st">"CHOL"</span>, <span class="st">"BASOR_T"</span>, <span class="st">"EOSR"</span>, <span class="st">"LYMR"</span>, <span class="st">"MONOR"</span>, <span class="st">"NEUR"</span>, <span class="st">"PDW"</span>, <span class="st">"RBC"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>KEY_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Key predictor flag - including scale transformations, Section 2.2.5 U2"</span></span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>MED_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Predictors of medium importance flag - including scale transformations"</span></span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>REM_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Remaining predictors flag - including scale transformations"</span></span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>PARCAT02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Pseudo log transformed categories"</span></span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>SIGMA, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Constant variable for Pseudo log transformation"</span></span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ADLB_02, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_02.rds"</span>))</span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r savedata, message=FALSE, warning=FALSE, echo=FALSE}</span></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>  ADLB_02 <span class="sc">|&gt;</span></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>    <span class="at">KEY_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"AGE"</span>, <span class="st">"WBC_T"</span>, <span class="st">"BUN"</span>, <span class="st">"CREA_T"</span>, <span class="st">"PLT"</span>, <span class="st">"NEU"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>    <span class="at">MED_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"POTASS"</span>, <span class="st">"FIB"</span>, <span class="st">"CRP"</span>, <span class="st">"ASAT_T"</span>, <span class="st">"ALAT_T"</span>, <span class="st">"GGT_T"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>    <span class="at">REM_PRED_FL02 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>      PARAMCD <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"MCV"</span>, <span class="st">"HGB"</span>, <span class="st">"HCT"</span>, <span class="st">"MCH"</span>, <span class="st">"MCHC"</span>, <span class="st">"RDW"</span>, <span class="st">"MPV"</span>, <span class="st">"LYM_T"</span>, <span class="st">"MONO"</span>, <span class="st">"EOS_T"</span>, <span class="st">"BASO"</span>, <span class="st">"NT"</span>, <span class="st">"APTT"</span>, <span class="st">"SODIUM"</span>, <span class="st">"CA"</span>, <span class="st">"PHOS"</span>, <span class="st">"MG"</span>, <span class="st">"HS"</span>, <span class="st">"GBIL_T"</span>, <span class="st">"TP"</span>, <span class="st">"ALB"</span>, <span class="st">"AMY_T"</span>, <span class="st">"PAMY_T"</span>, <span class="st">"LIP_T"</span>, <span class="st">"CHE"</span>, <span class="st">"AP_T"</span>, <span class="st">"LDH_T"</span>, <span class="st">"CK_T"</span>, <span class="st">"GLU"</span>, <span class="st">"TRIG"</span>, <span class="st">"CHOL"</span>, <span class="st">"BASOR_T"</span>, <span class="st">"EOSR"</span>, <span class="st">"LYMR"</span>, <span class="st">"MONOR"</span>, <span class="st">"NEUR"</span>, <span class="st">"PDW"</span>, <span class="st">"RBC"</span>) <span class="sc">~</span> <span class="st">"Y"</span></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>KEY_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Key predictor flag - including scale transformations, Section 2.2.5 U2"</span></span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>MED_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Predictors of medium importance flag - including scale transformations"</span></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>REM_PRED_FL02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Remaining predictors flag - including scale transformations"</span></span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>PARCAT02, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Pseudo log transformed categories"</span></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ADLB_02<span class="sc">$</span>SIGMA, <span class="st">"label"</span>) <span class="ot">&lt;-</span> <span class="st">"Constant variable for Pseudo log transformation"</span></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ADLB_02, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_02.rds"</span>))</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparison of univariate distributions with and without pseudo-log transformation</span></span>
 <span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparison of univariate distributions with and without pseudo-log transformation</span></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>The comparison is only shown for variables where a transformation is suggested. Note, all observed values, and the distribution min, max and interquartile range as reference lines, are displayed.</span>
 <span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>The comparison is only shown for variables where a transformation is suggested. Note, all observed values, and the distribution min, max and interquartile range as reference lines, are displayed.</span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni-plots, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}</span></span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="do">## plot side by side</span></span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"fun_compare_dist_plot.R"</span>))</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a><span class="do">## Load in updated data set with transformations </span></span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_02.rds"</span>))</span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> </span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>   ADLB_02 <span class="sc">|&gt;</span> </span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(PARCAT02 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span></span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">compare_dist_plot</span>(.x), <span class="at">.keep =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> res) {</span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uni-plots, message=FALSE, warning=FALSE, echo=FALSE, fig.height=3}</span></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="do">## plot side by side</span></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"fun_compare_dist_plot.R"</span>))</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a><span class="do">## Load in updated data set with transformations </span></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>ADLB_02 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"IDA"</span>, <span class="st">"ADLB_02.rds"</span>))</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> </span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>   ADLB_02 <span class="sc">|&gt;</span> </span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(PARCAT02 <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(PARAMCD) <span class="sc">|&gt;</span></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_map</span>(<span class="sc">~</span> <span class="fu">compare_dist_plot</span>(.x), <span class="at">.keep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (plts <span class="cf">in</span> res) {</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plts)</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

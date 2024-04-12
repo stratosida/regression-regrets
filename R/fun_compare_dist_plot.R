@@ -89,7 +89,8 @@ compare_dist_plot <- function(dat, n_bars = 200, bin_width = NULL, sigma = NULL)
       panel.grid.minor.y = element_blank()
     )
   
-  original_plot <- original_plot + ggtitle(title)
+  ## NOTE: This line required for manuscript plots 
+  # original_plot <- original_plot + ggtitle(title)
   
   plt <- original_plot + trans_plot + 
     plot_annotation(

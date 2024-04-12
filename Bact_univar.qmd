@@ -176,8 +176,6 @@ for (param in suggested_transforms)
 ADLB_02 <- bind_rows(ADLB, new_vars) 
 ADLB_02 <- sjlabelled::copy_labels(ADLB_02, ADLB)  
 
-#ADLB_02 |> group_by(PARAM, PARAMCD) |> tally() |> gt()
-
 new_vars |> group_by(PARAMCD) |> 
   tally() |> 
   gt() |> 
